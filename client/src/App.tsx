@@ -1,7 +1,7 @@
 function App() {
   return (
     <>
-      <h1 className="text-3xl ">ایران</h1>
+      <p>ایران</p>
       <button className="btn btn-warning">مهدی</button>
     </>
   );
