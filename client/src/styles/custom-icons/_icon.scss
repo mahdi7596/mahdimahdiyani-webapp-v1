@@ -1,0 +1,70 @@
+@import "variables";
+
+@font-face {
+    font-family: '#{$icomoon-font-family}';
+    src: url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?2egq97');
+    src: url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?2egq97#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?2egq97') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?2egq97') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?2egq97##{$icomoon-font-family}') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+i[className*="maicon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: '#{$icomoon-font-family}' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.maicon-share {
+    &:before {
+        content: $maicon-share;
+    }
+}
+
+.maicon-hamburgermenu {
+    &:before {
+        content: $maicon-hamburgermenu;
+    }
+}
+
+.maicon-arrrow {
+    &:before {
+        content: $maicon-arrrow;
+    }
+}
+
+.maicon-tag {
+    &:before {
+        content: $maicon-tag;
+    }
+}
+
+.maicon-dashboard {
+    &:before {
+        content: $maicon-dashboard;
+    }
+}
+
+.maicon-pie-chart {
+    &:before {
+        content: $maicon-pie-chart;
+    }
+}
+
+.maicon-search {
+    &:before {
+        content: $maicon-search;
+    }
+}
