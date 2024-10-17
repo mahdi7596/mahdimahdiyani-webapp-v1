@@ -4,15 +4,22 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
-    fontWeight: {
-      extrablack: "950", // Extra Black (950)
-      heavyBlack: "1000", // Ultra Black (1000)
-      ...defaultTheme.fontWeight,
-    },
-    fontFamily: {
-      primaryFont: ["primaryFont"],
-      headingFont: ["headingFont"],
+    // screens: {
+    //   'xxs': '340px',
+    //   'xs': '440px',
+    //   'xsm': '540px',
+    //   ...defaultTheme.screens,
+    // },
+    extend: {
+      fontWeight: {
+        extrablack: "950", // Extra Black (950)
+        heavyBlack: "1000", // Ultra Black (1000)
+        ...defaultTheme.fontWeight,
+      },
+      fontFamily: {
+        primaryFont: ["primaryFont"],
+        headingFont: ["headingFont"],
+      },
     },
   },
   plugins: [require("daisyui")],
