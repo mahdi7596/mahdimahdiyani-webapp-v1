@@ -2,12 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+//  ------ common styles
+@import "./styles/common-styles";
 //  ------ custom fonts
 @import "./styles/custom-fonts";
 //  ------ custom colors
 @import "./styles/colors";
+//  ------ custom input fields
+// @import "./styles/input-fields";
+//  ------ custom font icons
+// @import "./styles/inproc-icons/icon";
+
+
 
 body {
   direction: rtl;
+  background-color: var(--backgroundColor);
+  color: var(--neutrals-600);
+  font-size: 14px;
   font-family: "primaryFont";
+
 }
