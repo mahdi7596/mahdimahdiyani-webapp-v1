@@ -9,6 +9,7 @@ function App() {
       <p className="font-bold text-6xl">مهدی</p>
       <p className="font-extrablack text-6xl">مهدی</p>
       <p className="font-heavyBlack text-6xl">مهدی</p>
+      <p className=" text-6xl">مهدی</p>
       <button className="btn btn-warning">مهدی</button>
     </>
   );
