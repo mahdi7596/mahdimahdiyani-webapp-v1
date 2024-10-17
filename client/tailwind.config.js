@@ -12,6 +12,7 @@ export default {
     },
     fontFamily: {
       primaryFont: ["primaryFont"],
+      headingFont: ["headingFont"],
     },
   },
   plugins: [require("daisyui")],
