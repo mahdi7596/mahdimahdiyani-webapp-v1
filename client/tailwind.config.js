@@ -10,12 +10,12 @@ export default {
       headingFont: ["headingFont"],
     },
     extend: {
-      // screens: {
-      //   'xxs': '340px',
-      //   'xs': '440px',
-      //   'xsm': '540px',
-      //   ...defaultTheme.screens,
-      // },
+      screens: {
+        xxs: "340px",
+        xs: "440px",
+        xsm: "540px",
+        // ...defaultTheme.screens,
+      },
       colors: {
         primary: "var(--primary)",
         primary900: "var(--primary-900)",
@@ -59,4 +59,16 @@ export default {
     },
   },
   plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        light: {
+          ...require("daisyui/src/theming/themes")["light"],
+          primary: "#B9812B",
+          "primary-content": "#fff",
+          neutral: "#0f172a",
+        },
+      },
+    ],
+  },
 };

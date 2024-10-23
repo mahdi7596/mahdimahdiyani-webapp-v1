@@ -5,11 +5,11 @@ import routes from "./routes/routes";
 
 function App() {
   return (
-    <div>
+    <>
       <Suspense fallback={<div>Loading...</div>}>
         <RouterProvider router={routes} />
       </Suspense>
-    </div>
+    </>
   );
 }
 

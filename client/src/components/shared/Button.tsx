@@ -7,10 +7,16 @@ interface Props {
   onAction?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   icon?: string;
-  iconClassName?: string;
 }
 
-const Button = ({ link, text, className, onAction, disabled, icon }: Props) => {
+const Button = ({
+  link = "#",
+  text,
+  className,
+  onAction,
+  disabled,
+  icon,
+}: Props) => {
   return (
     <Link to={link}>
       <button
