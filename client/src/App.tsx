@@ -1,10 +1,15 @@
-import Button from "./components/ui/Button";
+import { Suspense } from "react";
+
+import { RouterProvider } from "react-router-dom";
+import routes from "./routes/routes";
 
 function App() {
   return (
-    <>
-      <Button link="#" className="btn-neutral" icon="share text-blue-400" />
-    </>
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <RouterProvider router={routes} />
+      </Suspense>
+    </div>
   );
 }
 
