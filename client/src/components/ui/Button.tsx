@@ -1,4 +1,7 @@
+import { Link } from "react-router-dom";
+
 interface Props {
+  link?: string;
   text?: string;
   className?: string;
   onAction?: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -7,16 +10,18 @@ interface Props {
   iconClassName?: string;
 }
 
-const Button = ({ text, className, onAction, disabled, icon }: Props) => {
+const Button = ({ link, text, className, onAction, disabled, icon }: Props) => {
   return (
-    <button
-      className={`btn + ${className}`}
-      onClick={onAction}
-      disabled={disabled}
-    >
-      {text && text}
-      {icon && <i className={`maicon-${icon}`}></i>}
-    </button>
+    <Link to={link}>
+      <button
+        className={`btn + ${className}`}
+        onClick={onAction}
+        disabled={disabled}
+      >
+        {text && text}
+        {icon && <i className={`maicon-${icon}`}></i>}
+      </button>
+    </Link>
   );
 };
 
