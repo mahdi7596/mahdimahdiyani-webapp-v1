@@ -24,7 +24,7 @@ const Navbar = () => {
           text="ورود - ثبت نام"
           className="hidden xs:block btn-md btn-outline btn-primary"
         />
-        <div className="hidden dropdown dropdown-end">
+        <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
             role="button"
