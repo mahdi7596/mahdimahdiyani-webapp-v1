@@ -1,13 +1,12 @@
-import { Link } from "react-router-dom";
-
 import Search from "../shared/Search";
 import MenuItems from "./MenuItems";
 
-import { profileMenuItems } from "./IMenuItem";
+import { IMenuItem, profileMenuItems } from "./IMenuItem";
 
 import logo from "../../assets/images/temp-logo.png";
 import profilePic from "../../assets/images/mahdimahdiyani-profile-pic.png";
 import Button from "../shared/Button";
+import Dropdown from "../shared/Dropdown";
 
 const Navbar = () => {
   return (
@@ -34,19 +33,10 @@ const Navbar = () => {
               <img alt="Tailwind CSS Navbar component" src={profilePic} />
             </div>
           </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content rounded-box border z-[1] mt-3 w-32 p-2 shadow"
-          >
-            {profileMenuItems.map((menuItem) => (
-              <li
-                key={menuItem.id}
-                className="text-neutrals700 hover:text-neutrals500"
-              >
-                <Link to={menuItem.link}>{menuItem.text}</Link>
-              </li>
-            ))}
-          </ul>
+          <Dropdown<IMenuItem>
+            dropDownItems={profileMenuItems}
+            className="mt-3 border menu-sm w-44"
+          />
         </div>
       </div>
     </header>
