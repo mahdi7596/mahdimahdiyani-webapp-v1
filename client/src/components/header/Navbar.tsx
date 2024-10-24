@@ -1,7 +1,7 @@
 import Search from "../shared/Search";
 import MenuItems from "./MenuItems";
 
-import { IMenuItem, profileMenuItems } from "./IMenuItem";
+import { profileMenuItems } from "./IMenuItem";
 
 import logo from "../../assets/images/temp-logo.png";
 import profilePic from "../../assets/images/mahdimahdiyani-profile-pic.png";
@@ -30,12 +30,12 @@ const Navbar = () => {
             className="btn btn-ghost btn-circle avatar"
           >
             <div className="w-10 rounded-full border border-gray-200">
-              <img alt="Tailwind CSS Navbar component" src={profilePic} />
+              <img src={profilePic} alt="profilePic" />
             </div>
           </div>
-          <Dropdown<IMenuItem>
+          <Dropdown
             dropDownItems={profileMenuItems}
-            className="mt-3 border menu-sm w-44"
+            className="w-44 menu-sm mt-3"
           />
         </div>
       </div>

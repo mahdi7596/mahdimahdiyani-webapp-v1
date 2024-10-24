@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 
-interface Props<T> {
-  dropDownItems: T[];
+import { IMenuItem } from "../header/IMenuItem";
+
+interface Props {
+  dropDownItems: IMenuItem[];
   className: string;
 }
 
-const Dropdown = <T,>({ dropDownItems, className }: Props<T>) => {
+const Dropdown = ({ dropDownItems, className }: Props) => {
   return (
     <ul
       tabIndex={0}
       className={
-        "menu dropdown-content rounded-box z-[1] p-2 shadow " + className
+        "menu dropdown-content rounded-box z-[1] p-2 border shadow " + className
       }
     >
       {dropDownItems.map((menuItem) => (
@@ -18,7 +20,7 @@ const Dropdown = <T,>({ dropDownItems, className }: Props<T>) => {
           key={menuItem.id}
           className="text-neutrals700 hover:text-neutrals500"
         >
-          <Link to={(menuItem as { link: string }).link}>{menuItem.text}</Link>
+          <Link to={menuItem.link}>{menuItem.text}</Link>
         </li>
       ))}
     </ul>
