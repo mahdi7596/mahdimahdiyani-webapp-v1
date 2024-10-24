@@ -1,12 +1,12 @@
 import Search from "../shared/Search";
 import MenuItems from "./MenuItems";
+import Button from "../shared/Button";
+import Dropdown from "../shared/Dropdown";
 
 import { profileMenuItems } from "./IMenuItem";
 
 import logo from "../../assets/images/temp-logo.png";
 import profilePic from "../../assets/images/mahdimahdiyani-profile-pic.png";
-import Button from "../shared/Button";
-import Dropdown from "../shared/Dropdown";
 
 const Navbar = () => {
   return (

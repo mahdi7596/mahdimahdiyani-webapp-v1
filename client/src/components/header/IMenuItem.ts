@@ -30,6 +30,12 @@ export const navMenuItems: IMenuItem[] = [
     text: "همکاری باما",
     link: "/work-with-us",
   },
+  // todo #1 i have to assign a different class for this menu item
+  {
+    id: 7,
+    text: "ورود - ثبت نام",
+    link: "/register",
+  },
 ];
 
 export const profileMenuItems: IMenuItem[] = [
