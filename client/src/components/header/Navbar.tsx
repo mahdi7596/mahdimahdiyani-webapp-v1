@@ -10,7 +10,7 @@ import Dropdown from "../shared/Dropdown";
 
 const Navbar = () => {
   return (
-    <header className="navbar border-b border-gray-100">
+    <header className="navbar border-b border-surfaceBorder">
       {/* logo + menuItems */}
       <div className="flex-none">
         <img src={logo} className="w-16" alt="logo" />
