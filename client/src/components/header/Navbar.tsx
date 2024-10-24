@@ -10,7 +10,7 @@ import profilePic from "../../assets/images/mahdimahdiyani-profile-pic.png";
 
 const Navbar = () => {
   return (
-    <header className="navbar border-b border-surfaceBorder">
+    <header className="section-container navbar border-b border-surfaceBorder">
       {/* logo + menuItems */}
       <div className="flex-none">
         <img src={logo} className="w-16" alt="logo" />

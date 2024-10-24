@@ -30,16 +30,12 @@ export default {
         primary0: "var(--primary-0)",
 
         neutrals: "var(--neutrals)",
-        neutrals900: "var(--neutrals-900)",
-        neutrals800: "var(--neutrals-800)",
-        neutrals700: "var(--neutrals-700)",
         neutrals600: "var(--neutrals-600)",
         neutrals500: "var(--neutrals-500)",
         neutrals400: "var(--neutrals-400)",
         neutrals300: "var(--neutrals-300)",
         neutrals200: "var(--neutrals-200)",
         neutrals100: "var(--neutrals-100)",
-        neutrals0: "var(--neutrals-0)",
 
         surfaceBg: "var(--surfaceBg)",
         surfaceBorder: "var(--surfaceBorder)",
@@ -65,8 +61,8 @@ export default {
         light: {
           ...require("daisyui/src/theming/themes")["light"],
           primary: "#B9812B",
-          "primary-content": "#fff",
-          neutral: "#0f172a",
+          "primary-content": "#ffffff",
+          neutral: "#111111",
         },
       },
     ],

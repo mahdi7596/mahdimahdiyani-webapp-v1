@@ -10,7 +10,7 @@ const MenuItems = () => {
         {navMenuItems.map((menuItem) => (
           <li
             key={menuItem.id}
-            className="text-neutrals700 hover:text-neutrals500"
+            className="text-neutrals500 hover:text-neutrals"
           >
             <Link to={menuItem.link}>{menuItem.text}</Link>
           </li>
