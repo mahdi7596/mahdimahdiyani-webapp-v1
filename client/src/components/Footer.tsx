@@ -16,7 +16,7 @@ const Footer = () => {
           </svg>
           <p>کلیه حقوق این سایت متعلق به مهدی مهدیانی میباشد.</p>
         </aside>
-        <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
+        <nav className="grid-flow-col gap-4 place-self-center md:justify-self-end">
           <a>
             <svg
               xmlns="http://www.w3.org/2000/svg"

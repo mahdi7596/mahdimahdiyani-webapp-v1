@@ -63,6 +63,7 @@ export default {
           primary: "#B9812B",
           "primary-content": "#ffffff",
           neutral: "#111111",
+          "neutral-content": "#D7D7D7",
         },
       },
     ],

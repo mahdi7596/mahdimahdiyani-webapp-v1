@@ -12,7 +12,7 @@ const Dropdown = ({ dropDownItems, className }: Props) => {
     <ul
       tabIndex={0}
       className={
-        "menu dropdown-content rounded-box z-[1] p-2 border shadow  bg-surfaceBg " +
+        "menu dropdown-content rounded-box z-[1] p-2 border shadow  bg-backgroundColor " +
         className
       }
     >
