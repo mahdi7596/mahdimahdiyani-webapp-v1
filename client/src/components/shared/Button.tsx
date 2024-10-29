@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-interface Props {
+export interface ButtonProps {
   link?: string;
   text?: string;
   className?: string;
@@ -18,19 +18,19 @@ const Button = ({
   type = "button",
   disabled,
   icon,
-}: Props) => {
+}: ButtonProps) => {
   return (
-    <Link to={link}>
-      <button
-        type={type}
-        onClick={onAction}
-        className={`btn + ${className}`}
-        disabled={disabled}
-      >
+    <button
+      type={type}
+      onClick={onAction}
+      className={`btn + ${className}`}
+      disabled={disabled}
+    >
+      <Link to={link}>
         {text && text}
         {icon && <i className={`maicon-${icon}`}></i>}
-      </button>
-    </Link>
+      </Link>
+    </button>
   );
 };
 
