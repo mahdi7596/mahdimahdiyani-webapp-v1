@@ -1,11 +1,8 @@
-import Footer from "../components/Footer";
-import Navbar from "../components/header/Navbar";
 import Card from "../components/shared/Card";
 
 const Home = () => {
   return (
     <>
-      <Navbar />
       <div className="my-24 flex flex-col justify-center items-center">
         <Card
           title="معرفی بهترین تقویت کننده‌های مژه"
@@ -23,8 +20,6 @@ const Home = () => {
           }}
         />
       </div>
-
-      <Footer />
     </>
   );
 };
