@@ -1,10 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
+
 import dotenv from "dotenv";
+
+import userRoutes from "./routes/user.route.js";
 
 dotenv.config();
 // require("dotenv").config();
-const express = require("express");
 const app = express();
 
 mongoose
@@ -14,6 +16,8 @@ mongoose
   .then(() => console.log("connected to MongoDB..."))
   .catch((err) => console.log("could not connect to Mongo Db..", err));
 
-app.listen(3000, () => {
+app.listen(3001, () => {
   console.log("server is running on prot 3001");
 });
+
+app.use("/api/user", userRoutes);
