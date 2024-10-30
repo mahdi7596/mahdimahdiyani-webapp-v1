@@ -5,7 +5,7 @@ const useInput = (initialValue: string) => {
   const [error, setError] = useState<string>("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    // console.log(e.target.value);
+    console.log(e.target.value);
     setValue(e.target.value);
   };
 

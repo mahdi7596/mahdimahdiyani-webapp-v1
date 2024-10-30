@@ -22,10 +22,8 @@ const Input = ({
   onChange,
 }: InputProps) => {
   return (
-    <label className="form-control w-full max-w-xs">
-      <div className="label">
-        <span className="label-text">{label}</span>
-      </div>
+    <label className="form-control w-full gap-y-1">
+      <span className="label-text text-neutrals300 text-sm mr-1">{label}</span>
       <input
         id={label}
         type={type}
@@ -34,11 +32,11 @@ const Input = ({
         onChange={onChange}
         disabled={disabled}
         placeholder={placeholder}
-        className="input input-bordered w-full max-w-xs"
+        className="input input-bordered w-full text-sm text-neutrals500"
       />
-      <div className="label">
-        {error && <span className="label-text-alt text-danger">{error}</span>}
-      </div>
+      {error && (
+        <span className="label-text-alt text-danger mr-1">{error}</span>
+      )}
     </label>
   );
 };

@@ -1,6 +1,9 @@
-import { useState } from "react";
+import Input from "../components/shared/Input";
+import useInput from "../hooks/useInput";
 
 import art from "../assets/images/auth-thumbnail.png";
+import Button from "../components/shared/Button";
+import { Link } from "react-router-dom";
 
 interface IRegister {
   name: string;
@@ -9,25 +12,24 @@ interface IRegister {
 }
 
 const Signup = () => {
-  const [formData, setFormData] = useState<IRegister>({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const name = useInput("");
+  const email = useInput("");
+  const password = useInput("");
 
-  console.log(formData);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Collect and validate form data
+    const formData: IRegister = {
+      name: name.value,
+      email: email.value,
+      password: password.value,
+    };
+    console.log(formData); // Handle form submission here
   };
 
   return (
-    <section className="section-container h-screen flex items-center justify-between p-12 bg-red-50">
-      <div className="w-1/3 flex flex-col gap-y-6 mx-auto bg-blue-50">
+    <section className="section-container h-screen flex items-center justify-between p-12">
+      <div className="w-1/3 flex flex-col gap-y-6 mx-auto">
         <div className="flex flex-col gap-y-3.5">
           <h2 className="text-3xl text-neutral font-headingFont font-extrabold">
             خوش برگشتی
@@ -35,32 +37,50 @@ const Signup = () => {
           <p className="text-justify text-neutrals500">
             امروز یک روز جدید است. این روز شماست. شما آن را شکل می‌دهید. وارد
             شوید تا مدیریت پروژه‌های خود را آغاز کنید.
+            <Link
+              to={"/register"}
+              className="mr-2 font-bold text-primary hover:text-primary800 hover:btn-link"
+            >
+              ثبت نام
+            </Link>
           </p>
         </div>
-        <form>
-          <input
+        <form onSubmit={handleSubmit} className="w-full flex flex-col gap-y-4">
+          <Input
             name="name"
-            value={formData.name}
-            onChange={handleChange}
+            value={name.value}
+            onChange={name.onChange}
+            error={name.error}
             type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
+            label="نام کاربری"
+            placeholder="نام کاربری خود را وارد کنید"
           />
-          <input
+          <Input
             name="email"
-            value={formData.email}
-            onChange={handleChange}
+            value={email.value}
+            onChange={email.onChange}
+            error={email.error}
             type="email"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
+            label="ایمیل"
+            placeholder="ایمیل خود را وارد کنید"
           />
-          <input
+          <Input
             name="password"
-            value={formData.password}
-            onChange={handleChange}
+            value={password.value}
+            onChange={password.onChange}
+            error={password.error}
             type="password"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
+            label="کلمه عبور"
+            placeholder="کلمه عبور خود را وارد کنید"
+          />
+
+          <Link to={"/register"} className="hover:btn-link self-end text-xs">
+            فراموشی کلمه عبور{" "}
+          </Link>
+          <Button
+            text="ثبت نام"
+            type="submit"
+            className="btn-primary btn-block"
           />
         </form>
       </div>
