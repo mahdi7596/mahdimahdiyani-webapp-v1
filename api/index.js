@@ -7,23 +7,28 @@ import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
 // import postRoutes from "./routes/post.route.js";
 
+// .env connection
 dotenv.config();
-// require("dotenv").config();
+const config = {
+  dbUrl: process.env.DB_URL,
+  port: process.env.PORT,
+};
 
+// db connection
 mongoose
-  .connect("mongodb://localhost/mahdimahdiyani-webapp")
-  // !have to replace this
-  // .connect(process.env.MONGO)
+  .connect(config.dbUrl)
   .then(() => console.log("connected to MongoDB..."))
   .catch((err) => console.log("could not connect to Mongo Db..", err));
 
+// express config
 const app = express();
 app.use(express.json());
 
-app.listen(3000, () => {
-  console.log("server is running on prot 3000");
+app.listen(config.port, () => {
+  console.log("server is running on port " + config.port);
 });
 
+// routes config
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 // app.use("/api/post", postRoutes);
