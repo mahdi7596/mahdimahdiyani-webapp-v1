@@ -1,18 +1,20 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
+
 import Navbar from "../components/header/Navbar";
 import Footer from "../components/Footer";
 
 const Home = lazy(() => import("../pages/Home"));
 const Aboutus = lazy(() => import("../pages/Aboutus"));
+const Signup = lazy(() => import("../pages/Signup"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
 const NotFoundPage = lazy(() => import("../pages/NotFoundPage"));
 
-const renderLayout = (element: React.ReactNode) => (
+const renderLayout = (element: React.ReactNode, showLayout = true) => (
   <>
-    <Navbar />
+    {showLayout && <Navbar />}
     {element}
-    <Footer />
+    {showLayout && <Footer />}
   </>
 );
 
@@ -24,6 +26,10 @@ const routes = createBrowserRouter([
   {
     path: "/about",
     element: renderLayout(<Aboutus />),
+  },
+  {
+    path: "/signup",
+    element: renderLayout(<Signup />, false),
   },
   {
     path: "/dashboard",
