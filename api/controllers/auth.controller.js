@@ -15,7 +15,6 @@ export const signup = async (req, res, next) => {
     email === "" ||
     password === ""
   ) {
-    console.log("testing");
     next(errorHandler(400, "all fields are required"));
   }
 
