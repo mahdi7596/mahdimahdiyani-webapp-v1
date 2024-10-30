@@ -1,28 +1,19 @@
 import express from "express";
-import mongoose from "mongoose";
-
-import dotenv from "dotenv";
 
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
 // import postRoutes from "./routes/post.route.js";
 
-// .env connection
-dotenv.config();
-const config = {
-  dbUrl: process.env.DB_URL,
-  port: process.env.PORT,
-};
+import config from "./config/config.js";
 
-// db connection
-mongoose
-  .connect(config.dbUrl)
-  .then(() => console.log("connected to MongoDB..."))
-  .catch((err) => console.log("could not connect to Mongo Db..", err));
+import connectToDatabase from "./config/database.js";
 
 // express config
 const app = express();
 app.use(express.json());
+
+// Connect to the database
+connectToDatabase();
 
 app.listen(config.port, () => {
   console.log("server is running on port " + config.port);
