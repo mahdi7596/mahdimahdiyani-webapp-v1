@@ -12,17 +12,23 @@ interface IRegister {
 }
 
 const Signup = () => {
-  const username = useInput("");
-  const email = useInput("");
-  const password = useInput("");
+  const username = useInput("", { required: true, minLength: 3 });
+  const email = useInput("", { required: true, email: true });
+  const password = useInput("", { required: true, minLength: 6 });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Reset errors before validation
+    username.resetError();
+    email.resetError();
+    password.resetError();
+
     // Collect and validate form data
     const formData: IRegister = {
-      username: username.value.trim(),
-      email: email.value.trim(),
-      password: password.value.trim(),
+      username: username.value,
+      email: email.value,
+      password: password.value,
     };
     console.log(formData); // Handle form submission
 
