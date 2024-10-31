@@ -6,7 +6,7 @@ interface InputProps {
   value: string | number;
   name: string;
   placeholder: string;
-  error: string;
+  error?: string;
   disabled?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }

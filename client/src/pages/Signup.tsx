@@ -1,9 +1,11 @@
-import Input from "../components/shared/Input";
+import { Link } from "react-router-dom";
+
 import useInput from "../hooks/useInput";
 
-import art from "../assets/images/auth-thumbnail.png";
+import Input from "../components/shared/Input";
 import Button from "../components/shared/Button";
-import { Link } from "react-router-dom";
+
+import art from "../assets/images/auth-thumbnail.png";
 
 interface IRegister {
   username: string;
@@ -24,13 +26,22 @@ const Signup = () => {
     email.resetError();
     password.resetError();
 
+    if (username.value === "" || email.value === "" || password.value === "") {
+      username.setError("پر کردن این فیلد الزامی است");
+      email.setError("پر کردن این فیلد الزامی است");
+      password.setError("پر کردن این فیلد الزامی است");
+    }
+
     // Collect and validate form data
     const formData: IRegister = {
       username: username.value,
       email: email.value,
       password: password.value,
     };
+
     console.log(formData); // Handle form submission
+
+    // Check if the form is valid
 
     // sending request to backend
     // try {
@@ -42,6 +53,8 @@ const Signup = () => {
     //   const data = await res.json();
     // } catch (error) {}
   };
+
+  const isFormValid = !username.error && !email.error && !password.error;
 
   return (
     <section className="section-container h-screen flex flex-col-reverse sm:flex-row items-center gap-y-6 justify-center sm:justify-between gap-x-6 lg:gap-x-0 px-6 lg:p-12">
@@ -94,9 +107,11 @@ const Signup = () => {
             فراموشی کلمه عبور
           </Link>
           <Button
+            onAction={handleSubmit}
             text="ثبت نام"
             type="submit"
             className="btn-primary btn-block"
+            disabled={!isFormValid}
           />
         </form>
       </div>
