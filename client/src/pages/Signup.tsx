@@ -20,21 +20,21 @@ const Signup = () => {
     e.preventDefault();
     // Collect and validate form data
     const formData: IRegister = {
-      username: username.value,
-      email: email.value,
-      password: password.value,
+      username: username.value.trim(),
+      email: email.value.trim(),
+      password: password.value.trim(),
     };
     console.log(formData); // Handle form submission
 
     // sending request to backend
-    try {
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-    } catch (error) {}
+    // try {
+    //   const res = await fetch("/api/auth/signup", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(formData),
+    //   });
+    //   const data = await res.json();
+    // } catch (error) {}
   };
 
   return (
@@ -58,7 +58,7 @@ const Signup = () => {
         <form onSubmit={handleSubmit} className="w-full flex flex-col gap-y-4">
           <Input
             name="username"
-            value={username.value}
+            value={username.value.trim()}
             onChange={username.onChange}
             error={username.error}
             type="text"
@@ -76,7 +76,7 @@ const Signup = () => {
           />
           <Input
             name="password"
-            value={password.value}
+            value={password.value.trim()}
             onChange={password.onChange}
             error={password.error}
             type="password"
