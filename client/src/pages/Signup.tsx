@@ -6,25 +6,35 @@ import Button from "../components/shared/Button";
 import { Link } from "react-router-dom";
 
 interface IRegister {
-  name: string;
+  username: string;
   email: string;
   password: string;
 }
 
 const Signup = () => {
-  const name = useInput("");
+  const username = useInput("");
   const email = useInput("");
   const password = useInput("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Collect and validate form data
     const formData: IRegister = {
-      name: name.value,
+      username: username.value,
       email: email.value,
       password: password.value,
     };
     console.log(formData); // Handle form submission
+
+    // sending request to backend
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+    } catch (error) {}
   };
 
   return (
@@ -47,10 +57,10 @@ const Signup = () => {
         </div>
         <form onSubmit={handleSubmit} className="w-full flex flex-col gap-y-4">
           <Input
-            name="name"
-            value={name.value}
-            onChange={name.onChange}
-            error={name.error}
+            name="username"
+            value={username.value}
+            onChange={username.onChange}
+            error={username.error}
             type="text"
             label="نام کاربری"
             placeholder="نام کاربری خود را وارد کنید"

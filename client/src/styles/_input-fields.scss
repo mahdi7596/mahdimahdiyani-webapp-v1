@@ -1,20 +1,20 @@
-// @layer components {
-//     label {
-//         @apply text-[13px] text-neutrals300;
-//     }
+@layer components {
 
-//     input,
-//     textarea,
-//     select {
-//         @apply p-3 caret-primary600 bg-neutral-50 focus:bg-white text-xs text-neutrals focus:text-primary600 border border-gray-200 focus:border-gray-300 outline-none shadow-inner focus:shadow-none rounded;
+    // تمام انواع فرم فیلد های استفاده شده داخل این تگ هستند که به برای استایلشون این کلاس رو دادم
+    fieldset {
+        @apply flex flex-col gap-y-1.5;
+    }
+}
 
-//         &:focus-visible {
-//             @apply bg-white;
-//         }
-//     }
+/* Apply text alignment to specific input types */
+input[type="number"],
+input[type="email"],
+input[type="password"] {
+    text-align: left;
+}
 
-//     // تمام انواع فرم فیلد های استفاده شده داخل این تگ هستند که به برای استایلشون این کلاس رو دادم
-//     fieldset {
-//         @apply flex flex-col gap-y-1.5;
-//     }
-// }
+input[type="number"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+    text-align: right;
+}

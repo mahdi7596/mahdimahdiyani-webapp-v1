@@ -9,7 +9,7 @@
 //  ------ custom colors
 @import "./styles/colors";
 //  ------ custom input fields
-// @import "./styles/input-fields";
+@import "./styles/input-fields";
 //  ------ custom font icons
 @import "./styles/custom-icons/icon";
 
@@ -21,4 +21,12 @@ body {
   color: var(--neutrals);
   font-size: 14px;
   font-family: "primaryFont";
+}
+
+.ltr {
+  direction: ltr;
+}
+
+.rtl {
+  direction: rtl;
 }

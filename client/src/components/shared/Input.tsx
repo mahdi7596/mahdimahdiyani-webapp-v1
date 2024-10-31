@@ -22,8 +22,8 @@ const Input = ({
   onChange,
 }: InputProps) => {
   return (
-    <label className="form-control w-full gap-y-1">
-      <span className="label-text text-neutrals300 text-sm mr-1">{label}</span>
+    <fieldset>
+      <label className="label-text text-neutrals300 text-sm">{label}</label>
       <input
         id={label}
         type={type}
@@ -37,7 +37,7 @@ const Input = ({
       {error && (
         <span className="label-text-alt text-danger mr-1">{error}</span>
       )}
-    </label>
+    </fieldset>
   );
 };
 
