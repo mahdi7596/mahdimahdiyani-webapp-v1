@@ -24,24 +24,24 @@ const Signup = () => {
       email: email.value,
       password: password.value,
     };
-    console.log(formData); // Handle form submission here
+    console.log(formData); // Handle form submission
   };
 
   return (
-    <section className="section-container h-screen flex items-center justify-between p-12">
-      <div className="w-1/3 flex flex-col gap-y-6 mx-auto">
+    <section className="section-container h-screen flex flex-col-reverse sm:flex-row items-center gap-y-6 justify-center sm:justify-between gap-x-6 lg:gap-x-0 px-6 lg:p-12">
+      <div className="w-full sm:w-1/3 md:w-1/2 lg:w-1/3 flex flex-col gap-y-6 mx-auto h-fit">
         <div className="flex flex-col gap-y-3.5">
-          <h2 className="text-3xl text-neutral font-headingFont font-extrabold">
+          <h2 className="text-2xl lg:text-3xl text-neutral font-headingFont font-extrabold">
             خوش برگشتی
           </h2>
-          <p className="text-justify text-neutrals500">
+          <p className="text-sm lg:text-base text-justify text-neutrals500">
             امروز یک روز جدید است. این روز شماست. شما آن را شکل می‌دهید. وارد
             شوید تا مدیریت پروژه‌های خود را آغاز کنید.
             <Link
               to={"/register"}
               className="mr-2 font-bold text-primary hover:text-primary800 hover:btn-link"
             >
-              ثبت نام
+              ورود به حساب کاربری
             </Link>
           </p>
         </div>
@@ -75,7 +75,7 @@ const Signup = () => {
           />
 
           <Link to={"/register"} className="hover:btn-link self-end text-xs">
-            فراموشی کلمه عبور{" "}
+            فراموشی کلمه عبور
           </Link>
           <Button
             text="ثبت نام"
@@ -84,8 +84,11 @@ const Signup = () => {
           />
         </form>
       </div>
-      <div className="w-1/2">
-        <img src={art} className="max-h-screen w-full rounded-md" />
+      <div className="w-full sm:w-8/12 md:w-1/2">
+        <img
+          src={art}
+          className="h-56 sm:h-full sm:max-h-screen w-full rounded-md object-cover "
+        />
       </div>
     </section>
   );
