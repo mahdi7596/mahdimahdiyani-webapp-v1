@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import useInput from "../hooks/useInput";
+import useFormFields from "../hooks/useFormFields";
 
 import Input from "../components/shared/Input";
 import Button from "../components/shared/Button";
@@ -14,36 +14,28 @@ interface IRegister {
 }
 
 const Signup = () => {
-  const username = useInput("", { required: true, minLength: 3 });
-  const email = useInput("", { required: true, email: true });
-  const password = useInput("", { required: true, minLength: 6 });
+  const { fields, handleChange, validateAllFields, resetErrors, isTouched } =
+    useFormFields({
+      username: { value: "", rules: { required: true, minLength: 3 } },
+      email: { value: "", rules: { required: true, email: true } },
+      password: { value: "", rules: { required: true, minLength: 6 } },
+    });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    resetErrors();
 
-    // Reset errors before validation
-    username.resetError();
-    email.resetError();
-    password.resetError();
+    if (!validateAllFields()) return;
 
-    if (username.value === "" || email.value === "" || password.value === "") {
-      username.setError("پر کردن این فیلد الزامی است");
-      email.setError("پر کردن این فیلد الزامی است");
-      password.setError("پر کردن این فیلد الزامی است");
-    }
-
-    // Collect and validate form data
-    const formData: IRegister = {
-      username: username.value,
-      email: email.value,
-      password: password.value,
+    const formData = {
+      username: fields.username.value,
+      email: fields.email.value,
+      password: fields.password.value,
     };
 
     console.log(formData); // Handle form submission
 
-    // Check if the form is valid
-
-    // sending request to backend
+    // Sending request to backend (commented out for now)
     // try {
     //   const res = await fetch("/api/auth/signup", {
     //     method: "POST",
@@ -54,7 +46,7 @@ const Signup = () => {
     // } catch (error) {}
   };
 
-  const isFormValid = !username.error && !email.error && !password.error;
+  const isFormValid = Object.values(fields).every((field) => !field.error);
 
   return (
     <section className="section-container h-screen flex flex-col-reverse sm:flex-row items-center gap-y-6 justify-center sm:justify-between gap-x-6 lg:gap-x-0 px-6 lg:p-12">
@@ -77,32 +69,31 @@ const Signup = () => {
         <form onSubmit={handleSubmit} className="w-full flex flex-col gap-y-4">
           <Input
             name="username"
-            value={username.value.trim()}
-            onChange={username.onChange}
-            error={username.error}
+            value={fields.username.value}
+            onChange={handleChange}
+            error={isTouched ? fields.username.error : ""}
             type="text"
             label="نام کاربری"
             placeholder="نام کاربری خود را وارد کنید"
           />
           <Input
             name="email"
-            value={email.value}
-            onChange={email.onChange}
-            error={email.error}
+            value={fields.email.value}
+            onChange={handleChange}
+            error={isTouched ? fields.email.error : ""}
             type="email"
             label="ایمیل"
             placeholder="ایمیل خود را وارد کنید"
           />
           <Input
             name="password"
-            value={password.value.trim()}
-            onChange={password.onChange}
-            error={password.error}
+            value={fields.password.value}
+            onChange={handleChange}
+            error={isTouched ? fields.password.error : ""}
             type="password"
             label="کلمه عبور"
             placeholder="کلمه عبور خود را وارد کنید"
           />
-
           <Link to={"/register"} className="hover:btn-link self-end text-xs">
             فراموشی کلمه عبور
           </Link>
