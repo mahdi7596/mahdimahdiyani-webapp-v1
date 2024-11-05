@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice";
+
+import { useDispatch, useSelector } from "react-redux";
+
 import useInput from "../hooks/useInput";
 
 import Input from "../components/shared/Input";
@@ -8,39 +16,32 @@ import Button from "../components/shared/Button";
 
 import art from "../assets/images/auth-thumbnail.png";
 
-interface IRegister {
-  username: string;
+interface ILogin {
   email: string;
   password: string;
 }
 
-const Signup = () => {
-  const [errorMessage, setErrorMessage] = useState<string | null>();
-  const [loading, setLoading] = useState(false);
+const Login = () => {
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
 
-  const username = useInput("", { required: true, minLength: 3 });
   const email = useInput("", { required: true, email: true });
-  const password = useInput("", { required: true, minLength: 6 });
+  const password = useInput("", { required: true });
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Reset errors before validation
-    username.resetError();
     email.resetError();
     password.resetError();
 
-    if (username.value === "" || email.value === "" || password.value === "") {
-      username.setError("پر کردن این فیلد الزامی است");
+    if (email.value === "" || password.value === "") {
       email.setError("پر کردن این فیلد الزامی است");
       password.setError("پر کردن این فیلد الزامی است");
     }
 
-    // Collect and validate form data
-    const formData: IRegister = {
-      username: username.value,
+    const formData: ILogin = {
       email: email.value,
       password: password.value,
     };
@@ -49,28 +50,29 @@ const Signup = () => {
 
     // sending request to backend
     try {
-      setLoading(true);
-      setErrorMessage(null);
-      const res = await fetch("/api/auth/signup", {
+      dispatch(signInStart());
+
+      const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
       if (data.success === false) {
-        return setErrorMessage(data.message);
+        dispatch(signInFailure(data.message));
+        // return setErrorMessage(data.message);
       }
-      setLoading(false);
+      // setLoading(false);
       if (res.ok) {
-        navigate("/login");
+        dispatch(signInSuccess(data));
+        navigate("/");
       }
     } catch (error) {
-      setErrorMessage(error.message);
-      setLoading(false);
+      dispatch(signInFailure(error.message));
     }
   };
 
-  const isFormValid = !username.error && !email.error && !password.error;
+  const isFormValid = !email.error && !password.error;
 
   return (
     <section className="section-container h-screen flex flex-col-reverse sm:flex-row items-center gap-y-6 justify-center sm:justify-between gap-x-6 lg:gap-x-0 px-6 lg:p-12">
@@ -83,7 +85,7 @@ const Signup = () => {
             امروز یک روز جدید است. این روز شماست. شما آن را شکل می‌دهید. وارد
             شوید تا مدیریت پروژه‌های خود را آغاز کنید.
             <Link
-              to={"/login"}
+              to={"/signup"}
               className="mr-2 font-bold text-primary hover:text-primary800 hover:btn-link"
             >
               ورود به حساب کاربری
@@ -91,15 +93,6 @@ const Signup = () => {
           </p>
         </div>
         <form onSubmit={handleSubmit} className="w-full flex flex-col gap-y-4">
-          <Input
-            name="username"
-            value={username.value.trim()}
-            onChange={username.onChange}
-            error={username.error}
-            type="text"
-            label="نام کاربری"
-            placeholder="نام کاربری خود را وارد کنید"
-          />
           <Input
             name="email"
             value={email.value}
@@ -119,6 +112,12 @@ const Signup = () => {
             placeholder="کلمه عبور خود را وارد کنید"
           />
 
+          <Link
+            to={"/forgot-password"}
+            className="hover:btn-link self-end text-xs"
+          >
+            فراموشی کلمه عبور
+          </Link>
           <Button
             onAction={handleSubmit}
             text="ثبت نام"
@@ -144,4 +143,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;

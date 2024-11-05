@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 const Home = lazy(() => import("../pages/Home"));
 const Aboutus = lazy(() => import("../pages/Aboutus"));
 const Signup = lazy(() => import("../pages/Signup"));
+const Login = lazy(() => import("../pages/Login"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
 const NotFoundPage = lazy(() => import("../pages/NotFoundPage"));
 
@@ -30,6 +31,10 @@ const routes = createBrowserRouter([
   {
     path: "/signup",
     element: renderLayout(<Signup />, false),
+  },
+  {
+    path: "/login",
+    element: renderLayout(<Login />, false),
   },
   {
     path: "/dashboard",

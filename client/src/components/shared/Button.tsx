@@ -8,6 +8,7 @@ export interface ButtonProps {
   onAction?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   icon?: string;
+  loading?: boolean;
 }
 
 const Button = ({
@@ -18,17 +19,21 @@ const Button = ({
   type = "button",
   disabled,
   icon,
+  loading,
 }: ButtonProps) => {
   return (
     <button
       type={type}
       onClick={onAction}
-      className={`btn + ${className}`}
+      className={`btn items-center+ ${className}`}
       disabled={disabled}
     >
-      <Link to={link}>
+      <Link to={link} className="flex items-center">
         {text && text}
         {icon && <i className={`maicon-${icon}`}></i>}
+        {loading && !disabled && (
+          <span className="loading loading-spinner text-black mr-3"></span>
+        )}
       </Link>
     </button>
   );
