@@ -16,7 +16,7 @@ export const signup = async (req, res, next) => {
     email === "" ||
     password === ""
   ) {
-    next(errorHandler(400, "all fields are required"));
+    next(errorHandler(400, "پر کردن تمامی فیلدها الزامی است"));
   }
 
   const hashedPassword = bcryptjs.hashSync(password, 10);
@@ -40,14 +40,14 @@ export const signin = async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password || email === "" || password === "") {
-    next(errorHandler(400, "all fields are required"));
+    next(errorHandler(400, "پر کردن تمامی فیلدها الزامی است"));
   }
 
   try {
     const validUser = await User.findOne({ email });
 
     if (!validUser) {
-      next(errorHandler(404, "user not found"));
+      next(errorHandler(404, "کاربری یافت نشد"));
     }
 
     const validPassword = bcryptjs.compareSync(password, validUser.password);

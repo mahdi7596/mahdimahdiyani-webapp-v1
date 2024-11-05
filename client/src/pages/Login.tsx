@@ -49,27 +49,27 @@ const Login = () => {
     console.log(formData); // Handle form submission
 
     // sending request to backend
-    // try {
-    //   dispatch(signInStart());
+    try {
+      dispatch(signInStart());
 
-    //   const res = await fetch("/api/auth/signin", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(formData),
-    //   });
-    //   const data = await res.json();
-    //   if (data.success === false) {
-    //     dispatch(signInFailure(data.message));
-    //     // return setErrorMessage(data.message);
-    //   }
-    //   // setLoading(false);
-    //   if (res.ok) {
-    //     dispatch(signInSuccess(data));
-    //     navigate("/");
-    //   }
-    // } catch (error) {
-    //   dispatch(signInFailure(error.message));
-    // }
+      const res = await fetch("/api/auth/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signInFailure(data.message));
+        // return setErrorMessage(data.message);
+      }
+      // setLoading(false);
+      if (res.ok) {
+        dispatch(signInSuccess(data));
+        navigate("/");
+      }
+    } catch (error) {
+      dispatch(signInFailure(error.message));
+    }
   };
 
   const isFormValid = !email.error && !password.error;
@@ -120,7 +120,7 @@ const Login = () => {
           </Link>
           <Button
             onAction={handleSubmit}
-            text="ثبت نام"
+            text="ورود"
             type="submit"
             className="btn-primary btn-block"
             disabled={!isFormValid}
