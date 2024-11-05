@@ -57,7 +57,11 @@ const Card = ({
           </div>
         )}
         {actionButton && (
-          <Button text={actionButton.text} className={actionButton.className} />
+          <Button
+            text={actionButton.text}
+            onAction={actionButton.onAction}
+            className={actionButton.className}
+          />
         )}
       </div>
     </div>

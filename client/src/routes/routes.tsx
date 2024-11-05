@@ -3,6 +3,9 @@ import { createBrowserRouter } from "react-router-dom";
 
 import Navbar from "../components/header/Navbar";
 import Footer from "../components/Footer";
+import Test from "../pages/Test";
+import SingleTest from "../pages/SingleTest";
+import GiftTest from "../pages/GiftTest";
 
 const Home = lazy(() => import("../pages/Home"));
 const Aboutus = lazy(() => import("../pages/Aboutus"));
@@ -39,6 +42,18 @@ const routes = createBrowserRouter([
   {
     path: "/dashboard",
     element: renderLayout(<Dashboard />),
+  },
+  {
+    path: "/test",
+    element: renderLayout(<Test />),
+  },
+  {
+    path: "/signletest",
+    element: renderLayout(<SingleTest />),
+  },
+  {
+    path: "/gifttest",
+    element: renderLayout(<GiftTest />),
   },
   {
     path: "*",
