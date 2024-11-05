@@ -1,6 +1,7 @@
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+import config from "../config/config.js";
 import User from "../models/user.model.js";
 import { errorHandler } from "../utils/error.js";
 
@@ -57,10 +58,10 @@ export const signin = async (req, res, next) => {
 
     const token = jwt.sign(
       { id: validUser._id, isAdmin: validUser.isAdmin },
-      // !have to replace this
-      "mahdi"
-      // process.env.JWT_SECRET
+      config.jwtSecret
     );
+
+    console.log(config.jwtSecret);
 
     // i wrote this code inorder not to send the hashed password to front, because its more safe
     const { password: pass, ...rest } = validUser._doc;

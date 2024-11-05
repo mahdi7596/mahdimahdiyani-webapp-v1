@@ -46,30 +46,30 @@ const Login = () => {
       password: password.value,
     };
 
-    // console.log(formData); // Handle form submission
+    console.log(formData); // Handle form submission
 
     // sending request to backend
-    try {
-      dispatch(signInStart());
+    // try {
+    //   dispatch(signInStart());
 
-      const res = await fetch("/api/auth/signin", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-      if (data.success === false) {
-        dispatch(signInFailure(data.message));
-        // return setErrorMessage(data.message);
-      }
-      // setLoading(false);
-      if (res.ok) {
-        dispatch(signInSuccess(data));
-        navigate("/");
-      }
-    } catch (error) {
-      dispatch(signInFailure(error.message));
-    }
+    //   const res = await fetch("/api/auth/signin", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(formData),
+    //   });
+    //   const data = await res.json();
+    //   if (data.success === false) {
+    //     dispatch(signInFailure(data.message));
+    //     // return setErrorMessage(data.message);
+    //   }
+    //   // setLoading(false);
+    //   if (res.ok) {
+    //     dispatch(signInSuccess(data));
+    //     navigate("/");
+    //   }
+    // } catch (error) {
+    //   dispatch(signInFailure(error.message));
+    // }
   };
 
   const isFormValid = !email.error && !password.error;
@@ -88,7 +88,7 @@ const Login = () => {
               to={"/signup"}
               className="mr-2 font-bold text-primary hover:text-primary800 hover:btn-link"
             >
-              ورود به حساب کاربری
+              ثبت نام
             </Link>
           </p>
         </div>
