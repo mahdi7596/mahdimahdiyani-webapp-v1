@@ -51,7 +51,7 @@ const DashSidebar = () => {
               داشبور
             </Link>
             {currentUser.isAdmin && (
-              <span className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-neutrals rounded-full text-white px-3 py-1">
+              <span className="absolute left-0 top-1/2 transform pointer-events-none -translate-y-1/2 bg-neutrals rounded-full text-white px-3 py-1">
                 ادمین
               </span>
             )}
@@ -67,7 +67,7 @@ const DashSidebar = () => {
             پروفایل کاربری
           </Link>
           {currentUser.isAdmin && (
-            <span className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-neutrals rounded-full text-white px-3 py-1">
+            <span className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-neutrals pointer-events-none rounded-full text-white px-3 py-1">
               ادمین
             </span>
           )}
