@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import Test from "../pages/Test";
 import SingleTest from "../pages/SingleTest";
 import GiftTest from "../pages/GiftTest";
+import PrivateRoute from "./PrivateRoute";
 
 const Home = lazy(() => import("../pages/Home"));
 const Aboutus = lazy(() => import("../pages/Aboutus"));
@@ -41,7 +42,7 @@ const routes = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: renderLayout(<Dashboard />),
+    element: <PrivateRoute element={renderLayout(<Dashboard />)} />, // Private Route
   },
   {
     path: "/test",

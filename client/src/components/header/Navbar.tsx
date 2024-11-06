@@ -20,7 +20,7 @@ const Navbar = () => {
       <div className="flex-1 justify-end gap-2">
         <Search />
         <Button
-          // link="/login"
+          link="/login"
           text="ورود - ثبت نام"
           className="hidden xs:block btn-md btn-outline btn-primary"
         />
