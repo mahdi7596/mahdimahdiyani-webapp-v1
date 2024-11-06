@@ -72,8 +72,32 @@ const DashSidebar = () => {
             </span>
           )}
         </li>
+        {currentUser.isAdmin && (
+          <li>
+            <Link
+              to="/dashboard?tab=posts"
+              className={`hover:bg-primary200 focus:bg-primary100 ${
+                tab === "posts" && "bg-primary100"
+              }  `}
+            >
+              مدیریت مقالات
+            </Link>
+          </li>
+        )}
+        {currentUser.isAdmin && (
+          <li>
+            <Link
+              to="/dashboard?tab=users"
+              className={`hover:bg-primary200 focus:bg-primary100 ${
+                tab === "users" && "bg-primary100"
+              }  `}
+            >
+              مدیریت کاربران
+            </Link>
+          </li>
+        )}
         <li>
-          <a onClick={handleSignout}>Sign Out</a>
+          <a onClick={handleSignout}>خرج</a>
         </li>
       </ul>
     </div>
