@@ -12,16 +12,11 @@ export const verifyToken = (req, res, next) => {
     return next(errorHandler(401, "Unauthorized"));
   }
 
-  jwt.verify(
-    token,
-    config.jwtSecret,
-    //  "mahdi", //! have to replace mahdi with this process.env.JWT_SECRET
-    (err, user) => {
-      if (err) {
-        return next(errorHandler(401, "Unauthorized"));
-      }
-      req.user = user;
-      next();
+  jwt.verify(token, config.jwtSecret, (err, user) => {
+    if (err) {
+      return next(errorHandler(401, "Unauthorized"));
     }
-  );
+    req.user = user;
+    next();
+  });
 };
