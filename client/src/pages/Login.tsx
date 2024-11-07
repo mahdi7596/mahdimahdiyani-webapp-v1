@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import {
@@ -32,26 +31,19 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     email.resetError();
     password.resetError();
-
     if (email.value === "" || password.value === "") {
       email.setError("پر کردن این فیلد الزامی است");
       password.setError("پر کردن این فیلد الزامی است");
     }
-
     const formData: ILogin = {
       email: email.value,
       password: password.value,
     };
-
-    console.log(formData); // Handle form submission
-
     // sending request to backend
     try {
       dispatch(signInStart());
-
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -60,9 +52,7 @@ const Login = () => {
       const data = await res.json();
       if (data.success === false) {
         dispatch(signInFailure(data.message));
-        // return setErrorMessage(data.message);
       }
-      // setLoading(false);
       if (res.ok) {
         dispatch(signInSuccess(data));
         navigate("/");
@@ -111,7 +101,6 @@ const Login = () => {
             label="کلمه عبور"
             placeholder="کلمه عبور خود را وارد کنید"
           />
-
           <Link
             to={"/forgot-password"}
             className="hover:btn-link self-end text-xs"

@@ -61,8 +61,6 @@ export const signin = async (req, res, next) => {
       config.jwtSecret
     );
 
-    console.log(config.jwtSecret);
-
     // i wrote this code inorder not to send the hashed password to front, because its more safe
     const { password: pass, ...rest } = validUser._doc;
 

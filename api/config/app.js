@@ -1,5 +1,6 @@
 // This file will be responsible for initializing the Express app, setting up middleware, and configuring the routes
 import express from "express";
+import cookieParser from "cookie-parser";
 
 import { errorHandler } from "../middleware/errorHandler.js";
 
@@ -11,6 +12,9 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+
+// این رو نوشتم که بتونم به کوکی ها دسترسی داشته باشم هرجایی که خواستم
+app.use(cookieParser());
 
 // Route configuration
 app.use("/api/auth", authRoutes);

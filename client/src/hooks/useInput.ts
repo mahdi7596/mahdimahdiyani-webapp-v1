@@ -6,8 +6,9 @@ const useInput = (initialValue: string, rules?: FieldValidation) => {
   const [error, setError] = useState<string>("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    console.log(e.target.value);
 
+    setValue(e.target.value);
     // Validate value when it changes
     if (rules) {
       const errorMessage = validateField(e.target.value, rules);

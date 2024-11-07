@@ -3,7 +3,8 @@ import { ChangeEvent } from "react";
 interface InputProps {
   type: "text" | "number" | "email" | "password";
   label: string;
-  value: string | number;
+  value?: string | number;
+  defaultValue?: string | number;
   name: string;
   placeholder: string;
   error?: string;
@@ -15,6 +16,7 @@ const Input = ({
   type,
   label,
   value,
+  defaultValue,
   name,
   placeholder,
   error,
@@ -30,6 +32,7 @@ const Input = ({
         value={value}
         name={name}
         onChange={onChange}
+        defaultValue={defaultValue}
         disabled={disabled}
         placeholder={placeholder}
         className="input input-bordered w-full text-sm text-neutrals500"

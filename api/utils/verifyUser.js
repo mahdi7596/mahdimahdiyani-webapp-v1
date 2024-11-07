@@ -1,7 +1,11 @@
 import jwt from "jsonwebtoken";
+
+import config from "../config/config.js";
 import { errorHandler } from "./error.js";
 
 export const verifyToken = (req, res, next) => {
+  console.log("verifyToken");
+  console.log("config.jwtSecret", config.jwtSecret);
   const token = req.cookies.access_token;
 
   if (!token) {
@@ -10,7 +14,8 @@ export const verifyToken = (req, res, next) => {
 
   jwt.verify(
     token,
-    "mahdi", //! have to replace mahdi with this process.env.JWT_SECRET
+    config.jwtSecret,
+    //  "mahdi", //! have to replace mahdi with this process.env.JWT_SECRET
     (err, user) => {
       if (err) {
         return next(errorHandler(401, "Unauthorized"));
