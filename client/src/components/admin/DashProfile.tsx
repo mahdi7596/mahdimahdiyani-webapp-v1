@@ -1,5 +1,4 @@
-import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -19,17 +18,15 @@ import profilePic from "../../assets/images/mahdimahdiyani-profile-pic.png";
 import useInput from "../../hooks/useInput";
 import Button from "../shared/Button";
 
-interface IUserCredentials {
-  profilePicture?: string;
-  username: string;
-  email: string;
-  password: string;
-}
+// interface IUserCredentials {
+//   profilePicture?: string;
+//   username: string;
+//   email: string;
+//   password: string;
+// }
 
 const DashProfile = () => {
-  const username = useInput("", { minLength: 3 });
-  const email = useInput("", { email: true });
-  const password = useInput("", { minLength: 6 });
+  const [formData, setFormData] = useState({});
 
   const [updateUserError, setUpdateUserError] = useState<string | null>(null);
   const [updateUserSuccess, setUpdateUserSuccess] = useState<string | null>(
@@ -40,20 +37,19 @@ const DashProfile = () => {
   const dispatch = useDispatch();
   const { currentUser, error, loading } = useSelector((state) => state.user);
 
-  const formData: IUserCredentials = {
-    username: username.value,
-    email: email.value,
-    password: password.value,
-  };
-
   console.log(formData);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    setUpdateUserSuccess(null);
+    setUpdateUserError(null);
     if (Object.keys(formData).length === 0) {
-      console.log("no change");
-      setUpdateUserError("تغییری ایجاد نشده است");
+      setUpdateUserError("no changes made");
       return;
     }
 
@@ -72,8 +68,7 @@ const DashProfile = () => {
         setUpdateUserError(data.message);
       } else {
         dispatch(updateSuccess(data));
-        setUpdateUserSuccess("اطلاعات کاربری به روز شد");
-        // loading = false;
+        setUpdateUserSuccess("users profile updated successfully");
       }
     } catch (error) {
       dispatch(updateFailure(error.message));
@@ -129,33 +124,64 @@ const DashProfile = () => {
             <span className="text-surfaceBg text-xs">بارگذاری تصویر</span>
           </div>
         </div>
-        <Input
-          name="username"
-          defaultValue={currentUser.username}
-          onChange={username.onChange}
-          error={username.error}
-          type="text"
-          label="نام کاربری"
-          placeholder="نام کاربری خود را وارد کنید"
-        />
-        <Input
-          name="email"
-          defaultValue={currentUser.email}
-          onChange={email.onChange}
-          error={email.error}
-          type="email"
-          label="ایمیل"
-          placeholder="ایمیل خود را وارد کنید"
-        />
-        <Input
-          name="password"
-          defaultValue={currentUser.email}
-          onChange={password.onChange}
-          error={password.error}
-          type="password"
-          label="کلمه عبور"
-          placeholder="کلمه عبور خود را وارد کنید"
-        />
+        <label className="input input-bordered flex items-center gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            className="h-4 w-4 opacity-70"
+          >
+            <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
+            <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
+          </svg>
+          <input
+            defaultValue={currentUser.username}
+            onChange={handleChange}
+            id="username"
+            type="text"
+            placeholder="username"
+            className="grow"
+          />
+        </label>
+        <label className="input input-bordered flex items-center gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            className="h-4 w-4 opacity-70"
+          >
+            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+          </svg>
+          <input
+            defaultValue={currentUser.email}
+            onChange={handleChange}
+            id="email"
+            type="email"
+            className="grow"
+            placeholder="Email"
+          />
+        </label>
+        <label className="input input-bordered flex items-center gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            className="h-4 w-4 opacity-70"
+          >
+            <path
+              fillRule="evenodd"
+              d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
+              clipRule="evenodd"
+            />
+          </svg>
+          <input
+            onChange={handleChange}
+            defaultValue={currentUser.email}
+            id="password"
+            type="password"
+            className="grow"
+          />
+        </label>
         <Button
           onAction={handleSubmit}
           text="ویرایش حساب کاربری"
