@@ -15,6 +15,13 @@ import {
 import profilePic from "../../assets/images/mahdimahdiyani-profile-pic.png";
 import Button from "../shared/Button";
 
+// interface IUserDto {
+//   profilePic: string;
+//   username: string;
+//   email: string;
+//   passowrd: string;
+// }
+
 const DashProfile = () => {
   const [formData, setFormData] = useState({});
 
@@ -41,27 +48,40 @@ const DashProfile = () => {
       return;
     }
 
-    try {
-      dispatch(updateStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        dispatch(updateFailure(data.message));
-        setUpdateUserError(data.message);
-      } else {
-        dispatch(updateSuccess(data));
-        setUpdateUserSuccess("حساب کاربری با موفقیت بروزرسانی شد");
+    Object.keys(formData).forEach((key) => {
+      const value = formData[key as keyof typeof formData];
+      console.log(`Key: ${key}, Value: ${value}`);
+
+      if (
+        !formData?.username.length ||
+        !formData?.email.length ||
+        !formData?.password.length
+      ) {
+        console.log("iran");
       }
-    } catch (error) {
-      dispatch(updateFailure(error.message));
-      setUpdateUserError(error.message);
-    }
+    });
+
+    // try {
+    //   dispatch(updateStart());
+    //   const res = await fetch(`/api/user/update/${currentUser._id}`, {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(formData),
+    //   });
+    //   const data = await res.json();
+    //   if (!res.ok) {
+    //     dispatch(updateFailure(data.message));
+    //     setUpdateUserError(data.message);
+    //   } else {
+    //     dispatch(updateSuccess(data));
+    //     setUpdateUserSuccess("حساب کاربری با موفقیت بروزرسانی شد");
+    //   }
+    // } catch (error) {
+    //   dispatch(updateFailure(error.message));
+    //   setUpdateUserError(error.message);
+    // }
   };
 
   const handleDeleteUser = async () => {
