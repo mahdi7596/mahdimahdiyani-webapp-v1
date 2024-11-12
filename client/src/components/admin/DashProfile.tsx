@@ -12,18 +12,8 @@ import {
   signoutSuccess,
 } from "../../redux/user/userSlice";
 
-import Input from "../shared/Input";
-
 import profilePic from "../../assets/images/mahdimahdiyani-profile-pic.png";
-import useInput from "../../hooks/useInput";
 import Button from "../shared/Button";
-
-// interface IUserCredentials {
-//   profilePicture?: string;
-//   username: string;
-//   email: string;
-//   password: string;
-// }
 
 const DashProfile = () => {
   const [formData, setFormData] = useState({});
@@ -37,8 +27,6 @@ const DashProfile = () => {
   const dispatch = useDispatch();
   const { currentUser, error, loading } = useSelector((state) => state.user);
 
-  console.log(formData);
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
@@ -49,7 +37,7 @@ const DashProfile = () => {
     setUpdateUserSuccess(null);
     setUpdateUserError(null);
     if (Object.keys(formData).length === 0) {
-      setUpdateUserError("no changes made");
+      setUpdateUserError("هیچ تغییر اعمال نشده است");
       return;
     }
 
@@ -68,7 +56,7 @@ const DashProfile = () => {
         setUpdateUserError(data.message);
       } else {
         dispatch(updateSuccess(data));
-        setUpdateUserSuccess("users profile updated successfully");
+        setUpdateUserSuccess("حساب کاربری با موفقیت بروزرسانی شد");
       }
     } catch (error) {
       dispatch(updateFailure(error.message));
@@ -76,41 +64,39 @@ const DashProfile = () => {
     }
   };
 
-  // const handleDeleteUser = async () => {
-  //   setShowModal(false);
-  //   try {
-  //     dispatch(deleteUserStart());
-  //     const res = await fetch(`/api/user/delete/${currentUser._id}`, {
-  //       method: "DELETE",
-  //     });
-  //     const data = await res.json();
-  //     if (!res.ok) {
-  //       dispatch(deleteUserFailure(data.message));
-  //     } else {
-  //       dispatch(deleteUserSuccess(data));
-  //     }
-  //   } catch (error) {
-  //     dispatch(deleteUserFailure(error.message));
-  //   }
-  // };
+  const handleDeleteUser = async () => {
+    setShowModal(false);
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        dispatch(deleteUserFailure(data.message));
+      } else {
+        dispatch(deleteUserSuccess(data));
+      }
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
 
-  // const handleSignout = async () => {
-  //   try {
-  //     const res = await fetch("/api/user/signout", {
-  //       method: "POST",
-  //     });
-  //     const data = await res.json();
-  //     if (!res.ok) {
-  //       console.log(data.message);
-  //     } else {
-  //       dispatch(signoutSuccess());
-  //     }
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // };
-
-  // const isFormValid = !username.error && !email.error && !password.error;
+  const handleSignout = async () => {
+    try {
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signoutSuccess());
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <div className="w-1/2 mx-auto flex flex-col">
@@ -118,7 +104,6 @@ const DashProfile = () => {
         <div className="group/item relative avatar self-center flex flex-col items-center justify-center">
           <div className="w-24 ring ring-offset-2 ring-neutrals200 ring-offset-base-100 rounded-full">
             <img src={profilePic} />
-            {/* upload image */}
           </div>
           <div className="invisible group-hover/item:visible w-full h-full !flex flex-col justify-center items-center bg-black bg-opacity-60 absolute rounded-full cursor-pointer">
             <span className="text-surfaceBg text-xs">بارگذاری تصویر</span>
@@ -187,13 +172,12 @@ const DashProfile = () => {
           text="ویرایش حساب کاربری"
           type="submit"
           className="btn-primary btn-block"
-          // disabled={!isFormValid}
           loading={loading}
         />
       </form>
 
       {updateUserSuccess && (
-        <div role="alert" className="alert alert-success">
+        <div role="alert" className="alert bg-success  text-primary-content">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 shrink-0 stroke-current"
@@ -211,7 +195,7 @@ const DashProfile = () => {
         </div>
       )}
       {updateUserError && (
-        <div role="alert" className="alert alert-error">
+        <div role="alert" className="alert bg-danger text-primary-content">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 shrink-0 stroke-current"
@@ -225,11 +209,11 @@ const DashProfile = () => {
               d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          <span>{updateUserError} </span>
+          <span>{updateUserError}</span>
         </div>
       )}
       {error && (
-        <div role="alert" className="alert alert-error">
+        <div role="alert" className="alert bg-danger text-primary-content">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 shrink-0 stroke-current"
