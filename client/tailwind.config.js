@@ -66,6 +66,8 @@ export default {
           "neutral-content": "#D7D7D7",
           accent: "#00B8D9",
           "accent-content": "#ffffff",
+          error: "#C8372C",
+          "error-content": "#ffffff",
         },
       },
     ],

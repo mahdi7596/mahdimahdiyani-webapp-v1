@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useRef } from "react";
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -21,9 +21,8 @@ const DashProfile = () => {
   const [updateUserSuccess, setUpdateUserSuccess] = useState<string | null>(
     null
   );
-  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const [testError, setTestError] = useState(true);
+  const inputRef = useRef(null); // Create a ref for the input element
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -62,7 +61,6 @@ const DashProfile = () => {
   };
 
   const handleDeleteUser = async () => {
-    setShowModal(false);
     try {
       dispatch(deleteUserStart());
       const res = await fetch(`/api/user/delete/${currentUser._id}`, {
@@ -79,22 +77,6 @@ const DashProfile = () => {
     }
   };
 
-  const handleSignout = async () => {
-    try {
-      const res = await fetch("/api/user/signout", {
-        method: "POST",
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        console.log(data.message);
-      } else {
-        dispatch(signoutSuccess());
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   if (updateUserSuccess) {
     setTimeout(() => {
       setUpdateUserSuccess(null);
@@ -107,11 +89,10 @@ const DashProfile = () => {
   }
 
   return (
-    <div className="w-1/2 mx-auto flex flex-col">
-      {testError && <p>mahdi</p>}
+    <div className="w-1/2 mx-auto flex flex-col bg-surfaceBg p-6 border border-surfaceBorder rounded">
       <form onSubmit={handleSubmit} className="w-full flex flex-col gap-y-4">
         <div className="group/item relative avatar self-center flex flex-col items-center justify-center">
-          <div className="w-24 ring ring-offset-2 ring-neutrals200 ring-offset-base-100 rounded-full">
+          <div className="w-24 ring ring-offset-1 ring-gray-200 ring-offset-base-100 rounded-full">
             <img src={profilePic} />
           </div>
           <div className="invisible group-hover/item:visible w-full h-full !flex flex-col justify-center items-center bg-black bg-opacity-60 absolute rounded-full cursor-pointer">
@@ -182,6 +163,16 @@ const DashProfile = () => {
           className="btn-primary btn-block"
           loading={loading}
         />
+        <div className="flex items-center justify-end">
+          <Button
+            onAction={() => {
+              inputRef.current?.showModal();
+            }}
+            text="حذف حساب کاربری"
+            className="w-fit btn-error btn-outline "
+            loading={loading}
+          />
+        </div>
       </form>
       {updateUserSuccess && (
         <div role="alert" className="alert bg-success  text-primary-content">
@@ -219,6 +210,25 @@ const DashProfile = () => {
           <span>{error}</span>
         </div>
       )}
+      {/* delete modal */}
+      <dialog ref={inputRef} id="my_modal_1" className="modal">
+        <div className="modal-box  max-w-xl">
+          <p className="py-4 text-base">
+            آیا از حذف حساب کاربری خود اطمینان دارید؟
+          </p>
+          <div className="modal-action">
+            <form method="dialog" className="flex items-center gap-x-3">
+              <button className="btn">انصراف</button>
+              <Button
+                onAction={handleDeleteUser}
+                text="حذف"
+                type="submit"
+                className="btn-error w-20"
+              />
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };

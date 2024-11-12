@@ -97,7 +97,7 @@ const DashSidebar = () => {
           </li>
         )}
         <li>
-          <a onClick={handleSignout}>خرج</a>
+          <a onClick={handleSignout}>خروج</a>
         </li>
       </ul>
     </div>
