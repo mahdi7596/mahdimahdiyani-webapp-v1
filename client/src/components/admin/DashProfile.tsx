@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -18,12 +18,12 @@ import Button from "../shared/Button";
 const DashProfile = () => {
   const { currentUser, error, loading } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
-  const [updateUserError, setUpdateUserError] = useState<string | null>(null);
   const [updateUserSuccess, setUpdateUserSuccess] = useState<string | null>(
     null
   );
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
+  const [testError, setTestError] = useState(true);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -33,14 +33,12 @@ const DashProfile = () => {
     e.preventDefault();
 
     setUpdateUserSuccess(null);
-    setUpdateUserError(null);
+    dispatch(updateFailure(null));
 
     if (Object.keys(formData).length === 0) {
-      setUpdateUserError("هیچ تغییر اعمال نشده است");
+      dispatch(updateFailure("هیچ تغییر اعمال نشده است"));
       return;
     }
-
-    console.log(formData);
 
     try {
       dispatch(updateStart());
@@ -54,14 +52,12 @@ const DashProfile = () => {
       const data = await res.json();
       if (!res.ok) {
         dispatch(updateFailure(data.message));
-        setUpdateUserError(data.message);
       } else {
         dispatch(updateSuccess(data));
         setUpdateUserSuccess("حساب کاربری با موفقیت بروزرسانی شد");
       }
     } catch (error) {
       dispatch(updateFailure(error.message));
-      setUpdateUserError(error.message);
     }
   };
 
@@ -99,8 +95,20 @@ const DashProfile = () => {
     }
   };
 
+  if (updateUserSuccess) {
+    setTimeout(() => {
+      setUpdateUserSuccess(null);
+    }, 5000);
+  }
+  if (error) {
+    setTimeout(() => {
+      dispatch(updateFailure(null));
+    }, 5000);
+  }
+
   return (
     <div className="w-1/2 mx-auto flex flex-col">
+      {testError && <p>mahdi</p>}
       <form onSubmit={handleSubmit} className="w-full flex flex-col gap-y-4">
         <div className="group/item relative avatar self-center flex flex-col items-center justify-center">
           <div className="w-24 ring ring-offset-2 ring-neutrals200 ring-offset-base-100 rounded-full">
@@ -175,7 +183,6 @@ const DashProfile = () => {
           loading={loading}
         />
       </form>
-
       {updateUserSuccess && (
         <div role="alert" className="alert bg-success  text-primary-content">
           <svg
@@ -194,24 +201,6 @@ const DashProfile = () => {
           <span>{updateUserSuccess} </span>
         </div>
       )}
-      {updateUserError && (
-        <div role="alert" className="alert bg-danger text-primary-content">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 shrink-0 stroke-current"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <span>{updateUserError}</span>
-        </div>
-      )}
       {error && (
         <div role="alert" className="alert bg-danger text-primary-content">
           <svg
@@ -227,7 +216,7 @@ const DashProfile = () => {
               d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          <span>{error} </span>
+          <span>{error}</span>
         </div>
       )}
     </div>
