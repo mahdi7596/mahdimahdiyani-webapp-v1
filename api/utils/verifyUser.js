@@ -4,8 +4,8 @@ import config from "../config/config.js";
 import { errorHandler } from "./error.js";
 
 export const verifyToken = (req, res, next) => {
-  console.log("verifyToken");
-  console.log("config.jwtSecret", config.jwtSecret);
+  // console.log("verifyToken");
+  // console.log("config.jwtSecret", config.jwtSecret);
   const token = req.cookies.access_token;
 
   if (!token) {

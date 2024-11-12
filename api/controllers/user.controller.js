@@ -7,41 +7,34 @@ export const test = (req, res) => {
 };
 
 export const updateUser = async (req, res, next) => {
-  console.log(req.user);
-
   if (req.user.id !== req.params.userId) {
-    return next(errorHandler(403, "you are not allowd to update this user"));
+    return next(errorHandler(403, "شما دسترسی بروزرسانی این کاربر را ندارید"));
   }
 
   if (req.body.password) {
     if (req.body.password.length < 6) {
-      return next(errorHandler(400, "password must be at least 6 characters"));
+      return next(errorHandler(400, "کلمه ی عبور باید حداقل ۶ کاراکتر باشد"));
     }
     req.body.password = bcryptjs.hashSync(req.body.password, 10);
   }
 
   if (req.body.username) {
-    if (req.body.username.length < 7 || req.body.username.length > 20) {
+    if (req.body.username.length < 4 || req.body.username.length > 20) {
       return next(
-        errorHandler(400, "username must be between 7 and 20 characters")
+        errorHandler(400, "نام کاربری باید بین ۴ تا ۲۰ کاراکتر باشد")
       );
     }
     if (req.body.username.includes(" ")) {
-      return next(errorHandler(400, "username cannot contain spaces"));
+      return next(errorHandler(400, "نام کاربری نمیتواند شامل اسپیس باشد"));
     }
     if (req.body.username !== req.body.username.toLowerCase()) {
       return next(errorHandler(400, "username must be in lowercase"));
     }
     if (!req.body.username.match(/^[a-zA-Z0-9]+$/)) {
       return next(
-        errorHandler(400, "username can only contain letters and numbers")
+        errorHandler(400, "نام کاربری فقط میتواند شامل کاراکتر و عدد باشد")
       );
     }
-    // !have to fix this issue because right now users can add empty fields
-    // if (req.body.username === "") {
-    //   console.log("mahdi");
-    //   return next(errorHandler(400, "username cant be empty"));
-    // }
   }
 
   try {
@@ -67,13 +60,11 @@ export const updateUser = async (req, res, next) => {
 export const deleteUser = async (req, res, next) => {
   // we are saying if user is not an admin because we want the admin to be able to delete the user
   if (!req.user.isAdmin && req.user.id !== req.params.userId) {
-    return next(
-      errorHandler(403, "you are not allowed to delete this account")
-    );
+    return next(errorHandler(403, "شما دسترسی حذف این کاربر را ندارید"));
   }
   try {
     await User.findByIdAndDelete(req.params.userId);
-    res.status(200).json("user has been deleted");
+    res.status(200).json("کاربر با موفقیت حذف شد");
   } catch (error) {
     next(error);
   }
@@ -84,7 +75,7 @@ export const signout = async (req, res, next) => {
     res
       .clearCookie("access_token")
       .status(200)
-      .json("user has been signed out");
+      .json("خروج از حساب کاربری با موفقیت انجام شد");
   } catch (error) {
     next(error);
   }
@@ -92,7 +83,7 @@ export const signout = async (req, res, next) => {
 
 export const getUsers = async (req, res, next) => {
   if (!req.user.isAdmin) {
-    return next(errorHandler(403, "you are not allowed to see all users"));
+    return next(errorHandler(403, "شما دسترسی دیدن کاربران را ندارید"));
   }
   try {
     const startIndex = parseInt(req.query.startIndex) || 0;
