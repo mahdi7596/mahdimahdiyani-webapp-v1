@@ -4,6 +4,8 @@ import { createBrowserRouter } from "react-router-dom";
 import Navbar from "../components/header/Navbar";
 import Footer from "../components/Footer";
 import PrivateRoute from "./PrivateRoute";
+import DashPost from "../components/admin/DashPost";
+import OnlyAdminPrivateRoute from "./OnlyAdminPrivateRoute";
 
 const Home = lazy(() => import("../pages/Home"));
 const Aboutus = lazy(() => import("../pages/Aboutus"));
@@ -41,6 +43,15 @@ const routes = createBrowserRouter([
     path: "/dashboard",
     element: <PrivateRoute element={renderLayout(<Dashboard />)} />, // Private Route
   },
+  {
+    path: "/create-post",
+    element: <OnlyAdminPrivateRoute element={renderLayout(<DashPost />)} />, // Admin Private Route
+  },
+  // {
+  //   path: "/update-post/:postId",
+  //   element: <PrivateRoute element={renderLayout(<UpdatePost />)} />, // Admin Private Route
+  // },
+
   {
     path: "*",
     element: <NotFoundPage />,
