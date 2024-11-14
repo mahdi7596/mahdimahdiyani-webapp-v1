@@ -6,7 +6,7 @@ import { errorHandler } from "../middleware/errorHandler.js";
 
 import authRoutes from "../routes/auth.route.js";
 import userRoutes from "../routes/user.route.js";
-// import postRoutes from "../routes/post.route.js";
+import postRoutes from "../routes/post.route.js";
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.use(cookieParser());
 // Route configuration
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
-// app.use("/api/post", postRoutes);
+app.use("/api/post", postRoutes);
 
 // handle error using errorHandler middleware
 app.use(errorHandler);

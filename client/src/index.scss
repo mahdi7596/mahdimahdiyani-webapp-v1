@@ -30,3 +30,47 @@ body {
 .rtl {
   direction: rtl;
 }
+
+
+.ql-editor {
+  font-size: 1.05rem;
+  direction: rtl;
+  text-align: right;
+}
+
+.ql-container {
+  font-family: "primaryFont" !important;
+
+}
+
+.custom-post-content p {
+  margin-bottom: 0.5rem;
+}
+
+.custom-post-content h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1.5rem 0;
+
+}
+
+.custom-post-content h2 {
+  font-size: 1.4rem;
+  margin: 1.5rem 0;
+
+}
+
+.custom-post-content a,
+.ql-snow a {
+  color: var(--primary-700);
+  text-decoration: none;
+
+}
+
+.custom-post-content a:hover {
+  text-decoration: underline;
+}
+
+.dark .custom-post-content a {
+  color: red;
+}

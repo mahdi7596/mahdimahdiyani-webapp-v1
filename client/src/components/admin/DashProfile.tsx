@@ -89,7 +89,7 @@ const DashProfile = () => {
   }
 
   return (
-    <div className="w-1/2 mx-auto flex flex-col bg-surfaceBg p-6 border border-surfaceBorder rounded">
+    <div className="w-1/2 mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
       <form onSubmit={handleSubmit} className="w-full flex flex-col gap-y-4">
         <div className="group/item relative avatar self-center flex flex-col items-center justify-center">
           <div className="w-24 ring ring-offset-1 ring-gray-200 ring-offset-base-100 rounded-full">
@@ -114,7 +114,7 @@ const DashProfile = () => {
             onChange={handleChange}
             id="username"
             type="text"
-            placeholder="username"
+            placeholder="نام کاربری"
             className="grow"
           />
         </label>
@@ -133,7 +133,7 @@ const DashProfile = () => {
             id="email"
             type="email"
             className="grow"
-            placeholder="Email"
+            placeholder="ایمیل"
           />
         </label>
         <label className="input input-bordered flex items-center gap-2">
