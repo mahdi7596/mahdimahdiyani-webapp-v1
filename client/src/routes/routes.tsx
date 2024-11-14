@@ -51,7 +51,6 @@ const routes = createBrowserRouter([
   //   path: "/update-post/:postId",
   //   element: <PrivateRoute element={renderLayout(<UpdatePost />)} />, // Admin Private Route
   // },
-
   {
     path: "*",
     element: <NotFoundPage />,
