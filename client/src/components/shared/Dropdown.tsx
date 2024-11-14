@@ -5,9 +5,10 @@ import { IMenuItem } from "../header/IMenuItem";
 interface Props {
   dropDownItems: IMenuItem[];
   className: string;
+  onAction?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Dropdown = ({ dropDownItems, className }: Props) => {
+const Dropdown = ({ dropDownItems, className, onAction }: Props) => {
   return (
     <ul
       tabIndex={0}
@@ -21,6 +22,11 @@ const Dropdown = ({ dropDownItems, className }: Props) => {
           <Link to={menuItem.link}>{menuItem.text}</Link>
         </li>
       ))}
+      {onAction && (
+        <li className="text-neutrals500 hover:text-neutrals">
+          <span onClick={onAction}>خروج</span>
+        </li>
+      )}
     </ul>
   );
 };

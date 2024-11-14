@@ -41,17 +41,12 @@ export const navMenuItems: IMenuItem[] = [
 export const profileMenuItems: IMenuItem[] = [
   {
     id: 1,
-    text: "کاربری",
-    link: "/",
+    text: "پروفایل کاربری",
+    link: "/dashboard?tab=profile",
   },
   {
     id: 2,
-    text: "تنظیمات",
-    link: "/",
-  },
-  {
-    id: 3,
-    text: "خروج",
+    text: "اضافه کردن پست",
     link: "/",
   },
 ];
