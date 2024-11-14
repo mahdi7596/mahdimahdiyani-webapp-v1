@@ -1,11 +1,12 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
+import OnlyAdminPrivateRoute from "./OnlyAdminPrivateRoute";
+import PrivateRoute from "./PrivateRoute";
+
+import DashPosts from "../components/admin/DashPosts";
 import Navbar from "../components/header/Navbar";
 import Footer from "../components/Footer";
-import PrivateRoute from "./PrivateRoute";
-import DashPost from "../components/admin/DashPost";
-import OnlyAdminPrivateRoute from "./OnlyAdminPrivateRoute";
 
 const Home = lazy(() => import("../pages/Home"));
 const Aboutus = lazy(() => import("../pages/Aboutus"));
@@ -44,8 +45,8 @@ const routes = createBrowserRouter([
     element: <PrivateRoute element={renderLayout(<Dashboard />)} />, // Private Route
   },
   {
-    path: "/create-post",
-    element: <OnlyAdminPrivateRoute element={renderLayout(<DashPost />)} />, // Admin Private Route
+    // path: "/create-post",
+    element: <OnlyAdminPrivateRoute element={renderLayout(<DashPosts />)} />, // Admin Private Route
   },
   // {
   //   path: "/update-post/:postId",

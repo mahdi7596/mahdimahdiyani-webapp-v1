@@ -46,7 +46,7 @@ export const profileMenuItems: IMenuItem[] = [
   },
   {
     id: 2,
-    text: "اضافه کردن پست",
-    link: "/",
+    text: "مدیریت مقالات",
+    link: "/dashboard?tab=posts",
   },
 ];

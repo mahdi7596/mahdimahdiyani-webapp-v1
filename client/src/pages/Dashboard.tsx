@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+
 import DashSidebar from "../components/admin/DashSidebar";
 import DashProfile from "../components/admin/DashProfile";
+import DashPosts from "../components/admin/DashPosts";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -20,7 +22,7 @@ const Dashboard = () => {
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col p-8">
         {tab === "profile" && <DashProfile />}
-        {/* {tab === "posts" && <DashPosts />} */}
+        {tab === "posts" && <DashPosts />}
         {/* {tab === "users" && <DashUsers />} */}
         {/* {tab === "dash" && <DashboardComp />} */}
       </div>
