@@ -8,11 +8,12 @@ import Button from "../shared/Button";
 const DashPosts = () => {
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState<string | null>(null);
-
+  console.log(formData);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData);
     try {
       const res = await fetch("/api/post/create", {
         method: "POST",
@@ -22,14 +23,16 @@ const DashPosts = () => {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
+      // console.log(data.message);
       if (!res.ok) {
+        console.log("test");
         setPublishError(data.message);
         return;
       }
-      // if (data.success === false) {
-      //   setPublishError(data.message);
-      //   return;
-      // }
+      if (data.success === false) {
+        setPublishError(data.message);
+        return;
+      }
       if (res.ok) {
         setPublishError(null);
         navigate(`/post/${data.slug}`);
