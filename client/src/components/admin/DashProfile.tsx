@@ -89,7 +89,7 @@ const DashProfile = () => {
   }
 
   return (
-    <div className="w-1/2 mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
+    <div className="w-full xs:w-5/6  h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
       <form onSubmit={handleSubmit} className="w-full flex flex-col gap-y-4">
         <div className="group/item relative avatar self-center flex flex-col items-center justify-center">
           <div className="w-24 ring ring-offset-1 ring-gray-200 ring-offset-base-100 rounded-full">
