@@ -82,6 +82,7 @@ const DashProfile = () => {
       setUpdateUserSuccess(null);
     }, 5000);
   }
+
   if (error) {
     setTimeout(() => {
       dispatch(updateFailure(null));

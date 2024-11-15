@@ -3,11 +3,13 @@ import { errorHandler } from "../utils/error.js";
 
 export const create = async (req, res, next) => {
   if (!req.user.isAdmin) {
-    return next(errorHandler(403, "you are not allowed to create a post"));
+    return next(errorHandler(403, "شما مجاز به ایجاد یک پست نیستید."));
   }
 
   if (!req.body.title || !req.body.content) {
-    return next(errorHandler(400, "plz provide all required fields"));
+    return next(
+      errorHandler(400, "لطفاً تمام فیلدهای مورد نیاز را ارائه دهید.")
+    );
   }
 
   const slug = req.body.title
@@ -99,7 +101,7 @@ export const getPosts = async (req, res, next) => {
       lastMonthPosts,
     });
   } catch (error) {
-    // ! hvat to fix this
+    // ! todo hvat to fix this
     next(error);
     console.log(error);
   }
@@ -107,11 +109,11 @@ export const getPosts = async (req, res, next) => {
 
 export const deletePost = async (req, res, next) => {
   if (!req.user.isAdmin || req.user.id !== req.params.userId) {
-    return next(errorHandler(403, "you are not allowed to delete this post"));
+    return next(errorHandler(403, "شما مجاز به حذف این پست نیستید."));
   }
   try {
     await Post.findByIdAndDelete(req.params.postId);
-    res.status(200).json("the post has been deleted");
+    res.status(200).json("پست حذف شده است.");
   } catch (error) {
     next(error);
   }
@@ -119,7 +121,7 @@ export const deletePost = async (req, res, next) => {
 
 export const updatePost = async (req, res, next) => {
   if (!req.user.isAdmin || req.user.id !== req.params.userId) {
-    return next(errorHandler(403, "you are not allowed to update this post"));
+    return next(errorHandler(403, "شما مجاز به به‌روزرسانی این پست نیستید."));
   }
   try {
     const updatedPost = await Post.findByIdAndUpdate(
