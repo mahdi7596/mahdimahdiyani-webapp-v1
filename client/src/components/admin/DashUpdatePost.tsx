@@ -108,7 +108,7 @@ const DashUpdatePost = () => {
         />
         <Button
           onAction={handleSubmit}
-          text="افزودن"
+          text="بروزرسانی"
           type="submit"
           className="btn-primary w-44 mt-9"
           // loading={loading}
