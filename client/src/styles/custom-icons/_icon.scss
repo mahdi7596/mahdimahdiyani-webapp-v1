@@ -13,7 +13,6 @@
 }
 
 i[class*="maicon-"] {
-    /* use !important to prevent issues with browser extensions that change fonts */
     font-family: '#{$icomoon-font-family}' !important;
     speak: never;
     font-style: normal;
@@ -22,9 +21,158 @@ i[class*="maicon-"] {
     text-transform: none;
     line-height: 1;
 
-    /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.maicon-add-circle-solid {
+    &:before {
+        content: $maicon-add-circle-solid;
+    }
+}
+
+.maicon-add-circle {
+    &:before {
+        content: $maicon-add-circle;
+    }
+}
+
+.maicon-add-square-solid {
+    &:before {
+        content: $maicon-add-square-solid;
+    }
+}
+
+.maicon-add-square {
+    &:before {
+        content: $maicon-add-square;
+    }
+}
+
+.maicon-bookmark-solid {
+    &:before {
+        content: $maicon-bookmark-solid;
+    }
+}
+
+.maicon-bookmark {
+    &:before {
+        content: $maicon-bookmark;
+    }
+}
+
+.maicon-comment-solid {
+    &:before {
+        content: $maicon-comment-solid;
+    }
+}
+
+.maicon-comment {
+    &:before {
+        content: $maicon-comment;
+    }
+}
+
+.maicon-download {
+    &:before {
+        content: $maicon-download;
+    }
+}
+
+.maicon-edit-solid {
+    &:before {
+        content: $maicon-edit-solid;
+    }
+}
+
+.maicon-edit {
+    &:before {
+        content: $maicon-edit;
+    }
+}
+
+.maicon-gallery {
+    &:before {
+        content: $maicon-gallery;
+    }
+}
+
+.maicon-hashtag {
+    &:before {
+        content: $maicon-hashtag;
+    }
+}
+
+.maicon-image {
+    &:before {
+        content: $maicon-image;
+    }
+}
+
+.maicon-share1 {
+    &:before {
+        content: $maicon-share1;
+    }
+}
+
+.maicon-tag-solid {
+    &:before {
+        content: $maicon-tag-solid;
+    }
+}
+
+.maicon-tag1 {
+    &:before {
+        content: $maicon-tag1;
+    }
+}
+
+.maicon-trash-solid {
+    &:before {
+        content: $maicon-trash-solid;
+    }
+}
+
+.maicon-trash {
+    &:before {
+        content: $maicon-trash;
+    }
+}
+
+.maicon-upload {
+    &:before {
+        content: $maicon-upload;
+    }
+}
+
+.maicon-user-solid {
+    &:before {
+        content: $maicon-user-solid;
+    }
+}
+
+.maicon-users-solid {
+    &:before {
+        content: $maicon-users-solid;
+    }
+}
+
+.maicon-image-solid {
+    &:before {
+        content: $maicon-image-solid;
+    }
+}
+
+.maicon-category {
+    &:before {
+        content: $maicon-category;
+    }
+}
+
+.maicon-video {
+    &:before {
+        content: $maicon-video;
+    }
 }
 
 .maicon-share {

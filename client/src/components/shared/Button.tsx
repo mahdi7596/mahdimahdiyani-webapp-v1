@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 export interface ButtonProps {
   link?: string;
   text?: string;
+  title?: string;
   className?: string;
   type?: "button" | "submit" | "reset";
   onAction?: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -14,6 +15,7 @@ export interface ButtonProps {
 const Button = ({
   link = "#",
   text,
+  title,
   onAction,
   className,
   type = "button",
@@ -27,6 +29,7 @@ const Button = ({
       onClick={onAction}
       className={`btn items-center+ ${className}`}
       disabled={disabled}
+      title={title}
     >
       <Link to={link} className="flex items-center">
         {text && text}

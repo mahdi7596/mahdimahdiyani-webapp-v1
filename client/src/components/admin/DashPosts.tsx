@@ -114,16 +114,18 @@ const DashPosts = () => {
                   <td>
                     <Button
                       link={`/update-post/${userPost?._id}`}
-                      className="btn-xs btn-outline btn-primary ml-3"
-                      icon="add-circle-solid"
+                      title="ویرایش"
+                      className="btn-sm btn-outline btn-primary ml-3"
+                      icon="edit-solid text-lg"
                     />
                     <Button
                       onAction={() => {
                         setShowModal(true);
                         setPostIdToDelete(userPost?._id);
                       }}
-                      className="btn-xs btn-outline btn-error"
-                      icon="arrrow"
+                      title="حذف"
+                      className="btn-sm btn-outline btn-error"
+                      icon="trash-solid text-lg"
                     />
                   </td>
                 </tr>
