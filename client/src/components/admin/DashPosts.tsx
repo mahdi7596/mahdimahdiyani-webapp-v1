@@ -117,9 +117,9 @@ const DashPosts = () => {
                       .locale("fa")
                       .format("YYYY/MM/DD")}
                   </td>
-
                   <td>
                     <Button
+                      // link={`/dashboard?tab=update-post/${userPost?._id}`}
                       link={`/update-post/${userPost?._id}`}
                       title="ویرایش"
                       className="btn-sm btn-outline btn-primary ml-3"

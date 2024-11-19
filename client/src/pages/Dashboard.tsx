@@ -5,6 +5,7 @@ import DashSidebar from "../components/admin/DashSidebar";
 import DashProfile from "../components/admin/DashProfile";
 import DashPosts from "../components/admin/DashPosts";
 import DashAddPost from "../components/admin/DashAddPost";
+import DashUpdatePost from "../components/admin/DashUpdatePost";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -25,6 +26,7 @@ const Dashboard = () => {
         {tab === "profile" && <DashProfile />}
         {tab === "posts" && <DashPosts />}
         {tab === "addPost" && <DashAddPost />}
+        {tab === "update-post/:postId" && <DashUpdatePost />}
         {/* {tab === "users" && <DashUsers />} */}
         {/* {tab === "dash" && <DashboardComp />} */}
       </div>

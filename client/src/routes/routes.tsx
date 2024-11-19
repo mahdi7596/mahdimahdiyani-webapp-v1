@@ -8,6 +8,7 @@ import DashPosts from "../components/admin/DashPosts";
 import Navbar from "../components/header/Navbar";
 import Footer from "../components/Footer";
 import DashAddPost from "../components/admin/DashAddPost";
+import DashUpdatePost from "../components/admin/DashUpdatePost";
 
 const Home = lazy(() => import("../pages/Home"));
 const Aboutus = lazy(() => import("../pages/Aboutus"));
@@ -53,10 +54,10 @@ const routes = createBrowserRouter([
     // path: "/add-post",
     element: <OnlyAdminPrivateRoute element={renderLayout(<DashAddPost />)} />, // Admin Private Route
   },
-  // {
-  //   path: "/update-post/:postId",
-  //   element: <PrivateRoute element={renderLayout(<UpdatePost />)} />, // Admin Private Route
-  // },
+  {
+    path: "/update-post/:postId",
+    element: <PrivateRoute element={renderLayout(<DashUpdatePost />)} />, // Admin Private Route
+  },
   {
     path: "*",
     element: <NotFoundPage />,
