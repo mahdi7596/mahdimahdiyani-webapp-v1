@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import moment from "jalali-moment";
 
 import Button from "../shared/Button";
 
@@ -110,7 +111,13 @@ const DashPosts = () => {
                   <td>
                     <span>{userPost?.category}</span>
                   </td>
-                  <td>{new Date(userPost?.updatedAt).toLocaleDateString()}</td>
+                  <td>
+                    {/* {new Date(userPost?.updatedAt).toLocaleDateString()} */}
+                    {moment(userPost?.updatedAt, "YYYY/MM/DD")
+                      .locale("fa")
+                      .format("YYYY/MM/DD")}
+                  </td>
+
                   <td>
                     <Button
                       link={`/update-post/${userPost?._id}`}
