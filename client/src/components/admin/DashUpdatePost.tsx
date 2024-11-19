@@ -15,35 +15,41 @@ const DashUpdatePost = () => {
 
   const { currentUser } = useSelector((state) => state.user);
 
+  console.log(formData);
+  console.log(formData._id);
+
   const handleSubmit = async (e) => {
+    console.log(currentUser._id);
+    console.log(formData._id);
+
     e.preventDefault();
-    try {
-      const res = await fetch(
-        `/api/post/updatepost/${formData._id}/${currentUser._id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-      const data = await res.json();
-      if (!res.ok) {
-        setPublishError(data.message);
-        return;
-      }
-      if (data.success === false) {
-        setPublishError(data.message);
-        return;
-      }
-      if (res.ok) {
-        setPublishError(null);
-        navigate(`/post/${data.slug}`);
-      }
-    } catch (error) {
-      setPublishError("مشکلی پیش آمده است");
-    }
+    // try {
+    //   const res = await fetch(
+    //     `/api/post/updatepost/${formData._id}/${currentUser._id}`,
+    //     {
+    //       method: "PUT",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify(formData),
+    //     }
+    //   );
+    //   const data = await res.json();
+    //   if (!res.ok) {
+    //     setPublishError(data.message);
+    //     return;
+    //   }
+    //   if (data.success === false) {
+    //     setPublishError(data.message);
+    //     return;
+    //   }
+    //   if (res.ok) {
+    //     setPublishError(null);
+    //     navigate(`/post/${data.slug}`);
+    //   }
+    // } catch (error) {
+    //   setPublishError("مشکلی پیش آمده است");
+    // }
   };
 
   useEffect(() => {

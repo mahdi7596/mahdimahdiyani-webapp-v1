@@ -22,7 +22,7 @@ const DashProfile = () => {
     null
   );
   const dispatch = useDispatch();
-  const deleteModalRef = useRef(null); // Create a ref for the input element
+  const deleteModalRef = useRef(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });

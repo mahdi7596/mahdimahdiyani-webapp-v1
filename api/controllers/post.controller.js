@@ -124,10 +124,11 @@ export const updatePost = async (req, res, next) => {
     return next(errorHandler(403, "شما مجاز به به‌روزرسانی این پست نیستید."));
   }
   try {
+    console.log("test");
+    console.log(req.params.postId);
     const updatedPost = await Post.findByIdAndUpdate(
       req.params.postId,
       {
-        // for privacy we have used this way and we decided that which fields can the user update
         $set: {
           title: req.body.title,
           content: req.body.content,

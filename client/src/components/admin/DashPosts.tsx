@@ -9,7 +9,6 @@ const DashPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
-  const [showModal, setShowModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState("");
 
   const deleteModalRef = useRef(null); // Create a ref for the input element
@@ -53,7 +52,6 @@ const DashPosts = () => {
   };
 
   const handleDeletePost = async () => {
-    setShowModal(false);
     try {
       const res = await fetch(
         `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
@@ -68,6 +66,7 @@ const DashPosts = () => {
         setUserPosts((prev) =>
           prev.filter((post) => post._id !== postIdToDelete)
         );
+        deleteModalRef.current?.close();
       }
     } catch (error) {
       console.log(error);
@@ -98,14 +97,19 @@ const DashPosts = () => {
                 <tr key={i}>
                   <td>
                     <div className="flex items-center gap-3">
-                      <Link to={`/post/${userPost?.slug}`}>
+                      <Link
+                        to={`/post/${userPost?.slug}`}
+                        className="flex items-center gap-x-1.5"
+                      >
                         <div className="avatar">
                           <div className="mask mask-squircle h-12 w-12">
                             <img src={userPost?.image} alt={userPost?.title} />
                           </div>
                         </div>
+                        <span className="hover:text-primary">
+                          {userPost?.title}
+                        </span>
                       </Link>
-                      <span>{userPost?.title}</span>
                     </div>
                   </td>
                   <td>
@@ -127,7 +131,7 @@ const DashPosts = () => {
                     />
                     <Button
                       onAction={() => {
-                        setShowModal(true);
+                        deleteModalRef.current?.showModal();
                         setPostIdToDelete(userPost?._id);
                       }}
                       title="حذف"
@@ -143,7 +147,6 @@ const DashPosts = () => {
       ) : (
         <p>هنوز مقاله ای اضافه نکردید</p>
       )}
-
       {/* delete modal */}
       <dialog ref={deleteModalRef} id="my_modal_1" className="modal">
         <div className="modal-box  max-w-xl">
