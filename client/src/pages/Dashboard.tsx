@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import DashSidebar from "../components/admin/DashSidebar";
 import DashProfile from "../components/admin/DashProfile";
 import DashPosts from "../components/admin/DashPosts";
+import DashAddPost from "../components/admin/DashAddPost";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -11,9 +12,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
-    console.log(urlParams);
+    // console.log(urlParams);
     const tabFromUrl = urlParams.get("tab");
-    console.log(tabFromUrl);
+    // console.log(tabFromUrl);
     if (tabFromUrl) setTab(tabFromUrl);
   }, [location.search]);
 
@@ -23,6 +24,7 @@ const Dashboard = () => {
       <div className="drawer-content flex flex-col p-8">
         {tab === "profile" && <DashProfile />}
         {tab === "posts" && <DashPosts />}
+        {tab === "addPost" && <DashAddPost />}
         {/* {tab === "users" && <DashUsers />} */}
         {/* {tab === "dash" && <DashboardComp />} */}
       </div>

@@ -22,7 +22,7 @@ const DashProfile = () => {
     null
   );
   const dispatch = useDispatch();
-  const inputRef = useRef(null); // Create a ref for the input element
+  const deleteModalRef = useRef(null); // Create a ref for the input element
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -167,7 +167,7 @@ const DashProfile = () => {
         <div className="flex items-center justify-end">
           <Button
             onAction={() => {
-              inputRef.current?.showModal();
+              deleteModalRef.current?.showModal();
             }}
             text="حذف حساب کاربری"
             className="w-fit btn-error btn-outline "
@@ -212,7 +212,7 @@ const DashProfile = () => {
         </div>
       )}
       {/* delete modal */}
-      <dialog ref={inputRef} id="my_modal_1" className="modal">
+      <dialog ref={deleteModalRef} id="my_modal_1" className="modal">
         <div className="modal-box  max-w-xl">
           <p className="py-4 text-base">
             آیا از حذف حساب کاربری خود اطمینان دارید؟

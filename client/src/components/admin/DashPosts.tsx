@@ -1,108 +1,157 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import Button from "../shared/Button";
 
 const DashPosts = () => {
-  const [formData, setFormData] = useState({});
-  const [publishError, setPublishError] = useState<string | null>(null);
-  console.log(formData);
-  const navigate = useNavigate();
+  const { currentUser } = useSelector((state) => state.user);
+  const [userPosts, setUserPosts] = useState([]);
+  const [showMore, setShowMore] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [postIdToDelete, setPostIdToDelete] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(formData);
+  const deleteModalRef = useRef(null); // Create a ref for the input element
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch(`/api/post/getPosts?userId=${currentUser._id}`);
+        const data = await res.json();
+        if (res.ok) {
+          setUserPosts(data.posts);
+          if (data.posts.length < 9) {
+            setShowMore(false);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (currentUser.isAdmin) {
+      fetchPosts();
+    }
+  }, [currentUser._id]);
+
+  const handleShowMore = async () => {
+    const startIndex = userPosts.length;
     try {
-      const res = await fetch("/api/post/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        `/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
+      );
       const data = await res.json();
-      // console.log(data.message);
-      if (!res.ok) {
-        console.log("test");
-        setPublishError(data.message);
-        return;
-      }
-      if (data.success === false) {
-        setPublishError(data.message);
-        return;
-      }
       if (res.ok) {
-        setPublishError(null);
-        navigate(`/post/${data.slug}`);
+        setUserPosts((prev) => [...prev, ...data.posts]);
+        if (data.posts.length < 9) {
+          setShowMore(false);
+        }
       }
     } catch (error) {
-      setPublishError("مشکلی پیش آمده است");
+      console.log(error);
+    }
+  };
+
+  const handleDeletePost = async () => {
+    setShowModal(false);
+    try {
+      const res = await fetch(
+        `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        setUserPosts((prev) =>
+          prev.filter((post) => post._id !== postIdToDelete)
+        );
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
   return (
     <div className="w-full xs:w-5/6  h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-y-6">
-        <div className="flex flex-wrap items-center gap-x-3">
-          <input
-            onChange={(e) =>
-              setFormData({ ...formData, title: e.target.value })
-            }
-            id="title"
-            required
-            type="text"
-            placeholder="عنوان مقاله"
-            className="flex-1 input input-bordered"
-          />
-          <select
-            onChange={(e) =>
-              setFormData({ ...formData, category: e.target.value })
-            }
-            className="select select-bordered ltr"
-          >
-            <option disabled selected>
-              انتخاب دسته بندی
-            </option>
-            <option value="javascript">دسته بندی ۱</option>
-            <option value="reactjs">دسته بندی ۲</option>
-            <option value="nodejs">دسته بندی ۳</option>
-            <option value="express">دسته بندی ۴</option>
-            <option value="mongo">دسته بندی ۵</option>
-          </select>
+      <Button
+        link="/dashboard?tab=addPost"
+        text="افزودن مقاله جدید"
+        className="btn-primary w-fit btn-sm"
+      />
+      {currentUser.isAdmin && userPosts.length > 0 ? (
+        <div className="overflow-x-auto">
+          <table className="table table-zebra text-right">
+            {/* head */}
+            <thead>
+              <tr>
+                <th>عنوان</th>
+                <th>دسته بندی</th>
+                <th>تاریخ بروزرسانی</th>
+                <th>عملیات</th>
+              </tr>
+            </thead>
+            <tbody>
+              {userPosts.map((userPost, i) => (
+                <tr key={i}>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <Link to={`/post/${userPost?.slug}`}>
+                        <div className="avatar">
+                          <div className="mask mask-squircle h-12 w-12">
+                            <img src={userPost?.image} alt={userPost?.title} />
+                          </div>
+                        </div>
+                      </Link>
+                      <span>{userPost?.title}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <span>{userPost?.category}</span>
+                  </td>
+                  <td>{new Date(userPost?.updatedAt).toLocaleDateString()}</td>
+                  <td>
+                    <Button
+                      link={`/update-post/${userPost?._id}`}
+                      className="btn-xs btn-outline btn-primary ml-3"
+                      icon="add-circle-solid"
+                    />
+                    <Button
+                      onAction={() => {
+                        setShowModal(true);
+                        setPostIdToDelete(userPost?._id);
+                      }}
+                      className="btn-xs btn-outline btn-error"
+                      icon="arrrow"
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-        <ReactQuill
-          onChange={(value) => setFormData({ ...formData, content: value })}
-          theme="snow"
-          className="bg-surfaceBg h-96"
-        />
-        <Button
-          onAction={handleSubmit}
-          text="افزودن"
-          type="submit"
-          className="btn-primary w-44 mt-9"
-          // loading={loading}
-        />
-      </form>
-      {publishError && (
-        <div role="alert" className="alert bg-danger text-primary-content">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 shrink-0 stroke-current"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <span>{publishError}</span>
-        </div>
+      ) : (
+        <p>هنوز مقاله ای اضافه نکردید</p>
       )}
+
+      {/* delete modal */}
+      <dialog ref={deleteModalRef} id="my_modal_1" className="modal">
+        <div className="modal-box  max-w-xl">
+          <p className="py-4 text-base">آیا از حذف این مقاله اطمینان دارید؟</p>
+          <div className="modal-action">
+            <form method="dialog" className="flex items-center gap-x-3">
+              <button className="btn">انصراف</button>
+              <Button
+                onAction={handleDeletePost}
+                text="حذف"
+                type="submit"
+                className="btn-error w-20"
+              />
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };
