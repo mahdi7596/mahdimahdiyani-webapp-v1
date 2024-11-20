@@ -65,16 +65,19 @@ const SinglePost = () => {
         <div className="px-2 flex flex-col gap-y-6">
           <h1 className="text-neutrals text-xl font-semibold">{post?.title}</h1>
           <div className="flex items-center justify-between">
-            <span className="text-xs text-neutrals600 font-medium">
+            <span className="text-xs text-neutrals300 font-medium flex items-center gap-x-0.5">
+              <i className="maicon-mingcute_calendar-line text-lg"></i>
+
               {moment(post?.updatedAt, "YYYY/MM/DD")
                 .locale("fa")
                 .format("YYYY/MM/DD")}
             </span>
-            <p className="text-xs text-neutrals400">
+            <p className="text-xs text-neutrals200 flex items-center gap-x-0.5">
               زمان مورد نیاز برای مطالعه:
-              <span className="mr-1 text-neutrals600 font-medium">
+              <span className="mr-1 text-neutrals300 font-medium">
                 {post && (post.content.length / 1000).toFixed(0) + " دقیقه"}
               </span>
+              <i className="maicon-mdi_clock-outline text-lg"></i>
             </p>
           </div>
         </div>

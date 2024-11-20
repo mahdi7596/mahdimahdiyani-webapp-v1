@@ -12,11 +12,11 @@ export const create = async (req, res, next) => {
     );
   }
 
-  const slug = req.body.title
-    .split(" ")
-    .join("-")
-    .toLowerCase()
-    .replace(/[^a-zA-Z0-9-]/g, "");
+  // Remove ZWNJ characters
+  let title = req.body.title.replace(/\u200C/g, "");
+  const slug = title.split(" ").join("-");
+  // ! todo این رو نوشته بودم برای اینکه فقط متن انگلیسی باشه ولی باید یک فیلد برای نامک اضافه کنم
+  // .replace(/[^a-zA-Z0-9-]/g, "");
 
   const newPost = new Post({
     ...req.body,
