@@ -25,177 +25,57 @@ i[class*="maicon-"] {
     -moz-osx-font-smoothing: grayscale;
 }
 
-.maicon-add-circle-solid {
+.maicon-basil_filter-outline {
     &:before {
-        content: $maicon-add-circle-solid;
+        content: $maicon-basil_filter-outline;
     }
 }
 
-.maicon-add-circle {
+.maicon-basil_filter-solid {
     &:before {
-        content: $maicon-add-circle;
+        content: $maicon-basil_filter-solid;
     }
 }
 
-.maicon-add-square-solid {
+.maicon-bx_up-arrow {
     &:before {
-        content: $maicon-add-square-solid;
+        content: $maicon-bx_up-arrow;
     }
 }
 
-.maicon-add-square {
+.maicon-bx_user {
     &:before {
-        content: $maicon-add-square;
+        content: $maicon-bx_user;
     }
 }
 
-.maicon-bookmark-solid {
+.maicon-bxs_trash {
     &:before {
-        content: $maicon-bookmark-solid;
+        content: $maicon-bxs_trash;
     }
 }
 
-.maicon-bookmark {
+.maicon-bxs_up-arrow {
     &:before {
-        content: $maicon-bookmark;
+        content: $maicon-bxs_up-arrow;
     }
 }
 
-.maicon-comment-solid {
+.maicon-carbon_add-filled {
     &:before {
-        content: $maicon-comment-solid;
+        content: $maicon-carbon_add-filled;
     }
 }
 
-.maicon-comment {
+.maicon-chart-pie-solid {
     &:before {
-        content: $maicon-comment;
+        content: $maicon-chart-pie-solid;
     }
 }
 
-.maicon-download {
+.maicon-dashboard-solid {
     &:before {
-        content: $maicon-download;
-    }
-}
-
-.maicon-edit-solid {
-    &:before {
-        content: $maicon-edit-solid;
-    }
-}
-
-.maicon-edit {
-    &:before {
-        content: $maicon-edit;
-    }
-}
-
-.maicon-gallery {
-    &:before {
-        content: $maicon-gallery;
-    }
-}
-
-.maicon-hashtag {
-    &:before {
-        content: $maicon-hashtag;
-    }
-}
-
-.maicon-image {
-    &:before {
-        content: $maicon-image;
-    }
-}
-
-.maicon-share1 {
-    &:before {
-        content: $maicon-share1;
-    }
-}
-
-.maicon-tag-solid {
-    &:before {
-        content: $maicon-tag-solid;
-    }
-}
-
-.maicon-tag1 {
-    &:before {
-        content: $maicon-tag1;
-    }
-}
-
-.maicon-trash-solid {
-    &:before {
-        content: $maicon-trash-solid;
-    }
-}
-
-.maicon-trash {
-    &:before {
-        content: $maicon-trash;
-    }
-}
-
-.maicon-upload {
-    &:before {
-        content: $maicon-upload;
-    }
-}
-
-.maicon-user-solid {
-    &:before {
-        content: $maicon-user-solid;
-    }
-}
-
-.maicon-users-solid {
-    &:before {
-        content: $maicon-users-solid;
-    }
-}
-
-.maicon-image-solid {
-    &:before {
-        content: $maicon-image-solid;
-    }
-}
-
-.maicon-category {
-    &:before {
-        content: $maicon-category;
-    }
-}
-
-.maicon-video {
-    &:before {
-        content: $maicon-video;
-    }
-}
-
-.maicon-share {
-    &:before {
-        content: $maicon-share;
-    }
-}
-
-.maicon-hamburgermenu {
-    &:before {
-        content: $maicon-hamburgermenu;
-    }
-}
-
-.maicon-arrrow {
-    &:before {
-        content: $maicon-arrrow;
-    }
-}
-
-.maicon-tag {
-    &:before {
-        content: $maicon-tag;
+        content: $maicon-dashboard-solid;
     }
 }
 
@@ -205,14 +85,315 @@ i[class*="maicon-"] {
     }
 }
 
+.maicon-eva_arrow-up-fill {
+    &:before {
+        content: $maicon-eva_arrow-up-fill;
+    }
+}
+
+.maicon-fa-solid_sort {
+    &:before {
+        content: $maicon-fa-solid_sort;
+    }
+}
+
+.maicon-file-outline {
+    &:before {
+        content: $maicon-file-outline;
+    }
+}
+
+.maicon-file-outline2 {
+    &:before {
+        content: $maicon-file-outline2;
+    }
+}
+
+.maicon-file-solid {
+    &:before {
+        content: $maicon-file-solid;
+    }
+}
+
+.maicon-file {
+    &:before {
+        content: $maicon-file;
+    }
+}
+
+.maicon-flag-iran .path1 {
+    &:before {
+        content: $maicon-flag-iran-path1;
+        color: rgb(218, 0, 1);
+    }
+}
+
+.maicon-flag-iran .path2 {
+    &:before {
+        content: $maicon-flag-iran-path2;
+        margin-left: -1em;
+        color: rgb(238, 238, 238);
+    }
+}
+
+.maicon-flag-iran .path3 {
+    &:before {
+        content: $maicon-flag-iran-path3;
+        margin-left: -1em;
+        color: rgb(35, 159, 64);
+    }
+}
+
+.maicon-flag-iran .path4 {
+    &:before {
+        content: $maicon-flag-iran-path4;
+        margin-left: -1em;
+        color: rgb(233, 102, 103);
+    }
+}
+
+.maicon-flag-iran .path5 {
+    &:before {
+        content: $maicon-flag-iran-path5;
+        margin-left: -1em;
+        color: rgb(190, 25, 49);
+    }
+}
+
+.maicon-flag-iran .path6 {
+    &:before {
+        content: $maicon-flag-iran-path6;
+        margin-left: -1em;
+        color: rgb(190, 25, 49);
+    }
+}
+
+.maicon-flag-iran .path7 {
+    &:before {
+        content: $maicon-flag-iran-path7;
+        margin-left: -1em;
+        color: rgb(123, 197, 140);
+    }
+}
+
+.maicon-folder-solid {
+    &:before {
+        content: $maicon-folder-solid;
+    }
+}
+
+.maicon-folder-solid2 {
+    &:before {
+        content: $maicon-folder-solid2;
+    }
+}
+
+.maicon-folder {
+    &:before {
+        content: $maicon-folder;
+    }
+}
+
+.maicon-gg_add {
+    &:before {
+        content: $maicon-gg_add;
+    }
+}
+
+.maicon-ic_round-edit {
+    &:before {
+        content: $maicon-ic_round-edit;
+    }
+}
+
+.maicon-ic_sharp-sort {
+    &:before {
+        content: $maicon-ic_sharp-sort;
+    }
+}
+
+.maicon-icons8_sort {
+    &:before {
+        content: $maicon-icons8_sort;
+    }
+}
+
+.maicon-material-symbols_bookmark-outline {
+    &:before {
+        content: $maicon-material-symbols_bookmark-outline;
+    }
+}
+
+.maicon-material-symbols_bookmark {
+    &:before {
+        content: $maicon-material-symbols_bookmark;
+    }
+}
+
+.maicon-material-symbols_download {
+    &:before {
+        content: $maicon-material-symbols_download;
+    }
+}
+
+.maicon-material-symbols_share {
+    &:before {
+        content: $maicon-material-symbols_share;
+    }
+}
+
+.maicon-material-symbols_upload {
+    &:before {
+        content: $maicon-material-symbols_upload;
+    }
+}
+
+.maicon-mdi_calendar {
+    &:before {
+        content: $maicon-mdi_calendar;
+    }
+}
+
+.maicon-mdi_clock-outline {
+    &:before {
+        content: $maicon-mdi_clock-outline;
+    }
+}
+
+.maicon-mdi_clock {
+    &:before {
+        content: $maicon-mdi_clock;
+    }
+}
+
+.maicon-mdi_comment-outline {
+    &:before {
+        content: $maicon-mdi_comment-outline;
+    }
+}
+
+.maicon-mdi_comment {
+    &:before {
+        content: $maicon-mdi_comment;
+    }
+}
+
+.maicon-mdi_sort {
+    &:before {
+        content: $maicon-mdi_sort;
+    }
+}
+
+.maicon-mdi_user {
+    &:before {
+        content: $maicon-mdi_user;
+    }
+}
+
+.maicon-mingcute_calendar-fill {
+    &:before {
+        content: $maicon-mingcute_calendar-fill;
+    }
+}
+
+.maicon-mingcute_calendar-line {
+    &:before {
+        content: $maicon-mingcute_calendar-line;
+    }
+}
+
+.maicon-mingcute_user-1-line {
+    &:before {
+        content: $maicon-mingcute_user-1-line;
+    }
+}
+
+.maicon-mingcute_user-2-fill {
+    &:before {
+        content: $maicon-mingcute_user-2-fill;
+    }
+}
+
+.maicon-mingcute_user-2-line {
+    &:before {
+        content: $maicon-mingcute_user-2-line;
+    }
+}
+
+.maicon-moon-outline {
+    &:before {
+        content: $maicon-moon-outline;
+    }
+}
+
+.maicon-moon-solid {
+    &:before {
+        content: $maicon-moon-solid;
+    }
+}
+
+.maicon-mynaui_plus-solid {
+    &:before {
+        content: $maicon-mynaui_plus-solid;
+    }
+}
+
+.maicon-ph_plus-fill {
+    &:before {
+        content: $maicon-ph_plus-fill;
+    }
+}
+
 .maicon-pie-chart {
     &:before {
         content: $maicon-pie-chart;
     }
 }
 
-.maicon-search {
+.maicon-square_add-solid {
     &:before {
-        content: $maicon-search;
+        content: $maicon-square_add-solid;
+    }
+}
+
+.maicon-square-add-outline {
+    &:before {
+        content: $maicon-square-add-outline;
+    }
+}
+
+.maicon-sun-filled {
+    &:before {
+        content: $maicon-sun-filled;
+    }
+}
+
+.maicon-tdesign_edit {
+    &:before {
+        content: $maicon-tdesign_edit;
+    }
+}
+
+.maicon-typcn_info-outline {
+    &:before {
+        content: $maicon-typcn_info-outline;
+    }
+}
+
+.maicon-typcn_info {
+    &:before {
+        content: $maicon-typcn_info;
+    }
+}
+
+.maicon-weui_arrow-filled {
+    &:before {
+        content: $maicon-weui_arrow-filled;
+    }
+}
+
+.maicon-weui_info-filled {
+    &:before {
+        content: $maicon-weui_info-filled;
     }
 }
