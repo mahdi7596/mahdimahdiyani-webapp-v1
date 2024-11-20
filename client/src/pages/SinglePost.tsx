@@ -1,10 +1,33 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import moment from "jalali-moment";
 
 import Card from "../components/shared/Card";
 import Badge from "../components/shared/Badge";
+
+import image68 from "../assets/images/68.jpeg";
+import image69 from "../assets/images/69.jpeg";
+import Button from "../components/shared/Button";
+
+interface IProduct {
+  id: number;
+  image: string;
+  title: string;
+}
+
+const suggestedProducts: IProduct[] = [
+  {
+    id: 68,
+    image: image68,
+    title: "۶۸مین رویداد همکلان - مالیات اشخاص حقوقی",
+  },
+  {
+    id: 69,
+    image: image69,
+    title: "۶۹مین رویداد همکلان - مسئولیت های قانونی مدیران شرکت ها",
+  },
+];
 
 const SinglePost = () => {
   const { postSlug } = useParams();
@@ -62,7 +85,7 @@ const SinglePost = () => {
 
   return (
     <section className="section-container flex gap-x-12 py-6">
-      <div className="flex-1 flex flex-col gap-y-6 p-6 bg-surfaceBg rounded border border-surfaceBorder shadow-sm">
+      <div className="flex-1 flex flex-col gap-y-6 p-6 bg-surfaceBg border border-surfaceBorder rounded shadow-sm">
         <div className="px-2 flex flex-col gap-y-6">
           <h1 className="text-neutrals text-xl font-semibold">{post?.title}</h1>
           <div className="flex items-center justify-between">
@@ -101,7 +124,66 @@ const SinglePost = () => {
           />
         </div>
       </div>
-      <aside className="w-1/4 bg-orange-50 p-6">sidebar</aside>
+      <aside className="w-1/4 h-fit flex flex-col gap-y-6 px-3 pt-3 pb-6 border border-surfaceBorder rounded shadow-sm">
+        <div className="flex flex-col gap-y-4">
+          <Button
+            text="دوره های پیشنهادی همکلان"
+            link="http://hamkalan.com/"
+            className="btn-sm btn-ghost self-center"
+          />
+          <div className="carousel w-full">
+            <div className="carousel">
+              {suggestedProducts.map((product) => (
+                <div key={product.id} className="carousel-item w-full">
+                  <Card
+                    key={product.id}
+                    title={product.title}
+                    img={product.image}
+                    actionButton={{
+                      text: "خرید دوره",
+                      className: "btn-primary",
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <hr />
+        {recentPosts &&
+          recentPosts.map((post) => (
+            <div
+              key={post?._id}
+              className="flex gap-x-3 bg-surfaceBg border border-surfaceBorder py-2 px-1.5 rounded-sm"
+            >
+              <img
+                src={post?.image}
+                className="object-cover size-20 rounded"
+                alt={post?.title}
+              />
+              <div className="flex flex-col justify-between gap-y-1.5">
+                <h4 className="flex-1 text-xs line-clamp-2 hover:text-primary cursor-pointer">
+                  {post?.title}
+                </h4>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-neutrals300 font-medium flex items-center gap-x-0.5">
+                    <i className="maicon-mingcute_calendar-line text-lg"></i>
+                    {moment(post?.updatedAt, "YYYY/MM/DD")
+                      .locale("fa")
+                      .format("YYYY/MM/DD")}
+                  </span>
+                  <p className="text-[10px] text-neutrals200 flex items-center gap-x-0.5">
+                    <span className="mr-1 text-neutrals300 font-medium">
+                      {post &&
+                        (post.content.length / 1000).toFixed(0) + " دقیقه"}
+                    </span>
+                    <i className="maicon-mdi_clock-outline text-lg"></i>
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+      </aside>
     </section>
   );
 };
