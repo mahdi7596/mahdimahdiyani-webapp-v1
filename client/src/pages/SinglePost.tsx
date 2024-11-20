@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import moment from "jalali-moment";
 
 import Card from "../components/shared/Card";
+import Badge from "../components/shared/Badge";
 
 const SinglePost = () => {
   const { postSlug } = useParams();
@@ -90,6 +91,15 @@ const SinglePost = () => {
           className="custom-post-content px-2"
           dangerouslySetInnerHTML={{ __html: post && post.content }}
         ></div>
+        <hr />
+        <div className="flex items-center gap-x-1.5">
+          <span className=" text-xs text-neutrals500">دسته بندی:</span>
+          <Badge
+            text={post?.category}
+            link={`/search?category=${post && post?.category}`}
+            className="badge-outline hover:bg-neutral hover:text-neutral-content"
+          />
+        </div>
       </div>
       <aside className="w-1/4 bg-orange-50 p-6">sidebar</aside>
     </section>
