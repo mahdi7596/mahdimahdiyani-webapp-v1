@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
+import moment from "jalali-moment";
+
 import Card from "../components/shared/Card";
 
 const SinglePost = () => {
@@ -50,42 +52,45 @@ const SinglePost = () => {
     }
   }, []);
 
-  console.log(recentPosts);
-
   if (loading)
     return (
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center min-h-screen">
         <span className="loading loading-spinner text-info loading-lg"></span>
       </div>
     );
 
   return (
-    <main className="p-3 flex flex-col gap-y-4 max-w-6xl mx-auto min-h-screen">
-      <h1>{post && post.title}</h1>
-      <Link to={`/search?category=${post && post.category}`}>
-        <button className="w-fit btn btn-xs btn-outline btn-secondary">
-          {post && post.category}
-        </button>
-      </Link>
-      <img src={post && post.image} alt={post && post.title} />
-      <div className="flex items-center justify-between border-b border-gray-300 pb-3 px-1">
-        <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
-        <span>{post && (post.content.length / 1000).toFixed(0)} mins read</span>
-      </div>
-      <div
-        className="custom-post-content p-3 max-w-2xl mx-auto w-full"
-        dangerouslySetInnerHTML={{ __html: post && post.content }}
-      ></div>
-      <div className="flex flex-col items-center justify-center mb-5">
-        <h1 className="text-xl mt-5 mb-2">Recent Articles</h1>
-        <div className="flex items-center gap-x-3">
-          {recentPosts &&
-            recentPosts.map((post) => (
-              <Card key={post._id} title={post.title} />
-            ))}
+    <section className="section-container flex gap-x-12 py-6">
+      <div className="flex-1 flex flex-col gap-y-6 p-6 bg-surfaceBg rounded border border-surfaceBorder shadow-sm">
+        <div className="px-2 flex flex-col gap-y-6">
+          <h1 className="text-neutrals text-xl font-semibold">{post?.title}</h1>
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-neutrals600 font-medium">
+              {moment(post?.updatedAt, "YYYY/MM/DD")
+                .locale("fa")
+                .format("YYYY/MM/DD")}
+            </span>
+            <p className="text-xs text-neutrals400">
+              زمان مورد نیاز برای مطالعه:
+              <span className="mr-1 text-neutrals600 font-medium">
+                {post && (post.content.length / 1000).toFixed(0) + " دقیقه"}
+              </span>
+            </p>
+          </div>
         </div>
+        <img
+          src={post && post.image}
+          className="h-96 object-cover rounded-sm"
+          alt={post && post.title}
+        />
+        {/* title && featured image */}
+        <div
+          className="custom-post-content px-2"
+          dangerouslySetInnerHTML={{ __html: post && post.content }}
+        ></div>
       </div>
-    </main>
+      <aside className="w-1/4 bg-orange-50 p-6">sidebar</aside>
+    </section>
   );
 };
 
