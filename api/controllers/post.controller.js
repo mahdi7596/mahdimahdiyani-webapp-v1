@@ -124,8 +124,8 @@ export const updatePost = async (req, res, next) => {
     return next(errorHandler(403, "شما مجاز به به‌روزرسانی این پست نیستید."));
   }
   try {
-    console.log("test");
-    console.log(req.params.postId);
+    // console.log("test");
+    // console.log(req.params.postId);
     const updatedPost = await Post.findByIdAndUpdate(
       req.params.postId,
       {
