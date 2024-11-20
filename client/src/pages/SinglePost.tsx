@@ -76,6 +76,8 @@ const SinglePost = () => {
     }
   }, []);
 
+  // console.log(recentPosts.filter((f) => f));
+
   if (loading)
     return (
       <div className="flex items-center justify-center min-h-screen">
