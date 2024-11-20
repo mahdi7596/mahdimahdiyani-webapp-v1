@@ -67,7 +67,6 @@ const SinglePost = () => {
           <div className="flex items-center justify-between">
             <span className="text-xs text-neutrals300 font-medium flex items-center gap-x-0.5">
               <i className="maicon-mingcute_calendar-line text-lg"></i>
-
               {moment(post?.updatedAt, "YYYY/MM/DD")
                 .locale("fa")
                 .format("YYYY/MM/DD")}
@@ -83,8 +82,8 @@ const SinglePost = () => {
         </div>
         <img
           src={post && post.image}
-          className="h-96 object-cover rounded-sm"
           alt={post && post.title}
+          className="h-96 object-cover rounded"
         />
         {/* title && featured image */}
         <div

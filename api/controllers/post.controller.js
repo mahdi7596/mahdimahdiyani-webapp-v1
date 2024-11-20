@@ -15,6 +15,8 @@ export const create = async (req, res, next) => {
   // Remove ZWNJ characters
   let title = req.body.title.replace(/\u200C/g, "");
   const slug = title.split(" ").join("-");
+  // let encodedUrl = encodeURIComponent(url);
+
   // ! todo این رو نوشته بودم برای اینکه فقط متن انگلیسی باشه ولی باید یک فیلد برای نامک اضافه کنم
   // .replace(/[^a-zA-Z0-9-]/g, "");
 

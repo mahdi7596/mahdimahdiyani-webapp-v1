@@ -126,7 +126,7 @@ const DashPosts = () => {
                       // link={`/dashboard?tab=update-post/${userPost?._id}`}
                       link={`/update-post/${userPost?._id}`}
                       title="ویرایش"
-                      className="btn-sm btn-outline btn-primary ml-3"
+                      className="btn-sm btn-outline btn-primary"
                       icon="ic_round-edit text-lg"
                     />
                     <Button
@@ -135,7 +135,7 @@ const DashPosts = () => {
                         setPostIdToDelete(userPost?._id);
                       }}
                       title="حذف"
-                      className="btn-sm btn-outline btn-error w-fit"
+                      className="btn-sm btn-outline btn-error"
                       icon="bxs_trash text-lg"
                     />
                   </td>
