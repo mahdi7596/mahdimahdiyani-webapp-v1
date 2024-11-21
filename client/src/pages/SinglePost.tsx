@@ -86,7 +86,7 @@ const SinglePost = () => {
     );
 
   return (
-    <section className="section-container flex gap-x-12 py-6">
+    <section className="section-container section-inner-space flex flex-col md:flex-row gap-6 xl:gap-x-12">
       <div className="flex-1 flex flex-col gap-y-6 p-6 bg-surfaceBg border border-surfaceBorder rounded shadow-sm">
         <div className="px-2 flex flex-col gap-y-6">
           <h1 className="text-neutrals text-xl font-semibold">{post?.title}</h1>
@@ -126,7 +126,7 @@ const SinglePost = () => {
           />
         </div>
       </div>
-      <aside className="sticky top-3 w-1/4 h-fit flex flex-col gap-y-6 px-3 pt-3 pb-6 border border-surfaceBorder rounded shadow-sm">
+      <aside className="md:sticky md:top-3 w-full md:w-4/12 lg:w-1/4 h-fit flex flex-col gap-y-6 px-3 pt-3 pb-6 border border-surfaceBorder rounded shadow-sm">
         <div className="flex flex-col gap-y-4">
           <Button
             text="دوره های پیشنهادی همکلان"
@@ -136,11 +136,15 @@ const SinglePost = () => {
           <div className="carousel w-full">
             <div className="carousel">
               {suggestedProducts.map((product) => (
-                <div key={product.id} className="carousel-item w-full">
+                <div
+                  key={product.id}
+                  className="carousel-item w-full flex flex-col"
+                >
                   <Card
                     key={product.id}
                     title={product.title}
                     img={product.image}
+                    cardClassName="self-center"
                     actionButton={{
                       text: "خرید دوره",
                       className: "btn-primary",
@@ -159,14 +163,14 @@ const SinglePost = () => {
               <Link to={`/post/${post.slug}`}>
                 <div
                   key={post?._id}
-                  className="group flex gap-x-3 bg-surfaceBg border border-surfaceBorder py-2 px-1.5 rounded-sm  cursor-pointer"
+                  className="group flex gap-x-3 bg-surfaceBg border border-surfaceBorder py-2 px-1.5 rounded-sm cursor-pointer"
                 >
                   <img
                     src={post?.image}
                     className="object-cover size-20 rounded"
                     alt={post?.title}
                   />
-                  <div className="flex flex-col justify-between gap-y-1.5">
+                  <div className="flex flex-col justify-between gap-y-1.5 w-full">
                     <h4 className="flex-1 text-xs line-clamp-2 group-hover:text-primary">
                       {post?.title}
                     </h4>
