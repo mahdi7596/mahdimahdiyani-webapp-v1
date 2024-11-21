@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import moment from "jalali-moment";
 
@@ -61,6 +61,8 @@ const SinglePost = () => {
     fetchPost();
   }, [postSlug]);
 
+  console.log(postSlug);
+
   useEffect(() => {
     try {
       const fetchRecentPosts = async () => {
@@ -75,8 +77,6 @@ const SinglePost = () => {
       console.log(error);
     }
   }, []);
-
-  // console.log(recentPosts.filter((f) => f));
 
   if (loading)
     return (
@@ -126,7 +126,7 @@ const SinglePost = () => {
           />
         </div>
       </div>
-      <aside className="w-1/4 h-fit flex flex-col gap-y-6 px-3 pt-3 pb-6 border border-surfaceBorder rounded shadow-sm">
+      <aside className="sticky top-3 w-1/4 h-fit flex flex-col gap-y-6 px-3 pt-3 pb-6 border border-surfaceBorder rounded shadow-sm">
         <div className="flex flex-col gap-y-4">
           <Button
             text="دوره های پیشنهادی همکلان"
@@ -153,38 +153,42 @@ const SinglePost = () => {
         </div>
         <hr />
         {recentPosts &&
-          recentPosts.map((post) => (
-            <div
-              key={post?._id}
-              className="flex gap-x-3 bg-surfaceBg border border-surfaceBorder py-2 px-1.5 rounded-sm"
-            >
-              <img
-                src={post?.image}
-                className="object-cover size-20 rounded"
-                alt={post?.title}
-              />
-              <div className="flex flex-col justify-between gap-y-1.5">
-                <h4 className="flex-1 text-xs line-clamp-2 hover:text-primary cursor-pointer">
-                  {post?.title}
-                </h4>
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] text-neutrals300 font-medium flex items-center gap-x-0.5">
-                    <i className="maicon-mingcute_calendar-line text-lg"></i>
-                    {moment(post?.updatedAt, "YYYY/MM/DD")
-                      .locale("fa")
-                      .format("YYYY/MM/DD")}
-                  </span>
-                  <p className="text-[10px] text-neutrals200 flex items-center gap-x-0.5">
-                    <span className="mr-1 text-neutrals300 font-medium">
-                      {post &&
-                        (post.content.length / 1000).toFixed(0) + " دقیقه"}
-                    </span>
-                    <i className="maicon-mdi_clock-outline text-lg"></i>
-                  </p>
+          recentPosts
+            .filter((f) => f.slug != postSlug)
+            .map((post) => (
+              <Link to={`/post/${post.slug}`}>
+                <div
+                  key={post?._id}
+                  className="group flex gap-x-3 bg-surfaceBg border border-surfaceBorder py-2 px-1.5 rounded-sm  cursor-pointer"
+                >
+                  <img
+                    src={post?.image}
+                    className="object-cover size-20 rounded"
+                    alt={post?.title}
+                  />
+                  <div className="flex flex-col justify-between gap-y-1.5">
+                    <h4 className="flex-1 text-xs line-clamp-2 group-hover:text-primary">
+                      {post?.title}
+                    </h4>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-neutrals300 font-medium flex items-center gap-x-0.5">
+                        <i className="maicon-mingcute_calendar-line text-lg"></i>
+                        {moment(post?.updatedAt, "YYYY/MM/DD")
+                          .locale("fa")
+                          .format("YYYY/MM/DD")}
+                      </span>
+                      <p className="text-[10px] text-neutrals200 flex items-center gap-x-0.5">
+                        <span className="mr-1 text-neutrals300 font-medium">
+                          {post &&
+                            (post.content.length / 1000).toFixed(0) + " دقیقه"}
+                        </span>
+                        <i className="maicon-mdi_clock-outline text-lg"></i>
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              </Link>
+            ))}
       </aside>
     </section>
   );
