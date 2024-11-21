@@ -17,8 +17,8 @@ export const navMenuItems: IMenuItem[] = [
   },
   {
     id: 3,
-    text: "محصولات ما",
-    link: "#projects",
+    text: "مقالات",
+    link: "/blogs",
   },
   {
     id: 5,

@@ -9,10 +9,11 @@ import Navbar from "../components/header/Navbar";
 import Footer from "../components/Footer";
 import DashAddPost from "../components/admin/DashAddPost";
 import DashUpdatePost from "../components/admin/DashUpdatePost";
-import SinglePost from "../pages/SinglePost";
 
 const Home = lazy(() => import("../pages/Home"));
 const Aboutus = lazy(() => import("../pages/Aboutus"));
+const Blogs = lazy(() => import("../pages/Blogs"));
+const SinglePost = lazy(() => import("../pages/SinglePost"));
 const Signup = lazy(() => import("../pages/Signup"));
 const Login = lazy(() => import("../pages/Login"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
@@ -34,6 +35,10 @@ const routes = createBrowserRouter([
   {
     path: "/about",
     element: renderLayout(<Aboutus />),
+  },
+  {
+    path: "/blogs",
+    element: renderLayout(<Blogs />),
   },
   {
     path: "/post/:postSlug",
