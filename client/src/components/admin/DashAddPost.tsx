@@ -13,7 +13,7 @@ const DashAddPost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     try {
       const res = await fetch("/api/post/create", {
         method: "POST",
@@ -25,7 +25,7 @@ const DashAddPost = () => {
       const data = await res.json();
       // console.log(data.message);
       if (!res.ok) {
-        console.log("test");
+        // console.log("test");
         setPublishError(data.message);
         return;
       }

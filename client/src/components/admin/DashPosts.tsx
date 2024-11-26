@@ -82,8 +82,7 @@ const DashPosts = () => {
       />
       {currentUser.isAdmin && userPosts.length > 0 ? (
         <div className="overflow-x-auto">
-          <table className="table table-zebra text-right">
-            {/* head */}
+          <table className="table table-zebra text-right border rounded-sm">
             <thead>
               <tr>
                 <th>عنوان</th>
@@ -143,6 +142,13 @@ const DashPosts = () => {
               ))}
             </tbody>
           </table>
+          {showMore && (
+            <Button
+              onAction={handleShowMore}
+              text="مشاهده بیشتر"
+              className="btn-sm btn-outline btn-neutral w-fit mt-6"
+            />
+          )}
         </div>
       ) : (
         <div role="alert" className="alert bg-info text-primary-content">
