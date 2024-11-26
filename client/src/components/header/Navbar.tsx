@@ -42,7 +42,7 @@ const Navbar = () => {
         </div>
         {/* search + register button + profile */}
         <div className="flex-1 justify-end gap-2">
-          <Search />
+          <Search className="input-md w-full xs:w-fit xsm:w-full max-w-xs" />
           {currentUser ? (
             <div className="dropdown dropdown-end">
               <div

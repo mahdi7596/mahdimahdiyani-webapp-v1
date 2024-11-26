@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import banner from "../assets/images/banner.jpg";
 import Button from "../components/shared/Button";
 import Card from "../components/shared/Card";
+import Search from "../components/shared/Search";
 
 const Blogs = () => {
   const [sidebarData, setSidebarData] = useState<string | null>({
@@ -119,7 +120,11 @@ const Blogs = () => {
         </p>
         <div className="absolute top-0 left-0 w-full h-full rounded-lg bg-black bg-opacity-60" />
       </div>
-      <div className="grid grid-cols-3 gap-6 mt-12">
+      <div className="flex items-center gap-x-6 mt-12 mb-6">
+        <Search className="w-full" />
+        <Button text="اعمال فیلتر" className="btn-primary" />
+      </div>
+      <div className="grid grid-cols-3 gap-6">
         {!loading && posts.length === 0 && (
           <p className="text-6xl text-red-500 text-center">
             پست مد نظر شما یافت نشد
@@ -131,13 +136,18 @@ const Blogs = () => {
             <Card
               key={post._id}
               {...post}
+              excerpt={post?.content}
+              tags={[
+                {
+                  text: post?.category,
+                  link: `/search?category=${post && post?.category}`,
+                },
+              ]}
               actionButton={{
                 text: "مشاهده بیشتر",
                 className: "btn-primary w-fit self-end",
                 link: `/post/${post?.slug}`,
               }}
-              excerpt={post?.content}
-              tags={[{ text: post?.category }]}
             />
           ))}
         {showMore && (

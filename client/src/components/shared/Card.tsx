@@ -55,6 +55,7 @@ const Card = ({
                 <Badge
                   key={i}
                   text={tag.text}
+                  link={tag.link}
                   className="badge-outline hover:bg-neutral hover:text-neutral-content"
                 />
               ))}

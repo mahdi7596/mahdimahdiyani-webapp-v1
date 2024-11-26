@@ -1,9 +1,13 @@
-const Search = () => {
+interface SearchProps {
+  className?: string;
+}
+
+const Search = ({ className }: SearchProps) => {
   return (
     <input
       type="text"
       placeholder="جستجو کنید"
-      className="input input-bordered input-md w-full xs:w-fit xsm:w-full max-w-xs"
+      className={`input input-bordered ${className}`}
     />
   );
 };
