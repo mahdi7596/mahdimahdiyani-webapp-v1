@@ -122,6 +122,21 @@ const Blogs = () => {
       </div>
       <div className="flex items-center gap-x-6 mt-12 mb-6">
         <Search className="w-full" />
+        <select
+          onChange={(e) =>
+            setFormData({ ...formData, category: e.target.value })
+          }
+          className="select select-bordered ltr"
+        >
+          <option disabled selected>
+            فیلتر به اساس دسته بندی
+          </option>
+          <option value="javascript">دسته بندی ۱</option>
+          <option value="reactjs">دسته بندی ۲</option>
+          <option value="nodejs">دسته بندی ۳</option>
+          <option value="express">دسته بندی ۴</option>
+          <option value="mongo">دسته بندی ۵</option>
+        </select>
         <Button text="اعمال فیلتر" className="btn-primary" />
       </div>
       <div className="grid grid-cols-3 gap-6">
