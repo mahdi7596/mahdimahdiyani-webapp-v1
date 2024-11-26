@@ -117,7 +117,7 @@ const Blogs = () => {
           تا همراه همیشگی شما در مسیر یادگیری و رشد باشیم. از بازخوردها و نظرات
           ارزشمندتان استقبال می‌کنیم!
         </p>
-        <div className="absolute top-0 left-0 w-full h-full rounded-lg bg-black bg-opacity-50" />
+        <div className="absolute top-0 left-0 w-full h-full rounded-lg bg-black bg-opacity-60" />
       </div>
       <div className="grid grid-cols-3 gap-6 mt-12">
         {!loading && posts.length === 0 && (

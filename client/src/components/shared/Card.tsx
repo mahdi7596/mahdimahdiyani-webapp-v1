@@ -41,26 +41,26 @@ const Card = ({
         />
       </figure>
       <div className="card-body gap-4 p-4">
-        <div className="flex flex-col gap-y-1.5">
-          <h2 className="card-title">{title}</h2>
+        <div className="flex-1 justify-between flex flex-col gap-y-3">
+          <h2 className="card-title text-lg">{title}</h2>
           {excerpt && (
             <p
               dangerouslySetInnerHTML={{ __html: excerpt && excerpt }}
-              className="line-clamp-2"
+              className="line-clamp-2 text-neutrals400"
             />
           )}
+          {tags && (
+            <div className="card-actions">
+              {tags.map((tag, i) => (
+                <Badge
+                  key={i}
+                  text={tag.text}
+                  className="badge-outline hover:bg-neutral hover:text-neutral-content"
+                />
+              ))}
+            </div>
+          )}
         </div>
-        {tags && (
-          <div className="card-actions">
-            {tags.map((tag, i) => (
-              <Badge
-                key={i}
-                text={tag.text}
-                className="badge-outline hover:bg-neutral hover:text-neutral-content"
-              />
-            ))}
-          </div>
-        )}
         {actionButton && (
           <Button
             text={actionButton.text}
