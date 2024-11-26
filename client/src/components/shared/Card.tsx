@@ -43,7 +43,12 @@ const Card = ({
       <div className="card-body gap-4 p-4">
         <div className="flex flex-col gap-y-1.5">
           <h2 className="card-title">{title}</h2>
-          {excerpt && <p className="line-clamp-2">{excerpt}</p>}
+          {excerpt && (
+            <p
+              dangerouslySetInnerHTML={{ __html: excerpt && excerpt }}
+              className="line-clamp-2"
+            />
+          )}
         </div>
         {tags && (
           <div className="card-actions">
@@ -60,6 +65,7 @@ const Card = ({
           <Button
             text={actionButton.text}
             onAction={actionButton.onAction}
+            link={actionButton.link}
             className={actionButton.className}
           />
         )}

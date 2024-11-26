@@ -37,7 +37,7 @@ const routes = createBrowserRouter([
     element: renderLayout(<Aboutus />),
   },
   {
-    path: "/blogs",
+    path: "/search",
     element: renderLayout(<Blogs />),
   },
   {
