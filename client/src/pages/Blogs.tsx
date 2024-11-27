@@ -10,39 +10,55 @@ import banner from "../assets/images/banner.jpg";
 const Blogs = () => {
   const [sidebarData, setSidebarData] = useState({
     searchTerm: "",
-    sort: "قدیمی",
-    category: "دسته بندی نشده",
+    sort: "",
+    category: "all",
   });
 
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [showMore, setShowMore] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const location = useLocation();
 
   const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     if (e.target.id === "searchTerm") {
       setSidebarData({ ...sidebarData, searchTerm: e.target.value });
     }
-    console.log({ searchTerm: sidebarData.searchTerm });
     // if (e.target.id === "sort") {
     //   const order = e.target.value || "desc";
     //   setSidebarData({ ...sidebarData, sort: order });
     // }
-    // if (e.target.id === "category") {
-    //   const category = e.target.value || "uncategorized";
-    //   setSidebarData({ ...sidebarData, category });
-    // }
+    if (e.target.id === "category") {
+      let category = "";
+      if (e.target.value === "all") {
+        category = "";
+        console.log("empty category");
+      } else {
+        category = e.target.value;
+      }
+      setSidebarData({ ...sidebarData, category });
+    }
+    console.log({
+      searchTerm: sidebarData.searchTerm,
+      category: sidebarData.category,
+    });
   };
 
   const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const urlParams = new URLSearchParams(location.search);
+
+    console.log(sidebarData?.category);
     urlParams.set("searchTerm", sidebarData?.searchTerm);
+
     // urlParams.set("sort", sidebarData?.sort);
-    // urlParams.set("category", sidebarData?.category);
+    if (sidebarData?.category !== "all") {
+      console.log("shelik");
+      urlParams.set("category", sidebarData?.category);
+    }
+
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
   };
@@ -70,9 +86,14 @@ const Blogs = () => {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
+
+    console.log(location.search);
+
     const searchTermFromUrl = urlParams.get("searchTerm");
     const sortFromUrl = urlParams.get("sort");
     const categoryFromUrl = urlParams.get("category");
+
+    console.log(urlParams.get("category"));
 
     if (searchTermFromUrl || sortFromUrl || categoryFromUrl) {
       setSidebarData({
@@ -130,20 +151,18 @@ const Blogs = () => {
           placeholder="جستجو کنید"
           className="input input-bordered w-full"
         />
-        {/* <select
+        <select
+          id="category"
           onChange={handleChange}
-          value={sidebarData?.category}
           className="select select-bordered ltr"
         >
-          <option disabled selected>
-            فیلتر به اساس دسته بندی
-          </option>
-          <option value="javascript">دسته بندی ۱</option>
+          <option value="all"> تمام دسته بندی ها</option>
+          <option value="uncategorized">دسته بندی نشده</option>
           <option value="reactjs">دسته بندی ۲</option>
           <option value="nodejs">دسته بندی ۳</option>
           <option value="express">دسته بندی ۴</option>
           <option value="mongo">دسته بندی ۵</option>
-        </select> */}
+        </select>
         <Button
           onAction={handleSubmit}
           text="اعمال فیلتر"

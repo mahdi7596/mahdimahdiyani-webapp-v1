@@ -65,7 +65,7 @@ const DashAddPost = () => {
             <option disabled selected>
               انتخاب دسته بندی
             </option>
-            <option value="javascript">دسته بندی ۱</option>
+            <option value="uncategorized">دسته بندی نشده</option>
             <option value="reactjs">دسته بندی ۲</option>
             <option value="nodejs">دسته بندی ۳</option>
             <option value="express">دسته بندی ۴</option>
