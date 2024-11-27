@@ -10,7 +10,7 @@ import banner from "../assets/images/banner.jpg";
 const Blogs = () => {
   const [sidebarData, setSidebarData] = useState({
     searchTerm: "",
-    sort: "",
+    sort: "desc",
     category: "all",
   });
 
@@ -26,36 +26,28 @@ const Blogs = () => {
     if (e.target.id === "searchTerm") {
       setSidebarData({ ...sidebarData, searchTerm: e.target.value });
     }
-    // if (e.target.id === "sort") {
-    //   const order = e.target.value || "desc";
-    //   setSidebarData({ ...sidebarData, sort: order });
-    // }
+    if (e.target.id === "sort") {
+      const order = e.target.value || "desc";
+      setSidebarData({ ...sidebarData, sort: order });
+    }
     if (e.target.id === "category") {
       let category = "";
       if (e.target.value === "all") {
         category = "";
-        console.log("empty category");
       } else {
         category = e.target.value;
       }
       setSidebarData({ ...sidebarData, category });
     }
-    console.log({
-      searchTerm: sidebarData.searchTerm,
-      category: sidebarData.category,
-    });
   };
 
-  const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const urlParams = new URLSearchParams(location.search);
 
-    console.log(sidebarData?.category);
     urlParams.set("searchTerm", sidebarData?.searchTerm);
-
-    // urlParams.set("sort", sidebarData?.sort);
+    urlParams.set("sort", sidebarData?.sort);
     if (sidebarData?.category !== "all") {
-      console.log("shelik");
       urlParams.set("category", sidebarData?.category);
     }
 
@@ -87,13 +79,9 @@ const Blogs = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
 
-    console.log(location.search);
-
     const searchTermFromUrl = urlParams.get("searchTerm");
     const sortFromUrl = urlParams.get("sort");
     const categoryFromUrl = urlParams.get("category");
-
-    console.log(urlParams.get("category"));
 
     if (searchTermFromUrl || sortFromUrl || categoryFromUrl) {
       setSidebarData({
@@ -142,7 +130,10 @@ const Blogs = () => {
         </p>
         <div className="absolute top-0 left-0 w-full h-full rounded-lg bg-black bg-opacity-60" />
       </div>
-      <form className="flex items-center gap-x-6 mt-12 mb-6">
+      <form
+        onSubmit={handleSubmit}
+        className="flex items-center gap-x-6 mt-12 mb-6"
+      >
         {/* <Search className="w-full" /> */}
         <input
           id="searchTerm"
@@ -151,6 +142,15 @@ const Blogs = () => {
           placeholder="جستجو کنید"
           className="input input-bordered w-full"
         />
+        <select
+          id="sort"
+          value={sidebarData.sort}
+          onChange={handleChange}
+          className="select select-bordered ltr"
+        >
+          <option value="desc">قدیمی ترین</option>
+          <option value="asc">جدید ترین</option>
+        </select>
         <select
           id="category"
           onChange={handleChange}
