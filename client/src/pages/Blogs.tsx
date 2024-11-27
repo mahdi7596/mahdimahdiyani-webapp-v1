@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import Button from "../components/shared/Button";
 import Card from "../components/shared/Card";
-import Search from "../components/shared/Search";
 
 import banner from "../assets/images/banner.jpg";
 
