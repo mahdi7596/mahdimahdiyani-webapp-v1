@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import banner from "../assets/images/banner.jpg";
 import Button from "../components/shared/Button";
 import Card from "../components/shared/Card";
 import Search from "../components/shared/Search";
 
+import banner from "../assets/images/banner.jpg";
+
 const Blogs = () => {
-  const [sidebarData, setSidebarData] = useState<string | null>({
+  const [sidebarData, setSidebarData] = useState({
     searchTerm: "",
     sort: "قدیمی",
     category: "دسته بندی نشده",
@@ -21,26 +22,27 @@ const Blogs = () => {
 
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.id === "searchTerm") {
       setSidebarData({ ...sidebarData, searchTerm: e.target.value });
     }
-    if (e.target.id === "sort") {
-      const order = e.target.value || "desc";
-      setSidebarData({ ...sidebarData, sort: order });
-    }
-    if (e.target.id === "category") {
-      const category = e.target.value || "uncategorized";
-      setSidebarData({ ...sidebarData, category });
-    }
+    console.log({ searchTerm: sidebarData.searchTerm });
+    // if (e.target.id === "sort") {
+    //   const order = e.target.value || "desc";
+    //   setSidebarData({ ...sidebarData, sort: order });
+    // }
+    // if (e.target.id === "category") {
+    //   const category = e.target.value || "uncategorized";
+    //   setSidebarData({ ...sidebarData, category });
+    // }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const urlParams = new URLSearchParams(location.search);
     urlParams.set("searchTerm", sidebarData?.searchTerm);
-    urlParams.set("sort", sidebarData?.sort);
-    urlParams.set("category", sidebarData?.category);
+    // urlParams.set("sort", sidebarData?.sort);
+    // urlParams.set("category", sidebarData?.category);
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
   };
@@ -71,6 +73,7 @@ const Blogs = () => {
     const searchTermFromUrl = urlParams.get("searchTerm");
     const sortFromUrl = urlParams.get("sort");
     const categoryFromUrl = urlParams.get("category");
+
     if (searchTermFromUrl || sortFromUrl || categoryFromUrl) {
       setSidebarData({
         ...sidebarData,
@@ -102,8 +105,6 @@ const Blogs = () => {
     fetchPosts();
   }, [location.search]);
 
-  console.log(posts);
-
   return (
     <div className="section-container section-inner-space">
       <div
@@ -120,12 +121,18 @@ const Blogs = () => {
         </p>
         <div className="absolute top-0 left-0 w-full h-full rounded-lg bg-black bg-opacity-60" />
       </div>
-      <div className="flex items-center gap-x-6 mt-12 mb-6">
-        <Search className="w-full" />
-        <select
-          onChange={(e) =>
-            setFormData({ ...formData, category: e.target.value })
-          }
+      <form className="flex items-center gap-x-6 mt-12 mb-6">
+        {/* <Search className="w-full" /> */}
+        <input
+          id="searchTerm"
+          type="text"
+          onChange={handleChange}
+          placeholder="جستجو کنید"
+          className="input input-bordered w-full"
+        />
+        {/* <select
+          onChange={handleChange}
+          value={sidebarData?.category}
           className="select select-bordered ltr"
         >
           <option disabled selected>
@@ -136,9 +143,13 @@ const Blogs = () => {
           <option value="nodejs">دسته بندی ۳</option>
           <option value="express">دسته بندی ۴</option>
           <option value="mongo">دسته بندی ۵</option>
-        </select>
-        <Button text="اعمال فیلتر" className="btn-primary" />
-      </div>
+        </select> */}
+        <Button
+          onAction={handleSubmit}
+          text="اعمال فیلتر"
+          className="btn-primary"
+        />
+      </form>
       <div className="grid grid-cols-3 gap-6">
         {!loading && posts.length === 0 && (
           <p className="text-6xl text-red-500 text-center">
