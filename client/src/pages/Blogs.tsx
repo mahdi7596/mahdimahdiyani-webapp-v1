@@ -117,7 +117,7 @@ const Blogs = () => {
     <div className="section-container section-inner-space">
       <div
         style={{ backgroundImage: `url(${banner})` }}
-        className="relative min-h-fit lg:h-48 flex flex-col items-center gap-y-4 py-8 px-8 md:px-16 lg:px-24 bg-no-repeat bg-cover bg-center rounded-lg"
+        className="relative min-h-fit lg:h-48 flex flex-col items-center gap-y-4 py-8 px-6 md:px-16 lg:px-24 bg-no-repeat bg-cover bg-center rounded-lg"
       >
         <h2 className="z-10 text-2xl text-white">مقالات وب سایت</h2>
         <p className="z-10 text-neutrals100 text-center">
@@ -131,7 +131,7 @@ const Blogs = () => {
       </div>
       <form
         onSubmit={handleSubmit}
-        className="flex items-center gap-x-6 mt-12 mb-6"
+        className="flex flex-wrap sm:flex-nowrap items-center gap-y-3 gap-x-3 mt-6 md:mt-12 mb-6"
       >
         {/* <Search className="w-full" /> */}
         <input
@@ -145,7 +145,7 @@ const Blogs = () => {
           id="sort"
           value={sidebarData.sort}
           onChange={handleChange}
-          className="select select-bordered ltr"
+          className="select select-bordered ltr  flex-1 xxs:flex-none"
         >
           <option value="desc">قدیمی ترین</option>
           <option value="asc">جدید ترین</option>
@@ -153,7 +153,7 @@ const Blogs = () => {
         <select
           id="category"
           onChange={handleChange}
-          className="select select-bordered ltr"
+          className="select select-bordered ltr flex-1 sm:flex-none"
         >
           <option value="all"> تمام دسته بندی ها</option>
           <option value="uncategorized">دسته بندی نشده</option>
@@ -165,7 +165,7 @@ const Blogs = () => {
         <Button
           onAction={handleSubmit}
           text="اعمال فیلتر"
-          className="btn-primary"
+          className="btn-primary w-full xsm:w-fit"
         />
       </form>
       <div className="grid grid-cols-3 gap-6">
