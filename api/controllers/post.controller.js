@@ -36,7 +36,7 @@ export const create = async (req, res, next) => {
 
 export const getPosts = async (req, res, next) => {
   try {
-    // first we want to get the posts, for ex we want to show a number of posts and then click on show more button and see the rest of them
+    // first we want to get the posts, for example we want to show a number of posts and then click on show more button and see the rest of them
     // so we want to have a start index, we want to see from which post we have to start fetching, so we are going to have a start index
     // and its going to be a number and first we want to convert it to an integer and we want to get it from request dot query so its
     // going to be along with the request we want to send it, for example we want to start from 9, from 10 or if there is nothing we want to

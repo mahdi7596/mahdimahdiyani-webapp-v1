@@ -12,19 +12,18 @@ const Blogs = () => {
     sort: "desc",
     category: "all",
   });
-
   const [posts, setPosts] = useState([]);
   const [showMore, setShowMore] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const location = useLocation();
-
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     if (e.target.id === "searchTerm") {
       setSidebarData({ ...sidebarData, searchTerm: e.target.value });
     }
+
     if (e.target.id === "sort") {
       const order = e.target.value || "desc";
       setSidebarData({ ...sidebarData, sort: order });
@@ -45,7 +44,9 @@ const Blogs = () => {
     const urlParams = new URLSearchParams(location.search);
 
     urlParams.set("searchTerm", sidebarData?.searchTerm);
+
     urlParams.set("sort", sidebarData?.sort);
+
     if (sidebarData?.category !== "all") {
       urlParams.set("category", sidebarData?.category);
     }
@@ -176,24 +177,26 @@ const Blogs = () => {
         )}
         {!loading &&
           posts &&
-          posts.map((post) => (
-            <Card
-              key={post._id}
-              {...post}
-              excerpt={post?.content}
-              tags={[
-                {
-                  text: post?.category,
-                  link: `/search?category=${post && post?.category}`,
-                },
-              ]}
-              actionButton={{
-                text: "مشاهده بیشتر",
-                className: "btn-primary w-fit self-end",
-                link: `/post/${post?.slug}`,
-              }}
-            />
-          ))}
+          posts
+            .filter((f) => f?.title.includes(sidebarData.searchTerm))
+            .map((post) => (
+              <Card
+                key={post._id}
+                {...post}
+                excerpt={post?.content}
+                tags={[
+                  {
+                    text: post?.category,
+                    link: `/search?category=${post && post?.category}`,
+                  },
+                ]}
+                actionButton={{
+                  text: "مشاهده بیشتر",
+                  className: "btn-primary w-fit self-end",
+                  link: `/post/${post?.slug}`,
+                }}
+              />
+            ))}
       </div>
       {showMore && (
         <Button
