@@ -169,10 +169,16 @@ const Blogs = () => {
           className="btn-primary w-full xsm:w-fit"
         />
       </form>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div
+        className={
+          posts.length === 0
+            ? "w-full"
+            : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        }
+      >
         {!loading && posts.length === 0 && (
-          <p className="text-6xl text-red-500 text-center">
-            پست مد نظر شما یافت نشد
+          <p className=" p-3 bg-red-100 border border-red-300 text-red-600 text-base md:text-lg rounded-sm">
+            وبلاگ مد نظر شما یافت نشد
           </p>
         )}
         {!loading &&
