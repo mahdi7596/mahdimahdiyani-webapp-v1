@@ -13,7 +13,7 @@ const DashAddPost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(formData);
+    console.log(formData);
     try {
       const res = await fetch("/api/post/create", {
         method: "POST",
@@ -23,9 +23,7 @@ const DashAddPost = () => {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      // console.log(data.message);
       if (!res.ok) {
-        // console.log("test");
         setPublishError(data.message);
         return;
       }
@@ -44,7 +42,23 @@ const DashAddPost = () => {
   return (
     <div className="w-full xs:w-5/6  h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
       <Link to="/dashboard?tab=addPost"></Link>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-y-6">
+      <form
+        encType="multipart/form-data"
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-y-6"
+      >
+        <input
+          type="file"
+          accept=".png,.jpg,.jpgeg"
+          name="image"
+          onChange={(e) => {
+            setFormData({
+              ...formData,
+              // image: e?.target?.files[0]
+              image: e.target.files[0].name,
+            });
+          }}
+        />
         <div className="flex flex-wrap items-center gap-x-3">
           <input
             onChange={(e) =>

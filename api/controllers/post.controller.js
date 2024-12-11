@@ -1,6 +1,29 @@
 import Post from "../models/post.model.js";
 import { errorHandler } from "../utils/error.js";
 
+import multer from "multer";
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "images");
+  },
+  filename: function (req, file, cb) {
+    console.log(file);
+    cb(null, +Date.now() + path.extname(file.originalname));
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
+  if (allowedFileTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+let upload = multer({ storage, fileFilter });
+
 export const create = async (req, res, next) => {
   if (!req.user.isAdmin) {
     return next(errorHandler(403, "شما مجاز به ایجاد یک پست نیستید."));
@@ -19,12 +42,12 @@ export const create = async (req, res, next) => {
 
   // ! todo این رو نوشته بودم برای اینکه فقط متن انگلیسی باشه ولی باید یک فیلد برای نامک اضافه کنم
   // .replace(/[^a-zA-Z0-9-]/g, "");
-
   const newPost = new Post({
     ...req.body,
     slug,
     userId: req.user.id,
   });
+  console.log(newPost);
 
   try {
     const savedPost = await newPost.save();
