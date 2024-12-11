@@ -131,7 +131,7 @@ const Blogs = () => {
       </div>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-wrap sm:flex-nowrap items-center gap-y-3 gap-x-3 mt-6 md:mt-12 mb-6"
+        className="flex flex-wrap sm:flex-nowrap items-center gap-y-3 gap-x-3 mt-6 md:mt-12 mb-8"
       >
         {/* <Search className="w-full" /> */}
         <input
@@ -168,7 +168,7 @@ const Blogs = () => {
           className="btn-primary w-full xsm:w-fit"
         />
       </form>
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {!loading && posts.length === 0 && (
           <p className="text-6xl text-red-500 text-center">
             پست مد نظر شما یافت نشد
@@ -194,14 +194,14 @@ const Blogs = () => {
               }}
             />
           ))}
-        {showMore && (
-          <Button
-            onAction={handleShowMore}
-            text="مشاهده بیشتر"
-            className="btn-sm btn-outline btn-neutral w-fit mt-6"
-          />
-        )}
       </div>
+      {showMore && (
+        <Button
+          onAction={handleShowMore}
+          text="مشاهده بیشتر"
+          className="btn-sm btn-outline btn-neutral w-fit mt-6"
+        />
+      )}
     </div>
   );
 };
