@@ -117,7 +117,7 @@ const Blogs = () => {
     <div className="section-container section-inner-space">
       <div
         style={{ backgroundImage: `url(${banner})` }}
-        className="relative h-48 flex flex-col items-center gap-y-4 py-8 px-24 bg-no-repeat bg-cover bg-center rounded-lg"
+        className="relative min-h-fit lg:h-48 flex flex-col items-center gap-y-4 py-8 px-8 md:px-16 lg:px-24 bg-no-repeat bg-cover bg-center rounded-lg"
       >
         <h2 className="z-10 text-2xl text-white">مقالات وب سایت</h2>
         <p className="z-10 text-neutrals100 text-center">
