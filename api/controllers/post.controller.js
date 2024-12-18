@@ -2,17 +2,19 @@ import Post from "../models/post.model.js";
 import { errorHandler } from "../utils/error.js";
 
 import multer from "multer";
+import path from "path";
 
+// Multer setup for file storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "images");
+    cb(null, "./../images"); // Folder to store images uploaded
   },
   filename: function (req, file, cb) {
-    console.log(file);
-    cb(null, +Date.now() + path.extname(file.originalname));
+    cb(null, Date.now() + path.extname(file.originalname)); // Unique file name
   },
 });
 
+// File filter to allow only specific file types
 const fileFilter = (req, file, cb) => {
   const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
   if (allowedFileTypes.includes(file.mimetype)) {
@@ -22,40 +24,46 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-let upload = multer({ storage, fileFilter });
+const upload = multer({ storage, fileFilter });
 
-export const create = async (req, res, next) => {
-  if (!req.user.isAdmin) {
-    return next(errorHandler(403, "شما مجاز به ایجاد یک پست نیستید."));
-  }
+export const create = [
+  upload.single("image"), // Middleware for handling a single image file
+  async (req, res, next) => {
+    console.log("Uploaded file path:", req.file.path);
 
-  if (!req.body.title || !req.body.content) {
-    return next(
-      errorHandler(400, "لطفاً تمام فیلدهای مورد نیاز را ارائه دهید.")
-    );
-  }
+    if (!req.user.isAdmin) {
+      return next(errorHandler(403, "شما مجاز به ایجاد پست نیستید."));
+    }
 
-  // Remove ZWNJ characters
-  let title = req.body.title.replace(/\u200C/g, "");
-  const slug = title.split(" ").join("-");
-  // let encodedUrl = encodeURIComponent(url);
+    if (!req.body.title || !req.body.content) {
+      return next(
+        errorHandler(400, "لطفاً تمام فیلدهای مورد نیاز را ارائه دهید.")
+      );
+    }
 
-  // ! todo این رو نوشته بودم برای اینکه فقط متن انگلیسی باشه ولی باید یک فیلد برای نامک اضافه کنم
-  // .replace(/[^a-zA-Z0-9-]/g, "");
-  const newPost = new Post({
-    ...req.body,
-    slug,
-    userId: req.user.id,
-  });
-  console.log(newPost);
+    // Remove ZWNJ characters
+    let title = req.body.title.replace(/\u200C/g, "");
+    const slug = title.split(" ").join("-");
+    // let encodedUrl = encodeURIComponent(url);
 
-  try {
-    const savedPost = await newPost.save();
-    res.status(201).json(savedPost);
-  } catch (error) {
-    next(error);
-  }
-};
+    // ! todo این رو نوشته بودم برای اینکه فقط متن انگلیسی باشه ولی باید یک فیلد برای نامک اضافه کنم
+    // .replace(/[^a-zA-Z0-9-]/g, "");
+    const newPost = new Post({
+      ...req.body,
+      slug,
+      userId: req.user.id,
+      image: req.file ? `/images/${req.file.filename}` : undefined, // Save file path
+    });
+    // console.log(newPost);
+
+    try {
+      const savedPost = await newPost.save();
+      res.status(201).json(savedPost);
+    } catch (error) {
+      next(error);
+    }
+  },
+];
 
 export const getPosts = async (req, res, next) => {
   try {

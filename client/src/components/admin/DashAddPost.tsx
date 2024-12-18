@@ -13,15 +13,19 @@ const DashAddPost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    // Create FormData to handle the file and other fields
+    const form = new FormData();
+    for (const key in formData) {
+      form.append(key, formData[key]);
+    }
+
     try {
       const res = await fetch("/api/post/create", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        body: form, // Send the FormData
       });
+
       const data = await res.json();
       if (!res.ok) {
         setPublishError(data.message);
@@ -39,26 +43,28 @@ const DashAddPost = () => {
       setPublishError("مشکلی پیش آمده است");
     }
   };
+
   return (
-    <div className="w-full xs:w-5/6  h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
+    <div className="w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
       <Link to="/dashboard?tab=addPost"></Link>
       <form
         encType="multipart/form-data"
         onSubmit={handleSubmit}
         className="flex flex-col gap-y-6"
       >
+        {/* File input */}
         <input
           type="file"
-          accept=".png,.jpg,.jpgeg"
+          accept=".png,.jpg,.jpeg"
           name="image"
           onChange={(e) => {
             setFormData({
               ...formData,
-              // image: e?.target?.files[0]
-              image: e.target.files[0].name,
+              image: e.target?.files[0], // Keep the file object instead of the name
             });
           }}
         />
+        {/* Title input */}
         <div className="flex flex-wrap items-center gap-x-3">
           <input
             onChange={(e) =>
@@ -70,6 +76,7 @@ const DashAddPost = () => {
             placeholder="عنوان مقاله"
             className="flex-1 input input-bordered"
           />
+          {/* Category dropdown */}
           <select
             onChange={(e) =>
               setFormData({ ...formData, category: e.target.value })
@@ -86,19 +93,21 @@ const DashAddPost = () => {
             <option value="mongo">دسته بندی ۵</option>
           </select>
         </div>
+        {/* Rich text editor */}
         <ReactQuill
           onChange={(value) => setFormData({ ...formData, content: value })}
           theme="snow"
           className="bg-surfaceBg h-96"
         />
+        {/* Submit button */}
         <Button
           onAction={handleSubmit}
           text="افزودن"
           type="submit"
           className="btn-primary w-44 mt-9"
-          // loading={loading}
         />
       </form>
+      {/* Error alert */}
       {publishError && (
         <div role="alert" className="alert bg-danger text-primary-content">
           <svg

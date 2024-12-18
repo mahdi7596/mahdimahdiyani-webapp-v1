@@ -8,6 +8,12 @@ import authRoutes from "../routes/auth.route.js";
 import userRoutes from "../routes/user.route.js";
 import postRoutes from "../routes/post.route.js";
 
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 
 // Middleware
@@ -20,6 +26,9 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
+
+// Serve the "images" folder statically
+app.use("/images", express.static(path.join(__dirname, "../../images")));
 
 // handle error using errorHandler middleware
 app.use(errorHandler);
