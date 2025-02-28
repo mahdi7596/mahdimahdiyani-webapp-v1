@@ -75,7 +75,7 @@ const Pricing = () => {
             ) => (
               <div
                 key={index}
-                className={`card ${
+                className={`landing-card ${
                   inverse === true && "border-black bg-black text-white/60"
                 }`}
               >
