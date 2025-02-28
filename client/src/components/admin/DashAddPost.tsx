@@ -13,7 +13,7 @@ const DashAddPost = () => {
 
   const handleSubmit = async (e) => {
     console.log(e);
-    console.log(formData.image?.name);
+    // console.log(formData.image?.name);
     // console.log(formData, "formData");
     e.preventDefault();
 

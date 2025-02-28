@@ -102,7 +102,11 @@ const DashPosts = () => {
                       >
                         <div className="avatar">
                           <div className="mask mask-squircle h-12 w-12">
-                            <img src={userPost?.image} alt={userPost?.title} />
+                            <img
+                              // src={userPost?.image}
+                              src={`http://localhost:3000${userPost?.image}`} // Use the full backend URL
+                              alt={userPost?.title}
+                            />
                           </div>
                         </div>
                         <span className="hover:text-primary">
