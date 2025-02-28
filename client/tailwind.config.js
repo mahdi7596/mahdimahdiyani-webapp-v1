@@ -10,6 +10,14 @@ export default {
       headingFont: ["headingFont"],
     },
     extend: {
+      // custom styles for container default class
+      container: {
+        center: true,
+        // padding: {
+        //   DEFAULT: "20px",
+        //   lg: "80px",
+        // },
+      },
       screens: {
         xxs: "340px",
         xs: "440px",
