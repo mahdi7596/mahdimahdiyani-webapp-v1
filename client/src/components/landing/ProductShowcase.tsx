@@ -22,14 +22,15 @@ const ProductShowcase = () => {
       <div className="container">
         <div className="section-heading ">
           <div className="flex justify-center">
-            <div className="tag">Boost your productivity</div>
+            <div className="tag">تخصص و تجربه در حسابداری و مدیریت</div>
           </div>
           <h2 className="section-title mt-5">
-            A more effective way to track progress
+            ارائه دانش و بینش در حوزه مالی و حسابداری
           </h2>
           <p className="section-description mt-5">
-            Effortlessly turn your ideas into a full functional, responsive,Sass
-            website in just minutes with this template.
+            با بهره‌گیری از سال‌ها تجربه در حوزه حسابداری، مدیریت مالی و آموزش،
+            مهدی مهدیانی دانش و تخصص خود را در اختیار مدیران، حسابداران و
+            علاقه‌مندان این حوزه قرار می‌دهد.
           </p>
         </div>
         <div className="relative ">

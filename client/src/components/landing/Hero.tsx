@@ -30,20 +30,19 @@ const Hero = () => {
       <div className="container">
         <div className="relative md:flex items-center">
           <div className="md:w-[478px]">
-            <div className="tag">Version 2.0 is here</div>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tighter bg-gradient-to-b from-[#87560E] to-[#B9812B] text-transparent bg-clip-text mt-6">
-              Pathway to productivity
+            <div className="tag">درباره مهدی مهدیانی</div>
+            <h1 className="text-2xl md:text-5xl font-semibold bg-gradient-to-b from-[#87560E] to-[#B9812B] py-1 text-transparent bg-clip-text mt-6">
+              رهبر فکری در حسابداری و مدیریت
             </h1>
-            <p className="text-xl  tracking-tight mt-6">
-              Celebrate the joy of accomplishment with an app designed to track
-              your progress, motivate your efforts, and celebrate your
-              successes.
+            <p className="text-base md:text-xl mt-6">
+              بنیان‌گذار رسانه همکلان، دبیرکل انجمن حسابداران استان تهران و مدرس
+              دانشگاه با سال‌ها تجربه در حسابداری و مدیریت.
             </p>
             <div className="flex gap-1 items-center mt-[30px]">
-              <button className="btn btn-primary">Get for free</button>
+              <button className="btn btn-primary">مشاهده مقالات</button>
               <button className="btn btn-text gap-1">
-                <span>Learn More</span>
-                <img src={ArrowIcon} className="h-5 w-5" />
+                <span>درباره من بیشتر بدانید</span>
+                <img src={ArrowIcon} className="h-5 w-5 rotate-180" />
               </button>
             </div>
           </div>

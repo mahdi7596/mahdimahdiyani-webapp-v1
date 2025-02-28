@@ -6,53 +6,53 @@ import CheckIcon from "../../assets/images/landing/check.svg";
 
 const pricingTiers = [
   {
-    title: "Business",
-    monthlyPrice: 19,
-    buttonText: "Sign up now",
+    title: "مشاوره مالی و حسابداری",
+    monthlyPrice: 500,
+    buttonText: "درخواست مشاوره",
     popular: false,
     inverse: false,
     features: [
-      "Up to 5 project members",
-      "Unlimited tasks and projects",
-      "200GB storage",
-      "Integrations",
-      "Dedicated account manager",
-      "Custom fields",
-      "Advanced analytics",
-      "Export capabilities",
-      "API access",
-      "Advanced security features",
+      "تحلیل صورت‌های مالی",
+      "مدیریت هزینه و درآمد",
+      "بهینه‌سازی مالیاتی",
+      "راهنمایی در تنظیم گزارشات مالی",
+      "مشاوره برای افزایش سودآوری",
+      "آموزش اصول حسابداری",
+      "آنالیز و بهبود فرآیندهای مالی",
+      "بررسی و پیشنهاد نرم‌افزارهای مالی",
+      "مدیریت ریسک مالی",
+      "بهینه‌سازی سرمایه‌گذاری",
     ],
   },
 
   {
-    title: "Pro",
-    monthlyPrice: 9,
-    buttonText: "Sign up now",
+    title: "آموزش حسابداری",
+    monthlyPrice: 300,
+    buttonText: "ثبت‌نام کنید",
     popular: true,
     inverse: true,
     features: [
-      "Up to 50 project members",
-      "Unlimited tasks and projects",
-      "50GB storage",
-      "Integrations",
-      "Priority support",
-      "Advanced support",
-      "Export support",
+      "آموزش کامل اصول حسابداری",
+      "کاربرد اکسل در حسابداری",
+      "تحلیل و تفسیر صورت‌های مالی",
+      "آموزش نرم‌افزارهای حسابداری",
+      "پشتیبانی آموزشی",
+      "آموزش محاسبه مالیات",
+      "تمرین‌های عملی و پروژه محور",
     ],
   },
   {
-    title: "Free",
+    title: "خدمات مالی پایه",
     monthlyPrice: 0,
-    buttonText: "Get started for free",
+    buttonText: "شروع کنید",
     popular: false,
     inverse: false,
     features: [
-      "Up to 5 project members",
-      "Unlimited tasks and projects",
-      "2GB storage",
-      "Integrations",
-      "Basic support",
+      "مشاوره اولیه رایگان",
+      "راهنمایی درباره اصول مالی",
+      "بررسی وضعیت مالی کلی",
+      "معرفی ابزارهای پایه حسابداری",
+      "پاسخ به سوالات عمومی مالی",
     ],
   },
 ];
@@ -62,10 +62,9 @@ const Pricing = () => {
     <section className="py-24 bg-white">
       <div className="container">
         <div className="section-heading">
-          <h2 className="section-title ">Pricing</h2>
+          <h2 className="section-title ">پلن‌های خدمات</h2>
           <p className="section-description">
-            Free forever. Upgrade for unlimited tasks, better security, and
-            exclusive features
+            خدمات متنوع مشاوره و آموزش مالی، متناسب با نیازهای شما
           </p>
         </div>
         <div className="flex flex-col gap-6 items-center mt-10 lg:flex-row lg:items-end lg:justify-center">
@@ -79,20 +78,12 @@ const Pricing = () => {
                 className={`card ${
                   inverse === true && "border-black bg-black text-white/60"
                 }`}
-                // className={twMerge(
-                //   "card",
-                //   inverse === true && "border-black bg-black text-white/60"
-                // )}
               >
                 <div className="flex justify-between">
                   <h3
                     className={`text-lg font-bold text-black/50 ${
                       inverse === true && "text-white/60"
                     }`}
-                    // className={twMerge(
-                    //   "text-lg font-bold text-black/50",
-                    //   inverse === true && " text-white/60"
-                    // )}
                   >
                     {title}
                   </h3>
@@ -108,27 +99,27 @@ const Pricing = () => {
                         }}
                         className="bg-[linear-gradient(to_right,#DD7DDF,#E1CD86,#BBCB92,#71C2EF,#3BFFFF,#DD7DDF,#E1CD86,#BBCB92,#71C2EF,#3BFFFF)] [background-size:200%] text-transparent bg-clip-text font-medium"
                       >
-                        Popular
+                        پرطرفدار
                       </motion.span>
                     </div>
                   )}
                 </div>
                 <div className="flex items-baseline gap-1 mt-[30px]">
                   <span className="text-4xl font-bold tracking-tighter leading-none">
-                    ${monthlyPrice}
+                    {monthlyPrice === 0
+                      ? "رایگان"
+                      : `${monthlyPrice} هزار تومان`}
                   </span>
-                  <span className="tracking-tight font-bold text-black/50">
-                    /month
-                  </span>
+                  {monthlyPrice !== 0 && (
+                    <span className="tracking-tight font-bold text-black/50">
+                      /ماه
+                    </span>
+                  )}
                 </div>
                 <button
                   className={`btn btn-primary w-full mt-[30px] ${
                     inverse === true && "bg-white text-black"
                   }`}
-                  //   className={twMerge(
-                  //     "btn btn-primary w-full mt-[30px]",
-                  //     inverse === true && " bg-white text-black"
-                  //   )}
                 >
                   {buttonText}
                 </button>
