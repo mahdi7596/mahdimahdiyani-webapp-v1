@@ -12,12 +12,27 @@ const DashAddPost = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    console.log(e);
+    console.log(formData.image?.name);
+    // console.log(formData, "formData");
     e.preventDefault();
+
+    // Create FormData to handle the file and other fields
+    // const form = new FormData();
+    // for (const key in formData) {
+    //   form.append(key, formData[key]);
+    // }
 
     // Create FormData to handle the file and other fields
     const form = new FormData();
     for (const key in formData) {
       form.append(key, formData[key]);
+    }
+
+    // Append the image separately
+    const imageInput = document.querySelector('input[type="file"]');
+    if (imageInput?.files[0]) {
+      form.append("image", imageInput.files[0]); // Ensure image is correctly appended
     }
 
     try {
@@ -58,10 +73,11 @@ const DashAddPost = () => {
           accept=".png,.jpg,.jpeg"
           name="image"
           onChange={(e) => {
-            setFormData({
-              ...formData,
-              image: e.target?.files[0], // Keep the file object instead of the name
-            });
+            // console.log(e.target?.files[0]?.name);
+            // setFormData({
+            //   ...formData,
+            //   image: e.target?.files[0], // Keep the file object instead of the name
+            // });
           }}
         />
         {/* Title input */}

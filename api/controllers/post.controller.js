@@ -4,13 +4,28 @@ import { errorHandler } from "../utils/error.js";
 import multer from "multer";
 import path from "path";
 
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // Multer setup for file storage
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "./../images"); // Folder to store images uploaded
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now() + path.extname(file.originalname)); // Unique file name
+//   },
+// });
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./../images"); // Folder to store images uploaded
+    const uploadPath = path.join(__dirname, "../images"); // Correct path
+    cb(null, uploadPath);
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)); // Unique file name
+    cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 
@@ -29,7 +44,10 @@ const upload = multer({ storage, fileFilter });
 export const create = [
   upload.single("image"), // Middleware for handling a single image file
   async (req, res, next) => {
-    // console.log("Uploaded file path:", req.file.path);
+    console.log("Request Body:", req.body); // Debugging: check other form data
+
+    console.log("Uploaded file path:", req.file.path);
+    console.log("Uploaded file:", req.file); // Debugging line
 
     if (!req.user.isAdmin) {
       return next(errorHandler(403, "شما مجاز به ایجاد پست نیستید."));
@@ -52,7 +70,8 @@ export const create = [
       ...req.body,
       slug,
       userId: req.user.id,
-      image: req.file ? `/images/${req.file.filename}` : undefined, // Save file path
+      // image: req.file ? `/images/${req.file.filename}` : undefined, // Save file path
+      image: req.file ? `/images/${req.file.filename}` : undefined, // Ensure file path is stored
     });
     // console.log(newPost);
 

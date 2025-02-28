@@ -28,7 +28,11 @@ app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 
 // Serve the "images" folder statically
-app.use("/images", express.static(path.join(__dirname, "../../images")));
+// app.use("/images", express.static(path.join(__dirname, "../../images")));
+
+// app.use("/images", express.static(path.join(__dirname, "api/images")));
+
+app.use("/images", express.static(path.join(__dirname, "../images")));
 
 // handle error using errorHandler middleware
 app.use(errorHandler);
