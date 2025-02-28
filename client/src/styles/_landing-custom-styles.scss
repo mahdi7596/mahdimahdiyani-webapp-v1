@@ -20,11 +20,11 @@
     }
 
     .section-title {
-        @apply text-center text-3xl md:text-[54px] md:leading-[60px] font-bold tracking-tighter bg-gradient-to-b from-black to-[#001E80] text-transparent bg-clip-text;
+        @apply text-center text-3xl md:text-[54px] md:leading-[60px] font-bold tracking-tighter bg-gradient-to-b from-[#87560E] to-[#B9812B] text-transparent bg-clip-text;
     }
 
     .section-description {
-        @apply text-center text-[22px] md:text-[24px] leading-[30px] tracking-tight text-[#010D3E] mt-5;
+        @apply text-center text-[22px] md:text-[24px] leading-[30px] tracking-tight mt-5;
     }
 
     .section-heading {
