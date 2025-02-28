@@ -71,7 +71,7 @@ const testimonials = [
 
 const firstColumn = testimonials.slice(0, 3);
 const secondColumn = testimonials.slice(3, 6);
-const thirdColumn = testimonials.slice(6);
+// const thirdColumn = testimonials.slice(6);
 
 const TestimonialsColumn = (props: {
   className?: string;

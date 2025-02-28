@@ -33,7 +33,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="bg-surfaceBg border-b border-surfaceBorder">
+    <header className="z-20 sticky top-0 bg-surfaceBg border-b border-surfaceBorder">
       <div className="section-container navbar">
         {/* logo + menuItems */}
         <div className="flex-none">

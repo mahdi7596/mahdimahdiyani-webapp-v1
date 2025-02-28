@@ -1,3 +1,4 @@
+import CallToAction from "../components/landing/CallToAction";
 import Hero from "../components/landing/Hero";
 import LogoTicker from "../components/landing/LogoTicker";
 import Pricing from "../components/landing/Pricing";
@@ -13,7 +14,7 @@ const Home = () => {
       <ProductShowcase />
       <Pricing />
       <Testimonials />
-      {/* <CallToAction /> */}
+      <CallToAction />
       {/* <Footer /> */}
     </>
   );
