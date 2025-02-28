@@ -14,70 +14,65 @@ import avatar9 from "../../assets/images/landing/avatar-9.png";
 
 const testimonials = [
   {
-    text: "As a seasoned designer always on the lookout for innovative tools, Framer.com instantly grabbed my attention.",
+    text: "مشاوره مالی این مجموعه باعث شد کسب‌وکارم رشد قابل توجهی داشته باشد.",
     imageSrc: avatar1,
-    name: "Jamie Rivera",
-    username: "@jamietechguru00",
+    name: "رضا کریمی",
+    username: "@rezakarimi",
   },
   {
-    text: "Our team's productivity has skyrocketed since we started using this tool. ",
+    text: "با آموزش‌های ارائه شده، توانستم حسابداری کسب‌وکارم را به خوبی مدیریت کنم.",
     imageSrc: avatar2,
-    name: "Josh Smith",
-    username: "@jjsmith",
+    name: "سارا مرادی",
+    username: "@saramoradi",
   },
   {
-    text: "This app has completely transformed how I manage my projects and deadlines.",
+    text: "خدمات مالی این تیم فوق‌العاده بود و توانست هزینه‌هایم را بهینه کند.",
     imageSrc: avatar3,
-    name: "Morgan Lee",
-    username: "@morganleewhiz",
+    name: "مهدی رضایی",
+    username: "@mahdirz",
   },
   {
-    text: "I was amazed at how quickly we were able to integrate this app into our workflow.",
+    text: "راهنمایی‌های دقیق و حرفه‌ای تیم باعث شد تصمیمات مالی بهتری بگیرم.",
     imageSrc: avatar4,
-    name: "Casey Jordan",
-    username: "@caseyj",
+    name: "الهام احمدی",
+    username: "@elhamahmadi",
   },
   {
-    text: "Planning and executing events has never been easier. This app helps me keep track of all the moving parts, ensuring nothing slips through the cracks.",
+    text: "بسیار از کیفیت خدمات ارائه شده راضی هستم و حتماً به دیگران پیشنهاد می‌کنم.",
     imageSrc: avatar5,
-    name: "Taylor Kim",
-    username: "@taylorkimm",
+    name: "علی رستمی",
+    username: "@alirastami",
   },
   {
-    text: "The customizability and integration capabilities of this app are top-notch.",
+    text: "آموزش‌های این مجموعه به من کمک کرد تا مهارت‌های حسابداری خود را تقویت کنم.",
     imageSrc: avatar6,
-    name: "Riley Smith",
-    username: "@rileysmith1",
+    name: "نرگس موسوی",
+    username: "@nargesmosavi",
   },
   {
-    text: "Adopting this app for our team has streamlined our project management and improved communication across the board.",
+    text: "با استفاده از مشاوره‌های ارائه شده، توانستم سود کسب‌وکارم را افزایش دهم.",
     imageSrc: avatar7,
-    name: "Jordan Patels",
-    username: "@jpatelsdesign",
+    name: "محمد کاظمی",
+    username: "@mohammadkazemi",
   },
   {
-    text: "With this app, we can easily assign tasks, track progress, and manage documents all in one place.",
+    text: "پشتیبانی و پاسخگویی تیم بسیار عالی است و همیشه در کنار مشتریان هستند.",
     imageSrc: avatar8,
-    name: "Sam Dawson",
-    username: "@dawsontechtips",
+    name: "زهرا نادری",
+    username: "@zahranadari",
   },
   {
-    text: "Its user-friendly interface and robust features support our diverse needs.",
+    text: "تنوع خدمات ارائه شده در این مجموعه، پاسخگوی نیازهای متنوع کسب‌وکارهاست.",
     imageSrc: avatar9,
-    name: "Casey Harper",
-    username: "@casey09",
+    name: "حسین طاهری",
+    username: "@hoseintaheri",
   },
 ];
 
 const firstColumn = testimonials.slice(0, 3);
 const secondColumn = testimonials.slice(3, 6);
-// const thirdColumn = testimonials.slice(6);
 
-const TestimonialsColumn = (props: {
-  className?: string;
-  testimonials: typeof testimonials;
-  duration?: number;
-}) => (
+const TestimonialsColumn = (props) => (
   <div className={props.className}>
     <motion.div
       animate={{ translateY: "-50%" }}
@@ -125,12 +120,12 @@ const Testimonials = () => {
       <div className="container">
         <div className="section-heading">
           <div className="flex justify-center">
-            <div className="tag">Testimonials</div>
+            <div className="tag">نظرات مشتریان</div>
           </div>
-          <h2 className="section-title mt-5 ">What our users say</h2>
+          <h2 className="section-title mt-5 ">بازخورد کاربران ما</h2>
           <p className="section-description mt-5">
-            From intuitive design to powerful features, our app has become an
-            essential tool for users around the world.
+            از مشاوره مالی تا آموزش‌های حرفه‌ای، مشتریان ما تجربه فوق‌العاده‌ای
+            داشته‌اند.
           </p>
         </div>
         <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[738px] overflow-hidden">

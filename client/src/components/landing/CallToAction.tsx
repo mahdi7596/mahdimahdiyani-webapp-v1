@@ -19,30 +19,30 @@ const CallToAction = () => {
     <section className="bg-gradient-to-b from-[#ffffff] to-[#FDEFDA] py-24 overflow-x-clip">
       <div className="container">
         <div className="section-heading relative">
-          <h2 className="section-title">Sign up for free today</h2>
+          <h2 className="section-title">همین امروز ثبت‌نام کنید</h2>
           <p className="section-description mt-5">
-            Celebrate they joy of accomplishment with an app designed to track
-            your progress and motivate your efforts.
+            با اپلیکیشنی که برای پیگیری پیشرفت شما طراحی شده است، لذت دستیابی به
+            اهداف خود را تجربه کنید و انگیزه بگیرید.
           </p>
           <motion.img
             src={starImage}
-            alt="star image"
+            alt="ستاره"
             width={360}
             className="absolute -left-[350px] -top-[137px]"
             style={{ translateY }}
           />
           <motion.img
             src={springImage}
-            alt="spring image"
+            alt="فنر"
             width={360}
             className="absolute -right-[331px] -top-[19px]"
             style={{ translateY }}
           />
         </div>
         <div className="flex gap-2 mt-10 justify-center">
-          <button className="btn btn-primary">Get for free</button>
+          <button className="btn btn-primary">دریافت رایگان</button>
           <button className="btn btn-text gap-1">
-            <span>Learn more</span>
+            <span>بیشتر بدانید</span>
             <img src={ArrowRight} className="h-5 w-5" />
           </button>
         </div>
