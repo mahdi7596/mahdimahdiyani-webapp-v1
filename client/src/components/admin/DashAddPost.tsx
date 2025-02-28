@@ -72,13 +72,13 @@ const DashAddPost = () => {
           type="file"
           accept=".png,.jpg,.jpeg"
           name="image"
-          onChange={(e) => {
-            // console.log(e.target?.files[0]?.name);
-            // setFormData({
-            //   ...formData,
-            //   image: e.target?.files[0], // Keep the file object instead of the name
-            // });
-          }}
+          // onChange={(e) => {
+          //   // console.log(e.target?.files[0]?.name);
+          //   // setFormData({
+          //   //   ...formData,
+          //   //   image: e.target?.files[0], // Keep the file object instead of the name
+          //   // });
+          // }}
         />
         {/* Title input */}
         <div className="flex flex-wrap items-center gap-x-3">

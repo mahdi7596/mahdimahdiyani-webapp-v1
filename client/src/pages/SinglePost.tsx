@@ -35,7 +35,7 @@ const SinglePost = () => {
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [post, setPost] = useState(null);
+  const [post, setPost] = useState<IProduct>();
   const [recentPosts, setRecentPosts] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
 
@@ -65,6 +65,7 @@ const SinglePost = () => {
   }, [postSlug]);
 
   // console.log(postSlug);
+  console.log(post, "post");
 
   useEffect(() => {
     try {
@@ -127,7 +128,7 @@ const SinglePost = () => {
             </div>
           </div>
           <img
-            src={post && post.image}
+            src={`http://localhost:3000${post?.image}`} // Use the full backend URL
             alt={post && post.title}
             className="h-96 object-cover rounded"
           />
