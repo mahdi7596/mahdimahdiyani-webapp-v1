@@ -16,7 +16,7 @@ const CallToAction = () => {
   const translateY = useTransform(scrollYProgress, [0, 1], [150, -150]);
 
   return (
-    <section className="bg-gradient-to-b from-white to-[#D2DCFF] py-24 overflow-x-clip">
+    <section className="bg-gradient-to-b from-[#ffffff] to-[#FDEFDA] py-24 overflow-x-clip">
       <div className="container">
         <div className="section-heading relative">
           <h2 className="section-title">Sign up for free today</h2>
