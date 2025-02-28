@@ -28,7 +28,7 @@ const Hero = () => {
   return (
     <section className="pt-8 pb-20 md:pt-5 md:pb-10 bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#183EC2,#EAEEFE_100%)] overflow-x-clip">
       <div className="container">
-        <div className="md:flex items-center">
+        <div className="relative md:flex items-center">
           <div className="md:w-[478px]">
             <div className="tag">Version 2.0 is here</div>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tighter bg-gradient-to-b from-black to-[#001E80] text-transparent bg-clip-text mt-6">
@@ -70,17 +70,17 @@ const Hero = () => {
                 translateY: translateY,
               }}
             />
-            <motion.img
-              src={noodleImage}
-              alt="noodle Image"
-              width={220}
-              className="hidden lg:block absolute top-[524px] left-[448px] rotate-[30deg]"
-              style={{
-                rotate: 30,
-                translateY: translateY,
-              }}
-            />
           </div>
+          <motion.img
+            src={noodleImage}
+            alt="noodle Image"
+            width={220}
+            className="hidden lg:block absolute top-[480px] right-[0px] rotate-[30deg]"
+            style={{
+              rotate: 30,
+              translateY: translateY,
+            }}
+          />
         </div>
       </div>
     </section>

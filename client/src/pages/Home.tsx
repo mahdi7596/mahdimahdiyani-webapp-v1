@@ -1,5 +1,7 @@
 import Hero from "../components/landing/Hero";
 import LogoTicker from "../components/landing/LogoTicker";
+import Pricing from "../components/landing/Pricing";
+import ProductShowcase from "../components/landing/ProductShowcase";
 
 const Home = () => {
   return (
@@ -7,8 +9,8 @@ const Home = () => {
       {/* <Navbar /> */}
       <Hero />
       <LogoTicker />
-      {/* <ProductShowcase /> */}
-      {/* <Pricing /> */}
+      <ProductShowcase />
+      <Pricing />
       {/* <Testimonials /> */}
       {/* <CallToAction /> */}
       {/* <Footer /> */}
