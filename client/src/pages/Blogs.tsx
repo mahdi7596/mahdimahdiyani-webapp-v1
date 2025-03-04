@@ -111,6 +111,7 @@ const Blogs = () => {
         }
       }
     };
+
     fetchPosts();
   }, [location.search]);
 
@@ -189,6 +190,7 @@ const Blogs = () => {
               <Card
                 key={post._id}
                 {...post}
+                img={`http://localhost:3000${post?.image}`} // Use the full backend URL
                 excerpt={post?.content}
                 tags={[
                   {
