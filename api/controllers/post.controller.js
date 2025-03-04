@@ -99,7 +99,9 @@ export const getPosts = async (req, res, next) => {
     // then we want to sort it by direction, we want to sort it in ascending or descending order, newest or oldest....and i will tell why
     // i have used 1 and -1 because when we want to get the response if we use 1 mongoDB is going to show the ascending and -1 is going to
     // show the descending
-    const sortDirection = req.query.order === "asc" ? 1 : -1;
+    console.log(req?.query?.order, "order request");
+    console.log(req?.query, "order req");
+    const sortDirection = req.query.order == "asc" ? 1 : -1;
     // after that we want to create the posts and this is going to be from our posts model and we want to use a method called find
     // we should keep this in mind that there are going to be different situations, it can be a post from the user it can be a post from
     // category or slug or postID

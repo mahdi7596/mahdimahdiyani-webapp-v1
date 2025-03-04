@@ -12,6 +12,16 @@ const Blogs = () => {
     sort: "desc",
     category: "all",
   });
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [category, setCategory] = useState("");
+  const [dateFilter, setDateFilter] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchDateQuery, setsearchDateQuery] = useState("desc");
+  console.log(searchTerm, "searchTerm");
+  console.log(category, "category");
+  console.log(dateFilter, "dateFilter");
+
   const [posts, setPosts] = useState([]);
   const [showMore, setShowMore] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -19,41 +29,51 @@ const Blogs = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    if (e.target.id === "searchTerm") {
-      setSidebarData({ ...sidebarData, searchTerm: e.target.value });
-    }
+  // const handleChange = (e) => {
+  //   if (e.target.id === "searchTerm") {
+  //     setSidebarData({ ...sidebarData, searchTerm: e.target.value });
+  //   }
 
-    if (e.target.id === "sort") {
-      const order = e.target.value || "desc";
-      setSidebarData({ ...sidebarData, sort: order });
-    }
-    if (e.target.id === "category") {
-      let category = "";
-      if (e.target.value === "all") {
-        category = "";
-      } else {
-        category = e.target.value;
-      }
-      setSidebarData({ ...sidebarData, category });
-    }
+  //   if (e.target.id === "sort") {
+  //     const order = e.target.value || "desc";
+  //     setSidebarData({ ...sidebarData, sort: order });
+  //   }
+  //   if (e.target.id === "category") {
+  //     let category = "";
+  //     if (e.target.value === "all") {
+  //       category = "";
+  //     } else {
+  //       category = e.target.value;
+  //     }
+  //     setSidebarData({ ...sidebarData, category });
+  //   }
+  // };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const urlParams = new URLSearchParams(location.search);
+
+  //   urlParams.set("searchTerm", sidebarData?.searchTerm);
+
+  //   urlParams.set("sort", sidebarData?.sort);
+
+  //   if (sidebarData?.category !== "all") {
+  //     urlParams.set("category", sidebarData?.category);
+  //   }
+
+  //   const searchQuery = urlParams.toString();
+  //   navigate(`/search?${searchQuery}`);
+  // };
+
+  const handleFilter = (e) => {
+    console.log("object");
+    e?.preventDefault();
+
+    setSearchQuery(category === "all" ? "" : category);
+    setsearchDateQuery(dateFilter);
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const urlParams = new URLSearchParams(location.search);
-
-    urlParams.set("searchTerm", sidebarData?.searchTerm);
-
-    urlParams.set("sort", sidebarData?.sort);
-
-    if (sidebarData?.category !== "all") {
-      urlParams.set("category", sidebarData?.category);
-    }
-
-    const searchQuery = urlParams.toString();
-    navigate(`/search?${searchQuery}`);
-  };
+  console.log(searchQuery, "setSearchQuery");
+  console.log(searchDateQuery, "setSearchDateQuery");
 
   const handleShowMore = async () => {
     const numberOfPosts = posts.length;
@@ -76,44 +96,67 @@ const Blogs = () => {
     }
   };
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(location.search);
+  // useEffect(() => {
+  //   const urlParams = new URLSearchParams(location.search);
 
-    const searchTermFromUrl = urlParams.get("searchTerm");
-    const sortFromUrl = urlParams.get("sort");
-    const categoryFromUrl = urlParams.get("category");
+  //   const searchTermFromUrl = urlParams.get("searchTerm");
+  //   const sortFromUrl = urlParams.get("sort");
+  //   const categoryFromUrl = urlParams.get("category");
 
-    if (searchTermFromUrl || sortFromUrl || categoryFromUrl) {
-      setSidebarData({
-        ...sidebarData,
-        searchTerm: searchTermFromUrl,
-        sort: sortFromUrl,
-        category: categoryFromUrl,
-      });
+  //   if (searchTermFromUrl || sortFromUrl || categoryFromUrl) {
+  //     setSidebarData({
+  //       ...sidebarData,
+  //       searchTerm: searchTermFromUrl,
+  //       sort: sortFromUrl,
+  //       category: categoryFromUrl,
+  //     });
+  //   }
+
+  //   const fetchPosts = async () => {
+  //     setLoading(true);
+  //     const searchQuery = urlParams.toString();
+  //     const res = await fetch(`/api/post/getposts?${searchQuery}`);
+  //     if (!res.ok) {
+  //       setLoading(false);
+  //       return;
+  //     }
+  //     if (res.ok) {
+  //       const data = await res.json();
+  //       setPosts(data.posts);
+  //       setLoading(false);
+  //       if (data.posts.length === 9) {
+  //         setShowMore(true);
+  //       } else {
+  //         setShowMore(false);
+  //       }
+  //     }
+  //   };
+
+  //   fetchPosts();
+  // }, [location.search]);
+
+  const fetchPosts = async () => {
+    setLoading(true);
+    const res = await fetch(
+      `/api/post/getposts?category=${searchQuery}&&order=${searchDateQuery}`
+    );
+    if (!res?.ok) {
+      setLoading(false);
+      return;
     }
+    if (res?.ok) {
+      const data = await res?.json();
+      setPosts(data?.posts);
+      setLoading(false);
+      // if(data?.posts.length ===)
+    }
+  };
 
-    const fetchPosts = async () => {
-      setLoading(true);
-      const searchQuery = urlParams.toString();
-      const res = await fetch(`/api/post/getposts?${searchQuery}`);
-      if (!res.ok) {
-        setLoading(false);
-        return;
-      }
-      if (res.ok) {
-        const data = await res.json();
-        setPosts(data.posts);
-        setLoading(false);
-        if (data.posts.length === 9) {
-          setShowMore(true);
-        } else {
-          setShowMore(false);
-        }
-      }
-    };
-
+  useEffect(() => {
     fetchPosts();
-  }, [location.search]);
+  }, [searchQuery, searchDateQuery]);
+
+  console.log(posts, "posts");
 
   return (
     <div className="section-container section-inner-space">
@@ -132,18 +175,26 @@ const Blogs = () => {
         <div className="absolute top-0 left-0 w-full h-full rounded-lg bg-black bg-opacity-60" />
       </div>
       <form
-        onSubmit={handleSubmit}
+        // onSubmit={handleSubmit}
         className="flex flex-wrap sm:flex-nowrap items-center gap-y-3 gap-x-3 mt-6 md:mt-12 mb-8"
       >
         {/* <Search className="w-full" /> */}
-        <input
+        {/* <input
           id="searchTerm"
           type="text"
           onChange={handleChange}
           placeholder="جستجو کنید"
           className="input input-bordered w-full"
+        /> */}
+        <input
+          id="searchTerm"
+          value={searchTerm}
+          type="text"
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="جستجو کنید"
+          className="input input-bordered w-full"
         />
-        <select
+        {/* <select
           id="sort"
           value={sidebarData.sort}
           onChange={handleChange}
@@ -163,9 +214,36 @@ const Blogs = () => {
           <option value="nodejs">دسته بندی ۳</option>
           <option value="express">دسته بندی ۴</option>
           <option value="mongo">دسته بندی ۵</option>
+        </select> */}
+        <select
+          id="sort"
+          value={dateFilter}
+          onChange={(e) => setDateFilter(e?.target?.value)}
+          className="select select-bordered ltr  flex-1 xxs:flex-none"
+        >
+          <option value="asc"> قدیمی ترین</option>
+          <option value="desc">جدید ترین</option>
         </select>
-        <Button
+        <select
+          id="category"
+          value={category}
+          onChange={(e) => setCategory(e?.target?.value)}
+          className="select select-bordered ltr flex-1 sm:flex-none"
+        >
+          <option value="all"> تمام دسته بندی ها</option>
+          <option value="uncategorized">دسته بندی نشده</option>
+          <option value="reactjs">دسته بندی ۲</option>
+          <option value="nodejs">دسته بندی ۳</option>
+          <option value="express">دسته بندی ۴</option>
+          <option value="mongo">دسته بندی ۵</option>
+        </select>
+        {/* <Button
           onAction={handleSubmit}
+          text="اعمال فیلتر"
+          className="btn-primary w-full xsm:w-fit"
+        /> */}
+        <Button
+          onAction={(e) => handleFilter(e)}
           text="اعمال فیلتر"
           className="btn-primary w-full xsm:w-fit"
         />
@@ -185,7 +263,8 @@ const Blogs = () => {
         {!loading &&
           posts &&
           posts
-            .filter((f) => f?.title.includes(sidebarData.searchTerm))
+            // .filter((f) => f?.title.includes(sidebarData.searchTerm))
+            .filter((f) => f?.title.includes(searchTerm))
             .map((post) => (
               <Card
                 key={post._id}
