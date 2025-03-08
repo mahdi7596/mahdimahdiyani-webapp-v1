@@ -7,14 +7,20 @@ const MenuItems = () => {
     <nav className="flex">
       {/* desktop */}
       <ul className="hidden lg:flex menu menu-horizontal">
-        {navMenuItems.map((menuItem) => (
-          <li
-            key={menuItem.id}
-            className="text-neutrals500 hover:text-neutrals"
-          >
-            <Link to={menuItem.link}>{menuItem.text}</Link>
-          </li>
-        ))}
+        {navMenuItems
+          .filter((menuItem) => !menuItem.mobileOnly)
+          .map((menuItem) => (
+            <li
+              key={menuItem.id}
+              className="text-neutrals500 hover:text-neutrals"
+            >
+              {menuItem.link.startsWith("#") ? (
+                <a href={menuItem.link}>{menuItem.text}</a>
+              ) : (
+                <Link to={menuItem.link}>{menuItem.text}</Link>
+              )}
+            </li>
+          ))}
       </ul>
       {/* mobile */}
       <div className="lg:hidden dropdown">

@@ -18,6 +18,11 @@
 @import "./styles/landing-custom-styles";
 
 
+/* Add this to your global CSS file */
+html {
+  scroll-behavior: smooth;
+}
+
 
 body {
   direction: rtl;

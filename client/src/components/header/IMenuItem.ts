@@ -2,6 +2,7 @@ export interface IMenuItem {
   id: number;
   text: string;
   link: string;
+  mobileOnly?: boolean;
 }
 
 export const navMenuItems: IMenuItem[] = [
@@ -31,11 +32,12 @@ export const navMenuItems: IMenuItem[] = [
     link: "/work-with-us",
   },
   // todo #1 i have to assign a different class for this menu item and implement a functionality where it shows it only in mobile view port
-  // {
-  //   id: 7,
-  //   text: "ورود - ثبت نام",
-  //   link: "/register",
-  // },
+  {
+    id: 7,
+    text: "ورود - ثبت نام",
+    link: "/register",
+    mobileOnly: true, // Add a flag for mobile-only items
+  },
 ];
 
 export const profileMenuItems: IMenuItem[] = [
