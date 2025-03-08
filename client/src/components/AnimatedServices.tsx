@@ -158,7 +158,7 @@ const AnimatedServices = () => {
                   onClick={() => setSelectedExp(exp)}
                 >
                   <div className="flex items-start gap-4">
-                    <div className="pt-4 px-2 pb-1.5 rounded bg-primary200">
+                    <div className="pt-4 px-2 pb-1.5 rounded-lg bg-primary200">
                       {exp.icon}
                     </div>
                     <div>
