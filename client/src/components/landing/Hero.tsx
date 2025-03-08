@@ -74,7 +74,7 @@ const Hero = () => {
             src={noodleImage}
             alt="noodle Image"
             width={220}
-            className="hidden lg:block absolute top-[480px] right-[0px] rotate-[30deg]"
+            className="hidden lg:block absolute top-[380px] right-[0px] rotate-[30deg]"
             style={{
               rotate: 30,
               translateY: translateY,
