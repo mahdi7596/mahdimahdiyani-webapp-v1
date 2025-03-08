@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const ServicesAbout = () => {
   return (
-    <div className="relative py-24 mt-24">
+    <div className="relative py-24">
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900/90 to-gray-900/90">
         <img
           src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80"
