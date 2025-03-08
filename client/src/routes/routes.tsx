@@ -11,7 +11,7 @@ import DashAddPost from "../components/admin/DashAddPost";
 import DashUpdatePost from "../components/admin/DashUpdatePost";
 
 const Home = lazy(() => import("../pages/Home"));
-const Aboutus = lazy(() => import("../pages/Aboutus"));
+const Aboutme = lazy(() => import("../pages/Aboutme"));
 const Blogs = lazy(() => import("../pages/Blogs"));
 const SinglePost = lazy(() => import("../pages/SinglePost"));
 const Signup = lazy(() => import("../pages/Signup"));
@@ -33,8 +33,8 @@ const routes = createBrowserRouter([
     element: renderLayout(<Home />),
   },
   {
-    path: "/about",
-    element: renderLayout(<Aboutus />),
+    path: "/about-me",
+    element: renderLayout(<Aboutme />),
   },
   {
     path: "/search",

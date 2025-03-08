@@ -23,8 +23,8 @@ export const navMenuItems: IMenuItem[] = [
   },
   {
     id: 5,
-    text: "درباره ما",
-    link: "#aboutus",
+    text: "درباره من",
+    link: "/about-me",
   },
   {
     id: 6,
