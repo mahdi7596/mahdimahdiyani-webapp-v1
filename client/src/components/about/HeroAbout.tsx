@@ -16,8 +16,8 @@ const HeroAbout = () => {
             whileHover={{ scale: 1.02 }}
           >
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-neutrals-500">دوره آزمایشی رایگان</span>
-            <span className="text-neutrals-400">
+            <span className="text-neutrals500">دوره آزمایشی رایگان</span>
+            <span className="text-neutrals400">
               استخدام بعدی خود را با دوره آزمایشی رایگان ما شروع کنید
             </span>
           </motion.div>
@@ -28,7 +28,7 @@ const HeroAbout = () => {
           </h1>
 
           {/* Description */}
-          <p className="text-neutrals-400 text-lg mb-8">
+          <p className="text-neutrals400 text-lg mb-8">
             چه به دنبال فرصت شغلی بعدی خود باشید و چه به دنبال استعدادهای برتر
             برای پیوستن به تیم خود، کارشناسان استخدام ما در هر مرحله از مسیر
             راهنمای شما هستند.
@@ -64,7 +64,7 @@ const HeroAbout = () => {
           className="relative"
         >
           {/* Main Image */}
-          <div className="relative bg-primary-100 rounded-2xl overflow-hidden">
+          <div className="relative bg-primary100 rounded-2xl overflow-hidden">
             <img
               src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80"
               alt="Professional businessman"
@@ -84,7 +84,7 @@ const HeroAbout = () => {
                   alt="Avatar"
                   className="w-6 h-6 rounded-full"
                 />
-                <span className="text-neutrals-500">
+                <span className="text-neutrals500">
                   +30,000 استخدام انجام شده
                 </span>
               </div>
@@ -102,7 +102,7 @@ const HeroAbout = () => {
                   alt="Avatar"
                   className="w-6 h-6 rounded-full"
                 />
-                <span className="text-neutrals-500">85% هدف عملکرد</span>
+                <span className="text-neutrals500">85% هدف عملکرد</span>
               </div>
             </motion.div>
           </div>
@@ -125,7 +125,7 @@ const HeroAbout = () => {
                 <div className="text-2xl font-bold text-primary mb-1">
                   15,290
                 </div>
-                <p className="text-sm text-neutrals-400">
+                <p className="text-sm text-neutrals400">
                   فرآیند استخدام فروش را ساده می‌کند تا بتوانید روی رشد تمرکز
                   کنید
                 </p>

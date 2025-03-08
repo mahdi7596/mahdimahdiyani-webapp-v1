@@ -2,6 +2,7 @@ import HeroAbout from "../components/about/HeroAbout";
 import ServicesAbout from "../components/about/ServicesAbout";
 import AnimatedServices from "../components/AnimatedServices";
 import Counter from "../components/Counter";
+import Timeline from "../components/Timeline";
 
 const Aboutme = () => {
   return (
@@ -10,6 +11,7 @@ const Aboutme = () => {
       <Counter />
       <ServicesAbout />
       <AnimatedServices />
+      <Timeline />
     </div>
   );
 };

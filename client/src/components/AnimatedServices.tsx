@@ -87,7 +87,10 @@ const AnimatedServices = () => {
   }, []);
 
   return (
-    <section id="showcase" className="py-24 bg-backgroundColor">
+    <section
+      id="showcase"
+      className="py-24 bg-gradient-to-b from-[#ffffff] to-[#FFFBF5]"
+    >
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
