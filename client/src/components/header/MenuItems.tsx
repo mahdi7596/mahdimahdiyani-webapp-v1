@@ -1,8 +1,24 @@
+import { useEffect, useState } from "react";
+
 import { Link } from "react-router-dom";
 import { navMenuItems } from "./IMenuItem";
 import Dropdown from "../shared/Dropdown";
 
 const MenuItems = () => {
+  const [hasClickedServices, setHasClickedServices] = useState(false);
+
+  // Scroll to the section only if the user clicked the "خدمات ما" link
+  useEffect(() => {
+    if (location.hash === "#services" && hasClickedServices) {
+      const element = document.getElementById(location.hash.slice(1));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+      // Reset the state after scrolling
+      setHasClickedServices(false);
+    }
+  }, [location, hasClickedServices]);
+
   return (
     <nav className="flex">
       {/* desktop */}
@@ -15,7 +31,16 @@ const MenuItems = () => {
               className="text-neutrals500 hover:text-neutrals"
             >
               {menuItem.link.startsWith("#") ? (
-                <a href={menuItem.link}>{menuItem.text}</a>
+                <a
+                  href={`/${menuItem.link}`}
+                  onClick={() => {
+                    if (menuItem.link === "/#services") {
+                      setHasClickedServices(true); // Set state when "خدمات ما" is clicked
+                    }
+                  }}
+                >
+                  {menuItem.text}
+                </a>
               ) : (
                 <Link to={menuItem.link}>{menuItem.text}</Link>
               )}

@@ -21,9 +21,9 @@ const Hero = () => {
   });
   const translateY = useTransform(scrollYProgress, [0, 1], [150, -150]);
 
-  useMotionValueEvent(translateY, "change", (latestValue) =>
-    console.log(latestValue)
-  );
+  // useMotionValueEvent(translateY, "change", (latestValue) =>
+  //   console.log(latestValue)
+  // );
 
   return (
     <section className="pt-8 pb-20 md:pt-5 md:pb-10 bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#F2D3A3,#FFFBF5_100%)] overflow-x-clip">
