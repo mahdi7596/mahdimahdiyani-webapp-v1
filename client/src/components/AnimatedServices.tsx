@@ -16,7 +16,12 @@ const experiences: ExperienceItem[] = [
     title: "توسعه وب‌سایت‌های مدرن",
     description:
       "طراحی و توسعه وب‌سایت‌های پیشرفته با استفاده از آخرین تکنولوژی‌های روز",
-    icon: <i className="maicon-dashboard-solid text-2xl text-primary" />,
+    icon: (
+      <i
+        className="maicon-dashboard-solid text-2xl text-primary leading-0"
+        style={{ lineHeight: 0 }}
+      />
+    ),
     image:
       "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=2072",
   },
@@ -24,7 +29,12 @@ const experiences: ExperienceItem[] = [
     id: 2,
     title: "طراحی رابط کاربری",
     description: "خلق تجربه‌های کاربری منحصر به فرد و جذاب برای کاربران",
-    icon: <i className="maicon-dashboard-solid text-2xl text-primary" />,
+    icon: (
+      <i
+        className="maicon-dashboard-solid text-2xl text-primary leading-0"
+        style={{ lineHeight: 0 }}
+      />
+    ),
     image:
       "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=2064",
   },
@@ -32,7 +42,12 @@ const experiences: ExperienceItem[] = [
     id: 3,
     title: "توسعه نرم‌افزارهای تجاری",
     description: "ایجاد راهکارهای نرم‌افزاری برای کسب و کارها",
-    icon: <i className="maicon-dashboard-solid text-2xl text-primary" />,
+    icon: (
+      <i
+        className="maicon-dashboard-solid text-2xl text-primary leading-0"
+        style={{ lineHeight: 0 }}
+      />
+    ),
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2015",
   },
@@ -40,7 +55,12 @@ const experiences: ExperienceItem[] = [
     id: 4,
     title: "مشاوره فنی",
     description: "ارائه راهکارهای فنی و مشاوره در زمینه تکنولوژی",
-    icon: <i className="maicon-dashboard-solid text-2xl text-primary" />,
+    icon: (
+      <i
+        className="maicon-dashboard-solid text-2xl text-primary  leading-0"
+        style={{ lineHeight: 0 }}
+      />
+    ),
     image:
       "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&q=80&w=2070",
   },
@@ -103,7 +123,7 @@ const AnimatedServices = () => {
               transition={{ duration: 0.8 }}
               className="relative"
             >
-              <div className="curved-top bg-gradient-to-br from-primary-100 to-primary-300 p-1">
+              <div>
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={selectedExp.id}
@@ -130,15 +150,15 @@ const AnimatedServices = () => {
                   initial={{ opacity: 0, x: 50 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, delay: exp.id * 0.1 }}
-                  className={`experience-card p-6 rounded-2xl cursor-pointer ${
+                  className={`bg-surfaceBg p-6 rounded-2xl cursor-pointer border ${
                     selectedExp.id === exp.id
-                      ? "border border-primary shadow-lg bg-surfaceBg"
+                      ? " border-primary shadow-lg bg-gradient-to-br from-primary0 to-primary100"
                       : ""
                   }`}
                   onClick={() => setSelectedExp(exp)}
                 >
                   <div className="flex items-start gap-4">
-                    <div className="p-3 rounded-xl bg-primary-100">
+                    <div className="pt-4 px-2 pb-1.5 rounded bg-primary200">
                       {exp.icon}
                     </div>
                     <div>
@@ -147,13 +167,6 @@ const AnimatedServices = () => {
                       </h3>
                       <p className="text-neutrals-400">{exp.description}</p>
                     </div>
-                    {/* <ArrowRight
-                      className={`mr-auto text-primary transition-transform ${
-                        selectedExp.id === exp.id
-                          ? "transform translate-x-2"
-                          : ""
-                      }`}
-                    /> */}
                   </div>
                 </motion.div>
               ))}
