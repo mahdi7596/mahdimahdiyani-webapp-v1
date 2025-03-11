@@ -16,6 +16,10 @@ interface IProduct {
   id: number;
   image: string;
   title: string;
+  category?: string;
+  updatedAt?: string;
+  content?: string;
+  _id?: string;
 }
 
 const suggestedProducts: IProduct[] = [
@@ -34,11 +38,11 @@ const suggestedProducts: IProduct[] = [
 const SinglePost = () => {
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
   const [post, setPost] = useState<IProduct>();
   const [recentPosts, setRecentPosts] = useState(null);
-  const { currentUser } = useSelector((state) => state.user);
-
+  const { currentUser } = useSelector(
+    (state: { user: { currentUser: any } }) => state.user
+  );
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -46,18 +50,18 @@ const SinglePost = () => {
         const res = await fetch(`/api/post/getposts?slug=${postSlug}`);
         const data = await res.json();
         if (!res.ok) {
-          setError(true);
+          // setError(true);
           setLoading(false);
           return;
         }
         if (res.ok) {
           setPost(data.posts[0]);
           setLoading(false);
-          setError(false);
+          // setError(false);
         }
       } catch (error) {
         console.log(error);
-        setError(true);
+        // setError(true);
         setLoading(false);
       }
     };

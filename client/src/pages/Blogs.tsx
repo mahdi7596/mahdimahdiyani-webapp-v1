@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import Button from "../components/shared/Button";
 import Card from "../components/shared/Card";
@@ -7,11 +7,11 @@ import Card from "../components/shared/Card";
 import banner from "../assets/images/banner.jpg";
 
 const Blogs = () => {
-  const [sidebarData, setSidebarData] = useState({
-    searchTerm: "",
-    sort: "desc",
-    category: "all",
-  });
+  // const [sidebarData, setSidebarData] = useState({
+  //   searchTerm: "",
+  //   sort: "desc",
+  //   category: "all",
+  // });
 
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
@@ -27,7 +27,7 @@ const Blogs = () => {
   const [loading, setLoading] = useState(false);
 
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // const handleChange = (e) => {
   //   if (e.target.id === "searchTerm") {
@@ -79,7 +79,7 @@ const Blogs = () => {
     const numberOfPosts = posts.length;
     const startIndex = numberOfPosts;
     const urlParams = new URLSearchParams(location.search);
-    urlParams.set("startIndex", startIndex);
+    urlParams.set("startIndex", startIndex.toString());
     const searchQuery = urlParams.toString();
     const res = await fetch(`/api/post/getposts?${searchQuery}`);
     if (!res.ok) {

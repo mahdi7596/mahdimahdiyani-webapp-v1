@@ -6,7 +6,9 @@ import moment from "jalali-moment";
 import Button from "../shared/Button";
 
 const DashPosts = () => {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser } = useSelector(
+    (state: { user: { currentUser: any } }) => state.user
+  );
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
   const [postIdToDelete, setPostIdToDelete] = useState("");

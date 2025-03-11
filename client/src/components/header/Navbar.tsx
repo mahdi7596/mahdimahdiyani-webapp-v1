@@ -12,8 +12,9 @@ import logo from "../../assets/images/temp-logo.png";
 import profilePic from "../../assets/images/mahdimahdiyani-profile-pic.png";
 
 const Navbar = () => {
-  const { currentUser } = useSelector((state) => state.user);
-
+  const { currentUser } = useSelector(
+    (state: { user: { currentUser: any } }) => state.user
+  );
   const dispatch = useDispatch();
 
   const handleSignout = async () => {

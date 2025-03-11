@@ -8,13 +8,24 @@ import "react-quill/dist/quill.snow.css";
 import Button from "../shared/Button";
 
 const DashUpdatePost = () => {
-  const [formData, setFormData] = useState({});
+  interface FormData {
+    title: string;
+    category: string;
+    content: string;
+  }
+
+  const [formData, setFormData] = useState<FormData>({
+    title: "",
+    category: "",
+    content: "",
+  });
   const [publishError, setPublishError] = useState<string | null>(null);
   const { postId } = useParams();
   const navigate = useNavigate();
 
-  const { currentUser } = useSelector((state) => state.user);
-
+  const { currentUser } = useSelector(
+    (state: { user: { currentUser: any } }) => state.user
+  );
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

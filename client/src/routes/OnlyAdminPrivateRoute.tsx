@@ -2,8 +2,10 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 const OnlyAdminPrivateRoute = ({ element }: { element: React.ReactNode }) => {
-  const { currentUser } = useSelector((state) => state.user);
-
+  // const {   } = useSelector((state) => state.user);
+  const { currentUser } = useSelector(
+    (state: { user: { currentUser: any } }) => state.user
+  );
   return currentUser && currentUser.isAdmin ? (
     <>{element}</>
   ) : (

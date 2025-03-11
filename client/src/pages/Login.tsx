@@ -21,7 +21,9 @@ interface ILogin {
 }
 
 const Login = () => {
-  const { loading, error: errorMessage } = useSelector((state) => state.user);
+  const { loading, error: errorMessage } = useSelector(
+    (state: { user: { loading: boolean; error: string } }) => state.user
+  );
 
   const email = useInput("", { required: true, email: true });
   const password = useInput("", { required: true });

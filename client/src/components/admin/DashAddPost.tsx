@@ -31,8 +31,8 @@ const DashAddPost = () => {
 
     // Append the image separately
     const imageInput = document.querySelector('input[type="file"]');
-    if (imageInput?.files[0]) {
-      form.append("image", imageInput.files[0]); // Ensure image is correctly appended
+    if ((imageInput as HTMLInputElement)?.files?.[0]) {
+      form.append("image", (imageInput as HTMLInputElement).files![0]);
     }
 
     try {

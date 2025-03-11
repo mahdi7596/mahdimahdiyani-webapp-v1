@@ -9,14 +9,16 @@ import {
   deleteUserStart,
   deleteUserSuccess,
   deleteUserFailure,
-  signoutSuccess,
 } from "../../redux/user/userSlice";
 
 import profilePic from "../../assets/images/mahdimahdiyani-profile-pic.png";
 import Button from "../shared/Button";
 
 const DashProfile = () => {
-  const { currentUser, error, loading } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector(
+    (state: { user: { currentUser: any; error: any; loading: any } }) =>
+      state.user
+  );
   const [formData, setFormData] = useState({});
   const [updateUserSuccess, setUpdateUserSuccess] = useState<string | null>(
     null

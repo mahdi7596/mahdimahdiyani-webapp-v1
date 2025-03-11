@@ -1,5 +1,3 @@
-import React from "react";
-
 import { motion } from "framer-motion";
 
 import acmeLogo from "../../assets/images/landing/logo-acme.png";

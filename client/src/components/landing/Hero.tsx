@@ -1,11 +1,6 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useMotionValueEvent,
-} from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 import cogImage from "../../assets/images/landing/cog.png";
 import cylinderImage from "../../assets/images/landing/cylinder.png";
