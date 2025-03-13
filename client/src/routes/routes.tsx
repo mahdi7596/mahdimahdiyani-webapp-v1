@@ -9,6 +9,7 @@ import Navbar from "../components/header/Navbar";
 import Footer from "../components/Footer";
 import AddPost from "../components/admin/AddPost";
 import UpdatePost from "../components/admin/UpdatePost";
+import Categories from "../components/admin/Categories";
 
 const Home = lazy(() => import("../pages/Home"));
 const Aboutme = lazy(() => import("../pages/Aboutme"));
@@ -56,8 +57,9 @@ const routes = createBrowserRouter([
     path: "/dashboard",
     element: <PrivateRoute element={renderLayout(<Dashboard />)} />, // Private Route
   },
+  // posts
   {
-    // path: "/create-post",
+    // path: "/posts",
     element: <OnlyAdminPrivateRoute element={renderLayout(<Posts />)} />, // Admin Private Route
   },
   {
@@ -66,6 +68,19 @@ const routes = createBrowserRouter([
   },
   {
     path: "/update-post/:postId",
+    element: <PrivateRoute element={renderLayout(<UpdatePost />)} />, // Admin Private Route
+  },
+  // categories
+  {
+    // path: "/categories",
+    element: <OnlyAdminPrivateRoute element={renderLayout(<Categories />)} />, // Admin Private Route
+  },
+  {
+    // path: "/add-cateogry",
+    element: <OnlyAdminPrivateRoute element={renderLayout(<AddPost />)} />, // Admin Private Route
+  },
+  {
+    path: "/update-cateogry/:cateogryId",
     element: <PrivateRoute element={renderLayout(<UpdatePost />)} />, // Admin Private Route
   },
   {
