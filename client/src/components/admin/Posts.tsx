@@ -5,7 +5,7 @@ import moment from "jalali-moment";
 
 import Button from "../shared/Button";
 
-const DashPosts = () => {
+const Posts = () => {
   const { currentUser } = useSelector(
     (state: { user: { currentUser: any } }) => state.user
   );
@@ -195,4 +195,4 @@ const DashPosts = () => {
   );
 };
 
-export default DashPosts;
+export default Posts;

@@ -1,44 +1,46 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import Button from "../shared/Button";
 
-const DashUpdatePost = () => {
-  interface FormData {
-    title: string;
-    category: string;
-    content: string;
-  }
-
-  const [formData, setFormData] = useState<FormData>({
-    title: "",
-    category: "",
-    content: "",
-  });
+const AddPost = () => {
+  const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState<string | null>(null);
-  const { postId } = useParams();
   const navigate = useNavigate();
 
-  const { currentUser } = useSelector(
-    (state: { user: { currentUser: any } }) => state.user
-  );
   const handleSubmit = async (e) => {
+    console.log(e);
+    // console.log(formData.image?.name);
+    // console.log(formData, "formData");
     e.preventDefault();
+
+    // Create FormData to handle the file and other fields
+    // const form = new FormData();
+    // for (const key in formData) {
+    //   form.append(key, formData[key]);
+    // }
+
+    // Create FormData to handle the file and other fields
+    const form = new FormData();
+    for (const key in formData) {
+      form.append(key, formData[key]);
+    }
+
+    // Append the image separately
+    const imageInput = document.querySelector('input[type="file"]');
+    if ((imageInput as HTMLInputElement)?.files?.[0]) {
+      form.append("image", (imageInput as HTMLInputElement).files![0]);
+    }
+
     try {
-      const res = await fetch(
-        `/api/post/updatepost/${postId}/${currentUser._id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const res = await fetch("/api/post/create", {
+        method: "POST",
+        body: form, // Send the FormData
+      });
+
       const data = await res.json();
       if (!res.ok) {
         setPublishError(data.message);
@@ -57,48 +59,44 @@ const DashUpdatePost = () => {
     }
   };
 
-  useEffect(() => {
-    try {
-      const fetchPost = async () => {
-        const res = await fetch(`/api/post/getposts?postId=${postId}`);
-        const data = await res.json();
-        if (!res.ok) {
-          // console.log(data.message);
-          setPublishError(data.message);
-          return;
-        }
-        if (res.ok) {
-          setPublishError(null);
-          setFormData(data.posts[0]);
-        }
-      };
-      fetchPost();
-    } catch (error) {
-      console.log(error);
-    }
-  }, [postId]);
-
   return (
-    <div className="my-6 w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
-      <Link to="/dashboard?tab=update-post"></Link>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-y-6">
+    <div className="w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
+      <Link to="/dashboard?tab=addPost"></Link>
+      <form
+        encType="multipart/form-data"
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-y-6"
+      >
+        {/* File input */}
+        <input
+          type="file"
+          accept=".png,.jpg,.jpeg"
+          name="image"
+          // onChange={(e) => {
+          //   // console.log(e.target?.files[0]?.name);
+          //   // setFormData({
+          //   //   ...formData,
+          //   //   image: e.target?.files[0], // Keep the file object instead of the name
+          //   // });
+          // }}
+        />
+        {/* Title input */}
         <div className="flex flex-wrap items-center gap-x-3">
           <input
             onChange={(e) =>
               setFormData({ ...formData, title: e.target.value })
             }
-            value={formData.title}
             id="title"
             required
             type="text"
             placeholder="عنوان مقاله"
             className="flex-1 input input-bordered"
           />
+          {/* Category dropdown */}
           <select
             onChange={(e) =>
               setFormData({ ...formData, category: e.target.value })
             }
-            value={formData.category}
             className="select select-bordered ltr"
           >
             <option disabled selected>
@@ -111,20 +109,21 @@ const DashUpdatePost = () => {
             <option value="mongo">دسته بندی ۵</option>
           </select>
         </div>
+        {/* Rich text editor */}
         <ReactQuill
           onChange={(value) => setFormData({ ...formData, content: value })}
-          value={formData.content}
           theme="snow"
           className="bg-surfaceBg h-96"
         />
+        {/* Submit button */}
         <Button
           onAction={handleSubmit}
-          text="بروزرسانی"
+          text="افزودن"
           type="submit"
           className="btn-primary w-44 mt-9"
-          // loading={loading}
         />
       </form>
+      {/* Error alert */}
       {publishError && (
         <div role="alert" className="alert bg-danger text-primary-content">
           <svg
@@ -147,4 +146,4 @@ const DashUpdatePost = () => {
   );
 };
 
-export default DashUpdatePost;
+export default AddPost;

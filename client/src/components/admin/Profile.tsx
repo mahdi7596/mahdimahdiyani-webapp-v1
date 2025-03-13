@@ -14,7 +14,7 @@ import {
 import profilePic from "../../assets/images/mahdimahdiyani-profile-pic.png";
 import Button from "../shared/Button";
 
-const DashProfile = () => {
+const Profile = () => {
   const { currentUser, error, loading } = useSelector(
     (state: { user: { currentUser: any; error: any; loading: any } }) =>
       state.user
@@ -236,4 +236,4 @@ const DashProfile = () => {
   );
 };
 
-export default DashProfile;
+export default Profile;

@@ -4,11 +4,11 @@ import { createBrowserRouter } from "react-router-dom";
 import OnlyAdminPrivateRoute from "./OnlyAdminPrivateRoute";
 import PrivateRoute from "./PrivateRoute";
 
-import DashPosts from "../components/admin/DashPosts";
+import Posts from "../components/admin/Posts";
 import Navbar from "../components/header/Navbar";
 import Footer from "../components/Footer";
-import DashAddPost from "../components/admin/DashAddPost";
-import DashUpdatePost from "../components/admin/DashUpdatePost";
+import AddPost from "../components/admin/AddPost";
+import UpdatePost from "../components/admin/UpdatePost";
 
 const Home = lazy(() => import("../pages/Home"));
 const Aboutme = lazy(() => import("../pages/Aboutme"));
@@ -58,15 +58,15 @@ const routes = createBrowserRouter([
   },
   {
     // path: "/create-post",
-    element: <OnlyAdminPrivateRoute element={renderLayout(<DashPosts />)} />, // Admin Private Route
+    element: <OnlyAdminPrivateRoute element={renderLayout(<Posts />)} />, // Admin Private Route
   },
   {
     // path: "/add-post",
-    element: <OnlyAdminPrivateRoute element={renderLayout(<DashAddPost />)} />, // Admin Private Route
+    element: <OnlyAdminPrivateRoute element={renderLayout(<AddPost />)} />, // Admin Private Route
   },
   {
     path: "/update-post/:postId",
-    element: <PrivateRoute element={renderLayout(<DashUpdatePost />)} />, // Admin Private Route
+    element: <PrivateRoute element={renderLayout(<UpdatePost />)} />, // Admin Private Route
   },
   {
     path: "*",

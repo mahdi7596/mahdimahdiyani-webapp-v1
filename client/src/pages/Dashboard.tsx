@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import DashSidebar from "../components/admin/DashSidebar";
-import DashProfile from "../components/admin/DashProfile";
-import DashPosts from "../components/admin/DashPosts";
-import DashAddPost from "../components/admin/DashAddPost";
+import Sidebar from "../components/admin/Sidebar";
+import Profile from "../components/admin/Profile";
+import Posts from "../components/admin/Posts";
+import AddPost from "../components/admin/AddPost";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -22,15 +22,15 @@ const Dashboard = () => {
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col p-8">
-        {tab === "profile" && <DashProfile />}
-        {tab === "posts" && <DashPosts />}
-        {tab === "addPost" && <DashAddPost />}
+        {tab === "profile" && <Profile />}
+        {tab === "posts" && <Posts />}
+        {tab === "addPost" && <AddPost />}
         {/* {tab === "update-post/:postId" && <DashUpdatePost />} */}
         {/* {tab === "users" && <DashUsers />} */}
         {/* {tab === "dash" && <DashboardComp />} */}
       </div>
       {/* sidebar */}
-      <DashSidebar />
+      <Sidebar />
     </div>
   );
 };

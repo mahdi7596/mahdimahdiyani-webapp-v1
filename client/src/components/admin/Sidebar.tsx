@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { signoutSuccess } from "../../redux/user/userSlice";
 
-const DashSidebar = () => {
+const Sidebar = () => {
   const location = useLocation();
   const [tab, setTab] = useState("");
   const dispatch = useDispatch();
@@ -105,4 +105,4 @@ const DashSidebar = () => {
   );
 };
 
-export default DashSidebar;
+export default Sidebar;
