@@ -27,9 +27,9 @@ const Button = ({
     <button
       type={type}
       onClick={onAction}
-      className={`btn items-center+ ${className}`}
-      disabled={disabled}
       title={title}
+      className={`btn  items-center+ ${className} `}
+      disabled={disabled}
     >
       <Link to={link} className="flex items-center">
         {text && text}

@@ -58,10 +58,13 @@ const Categories = () => {
   }, []);
 
   console.log(categoriesList, "categoriesList");
+  console.log(category?.title, "category?.title");
+  console.log(category?.title, "category");
 
   return (
     <div className="w-full xs:w-5/6  h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
       <ToastContainer />
+
       <Button
         onAction={() => {
           addCategoryModalRef.current?.showModal();
@@ -69,6 +72,7 @@ const Categories = () => {
         text="افزودن دسته جدید"
         className="btn-primary w-fit btn-sm"
       />
+
       {/* add category modal */}
       <dialog ref={addCategoryModalRef} id="my_modal_1" className="modal">
         <div className="modal-box  max-w-xl">
@@ -89,7 +93,9 @@ const Categories = () => {
                 text="اضافه کردن"
                 type="submit"
                 className="w-fit btn-primary"
+                disabled={category.title === ""}
               />
+
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                 ✕
               </button>
