@@ -44,10 +44,10 @@ const upload = multer({ storage, fileFilter });
 export const create = [
   upload.single("image"), // Middleware for handling a single image file
   async (req, res, next) => {
-    console.log("Request Body:", req.body); // Debugging: check other form data
+    // console.log("Request Body:", req.body); // Debugging: check other form data
 
-    console.log("Uploaded file path:", req.file.path);
-    console.log("Uploaded file:", req.file); // Debugging line
+    // console.log("Uploaded file path:", req.file.path);
+    // console.log("Uploaded file:", req.file); // Debugging line
 
     if (!req.user.isAdmin) {
       return next(errorHandler(403, "شما مجاز به ایجاد پست نیستید."));
