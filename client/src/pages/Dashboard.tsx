@@ -6,6 +6,7 @@ import Profile from "../components/admin/Profile";
 import Posts from "../components/admin/Posts";
 import AddPost from "../components/admin/AddPost";
 import Categories from "../components/admin/Categories";
+import AddCategory from "../components/admin/AddCategory";
 
 const Dashboard = () => {
   const location = useLocation();

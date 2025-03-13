@@ -3,16 +3,16 @@ import { verifyToken } from "../utils/verifyUser.js";
 
 import {
   createCategory,
-  getCategories,
+  getAllCategories,
   updateCategory,
   deleteCategory,
 } from "../controllers/post-category.js";
 
 const router = express.Router();
 
-router.post("/", createCategory);
-router.get("/", getAllCategories);
-router.put("/:id", updateCategory);
-router.delete("/:id", deleteCategory);
+router.post("/createCategory", createCategory);
+router.get("/getAllCategories", getAllCategories);
+router.put("updateCategory/:id", updateCategory);
+router.delete("deleteCategory/:id", deleteCategory);
 
 export default router;

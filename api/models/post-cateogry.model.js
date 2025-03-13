@@ -8,6 +8,6 @@ const postCategorySchema = new mongoose.Schema({
   },
 });
 
-const PostCategory = mongoose.model("categories", postCategorySchema);
+const PostCategory = mongoose.model("PostCategory", postCategorySchema);
 
 export default PostCategory;

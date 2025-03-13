@@ -7,6 +7,7 @@ import { errorHandler } from "../middleware/errorHandler.js";
 import authRoutes from "../routes/auth.route.js";
 import userRoutes from "../routes/user.route.js";
 import postRoutes from "../routes/post.route.js";
+import postCategoryRoutes from "../routes/post-category.route.js";
 
 import path from "path";
 import { fileURLToPath } from "url";
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
+app.use("/api/postcategory", postCategoryRoutes);
 
 // Serve the "images" folder statically
 // app.use("/images", express.static(path.join(__dirname, "../../images")));
