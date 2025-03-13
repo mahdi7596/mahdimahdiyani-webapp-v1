@@ -20,6 +20,10 @@ const Categories = () => {
       setPublishError("عنوان دسته بندی نمی‌تواند خالی باشد");
       return false;
     }
+    if (category.title.length < 3) {
+      setPublishError("عنوان دسته بندی باید حداقل ۳ کاراکتر باشد");
+      return;
+    }
     try {
       const response = await fetch("/api/postcategory/createCategory", {
         method: "POST",
@@ -36,7 +40,17 @@ const Categories = () => {
       setPublishError(null);
       setCategory({ title: "" });
       addCategoryModalRef.current?.close();
-      toast("دسته بندی جدید با موفقیت اضافه شد");
+      toast.success("دسته بندی با موفقیت اضافه شد!", {
+        position: "top-right",
+        autoClose: 5000, // Close after 5 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        className: "toast-success", // Custom class for styling
+      });
+
       fetchCategories();
     } catch (error) {
       setPublishError("مشکلی در ارتباط با سرور رخ داده است");
@@ -64,7 +78,6 @@ const Categories = () => {
   return (
     <div className="w-full xs:w-5/6  h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
       <ToastContainer />
-
       <Button
         onAction={() => {
           addCategoryModalRef.current?.showModal();
