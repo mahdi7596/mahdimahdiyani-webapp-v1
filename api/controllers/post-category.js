@@ -31,7 +31,12 @@ export const updateCategory = async (req, res, next) => {
       { title },
       { new: true }
     );
-    res?.status(200).json(updateCategory);
+    res
+      ?.status(200)
+      .json({
+        message: "دسته بندی با موفقیت بروز شد",
+        category: updateCategory,
+      });
   } catch (error) {
     // res.status(500).json({ message: error.message });
     next(error);

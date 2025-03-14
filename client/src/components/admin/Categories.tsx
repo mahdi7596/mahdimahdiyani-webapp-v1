@@ -93,7 +93,7 @@ const Categories = () => {
           body: JSON.stringify(selectedCategory),
         }
       );
-      const data = response.json();
+      const data = await response.json();
       if (!response.ok) {
         setPublishError(data.message || "مشکلی در سرور رخ داده است");
         return;
@@ -101,7 +101,7 @@ const Categories = () => {
       setPublishError(null);
       fetchCategories();
       editCategoryModalRef.current?.close();
-      toast.success("دسته بندی با موفقیت بروز شد!", {
+      toast.success(data?.message, {
         position: "top-right",
         autoClose: 5000, // Close after 5 seconds
         hideProgressBar: false,
@@ -180,8 +180,6 @@ const Categories = () => {
   const visibleCategoriesList = categoriesList.slice(0, visibleCategories);
 
   // console.log(categoriesList, "categoriesList");
-  console.log(selectedCategory, "selectedCategory");
-  console.log(selectedCategory?.title, "selectedCategory?.title");
 
   return (
     <div className="w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
