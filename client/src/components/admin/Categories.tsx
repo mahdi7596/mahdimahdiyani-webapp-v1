@@ -1,16 +1,24 @@
 import { useEffect, useRef, useState } from "react";
 
+import moment from "jalali-moment";
+
 import { ToastContainer, toast } from "react-toastify";
 
 import Button from "../shared/Button";
 
 interface Category {
   title: string;
+  updatedAt: string;
 }
 
 const Categories = () => {
-  const addCategoryModalRef = useRef(null); // Create a ref for the input element
-  const [category, setCategory] = useState<Category>({ title: "" });
+  const addCategoryModalRef = useRef(null);
+  const deleteModalRef = useRef(null);
+
+  const [category, setCategory] = useState<Category>({
+    title: "",
+    updatedAt: "",
+  });
   const [categoriesList, setCategoriesList] = useState<Category[]>([]);
   const [publishError, setPublishError] = useState<string | null>(null);
   const [visibleCategories, setVisibleCategories] = useState(5);
@@ -59,6 +67,8 @@ const Categories = () => {
     }
   };
 
+  const handleDeleteCategory = () => {};
+
   const fetchCategories = async () => {
     setLoading(true);
     try {
@@ -99,36 +109,44 @@ const Categories = () => {
       {loading ? (
         <span className="loading loading-bars loading-xl text-primary400 self-center"></span>
       ) : (
+        // table
         <div className="overflow-x-auto">
           <table className="table table-zebra text-right border rounded-sm">
             <thead>
               <tr>
                 <th>عنوان</th>
+                <th>تاریخ بروزرسانی</th>
                 <th>عملیات</th>
               </tr>
             </thead>
             <tbody>
-              {visibleCategoriesList.map((category, i) => (
-                <tr key={i}>
+              {visibleCategoriesList.map((category, index) => (
+                <tr key={index}>
                   <td>
                     <span>{category?.title}</span>
                   </td>
-                  <td className="flex flex-col gap-y-1.5">
+                  {category?.updatedAt && (
+                    <td>
+                      {moment(category?.updatedAt, "YYYY/MM/DD")
+                        .locale("fa")
+                        .format("YYYY/MM/DD")}
+                    </td>
+                  )}
+                  <td className="flex flex-wrap gap-1.5">
                     <Button
                       // link={`/update-post/${category?._id}`}
                       title="ویرایش"
-                      className="btn-sm btn-outline btn-primary"
+                      className="w-fit btn-sm btn-outline btn-primary"
                       icon="ic_round-edit text-lg"
                     />
-                    {/* <Button
+                    <Button
                       onAction={() => {
                         deleteModalRef.current?.showModal();
-                        setPostIdToDelete(userPost?._id);
                       }}
                       title="حذف"
-                      className="btn-sm btn-outline btn-error"
+                      className="w-fit btn-sm btn-outline btn-error"
                       icon="bxs_trash text-lg"
-                    /> */}
+                    />
                   </td>
                 </tr>
               ))}
@@ -180,6 +198,24 @@ const Categories = () => {
         </div>
       </dialog>
       {/* delete category modal */}
+      <dialog ref={deleteModalRef} id="my_modal_1" className="modal">
+        <div className="modal-box  max-w-xl">
+          <p className="py-4 text-base">
+            آیا از حذف این دسته بندی اطمینان دارید؟
+          </p>
+          <div className="modal-action">
+            <form method="dialog" className="flex items-center gap-x-3">
+              <button className="btn">انصراف</button>
+              <Button
+                onAction={handleDeleteCategory}
+                text="حذف"
+                type="submit"
+                className="btn-error w-20"
+              />
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };
