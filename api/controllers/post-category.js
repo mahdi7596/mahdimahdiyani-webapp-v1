@@ -12,7 +12,7 @@ export const createCategory = async (req, res, next) => {
   }
 };
 
-export const getAllCategories = async (req, res) => {
+export const getAllCategories = async (req, res, next) => {
   try {
     const categories = await PostCategory.find().sort({ createdAt: -1 });
     res?.status(200).json(categories);
@@ -22,7 +22,7 @@ export const getAllCategories = async (req, res) => {
   }
 };
 
-export const updateCategory = async (req, res) => {
+export const updateCategory = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { title } = req.body;
