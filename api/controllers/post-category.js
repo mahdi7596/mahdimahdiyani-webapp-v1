@@ -1,7 +1,6 @@
 import PostCategory from "../models/post-cateogry.model.js";
 
 export const createCategory = async (req, res, next) => {
-  console.log(req.body, "req");
   try {
     const { title } = req?.body;
     const newCategory = new PostCategory({ title });

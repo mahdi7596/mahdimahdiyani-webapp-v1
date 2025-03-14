@@ -9,7 +9,7 @@ import Button from "../shared/Button";
 interface Category {
   _id?: string;
   title: string;
-  updatedAt: string;
+  updatedAt?: string;
 }
 
 const Categories = () => {
@@ -19,7 +19,6 @@ const Categories = () => {
 
   const [category, setCategory] = useState<Category>({
     title: "",
-    updatedAt: "",
   });
   const [categoriesList, setCategoriesList] = useState<Category[]>([]);
   const [publishError, setPublishError] = useState<string | null>(null);
@@ -50,7 +49,7 @@ const Categories = () => {
         return;
       }
       setPublishError(null);
-      setCategory({ title: "", updatedAt: "" });
+      setCategory({ title: "" });
       addCategoryModalRef.current?.close();
       toast.success("دسته بندی با موفقیت اضافه شد!", {
         position: "top-right",
@@ -64,7 +63,7 @@ const Categories = () => {
       });
 
       fetchCategories();
-    } catch (error) {
+    } catch {
       setPublishError("مشکلی در ارتباط با سرور رخ داده است");
     }
   };
@@ -72,21 +71,39 @@ const Categories = () => {
   const handleDeleteCategory = async () => {
     try {
       const response = await fetch(
-        `/api/deleteCategory/${categoryIdRef.current}`,
+        `/api/postcategory/deleteCategory/${categoryIdRef.current}`,
         {
           method: "DELETE",
         }
       );
-      const data = response.json();
+      const data = await response.json();
+      console.log(data?.message, "data");
       if (!response.ok) {
-        // console.log(data.message);
-        // setPublishError(data.message || "مشکلی در سرور رخ داده است");
+        toast.error(data.message || "مشکلی در سرور رخ داده است", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         return;
       }
-      setCategoriesList((prev) =>
-        prev.filter((category) => category?.id != categoryIdRef.current)
-      );
-    } catch (error) {}
+      deleteModalRef.current?.close();
+      fetchCategories();
+      toast.success(data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } catch (error) {
+      setPublishError(error);
+    }
   };
 
   const fetchCategories = async () => {
@@ -114,8 +131,7 @@ const Categories = () => {
   // Slice the categories list to show only the visible categories
   const visibleCategoriesList = categoriesList.slice(0, visibleCategories);
 
-  console.log(categoriesList, "categoriesList");
-  console.log(categoryIdRef.current, "categoryIdRef.current");
+  // console.log(categoriesList, "categoriesList");
 
   return (
     <div className="w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
