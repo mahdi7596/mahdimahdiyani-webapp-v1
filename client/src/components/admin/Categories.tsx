@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Button from "../shared/Button";
 
 interface Category {
+  _id?: string;
   title: string;
   updatedAt: string;
 }
@@ -14,6 +15,7 @@ interface Category {
 const Categories = () => {
   const addCategoryModalRef = useRef(null);
   const deleteModalRef = useRef(null);
+  const categoryIdRef = useRef(null);
 
   const [category, setCategory] = useState<Category>({
     title: "",
@@ -48,7 +50,7 @@ const Categories = () => {
         return;
       }
       setPublishError(null);
-      setCategory({ title: "" });
+      setCategory({ title: "", updatedAt: "" });
       addCategoryModalRef.current?.close();
       toast.success("دسته بندی با موفقیت اضافه شد!", {
         position: "top-right",
@@ -67,7 +69,25 @@ const Categories = () => {
     }
   };
 
-  const handleDeleteCategory = () => {};
+  const handleDeleteCategory = async () => {
+    try {
+      const response = await fetch(
+        `/api/deleteCategory/${categoryIdRef.current}`,
+        {
+          method: "DELETE",
+        }
+      );
+      const data = response.json();
+      if (!response.ok) {
+        // console.log(data.message);
+        // setPublishError(data.message || "مشکلی در سرور رخ داده است");
+        return;
+      }
+      setCategoriesList((prev) =>
+        prev.filter((category) => category?.id != categoryIdRef.current)
+      );
+    } catch (error) {}
+  };
 
   const fetchCategories = async () => {
     setLoading(true);
@@ -94,7 +114,8 @@ const Categories = () => {
   // Slice the categories list to show only the visible categories
   const visibleCategoriesList = categoriesList.slice(0, visibleCategories);
 
-  // console.log(categoriesList, "categoriesList");
+  console.log(categoriesList, "categoriesList");
+  console.log(categoryIdRef.current, "categoryIdRef.current");
 
   return (
     <div className="w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
@@ -142,6 +163,7 @@ const Categories = () => {
                     <Button
                       onAction={() => {
                         deleteModalRef.current?.showModal();
+                        categoryIdRef.current = category?._id;
                       }}
                       title="حذف"
                       className="w-fit btn-sm btn-outline btn-error"

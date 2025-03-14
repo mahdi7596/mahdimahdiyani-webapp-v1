@@ -39,11 +39,11 @@ export const updateCategory = async (req, res) => {
   }
 };
 
-export const deleteCategory = async (req, res) => {
+export const deleteCategory = async (req, res, next) => {
   try {
     const { id } = req?.params;
     await PostCategory.findByIdAndDelete(id);
-    res.status(200).json({ message: "Category deleted successfully" });
+    res.status(200).json({ message: "دسته بندی با موفقیت حذف شد" });
   } catch (error) {
     // res.status(500).json({ message: error.message });
     next(error);

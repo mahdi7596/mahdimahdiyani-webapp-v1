@@ -1,11 +1,8 @@
 import { motion } from "framer-motion";
 
-import acmeLogo from "../../assets/images/landing/logo-acme.png";
-import quantumLogo from "../../assets/images/landing/logo-quantum.png";
-import echoLogo from "../../assets/images/landing/logo-echo.png";
-import celestialLogo from "../../assets/images/landing/logo-celestial.png";
-import pulseLogo from "../../assets/images/landing/logo-pulse.png";
-import apexLogo from "../../assets/images/landing/logo-apex.png";
+import client1 from "../../assets/images/clients/1.png";
+import client2 from "../../assets/images/clients/2.png";
+import client3 from "../../assets/images/clients/3.png";
 
 const LogoTicker = () => {
   return (
@@ -22,67 +19,13 @@ const LogoTicker = () => {
               repeatType: "loop",
             }}
           >
-            <img
-              src={acmeLogo}
-              alt="image logo"
-              className="logo-ticker-image"
-            />
-            <img
-              src={quantumLogo}
-              alt="image logo"
-              className="logo-ticker-image"
-            />
-            <img
-              src={echoLogo}
-              alt="image logo"
-              className="logo-ticker-image"
-            />
-            <img
-              src={celestialLogo}
-              alt="image logo"
-              className="logo-ticker-image"
-            />
-            <img
-              src={pulseLogo}
-              alt="image logo"
-              className="logo-ticker-image"
-            />
-            <img
-              src={apexLogo}
-              alt="image logo"
-              className="logo-ticker-image"
-            />
+            <img src={client1} alt="image logo" className="logo-ticker-image" />
+            <img src={client2} alt="image logo" className="logo-ticker-image" />
+            <img src={client3} alt="image logo" className="logo-ticker-image" />
             {/* second sets of logos for animation */}
-            <img
-              src={acmeLogo}
-              alt="image logo"
-              className="logo-ticker-image"
-            />
-            <img
-              src={quantumLogo}
-              alt="image logo"
-              className="logo-ticker-image"
-            />
-            <img
-              src={echoLogo}
-              alt="image logo"
-              className="logo-ticker-image"
-            />
-            <img
-              src={celestialLogo}
-              alt="image logo"
-              className="logo-ticker-image"
-            />
-            <img
-              src={pulseLogo}
-              alt="image logo"
-              className="logo-ticker-image"
-            />
-            <img
-              src={apexLogo}
-              alt="image logo"
-              className="logo-ticker-image"
-            />
+            <img src={client1} alt="image logo" className="logo-ticker-image" />
+            <img src={client2} alt="image logo" className="logo-ticker-image" />
+            <img src={client3} alt="image logo" className="logo-ticker-image" />
           </motion.div>
         </div>
       </div>
