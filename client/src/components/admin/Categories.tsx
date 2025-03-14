@@ -62,9 +62,11 @@ const Categories = () => {
       const response = await fetch(`/api/postcategory/getAllCategories`);
       const data = await response.json();
       if (response.ok) {
-        setCategoriesList([data]);
+        setCategoriesList(data);
       }
-    } catch (error) {}
+    } catch (error) {
+      setPublishError(error);
+    }
   };
 
   useEffect(() => {
@@ -121,6 +123,51 @@ const Categories = () => {
           </div>
         </div>
       </dialog>
+      {/* table */}
+
+      <div className="overflow-x-auto">
+        <table className="table table-zebra text-right border rounded-sm">
+          <thead>
+            <tr>
+              <th>عنوان</th>
+              <th>عملیات</th>
+            </tr>
+          </thead>
+          <tbody>
+            {categoriesList.map((category, i) => (
+              <tr key={i}>
+                <td>
+                  <span>{category?.title}</span>
+                </td>
+                <td className="flex flex-col gap-y-1.5">
+                  <Button
+                    // link={`/update-post/${category?._id}`}
+                    title="ویرایش"
+                    className="btn-sm btn-outline btn-primary"
+                    icon="ic_round-edit text-lg"
+                  />
+                  {/* <Button
+                      onAction={() => {
+                        deleteModalRef.current?.showModal();
+                        setPostIdToDelete(userPost?._id);
+                      }}
+                      title="حذف"
+                      className="btn-sm btn-outline btn-error"
+                      icon="bxs_trash text-lg"
+                    /> */}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {/* {showMore && (
+          <Button
+            onAction={handleShowMore}
+            text="مشاهده بیشتر"
+            className="btn-sm btn-outline btn-neutral w-fit mt-6"
+          />
+        )} */}
+      </div>
     </div>
   );
 };
