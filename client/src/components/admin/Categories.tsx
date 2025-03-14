@@ -14,6 +14,7 @@ const Categories = () => {
   const [categoriesList, setCategoriesList] = useState<Category[]>([]);
   const [publishError, setPublishError] = useState<string | null>(null);
   const [visibleCategories, setVisibleCategories] = useState(5);
+  const [loading, setLoading] = useState(false);
 
   const handleAddCategory = async (e) => {
     e.preventDefault();
@@ -59,11 +60,13 @@ const Categories = () => {
   };
 
   const fetchCategories = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`/api/postcategory/getAllCategories`);
       const data = await response.json();
       if (response.ok) {
         setCategoriesList(data);
+        setLoading(false);
       }
     } catch (error) {
       setPublishError(error);
@@ -84,7 +87,7 @@ const Categories = () => {
   // console.log(categoriesList, "categoriesList");
 
   return (
-    <div className="w-full xs:w-5/6  h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
+    <div className="w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
       <ToastContainer />
       <Button
         onAction={() => {
@@ -93,7 +96,54 @@ const Categories = () => {
         text="افزودن دسته جدید"
         className="btn-primary w-fit btn-sm"
       />
-
+      {loading ? (
+        <span className="loading loading-bars loading-xl text-primary400 self-center"></span>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="table table-zebra text-right border rounded-sm">
+            <thead>
+              <tr>
+                <th>عنوان</th>
+                <th>عملیات</th>
+              </tr>
+            </thead>
+            <tbody>
+              {visibleCategoriesList.map((category, i) => (
+                <tr key={i}>
+                  <td>
+                    <span>{category?.title}</span>
+                  </td>
+                  <td className="flex flex-col gap-y-1.5">
+                    <Button
+                      // link={`/update-post/${category?._id}`}
+                      title="ویرایش"
+                      className="btn-sm btn-outline btn-primary"
+                      icon="ic_round-edit text-lg"
+                    />
+                    {/* <Button
+                      onAction={() => {
+                        deleteModalRef.current?.showModal();
+                        setPostIdToDelete(userPost?._id);
+                      }}
+                      title="حذف"
+                      className="btn-sm btn-outline btn-error"
+                      icon="bxs_trash text-lg"
+                    /> */}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {visibleCategories < categoriesList.length && (
+            <Button
+              onAction={handleShowMore}
+              text="مشاهده بیشتر"
+              className="btn-sm btn-outline btn-neutral w-fit mt-6"
+            />
+          )}
+        </div>
+      )}
+      {/* modals */}
       {/* add category modal */}
       <dialog ref={addCategoryModalRef} id="my_modal_1" className="modal">
         <div className="modal-box  max-w-xl">
@@ -129,51 +179,7 @@ const Categories = () => {
           </div>
         </div>
       </dialog>
-      {/* table */}
-
-      <div className="overflow-x-auto">
-        <table className="table table-zebra text-right border rounded-sm">
-          <thead>
-            <tr>
-              <th>عنوان</th>
-              <th>عملیات</th>
-            </tr>
-          </thead>
-          <tbody>
-            {visibleCategoriesList.map((category, i) => (
-              <tr key={i}>
-                <td>
-                  <span>{category?.title}</span>
-                </td>
-                <td className="flex flex-col gap-y-1.5">
-                  <Button
-                    // link={`/update-post/${category?._id}`}
-                    title="ویرایش"
-                    className="btn-sm btn-outline btn-primary"
-                    icon="ic_round-edit text-lg"
-                  />
-                  {/* <Button
-                      onAction={() => {
-                        deleteModalRef.current?.showModal();
-                        setPostIdToDelete(userPost?._id);
-                      }}
-                      title="حذف"
-                      className="btn-sm btn-outline btn-error"
-                      icon="bxs_trash text-lg"
-                    /> */}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {visibleCategories < categoriesList.length && (
-          <Button
-            onAction={handleShowMore}
-            text="مشاهده بیشتر"
-            className="btn-sm btn-outline btn-neutral w-fit mt-6"
-          />
-        )}
-      </div>
+      {/* delete category modal */}
     </div>
   );
 };
