@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import Button from "../shared/Button";
+import { Category } from "./Categories";
 
 const AddPost = () => {
   const [formData, setFormData] = useState({});
+  const [categories, setCategories] = useState<Category[]>([]);
   const [publishError, setPublishError] = useState<string | null>(null);
   const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     console.log(e);
     // console.log(formData.image?.name);
@@ -59,6 +60,22 @@ const AddPost = () => {
     }
   };
 
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch("/api/postcategory/getAllCategories");
+      const data = await response.json();
+      setCategories(data);
+    } catch (error) {
+      setPublishError(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  console.log(categories, "categories");
+
   return (
     <div className="w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
       <Link to="/dashboard?tab=addPost"></Link>
@@ -80,7 +97,7 @@ const AddPost = () => {
           //   // });
           // }}
         />
-        {/* Title input */}
+        {/* title - category */}
         <div className="flex flex-wrap items-center gap-x-3">
           <input
             onChange={(e) =>
@@ -102,11 +119,11 @@ const AddPost = () => {
             <option disabled selected>
               انتخاب دسته بندی
             </option>
-            <option value="uncategorized">دسته بندی نشده</option>
-            <option value="reactjs">دسته بندی ۲</option>
-            <option value="nodejs">دسته بندی ۳</option>
-            <option value="express">دسته بندی ۴</option>
-            <option value="mongo">دسته بندی ۵</option>
+            {categories?.map((category) => (
+              <option key={category._id} id={category._id} value={category._id}>
+                {category?.title}
+              </option>
+            ))}
           </select>
         </div>
         {/* Rich text editor */}

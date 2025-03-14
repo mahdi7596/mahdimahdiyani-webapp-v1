@@ -6,10 +6,10 @@ import { ToastContainer, toast } from "react-toastify";
 
 import Button from "../shared/Button";
 
-interface Category {
-  _id?: string;
+export interface Category {
+  _id?: string; // Optional because it's assigned by the database
   title: string;
-  updatedAt?: string;
+  updatedAt?: string; // Optional because it's assigned by the database
 }
 
 const Categories = () => {
