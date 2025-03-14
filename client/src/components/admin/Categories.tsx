@@ -13,6 +13,7 @@ const Categories = () => {
   const [category, setCategory] = useState<Category>({ title: "" });
   const [categoriesList, setCategoriesList] = useState<Category[]>([]);
   const [publishError, setPublishError] = useState<string | null>(null);
+  const [visibleCategories, setVisibleCategories] = useState(5);
 
   const handleAddCategory = async (e) => {
     e.preventDefault();
@@ -69,13 +70,18 @@ const Categories = () => {
     }
   };
 
+  const handleShowMore = () => {
+    setVisibleCategories((prevVisibleCategories) => prevVisibleCategories + 5);
+  };
+
   useEffect(() => {
     fetchCategories();
   }, []);
 
-  console.log(categoriesList, "categoriesList");
-  console.log(category?.title, "category?.title");
-  console.log(category?.title, "category");
+  // Slice the categories list to show only the visible categories
+  const visibleCategoriesList = categoriesList.slice(0, visibleCategories);
+
+  // console.log(categoriesList, "categoriesList");
 
   return (
     <div className="w-full xs:w-5/6  h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
@@ -134,7 +140,7 @@ const Categories = () => {
             </tr>
           </thead>
           <tbody>
-            {categoriesList.map((category, i) => (
+            {visibleCategoriesList.map((category, i) => (
               <tr key={i}>
                 <td>
                   <span>{category?.title}</span>
@@ -160,13 +166,13 @@ const Categories = () => {
             ))}
           </tbody>
         </table>
-        {/* {showMore && (
+        {visibleCategories < categoriesList.length && (
           <Button
             onAction={handleShowMore}
             text="مشاهده بیشتر"
             className="btn-sm btn-outline btn-neutral w-fit mt-6"
           />
-        )} */}
+        )}
       </div>
     </div>
   );
