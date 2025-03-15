@@ -184,8 +184,8 @@ const SinglePost = () => {
           {recentPosts &&
             recentPosts
               .filter((f) => f.slug != postSlug)
-              .map((post) => (
-                <Link to={`/post/${post.slug}`}>
+              .map((post, index) => (
+                <Link key={index} to={`/post/${post.slug}`}>
                   <div
                     key={post?._id}
                     className="group flex gap-x-3 bg-surfaceBg border border-surfaceBorder py-2 px-1.5 rounded-sm cursor-pointer"
