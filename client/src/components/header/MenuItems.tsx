@@ -51,9 +51,12 @@ const MenuItems = () => {
       <div className="lg:hidden dropdown">
         {/* hamburgermenu */}
         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-          <i className="maicon-hamburgermenu text-lg"></i>
+          <i className="maicon-ic_sharp-sort text-lg"></i>
         </div>
-        <Dropdown dropDownItems={navMenuItems} className="w-48 menu-sm mt-3" />
+        <Dropdown
+          dropDownItems={navMenuItems.filter((f) => !f.link.startsWith("#"))}
+          className="w-48 menu-sm mt-3"
+        />
       </div>
     </nav>
   );
