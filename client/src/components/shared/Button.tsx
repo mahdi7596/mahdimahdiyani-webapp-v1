@@ -28,10 +28,13 @@ const Button = ({
       type={type}
       onClick={onAction}
       title={title}
-      className={`btn  items-center+ ${className} `}
+      // className={`btn items-center+ ${className} `}
       disabled={disabled}
     >
-      <Link to={link} className="flex items-center">
+      <Link
+        to={link}
+        className={`flex items-center btn items-center+ ${className} `}
+      >
         {text && text}
         {icon && <i className={`maicon-${icon}`}></i>}
         {loading && !disabled && (
