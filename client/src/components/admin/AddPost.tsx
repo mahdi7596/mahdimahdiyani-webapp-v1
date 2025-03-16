@@ -74,7 +74,7 @@ const AddPost = () => {
     fetchCategories();
   }, []);
 
-  console.log(formData, "formData");
+  // console.log(formData, "formData");
 
   return (
     <div className="w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
@@ -85,18 +85,7 @@ const AddPost = () => {
         className="flex flex-col gap-y-6"
       >
         {/* File input */}
-        <input
-          type="file"
-          accept=".png,.jpg,.jpeg"
-          name="image"
-          // onChange={(e) => {
-          //   // console.log(e.target?.files[0]?.name);
-          //   // setFormData({
-          //   //   ...formData,
-          //   //   image: e.target?.files[0], // Keep the file object instead of the name
-          //   // });
-          // }}
-        />
+        <input type="file" accept=".png,.jpg,.jpeg" name="image" />
         {/* title - category */}
         <div className="flex flex-wrap items-center gap-x-3">
           <input
