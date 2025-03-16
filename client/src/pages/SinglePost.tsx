@@ -110,12 +110,12 @@ const SinglePost = () => {
         </div>
       )}
       <div className="flex flex-col md:flex-row gap-6 xl:gap-x-12">
-        <div className="flex-1 flex flex-col gap-y-6 p-6 bg-surfaceBg border border-surfaceBorder rounded shadow-sm">
+        <div className="flex-1 flex flex-col gap-y-6  p-3 md:p-6 bg-surfaceBg border border-surfaceBorder rounded shadow-sm">
           <div className="px-2 flex flex-col gap-y-6">
             <h1 className="text-neutrals text-xl font-semibold">
               {post?.title}
             </h1>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap gap-3 items-center justify-between">
               <span className="text-xs text-neutrals300 font-medium flex items-center gap-x-0.5">
                 <i className="maicon-mingcute_calendar-line text-lg"></i>
                 {moment(post?.updatedAt, "YYYY/MM/DD")
