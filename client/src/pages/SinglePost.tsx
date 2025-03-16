@@ -37,54 +37,56 @@ const suggestedProducts: IProduct[] = [
 
 const SinglePost = () => {
   const { postSlug } = useParams();
+
   const [loading, setLoading] = useState(true);
   const [post, setPost] = useState<IProduct>();
   const [recentPosts, setRecentPosts] = useState(null);
+
   const { currentUser } = useSelector(
     (state: { user: { currentUser: any } }) => state.user
   );
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        setLoading(true);
-        const res = await fetch(`/api/post/getposts?slug=${postSlug}`);
-        const data = await res.json();
-        if (!res.ok) {
-          // setError(true);
-          setLoading(false);
-          return;
-        }
-        if (res.ok) {
-          setPost(data.posts[0]);
-          setLoading(false);
-          // setError(false);
-        }
-      } catch (error) {
-        console.log(error);
+
+  const fetchPost = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`/api/post/getposts?slug=${postSlug}`);
+      const data = await response.json();
+      if (!response.ok) {
         // setError(true);
         setLoading(false);
+        return;
       }
-    };
-    fetchPost();
-  }, [postSlug]);
+      if (response.ok) {
+        setPost(data.posts[0]);
+        setLoading(false);
+        // setError(false);
+      }
+    } catch (error) {
+      console.log(error);
+      // setError(true);
+      setLoading(false);
+    }
+  };
 
-  // console.log(postSlug);
-  console.log(post, "post");
-
-  useEffect(() => {
+  const fetchRecentPosts = async () => {
     try {
-      const fetchRecentPosts = async () => {
-        const res = await fetch(`/api/post/getposts?limit=3`);
-        const data = await res.json();
-        if (res.ok) {
-          setRecentPosts(data.posts);
-        }
-      };
-      fetchRecentPosts();
+      setLoading(true);
+      const response = await fetch(`/api/post/getposts?limit=3`);
+      const data = await response.json();
+      if (response.ok) {
+        setRecentPosts(data.posts);
+      }
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  };
+
+  useEffect(() => {
+    fetchPost();
+    fetchRecentPosts();
+  }, [postSlug]);
+
+  // console.log(post, "post");
 
   if (loading)
     return (
