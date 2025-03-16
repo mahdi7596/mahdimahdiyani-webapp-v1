@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 
 import image68 from "../assets/images/68.jpeg";
 import image69 from "../assets/images/69.jpeg";
+import { Category } from "../components/admin/Categories";
 
 interface IProduct {
   id: number;
@@ -39,8 +40,10 @@ const SinglePost = () => {
   const { postSlug } = useParams();
 
   const [loading, setLoading] = useState(true);
+
   const [post, setPost] = useState<IProduct>();
   const [recentPosts, setRecentPosts] = useState(null);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   const { currentUser } = useSelector(
     (state: { user: { currentUser: any } }) => state.user
@@ -75,18 +78,43 @@ const SinglePost = () => {
       const data = await response.json();
       if (response.ok) {
         setRecentPosts(data.posts);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
+      setLoading(false);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("/api/postcategory/getAllCategories");
+      const data = await response.json();
+      if (!response?.ok) {
+        return false;
+      }
+      if (response.ok) {
+        setCategories(data);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchPost();
     fetchRecentPosts();
+    fetchCategories();
   }, [postSlug]);
 
-  // console.log(post, "post");
+  const categoryTitle = categories.find(
+    (category) => category?._id === post?.category
+  );
+
+  console.log(categoryTitle?.title, "categoryTitle");
 
   if (loading)
     return (
@@ -100,7 +128,7 @@ const SinglePost = () => {
       {currentUser && currentUser.isAdmin && (
         <div className="flex items-center gap-x-4 mb-3">
           <Button
-            link={`/update-post/${post._id}`}
+            link={`/update-post/${post?._id}`}
             text="ویرایش"
             className="btn-sm btn-outline btn-primary w-fit"
           />
@@ -120,7 +148,7 @@ const SinglePost = () => {
             <div className="flex flex-wrap gap-3 items-center justify-between">
               <span className="text-xs text-neutrals300 font-medium flex items-center gap-x-0.5">
                 <i className="maicon-mingcute_calendar-line text-lg"></i>
-                {moment(post?.updatedAt, "YYYY/MM/DD")
+                {moment(post && post?.updatedAt, "YYYY/MM/DD")
                   .locale("fa")
                   .format("YYYY/MM/DD")}
               </span>
@@ -154,6 +182,7 @@ const SinglePost = () => {
           </div>
         </div>
         <aside className="md:sticky md:top-3 w-full md:w-4/12 lg:w-1/4 h-fit flex flex-col gap-y-6 px-3 pt-3 pb-6 border border-surfaceBorder rounded shadow-sm">
+          {/*  suggested courses */}
           <div className="flex flex-col gap-y-4">
             <Button
               text="دوره های پیشنهادی همکلان"
@@ -204,7 +233,7 @@ const SinglePost = () => {
                       <div className="flex items-center justify-between">
                         <span className="text-[10px] text-neutrals300 font-medium flex items-center gap-x-0.5">
                           <i className="maicon-mingcute_calendar-line text-lg"></i>
-                          {moment(post?.updatedAt, "YYYY/MM/DD")
+                          {moment(post && post?.updatedAt, "YYYY/MM/DD")
                             .locale("fa")
                             .format("YYYY/MM/DD")}
                         </span>
