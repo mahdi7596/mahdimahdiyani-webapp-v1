@@ -1,9 +1,5 @@
 import { motion } from "framer-motion";
 
-import client1 from "../../assets/images/clients/1.png";
-import client2 from "../../assets/images/clients/2.png";
-import client3 from "../../assets/images/clients/3.png";
-
 const LogoTicker = () => {
   const images = Object.values(
     import.meta.glob("../../assets/images/landing/colleague/*.png", {
