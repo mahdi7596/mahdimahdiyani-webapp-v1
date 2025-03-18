@@ -11,19 +11,18 @@ import { useSelector } from "react-redux";
 
 import image68 from "../assets/images/68.jpeg";
 import image69 from "../assets/images/69.jpeg";
-import { Category } from "../components/admin/Categories";
 
-interface IProduct {
+interface IPost {
   id: number;
   image: string;
   title: string;
-  category?: string;
+  category?: { id: string; title: string };
   updatedAt?: string;
   content?: string;
   _id?: string;
 }
 
-const suggestedProducts: IProduct[] = [
+const suggestedProducts: IPost[] = [
   {
     id: 68,
     image: image68,
@@ -41,9 +40,8 @@ const SinglePost = () => {
 
   const [loading, setLoading] = useState(true);
 
-  const [post, setPost] = useState<IProduct>();
+  const [post, setPost] = useState<IPost>();
   const [recentPosts, setRecentPosts] = useState(null);
-  const [categories, setCategories] = useState<Category[]>([]);
 
   const { currentUser } = useSelector(
     (state: { user: { currentUser: any } }) => state.user
@@ -86,36 +84,10 @@ const SinglePost = () => {
     }
   };
 
-  const fetchCategories = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch("/api/postcategory/getAllCategories");
-      const data = await response.json();
-      if (!response?.ok) {
-        return false;
-      }
-      if (response.ok) {
-        setCategories(data);
-        setLoading(false);
-      }
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
     fetchPost();
     fetchRecentPosts();
-    fetchCategories();
   }, [postSlug]);
-
-  const getCategoryTitle = (category: string) => {
-    console.log(category);
-    const foundCategory = categories.find((c) => c._id === category);
-    console.log(foundCategory, "found categories");
-    return foundCategory ? foundCategory.title : "undefined";
-  };
 
   if (loading)
     return (
@@ -176,10 +148,8 @@ const SinglePost = () => {
           <div className="flex items-center gap-x-1.5">
             <span className=" text-xs text-neutrals500">دسته بندی:</span>
             <Badge
-              text={getCategoryTitle(post?.category)}
-              link={`/search?category=${
-                post && getCategoryTitle(post?.category)
-              }`}
+              text={post?.category?.title}
+              link={`/search?category=${post && post?.category?.title}`}
               className="badge-outline hover:bg-neutral hover:text-neutral-content"
             />
           </div>
