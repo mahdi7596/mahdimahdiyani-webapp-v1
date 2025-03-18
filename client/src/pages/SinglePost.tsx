@@ -121,8 +121,6 @@ const SinglePost = () => {
       </div>
     );
 
-  console.log(post?.updatedAt);
-
   return (
     <section className="section-container section-inner-space ">
       {currentUser && currentUser.isAdmin && (
