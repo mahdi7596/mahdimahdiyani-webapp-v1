@@ -159,14 +159,15 @@ const Profile = () => {
             className="grow"
           />
         </label>
-        <Button
-          onAction={handleSubmit}
-          text="ویرایش حساب کاربری"
-          type="submit"
-          className="btn-primary btn-block"
-          loading={loading}
-        />
-        <div className="flex items-center justify-end">
+
+        <div className="flex items-center gap-x-3">
+          <Button
+            onAction={handleSubmit}
+            text="ویرایش حساب کاربری"
+            type="submit"
+            className="btn-primary w-fit"
+            loading={loading}
+          />
           <Button
             onAction={() => {
               deleteModalRef.current?.showModal();

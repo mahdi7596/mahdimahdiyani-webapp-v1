@@ -114,14 +114,14 @@ const SinglePost = () => {
     (category) => category?._id === post?.category
   );
 
-  console.log(categoryTitle?.title, "categoryTitle");
-
   if (loading)
     return (
       <div className="flex items-center justify-center min-h-screen">
         <span className="loading loading-spinner text-info loading-lg"></span>
       </div>
     );
+
+  console.log(post?.updatedAt);
 
   return (
     <section className="section-container section-inner-space ">
@@ -175,8 +175,8 @@ const SinglePost = () => {
           <div className="flex items-center gap-x-1.5">
             <span className=" text-xs text-neutrals500">دسته بندی:</span>
             <Badge
-              text={post?.category}
-              link={`/search?category=${post && post?.category}`}
+              text={categoryTitle?.title}
+              link={`/search?category=${post && categoryTitle?.title}`}
               className="badge-outline hover:bg-neutral hover:text-neutral-content"
             />
           </div>

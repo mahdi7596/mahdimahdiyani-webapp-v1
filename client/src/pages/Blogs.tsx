@@ -18,9 +18,9 @@ const Blogs = () => {
   const [dateFilter, setDateFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchDateQuery, setsearchDateQuery] = useState("desc");
-  console.log(searchTerm, "searchTerm");
-  console.log(category, "category");
-  console.log(dateFilter, "dateFilter");
+  // console.log(searchTerm, "searchTerm");
+  // console.log(category, "category");
+  // console.log(dateFilter, "dateFilter");
 
   const [posts, setPosts] = useState([]);
   const [showMore, setShowMore] = useState(false);
@@ -66,14 +66,14 @@ const Blogs = () => {
   // };
 
   const handleFilter = (e) => {
-    console.log("object");
+    // console.log("object");
     e?.preventDefault();
 
     setSearchQuery(category === "all" ? "" : category);
     setsearchDateQuery(dateFilter);
   };
-  console.log(searchQuery, "setSearchQuery");
-  console.log(searchDateQuery, "setSearchDateQuery");
+  // console.log(searchQuery, "setSearchQuery");
+  // console.log(searchDateQuery, "setSearchDateQuery");
 
   const handleShowMore = async () => {
     const numberOfPosts = posts.length;
