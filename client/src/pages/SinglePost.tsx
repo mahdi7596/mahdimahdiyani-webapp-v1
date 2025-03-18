@@ -110,9 +110,12 @@ const SinglePost = () => {
     fetchCategories();
   }, [postSlug]);
 
-  const categoryTitle = categories.find(
-    (category) => category?._id === post?.category
-  );
+  const getCategoryTitle = (category: string) => {
+    console.log(category);
+    const foundCategory = categories.find((c) => c._id === category);
+    console.log(foundCategory, "found categories");
+    return foundCategory ? foundCategory.title : "undefined";
+  };
 
   if (loading)
     return (
@@ -173,8 +176,10 @@ const SinglePost = () => {
           <div className="flex items-center gap-x-1.5">
             <span className=" text-xs text-neutrals500">دسته بندی:</span>
             <Badge
-              text={categoryTitle?.title}
-              link={`/search?category=${post && categoryTitle?.title}`}
+              text={getCategoryTitle(post?.category)}
+              link={`/search?category=${
+                post && getCategoryTitle(post?.category)
+              }`}
               className="badge-outline hover:bg-neutral hover:text-neutral-content"
             />
           </div>
