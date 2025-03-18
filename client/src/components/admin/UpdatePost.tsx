@@ -97,8 +97,8 @@ const UpdatePost = () => {
     fetchCategories();
   }, [postId]);
 
-  console.log(formData, "formData");
-  console.log(categories, "categories");
+  // console.log(formData, "formData");
+  // console.log(categories, "categories");
 
   return (
     <div className="my-6 w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
