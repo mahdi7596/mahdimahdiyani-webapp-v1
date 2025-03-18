@@ -13,16 +13,7 @@ const AddPost = () => {
   const [publishError, setPublishError] = useState<string | null>(null);
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
-    console.log(e);
-    // console.log(formData.image?.name);
-    // console.log(formData, "formData");
     e.preventDefault();
-
-    // Create FormData to handle the file and other fields
-    // const form = new FormData();
-    // for (const key in formData) {
-    //   form.append(key, formData[key]);
-    // }
 
     // Create FormData to handle the file and other fields
     const form = new FormData();
@@ -56,7 +47,7 @@ const AddPost = () => {
         navigate(`/post/${data.slug}`);
       }
     } catch (error) {
-      setPublishError("مشکلی پیش آمده است");
+      setPublishError(error + "مشکلی پیش آمده است");
     }
   };
 
@@ -73,8 +64,6 @@ const AddPost = () => {
   useEffect(() => {
     fetchCategories();
   }, []);
-
-  // console.log(formData, "formData");
 
   return (
     <div className="w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">

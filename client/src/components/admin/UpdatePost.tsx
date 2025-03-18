@@ -6,19 +6,21 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import Button from "../shared/Button";
+import { Category } from "./Categories";
+
+interface FormData {
+  title: string;
+  category: string;
+  content: string;
+}
 
 const UpdatePost = () => {
-  interface FormData {
-    title: string;
-    category: string;
-    content: string;
-  }
-
   const [formData, setFormData] = useState<FormData>({
     title: "",
     category: "",
     content: "",
   });
+  const [categories, setCategories] = useState<Category[]>([]);
   const [publishError, setPublishError] = useState<string | null>(null);
   const { postId } = useParams();
   const navigate = useNavigate();
@@ -26,6 +28,7 @@ const UpdatePost = () => {
   const { currentUser } = useSelector(
     (state: { user: { currentUser: any } }) => state.user
   );
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -40,43 +43,62 @@ const UpdatePost = () => {
         }
       );
       const data = await res.json();
+
       if (!res.ok) {
         setPublishError(data.message);
         return;
       }
+
       if (data.success === false) {
         setPublishError(data.message);
         return;
       }
+
       if (res.ok) {
         setPublishError(null);
         navigate(`/post/${data.slug}`);
       }
     } catch (error) {
-      setPublishError("مشکلی پیش آمده است");
+      setPublishError(error + "مشکلی پیش آمده است");
     }
   };
 
-  useEffect(() => {
+  const fetchPosts = async () => {
     try {
-      const fetchPost = async () => {
-        const res = await fetch(`/api/post/getposts?postId=${postId}`);
-        const data = await res.json();
-        if (!res.ok) {
-          // console.log(data.message);
-          setPublishError(data.message);
-          return;
-        }
-        if (res.ok) {
-          setPublishError(null);
-          setFormData(data.posts[0]);
-        }
-      };
-      fetchPost();
+      const response = await fetch(`/api/post/getposts?postId=${postId}`);
+      const data = await response.json();
+      if (!response.ok) {
+        setPublishError(data.message);
+        return;
+      }
+      if (response.ok) {
+        setPublishError(null);
+        setFormData(data.posts[0]);
+      }
     } catch (error) {
-      console.log(error);
+      setPublishError(error);
     }
+  };
+
+  const fetchCategories = async () => {
+    const response = await fetch("/api/postcategory/getAllCategories");
+    const data = await response.json();
+
+    if (!response.ok) {
+      setPublishError("خطایی رخ داده است");
+      return false;
+    }
+
+    setCategories(data);
+  };
+
+  useEffect(() => {
+    fetchPosts();
+    fetchCategories();
   }, [postId]);
+
+  console.log(formData, "formData");
+  console.log(categories, "categories");
 
   return (
     <div className="my-6 w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
@@ -95,20 +117,23 @@ const UpdatePost = () => {
             className="flex-1 input input-bordered"
           />
           <select
-            onChange={(e) =>
-              setFormData({ ...formData, category: e.target.value })
-            }
-            value={formData.category}
+            onChange={(e) => {
+              setFormData({ ...formData, category: e.target.value });
+              // console.log(e.target.value);
+            }}
+            // value={formData.category?._id}
             className="select select-bordered ltr"
           >
             <option disabled selected>
-              انتخاب دسته بندی
+              {formData.category?.title}
             </option>
-            <option value="uncategorized">دسته بندی نشده</option>
-            <option value="reactjs">دسته بندی ۲</option>
-            <option value="nodejs">دسته بندی ۳</option>
-            <option value="express">دسته بندی ۴</option>
-            <option value="mongo">دسته بندی ۵</option>
+            {categories
+              .filter((f) => f._id != formData.category?._id)
+              .map((cat) => (
+                <option key={cat._id} id={cat._id} value={cat._id}>
+                  {cat.title}
+                </option>
+              ))}
           </select>
         </div>
         <ReactQuill
