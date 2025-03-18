@@ -273,8 +273,8 @@ const Blogs = () => {
                 excerpt={post?.content}
                 tags={[
                   {
-                    text: post?.category,
-                    link: `/search?category=${post && post?.category}`,
+                    text: post?.category?.title,
+                    link: `/search?category=${post && post?.category?.title}`,
                   },
                 ]}
                 actionButton={{

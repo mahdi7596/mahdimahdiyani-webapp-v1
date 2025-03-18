@@ -15,21 +15,22 @@ const Posts = () => {
 
   const deleteModalRef = useRef(null); // Create a ref for the input element
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const res = await fetch(`/api/post/getPosts?userId=${currentUser._id}`);
-        const data = await res.json();
-        if (res.ok) {
-          setUserPosts(data.posts);
-          if (data.posts.length < 9) {
-            setShowMore(false);
-          }
+  const fetchPosts = async () => {
+    try {
+      const res = await fetch(`/api/post/getPosts?userId=${currentUser._id}`);
+      const data = await res.json();
+      if (res.ok) {
+        setUserPosts(data.posts);
+        if (data.posts.length < 9) {
+          setShowMore(false);
         }
-      } catch (error) {
-        console.log(error);
       }
-    };
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
     if (currentUser.isAdmin) {
       fetchPosts();
     }
@@ -118,7 +119,7 @@ const Posts = () => {
                     </div>
                   </td>
                   <td>
-                    <span>{userPost?.category}</span>
+                    <span>{userPost?.category?.title}</span>
                   </td>
                   <td>
                     {/* {new Date(userPost?.updatedAt).toLocaleDateString()} */}
