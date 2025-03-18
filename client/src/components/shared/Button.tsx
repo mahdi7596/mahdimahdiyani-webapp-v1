@@ -31,10 +31,7 @@ const Button = ({
       // className={`btn items-center+ ${className} `}
       disabled={disabled}
     >
-      <Link
-        to={link}
-        className={`flex items-center btn items-center+ ${className} `}
-      >
+      <Link to={link} className={`btn flex items-center  ${className}`}>
         {text && text}
         {icon && <i className={`maicon-${icon}`}></i>}
         {loading && !disabled && (

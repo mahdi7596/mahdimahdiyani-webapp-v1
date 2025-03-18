@@ -65,7 +65,7 @@ const Navbar = () => {
             <Button
               link="/login"
               text="ورود - ثبت نام"
-              className="hidden xs:block btn-md btn-outline btn-primary"
+              className="hidden xs:flex btn-md btn-outline btn-primary"
             />
           )}
         </div>
