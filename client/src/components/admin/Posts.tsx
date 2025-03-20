@@ -127,12 +127,12 @@ const Posts = () => {
                       .locale("fa")
                       .format("YYYY/MM/DD")}
                   </td>
-                  <td className="flex flex-col gap-y-1.5">
+                  <td className="flex flex-wrap gap-1.5">
                     <Button
                       // link={`/dashboard?tab=update-post/${userPost?._id}`}
                       link={`/update-post/${userPost?._id}`}
                       title="ویرایش"
-                      className="btn-sm btn-outline btn-primary"
+                      className="w-fit btn-sm btn-outline btn-primary "
                       icon="ic_round-edit text-lg"
                     />
                     <Button
@@ -141,7 +141,7 @@ const Posts = () => {
                         setPostIdToDelete(userPost?._id);
                       }}
                       title="حذف"
-                      className="btn-sm btn-outline btn-error"
+                      className="w-fit btn-sm btn-outline btn-error "
                       icon="bxs_trash text-lg"
                     />
                   </td>

@@ -179,6 +179,29 @@ export const updatePost = async (req, res, next) => {
     return next(errorHandler(403, "شما مجاز به به‌روزرسانی این پست نیستید."));
   }
   try {
+    const post = await Post.findById(req.params.postId);
+    if (!post) {
+      return next(errorHandler(404, "پست مورد نظر یافت نشد."));
+    }
+    let updatedImage = post.image; // Keep existing image if no new one is uploaded
+
+    if (req.file) {
+      // Delete the old image file if it exists
+      if (post.image) {
+        const oldImagePath = path.join(
+          __dirname,
+          "../images",
+          path.basename(post.image) // ✅ Correctly extract the file name
+        );
+
+        if (fs.existsSync(oldImagePath)) {
+          fs.unlinkSync(oldImagePath); // ✅ Delete the old image
+        }
+      }
+
+      updatedImage = `/images/${req.file.filename}`; // ✅ Correctly format the new image path
+    }
+
     // console.log("test");
     // console.log(req.params.postId);
     const updatedPost = await Post.findByIdAndUpdate(
@@ -188,7 +211,7 @@ export const updatePost = async (req, res, next) => {
           title: req.body.title,
           content: req.body.content,
           category: req.body.category,
-          image: req.body.image,
+          image: updatedImage,
         },
       },
       { new: true }

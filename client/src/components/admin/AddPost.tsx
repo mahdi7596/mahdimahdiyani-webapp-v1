@@ -12,6 +12,7 @@ const AddPost = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [publishError, setPublishError] = useState<string | null>(null);
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
