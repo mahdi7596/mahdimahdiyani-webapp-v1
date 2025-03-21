@@ -5,19 +5,10 @@ import multer from "multer";
 import path from "path";
 
 import { fileURLToPath } from "url";
+import fs from "fs"; // Add this line
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-// Multer setup for file storage
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "./../images"); // Folder to store images uploaded
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, Date.now() + path.extname(file.originalname)); // Unique file name
-//   },
-// });
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -29,7 +20,6 @@ const storage = multer.diskStorage({
   },
 });
 
-// File filter to allow only specific file types
 const fileFilter = (req, file, cb) => {
   const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
   if (allowedFileTypes.includes(file.mimetype)) {
@@ -70,7 +60,7 @@ export const create = [
       ...req.body,
       slug,
       userId: req.user.id,
-      // image: req.file ? `/images/${req.file.filename}` : undefined, // Save file path
+      // image: req .file ? `/images/${req.file.filename}` : undefined, // Save file path
       image: req.file ? `/images/${req.file.filename}` : undefined, // Ensure file path is stored
     });
     // console.log(newPost);
@@ -175,14 +165,19 @@ export const deletePost = async (req, res, next) => {
 };
 
 export const updatePost = async (req, res, next) => {
+  // console.log("Uploaded file:", req.file); // Debugging: Check if the file is received
+  // console.log("Request body:", req.body); // Debugging: Check other form data
+
   if (!req.user.isAdmin || req.user.id !== req.params.userId) {
     return next(errorHandler(403, "شما مجاز به به‌روزرسانی این پست نیستید."));
   }
+
   try {
     const post = await Post.findById(req.params.postId);
     if (!post) {
       return next(errorHandler(404, "پست مورد نظر یافت نشد."));
     }
+
     let updatedImage = post.image; // Keep existing image if no new one is uploaded
 
     if (req.file) {
@@ -191,19 +186,17 @@ export const updatePost = async (req, res, next) => {
         const oldImagePath = path.join(
           __dirname,
           "../images",
-          path.basename(post.image) // ✅ Correctly extract the file name
+          path.basename(post.image)
         );
 
         if (fs.existsSync(oldImagePath)) {
-          fs.unlinkSync(oldImagePath); // ✅ Delete the old image
+          fs.unlinkSync(oldImagePath); // Delete the old image
         }
       }
 
-      updatedImage = `/images/${req.file.filename}`; // ✅ Correctly format the new image path
+      updatedImage = `/images/${req.file.filename}`; // Save the new image path
     }
 
-    // console.log("test");
-    // console.log(req.params.postId);
     const updatedPost = await Post.findByIdAndUpdate(
       req.params.postId,
       {
@@ -216,6 +209,7 @@ export const updatePost = async (req, res, next) => {
       },
       { new: true }
     );
+
     res.status(200).json(updatedPost);
   } catch (error) {
     next(error);

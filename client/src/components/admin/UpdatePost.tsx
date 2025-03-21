@@ -12,6 +12,7 @@ interface FormData {
   title: string;
   category: string;
   content: string;
+  image?: File | string; // Add image to FormData type
 }
 
 const UpdatePost = () => {
@@ -19,9 +20,12 @@ const UpdatePost = () => {
     title: "",
     category: "",
     content: "",
+    image: "", // Initialize image as an empty string
   });
   const [categories, setCategories] = useState<Category[]>([]);
   const [publishError, setPublishError] = useState<string | null>(null);
+  const [existingImage, setExistingImage] = useState<string | null>(null); // Store existing image URL
+
   const { postId } = useParams();
   const navigate = useNavigate();
 
@@ -31,15 +35,28 @@ const UpdatePost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Create FormData to handle file upload
+    const form = new FormData();
+
+    // Append all fields except the image
+    for (const key in formData) {
+      if (formData[key] && key !== "image") {
+        form.append(key, formData[key]);
+      }
+    }
+
+    // Append the image separately if it exists
+    if (formData.image instanceof File) {
+      form.append("image", formData.image); // Ensure the field name is "image"
+    }
+
     try {
       const res = await fetch(
         `/api/post/updatepost/${postId}/${currentUser._id}`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+          body: form, // Use FormData instead of JSON
         }
       );
       const data = await res.json();
@@ -73,7 +90,11 @@ const UpdatePost = () => {
       }
       if (response.ok) {
         setPublishError(null);
-        setFormData(data.posts[0]);
+        setFormData({
+          ...data.posts[0],
+          category: data.posts[0].category?._id || "",
+        });
+        setExistingImage(data.posts[0].image); // Set existing image URL
       }
     } catch (error) {
       setPublishError(error);
@@ -97,14 +118,35 @@ const UpdatePost = () => {
     fetchCategories();
   }, [postId]);
 
-  console.log(formData, "formData");
-  console.log(formData.category?.title, "formData.category?.title");
-  console.log(categories, "categories");
+  // console.log(formData, "formData");
+  // console.log(formData.category?.title, "formData.category?.title");
+  // console.log(categories, "categories");
 
   return (
     <div className="my-6 w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
       <Link to="/dashboard?tab=update-post"></Link>
       <form onSubmit={handleSubmit} className="flex flex-col gap-y-6">
+        {/* Image upload section */}
+        <div className="flex flex-col gap-y-3">
+          {existingImage && (
+            <img
+              //  src={existingImage}
+              src={`http://localhost:3000${existingImage}`} // Use the full backend URL
+              alt="Current Post Image"
+              className="w-32 h-32 object-cover rounded"
+            />
+          )}
+          <input
+            type="file"
+            accept=".png,.jpg,.jpeg"
+            onChange={(e) => {
+              if (e.target.files?.[0]) {
+                setFormData({ ...formData, image: e.target.files[0] }); // Set new image file
+              }
+            }}
+          />
+        </div>
+
         <div className="flex flex-wrap items-center gap-x-3">
           <input
             onChange={(e) =>
@@ -120,21 +162,18 @@ const UpdatePost = () => {
           <select
             onChange={(e) => {
               setFormData({ ...formData, category: e.target.value });
-              // console.log(e.target.value);
             }}
-            // value={formData.category?._id}
+            value={formData.category} // Use category _id
             className="select select-bordered ltr"
           >
-            <option disabled selected>
-              {formData.category?.title}
+            <option disabled value="">
+              انتخاب دسته بندی
             </option>
-            {categories
-              .filter((f) => f._id != formData.category?._id)
-              .map((cat) => (
-                <option key={cat._id} id={cat._id} value={cat._id}>
-                  {cat.title}
-                </option>
-              ))}
+            {categories.map((cat) => (
+              <option key={cat._id} value={cat._id}>
+                {cat.title}
+              </option>
+            ))}
           </select>
         </div>
         <ReactQuill

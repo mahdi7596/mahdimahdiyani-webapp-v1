@@ -6,20 +6,7 @@ import {
   deletePost,
   updatePost,
 } from "../controllers/post.controller.js";
-
-import multer from "multer";
-
-// Set up Multer storage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/"); // Make sure this folder exists
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
-
-const upload = multer({ storage });
+import upload from "../middleware/multerConfig.js"; // Import Multer configuration
 
 const router = express.Router();
 
@@ -34,7 +21,7 @@ router.delete("/deletepost/:postId/:userId", verifyToken, deletePost);
 router.put(
   "/updatepost/:postId/:userId",
   verifyToken,
-  upload.single("image"),
+  upload.single("image"), // Apply Multer middleware
   updatePost
 );
 
