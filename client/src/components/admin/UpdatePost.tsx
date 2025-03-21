@@ -12,7 +12,6 @@ interface FormData {
   title: string;
   category: string;
   content: string;
-  image: string;
 }
 
 const UpdatePost = () => {
@@ -20,11 +19,9 @@ const UpdatePost = () => {
     title: "",
     category: "",
     content: "",
-    image: "",
   });
   const [categories, setCategories] = useState<Category[]>([]);
   const [publishError, setPublishError] = useState<string | null>(null);
-
   const { postId } = useParams();
   const navigate = useNavigate();
 
@@ -34,7 +31,6 @@ const UpdatePost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const res = await fetch(
         `/api/post/updatepost/${postId}/${currentUser._id}`,
@@ -67,7 +63,7 @@ const UpdatePost = () => {
     }
   };
 
-  const fetchPost = async () => {
+  const fetchPosts = async () => {
     try {
       const response = await fetch(`/api/post/getposts?postId=${postId}`);
       const data = await response.json();
@@ -97,26 +93,18 @@ const UpdatePost = () => {
   };
 
   useEffect(() => {
-    fetchPost();
+    fetchPosts();
     fetchCategories();
   }, [postId]);
 
   console.log(formData, "formData");
-  // console.log(categories, "categories");
+  console.log(formData.category?.title, "formData.category?.title");
+  console.log(categories, "categories");
 
   return (
     <div className="my-6 w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
       <Link to="/dashboard?tab=update-post"></Link>
       <form onSubmit={handleSubmit} className="flex flex-col gap-y-6">
-        {/* File input */}
-        <div className="flex flex-wrap gap-3 items-center">
-          <img
-            src={`http://localhost:3000${formData?.image}`} // Use the full backend URL
-            alt={formData && formData.title}
-            className="h-64 object-cover rounded"
-          />
-          <input type="file" accept=".png,.jpg,.jpeg" name="image" />
-        </div>
         <div className="flex flex-wrap items-center gap-x-3">
           <input
             onChange={(e) =>
