@@ -2,6 +2,7 @@ import Badge, { BadgeProps } from "./Badge";
 
 import statciFeaturedImage from "../../assets/images/demo-pic.png";
 import Button, { ButtonProps } from "./Button";
+import { Link } from "react-router-dom";
 
 interface CardProps {
   img?: string;
@@ -11,6 +12,7 @@ interface CardProps {
   featured?: string;
   tags?: BadgeProps[];
   actionButton?: ButtonProps;
+  link: string;
 }
 
 const Card = ({
@@ -21,9 +23,11 @@ const Card = ({
   featured,
   tags,
   actionButton,
+  link,
 }: CardProps) => {
   return (
-    <div
+    <Link
+      to={link}
       className={`card bg-surfaceBg border border-surfaceBorder + ${cardClassName}`}
     >
       <figure>
@@ -71,7 +75,7 @@ const Card = ({
           />
         )}
       </div>
-    </div>
+    </Link>
   );
 };
 

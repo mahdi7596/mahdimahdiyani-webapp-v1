@@ -267,8 +267,9 @@ const Blogs = () => {
             .filter((f) => f?.title.includes(searchTerm))
             .map((post) => (
               <Card
-                key={post._id}
                 {...post}
+                key={post._id}
+                link={`/post/${post?.slug}`}
                 img={`http://localhost:3000${post?.image}`} // Use the full backend URL
                 excerpt={post?.content}
                 tags={[
@@ -277,11 +278,6 @@ const Blogs = () => {
                     link: `/search?category=${post && post?.category?.title}`,
                   },
                 ]}
-                actionButton={{
-                  text: "مشاهده بیشتر",
-                  className: "btn-primary w-fit self-end",
-                  link: `/post/${post?.slug}`,
-                }}
               />
             ))}
       </div>
