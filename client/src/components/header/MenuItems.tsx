@@ -19,9 +19,9 @@ const MenuItems = ({ currentUser }) => {
     }
   }, [location, hasClickedServices]);
 
-  console.log(currentUser, "currentUser inside menuItem");
+  // console.log(currentUser, "currentUser inside menuItem");
 
-  console.log(navMenuItems.filter((f) => f.link.includes("login")));
+  // console.log(navMenuItems.filter((f) => f.link.includes("login")));
 
   return (
     <nav className="flex">

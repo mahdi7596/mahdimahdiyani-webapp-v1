@@ -5,6 +5,7 @@ import Button from "../components/shared/Button";
 import Card from "../components/shared/Card";
 
 import banner from "../assets/images/banner.jpg";
+import { Category } from "../components/admin/Categories";
 
 const Blogs = () => {
   // const [sidebarData, setSidebarData] = useState({
@@ -18,62 +19,20 @@ const Blogs = () => {
   const [dateFilter, setDateFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchDateQuery, setsearchDateQuery] = useState("desc");
-  // console.log(searchTerm, "searchTerm");
-  // console.log(category, "category");
-  // console.log(dateFilter, "dateFilter");
+  const [categories, setCategories] = useState<Category[]>([]);
 
   const [posts, setPosts] = useState([]);
   const [showMore, setShowMore] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const location = useLocation();
-  // const navigate = useNavigate();
-
-  // const handleChange = (e) => {
-  //   if (e.target.id === "searchTerm") {
-  //     setSidebarData({ ...sidebarData, searchTerm: e.target.value });
-  //   }
-
-  //   if (e.target.id === "sort") {
-  //     const order = e.target.value || "desc";
-  //     setSidebarData({ ...sidebarData, sort: order });
-  //   }
-  //   if (e.target.id === "category") {
-  //     let category = "";
-  //     if (e.target.value === "all") {
-  //       category = "";
-  //     } else {
-  //       category = e.target.value;
-  //     }
-  //     setSidebarData({ ...sidebarData, category });
-  //   }
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const urlParams = new URLSearchParams(location.search);
-
-  //   urlParams.set("searchTerm", sidebarData?.searchTerm);
-
-  //   urlParams.set("sort", sidebarData?.sort);
-
-  //   if (sidebarData?.category !== "all") {
-  //     urlParams.set("category", sidebarData?.category);
-  //   }
-
-  //   const searchQuery = urlParams.toString();
-  //   navigate(`/search?${searchQuery}`);
-  // };
 
   const handleFilter = (e) => {
-    // console.log("object");
     e?.preventDefault();
 
     setSearchQuery(category === "all" ? "" : category);
     setsearchDateQuery(dateFilter);
   };
-  // console.log(searchQuery, "setSearchQuery");
-  // console.log(searchDateQuery, "setSearchDateQuery");
 
   const handleShowMore = async () => {
     const numberOfPosts = posts.length;
@@ -96,45 +55,6 @@ const Blogs = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const urlParams = new URLSearchParams(location.search);
-
-  //   const searchTermFromUrl = urlParams.get("searchTerm");
-  //   const sortFromUrl = urlParams.get("sort");
-  //   const categoryFromUrl = urlParams.get("category");
-
-  //   if (searchTermFromUrl || sortFromUrl || categoryFromUrl) {
-  //     setSidebarData({
-  //       ...sidebarData,
-  //       searchTerm: searchTermFromUrl,
-  //       sort: sortFromUrl,
-  //       category: categoryFromUrl,
-  //     });
-  //   }
-
-  //   const fetchPosts = async () => {
-  //     setLoading(true);
-  //     const searchQuery = urlParams.toString();
-  //     const res = await fetch(`/api/post/getposts?${searchQuery}`);
-  //     if (!res.ok) {
-  //       setLoading(false);
-  //       return;
-  //     }
-  //     if (res.ok) {
-  //       const data = await res.json();
-  //       setPosts(data.posts);
-  //       setLoading(false);
-  //       if (data.posts.length === 9) {
-  //         setShowMore(true);
-  //       } else {
-  //         setShowMore(false);
-  //       }
-  //     }
-  //   };
-
-  //   fetchPosts();
-  // }, [location.search]);
-
   const fetchPosts = async () => {
     setLoading(true);
     const res = await fetch(
@@ -151,12 +71,25 @@ const Blogs = () => {
       // if(data?.posts.length ===)
     }
   };
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch("/api/postcategory/getAllCategories");
+      const data = await response.json();
+
+      if (!response) {
+        return false;
+      }
+
+      setCategories(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     fetchPosts();
+    fetchCategories();
   }, [searchQuery, searchDateQuery]);
-
-  console.log(posts, "posts");
 
   return (
     <div className="section-container section-inner-space">
@@ -201,22 +134,20 @@ const Blogs = () => {
           onChange={(e) => setCategory(e?.target?.value)}
           className="select select-bordered ltr flex-1 sm:flex-none"
         >
-          <option value="all"> تمام دسته بندی ها</option>
-          <option value="uncategorized">دسته بندی نشده</option>
-          <option value="reactjs">دسته بندی ۲</option>
-          <option value="nodejs">دسته بندی ۳</option>
-          <option value="express">دسته بندی ۴</option>
-          <option value="mongo">دسته بندی ۵</option>
+          <option selected value={""}>
+            همه دسته بندی ها
+          </option>
+          {categories?.map((category) => (
+            <option key={category._id} id={category._id} value={category._id}>
+              {category?.title}
+            </option>
+          ))}
         </select>
-        {/* <Button
-          onAction={handleSubmit}
-          text="اعمال فیلتر"
-          className="btn-primary w-full xsm:w-fit"
-        /> */}
+
         <Button
           onAction={(e) => handleFilter(e)}
           text="اعمال فیلتر"
-          className="btn-primary w-full xsm:w-fit"
+          className="btn-primary min-w-full xsm:w-32"
         />
       </form>
       <div
@@ -234,7 +165,6 @@ const Blogs = () => {
         {!loading &&
           posts &&
           posts
-            // .filter((f) => f?.title.includes(sidebarData.searchTerm))
             .filter((f) => f?.title.includes(searchTerm))
             .map((post) => (
               <Card
