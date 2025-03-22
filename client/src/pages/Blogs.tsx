@@ -27,34 +27,6 @@ const Blogs = () => {
 
   const location = useLocation();
 
-  const handleFilter = (e) => {
-    e?.preventDefault();
-
-    setSearchQuery(category === "all" ? "" : category);
-    setsearchDateQuery(dateFilter);
-  };
-
-  const handleShowMore = async () => {
-    const numberOfPosts = posts.length;
-    const startIndex = numberOfPosts;
-    const urlParams = new URLSearchParams(location.search);
-    urlParams.set("startIndex", startIndex.toString());
-    const searchQuery = urlParams.toString();
-    const res = await fetch(`/api/post/getposts?${searchQuery}`);
-    if (!res.ok) {
-      return;
-    }
-    if (res.ok) {
-      const data = await res.json();
-      setPosts([...posts, ...data.posts]);
-      if (data.posts.length === 9) {
-        setShowMore(true);
-      } else {
-        setShowMore(false);
-      }
-    }
-  };
-
   const fetchPosts = async () => {
     setLoading(true);
     const res = await fetch(
@@ -83,6 +55,34 @@ const Blogs = () => {
       setCategories(data);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleFilter = (e) => {
+    e?.preventDefault();
+
+    setSearchQuery(category === "all" ? "" : category);
+    setsearchDateQuery(dateFilter);
+  };
+
+  const handleShowMore = async () => {
+    const numberOfPosts = posts.length;
+    const startIndex = numberOfPosts;
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set("startIndex", startIndex.toString());
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/post/getposts?${searchQuery}`);
+    if (!res.ok) {
+      return;
+    }
+    if (res.ok) {
+      const data = await res.json();
+      setPosts([...posts, ...data.posts]);
+      if (data.posts.length === 9) {
+        setShowMore(true);
+      } else {
+        setShowMore(false);
+      }
     }
   };
 
@@ -150,6 +150,11 @@ const Blogs = () => {
           className="btn-primary min-w-full xsm:w-32"
         />
       </form>
+      {loading && (
+        <div className="w-full flex flex-col justify-center items-center self-center">
+          <div className="loading loading-bars loading-lg text-primary"></div>
+        </div>
+      )}
       <div
         className={
           posts.length === 0
