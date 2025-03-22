@@ -28,7 +28,7 @@ const Card = ({
   return (
     <Link
       to={link}
-      className={`card bg-surfaceBg border border-surfaceBorder + ${cardClassName}`}
+      className={`group card bg-surfaceBg border border-surfaceBorder + ${cardClassName}`}
     >
       <figure>
         {featured && (
@@ -46,7 +46,9 @@ const Card = ({
       </figure>
       <div className="card-body gap-4 p-4">
         <div className="flex-1 justify-between flex flex-col gap-y-3">
-          <h2 className="card-title text-lg">{title}</h2>
+          <h2 className="group-hover:text-primary card-title text-lg">
+            {title}
+          </h2>
           {excerpt && (
             <p
               dangerouslySetInnerHTML={{ __html: excerpt && excerpt }}
