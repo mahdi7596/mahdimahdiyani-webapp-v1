@@ -39,7 +39,7 @@ const Navbar = () => {
         {/* logo + menuItems */}
         <div className="flex-none">
           <img src={logo} className="w-16" alt="logo" />
-          <MenuItems />
+          <MenuItems currentUser={currentUser} />
         </div>
         {/* search + register button + profile */}
         <div className="flex-1 justify-end gap-2">

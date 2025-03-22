@@ -31,11 +31,10 @@ export const navMenuItems: IMenuItem[] = [
   //   text: "همکاری باما",
   //   link: "/work-with-us",
   // },
-  // todo #1 i have to assign a different class for this menu item and implement a functionality where it shows it only in mobile view port
   {
     id: 7,
     text: "ورود - ثبت نام",
-    link: "/register",
+    link: "/login",
     mobileOnly: true, // Add a flag for mobile-only items
   },
 ];

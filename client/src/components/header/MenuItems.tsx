@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { navMenuItems } from "./IMenuItem";
 import Dropdown from "../shared/Dropdown";
 
-const MenuItems = () => {
+const MenuItems = ({ currentUser }) => {
   const [hasClickedServices, setHasClickedServices] = useState(false);
 
   // Scroll to the section only if the user clicked the "خدمات ما" link
@@ -18,6 +18,10 @@ const MenuItems = () => {
       setHasClickedServices(false);
     }
   }, [location, hasClickedServices]);
+
+  console.log(currentUser, "currentUser inside menuItem");
+
+  console.log(navMenuItems.filter((f) => f.link.includes("login")));
 
   return (
     <nav className="flex">
@@ -54,7 +58,11 @@ const MenuItems = () => {
           <i className="maicon-ic_sharp-sort text-lg"></i>
         </div>
         <Dropdown
-          dropDownItems={navMenuItems.filter((f) => !f.link.startsWith("#"))}
+          dropDownItems={navMenuItems.filter(
+            (f) =>
+              !f.link.startsWith("#") && // Exclude items starting with #
+              !(f.link.includes("login") && currentUser) // Exclude "/login" if user is logged in
+          )}
           className="w-48 menu-sm mt-3"
         />
       </div>

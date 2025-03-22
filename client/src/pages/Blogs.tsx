@@ -178,14 +178,6 @@ const Blogs = () => {
         // onSubmit={handleSubmit}
         className="flex flex-wrap sm:flex-nowrap items-center gap-y-3 gap-x-3 mt-6 md:mt-12 mb-8"
       >
-        {/* <Search className="w-full" /> */}
-        {/* <input
-          id="searchTerm"
-          type="text"
-          onChange={handleChange}
-          placeholder="جستجو کنید"
-          className="input input-bordered w-full"
-        /> */}
         <input
           id="searchTerm"
           value={searchTerm}
@@ -194,27 +186,6 @@ const Blogs = () => {
           placeholder="جستجو کنید"
           className="input input-bordered w-full"
         />
-        {/* <select
-          id="sort"
-          value={sidebarData.sort}
-          onChange={handleChange}
-          className="select select-bordered ltr  flex-1 xxs:flex-none"
-        >
-          <option value="desc">قدیمی ترین</option>
-          <option value="asc">جدید ترین</option>
-        </select>
-        <select
-          id="category"
-          onChange={handleChange}
-          className="select select-bordered ltr flex-1 sm:flex-none"
-        >
-          <option value="all"> تمام دسته بندی ها</option>
-          <option value="uncategorized">دسته بندی نشده</option>
-          <option value="reactjs">دسته بندی ۲</option>
-          <option value="nodejs">دسته بندی ۳</option>
-          <option value="express">دسته بندی ۴</option>
-          <option value="mongo">دسته بندی ۵</option>
-        </select> */}
         <select
           id="sort"
           value={dateFilter}
