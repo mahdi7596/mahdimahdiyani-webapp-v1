@@ -13,31 +13,47 @@ export interface ButtonProps {
 }
 
 const Button = ({
-  link = "#",
   text,
   title,
   onAction,
-  className,
   type = "button",
-  disabled,
   icon,
   loading,
+  className = "",
+  disabled = false,
+  link,
 }: ButtonProps) => {
+  const buttonContent = (
+    <>
+      {text && text}
+      {icon && <i className={`maicon-${icon}`}></i>}
+      {loading && !disabled && (
+        <span className="loading loading-spinner text-black mr-3"></span>
+      )}
+    </>
+  );
+
+  if (link) {
+    return (
+      <Link
+        to={link}
+        className={`btn flex items-center ${className}`}
+        title={title}
+      >
+        {buttonContent}
+      </Link>
+    );
+  }
+
   return (
     <button
       type={type}
       onClick={onAction}
       title={title}
-      // className={`btn items-center+ ${className} `}
+      className={`btn flex items-center ${className}`}
       disabled={disabled}
     >
-      <Link to={link} className={`btn flex items-center  ${className}`}>
-        {text && text}
-        {icon && <i className={`maicon-${icon}`}></i>}
-        {loading && !disabled && (
-          <span className="loading loading-spinner text-black mr-3"></span>
-        )}
-      </Link>
+      {buttonContent}
     </button>
   );
 };

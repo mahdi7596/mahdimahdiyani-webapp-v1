@@ -91,6 +91,9 @@ const Blogs = () => {
     fetchCategories();
   }, [searchQuery, searchDateQuery]);
 
+  console.log(dateFilter, "dateFilter");
+  console.log(category, "category");
+
   return (
     <div className="section-container section-inner-space">
       <div
@@ -147,7 +150,9 @@ const Blogs = () => {
         <Button
           onAction={(e) => handleFilter(e)}
           text="اعمال فیلتر"
-          className="btn-primary min-w-full xsm:w-32"
+          className="btn-primary w-full sm:w-fit"
+          disabled={true}
+          // disabled={!dateFilter || !category}
         />
       </form>
       {loading && (
