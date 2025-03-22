@@ -151,8 +151,7 @@ const Blogs = () => {
           onAction={(e) => handleFilter(e)}
           text="اعمال فیلتر"
           className="btn-primary w-full sm:w-fit"
-          disabled={true}
-          // disabled={!dateFilter || !category}
+          disabled={!dateFilter && !category}
         />
       </form>
       {loading && (
