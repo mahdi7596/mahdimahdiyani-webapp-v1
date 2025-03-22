@@ -28,6 +28,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/postcategory", postCategoryRoutes);
+app.use("/api/reservations", reservationRoutes);
 
 // Serve the "images" folder statically
 // app.use("/images", express.static(path.join(__dirname, "../../images")));

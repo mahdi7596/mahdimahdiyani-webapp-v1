@@ -1,33 +1,42 @@
-import mongoose from "mongoose";
-
 const reservationSchema = new mongoose.Schema(
   {
+    title: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    includedServices: {
+      type: [String], // List of services offered
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    date: {
+      type: String, // Storing date as string (e.g., "2025-03-26")
+      required: true,
+    },
+    timeSlot: {
+      type: String, // Storing time range (e.g., "13:00-15:00")
+      required: true,
+    },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    date: {
-      type: String,
-      required: true, // Format: "YYYY-MM-DD"
-    },
-    timeSlot: {
-      type: String,
-      required: true, // Format: "13:00-15:00"
-    },
     status: {
       type: String,
-      enum: ["pending", "confirmed"],
+      enum: ["pending", "confirmed", "cancelled"],
       default: "pending",
-    },
-    price: {
-      type: Number,
-      required: true, // Example: 500000 toman
     },
   },
   { timestamps: true }
 );
 
 const Reservation = mongoose.model("Reservation", reservationSchema);
-
 export default Reservation;

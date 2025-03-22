@@ -37,6 +37,11 @@ export const getAvailableTimes = async (req, res, next) => {
  */
 export const bookReservation = async (req, res, next) => {
   try {
+    // Ensure user is authenticated
+    if (!req.user) {
+      return next(errorHandler(401, "ابتدا وارد حساب خود شوید"));
+    }
+
     const { date, timeSlot, price } = req.body;
 
     if (!date || !timeSlot || !price) {
@@ -59,12 +64,10 @@ export const bookReservation = async (req, res, next) => {
     });
 
     await newReservation.save();
-    res
-      .status(201)
-      .json({
-        message: "رزرو با موفقیت انجام شد",
-        reservation: newReservation,
-      });
+    res.status(201).json({
+      message: "رزرو با موفقیت انجام شد",
+      reservation: newReservation,
+    });
   } catch (error) {
     next(error);
   }
