@@ -7,6 +7,6 @@ export interface Reservation {
   price: number;
   date: string;
   timeSlot: string;
-  userId: string;
-  status: "pending" | "confirmed" | "cancelled";
+  userId?: string;
+  status?: "pending" | "confirmed" | "cancelled";
 }
