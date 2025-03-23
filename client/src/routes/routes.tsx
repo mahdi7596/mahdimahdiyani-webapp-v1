@@ -10,6 +10,7 @@ import Footer from "../components/Footer";
 import AddPost from "../components/admin/AddPost";
 import UpdatePost from "../components/admin/UpdatePost";
 import Categories from "../components/admin/Categories";
+import Reservation from "../pages/Reservation";
 
 const Home = lazy(() => import("../pages/Home"));
 const Aboutme = lazy(() => import("../pages/Aboutme"));
@@ -44,6 +45,10 @@ const routes = createBrowserRouter([
   {
     path: "/post/:postSlug",
     element: renderLayout(<SinglePost />),
+  },
+  {
+    path: "/reservation/:id",
+    element: renderLayout(<Reservation />),
   },
   {
     path: "/signup",

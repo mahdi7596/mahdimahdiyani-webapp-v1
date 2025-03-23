@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 import CheckIcon from "../../assets/images/landing/check.svg";
 
-const Reservations = () => {
+const ReservationCard = () => {
   return (
     <section id="services" className="py-24 bg-white">
       <div className="container">
@@ -80,4 +80,4 @@ const Reservations = () => {
   );
 };
 
-export default Reservations;
+export default ReservationCard;
