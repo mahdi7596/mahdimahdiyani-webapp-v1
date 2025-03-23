@@ -84,7 +84,7 @@ const Sidebar = () => {
                   tab === "posts" && "bg-primary100"
                 }  `}
               >
-                مدیریت مقالات
+                مدیریت آموزشهای رایگان
               </Link>
             </li>
             <li className="relative">

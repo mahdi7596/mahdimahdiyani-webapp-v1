@@ -18,7 +18,7 @@ export const navMenuItems: IMenuItem[] = [
   },
   {
     id: 3,
-    text: "مقالات",
+    text: "آموزشهای رایگان",
     link: "/search",
   },
   {
@@ -47,7 +47,7 @@ export const profileMenuItems: IMenuItem[] = [
   },
   {
     id: 2,
-    text: "مدیریت مقالات",
+    text: "مدیریت آموزشهای رایگان",
     link: "/dashboard?tab=posts",
   },
 ];

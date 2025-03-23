@@ -107,7 +107,7 @@ const SinglePost = () => {
           />
           <Button
             link="/dashboard?tab=posts"
-            text="مشاهده تمام مقالات"
+            text="مشاهده تمام آموزشهای رایگان"
             className="btn-sm btn-outline btn-neutral w-fit"
           />
         </div>

@@ -4,7 +4,7 @@ import CheckIcon from "../../assets/images/landing/check.svg";
 
 const pricingTiers = [
   {
-    title: "مشاوره مالی و حسابداری",
+    title: "مشاوره مالی و مدیریت",
     monthlyPrice: 500,
     buttonText: "درخواست مشاوره",
     popular: false,
@@ -24,9 +24,9 @@ const pricingTiers = [
   },
 
   {
-    title: "آموزش حسابداری",
+    title: "مشاوره آموزشی",
     monthlyPrice: 300,
-    buttonText: "ثبت‌نام کنید",
+    buttonText: "درخواست مشاوره",
     popular: true,
     inverse: true,
     features: [
@@ -40,9 +40,9 @@ const pricingTiers = [
     ],
   },
   {
-    title: "خدمات مالی پایه",
+    title: "مشاوره حسابرسی",
     monthlyPrice: 0,
-    buttonText: "شروع کنید",
+    buttonText: "درخواست مشاوره",
     popular: false,
     inverse: false,
     features: [

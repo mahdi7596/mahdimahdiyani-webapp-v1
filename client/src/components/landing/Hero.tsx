@@ -34,7 +34,9 @@ const Hero = () => {
               دانشگاه با سال‌ها تجربه در حسابداری و مدیریت.
             </p>
             <div className="flex gap-1 items-center mt-[30px]">
-              <button className="btn btn-primary">مشاهده مقالات</button>
+              <button className="btn btn-primary">
+                مشاهده آموزشهای رایگان
+              </button>
               <button className="btn btn-text gap-1">
                 <span>درباره من بیشتر بدانید</span>
                 <img src={ArrowIcon} className="h-5 w-5 rotate-180" />
