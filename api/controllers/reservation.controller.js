@@ -53,7 +53,12 @@ export const bookReservation = async (req, res, next) => {
 // 📌 GET ALL Reservations (For Users)
 export const getReservations = async (req, res, next) => {
   try {
-    const reservations = await Reservation.find().populate(
+    const { date } = req.query; // Get date from query params
+    let query = {};
+    if (date) {
+      query.date = date; // Filter reservations by date
+    }
+    const reservations = await Reservation.find(query).populate(
       "userId",
       "username email"
     );
