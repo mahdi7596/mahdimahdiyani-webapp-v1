@@ -55,7 +55,7 @@ const pricingTiers = [
   },
 ];
 
-const Pricing = () => {
+const Reservations = () => {
   return (
     <section id="services" className="py-24 bg-white">
       <div className="container">
@@ -138,4 +138,4 @@ const Pricing = () => {
   );
 };
 
-export default Pricing;
+export default Reservations;
