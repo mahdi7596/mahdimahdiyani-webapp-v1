@@ -8,6 +8,7 @@ import authRoutes from "../routes/auth.route.js";
 import userRoutes from "../routes/user.route.js";
 import postRoutes from "../routes/post.route.js";
 import postCategoryRoutes from "../routes/post-category.route.js";
+import reservationRoutes from "../routes/reservation.routes.js";
 
 import path from "path";
 import { fileURLToPath } from "url";

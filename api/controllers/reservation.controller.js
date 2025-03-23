@@ -41,12 +41,10 @@ export const bookReservation = async (req, res, next) => {
     });
 
     await newReservation.save();
-    res
-      .status(201)
-      .json({
-        message: "رزرو با موفقیت انجام شد",
-        reservation: newReservation,
-      });
+    res.status(201).json({
+      message: "رزرو با موفقیت انجام شد",
+      reservation: newReservation,
+    });
   } catch (error) {
     next(error);
   }

@@ -1,24 +1,24 @@
 import express from "express";
 import {
   bookReservation,
-  getAvailableTimes,
+  getReservations,
   getUserReservations,
-  getAllReservations,
+  adminCreateReservation,
 } from "../controllers/reservation.controller.js";
 import { verifyToken } from "../utils/verifyUser.js"; // Middleware for authentication
 
 const router = express.Router();
 
-// ✅ Get available time slots for a date
-router.get("/available", getAvailableTimes);
-
-// ✅ Book a reservation (user must be logged in)
+// 📌 USER: Book a reservation (requires authentication)
 router.post("/book", verifyToken, bookReservation);
 
-// ✅ Get all reservations of logged-in user
+// 📌 USER: Get their own reservations
 router.get("/my-reservations", verifyToken, getUserReservations);
 
-// ✅ Admin: Get all reservations
-router.get("/all", verifyToken, getAllReservations);
+// 📌 PUBLIC: Get all available reservations
+router.get("/", getReservations);
+
+// 📌 ADMIN: Create a new reservation type
+router.post("/create", verifyToken, adminCreateReservation);
 
 export default router;
