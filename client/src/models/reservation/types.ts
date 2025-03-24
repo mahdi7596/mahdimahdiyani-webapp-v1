@@ -10,3 +10,13 @@ export interface Reservation {
   userId?: string;
   status?: "pending" | "confirmed" | "cancelled";
 }
+
+export interface ReservationType {
+  _id: string;
+  title: string;
+  description: string;
+  includedServices: string[];
+  price: number;
+  availableDates: string[]; // Format: "YYYY-MM-DD"
+  timeSlots: string[]; // Format: "HH:MM-HH:MM"
+}

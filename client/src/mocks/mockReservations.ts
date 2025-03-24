@@ -1,5 +1,5 @@
 // src/data/mockReservations.ts
-import { Reservation } from "../types/reservation";
+import { Reservation } from "../models/reservation";
 
 export const mockReservations: Reservation[] = [
   {

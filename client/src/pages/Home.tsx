@@ -6,6 +6,7 @@ import LogoTicker from "../components/landing/LogoTicker";
 import ReservationTypeList from "../components/landing/ReservationTypeList";
 import ProductShowcase from "../components/landing/ProductShowcase";
 import Testimonials from "../components/landing/Testimonials";
+import { getReservationTypes } from "../services/reservationService";
 
 interface ReservationType {
   title: string;
@@ -19,14 +20,18 @@ interface ReservationType {
 const Home = () => {
   const [reservations, setReservations] = useState<ReservationType[]>([]);
 
-  const fetchReservations = async () => {
-    const response = await fetch("/api/reservationtypes");
-    const data = response.json();
+  const fetchTypes = async () => {
+    const result = await getReservationTypes();
+    if (result.success) {
+      setReservations(result.data);
+    }
   };
 
   useEffect(() => {
-    fetchReservations();
+    fetchTypes();
   }, []);
+
+  console.log(reservations, "reservations");
 
   return (
     <>
