@@ -6,32 +6,10 @@ import LogoTicker from "../components/landing/LogoTicker";
 import ReservationTypeList from "../components/landing/ReservationTypeList";
 import ProductShowcase from "../components/landing/ProductShowcase";
 import Testimonials from "../components/landing/Testimonials";
-import { getReservationTypes } from "../services/reservationService";
-
-interface ReservationType {
-  title: string;
-  description: string;
-  includedServices: string[];
-  price: number;
-  availableDates: string[]; // Format: "YYYY-MM-DD"
-  timeSlots: string[]; // Format: "HH:MM-HH:MM"
-}
+import { useReservationTypes } from "../hooks/useReservationTypes";
 
 const Home = () => {
-  const [reservations, setReservations] = useState<ReservationType[]>([]);
-
-  const fetchTypes = async () => {
-    const result = await getReservationTypes();
-    if (result.success) {
-      setReservations(result.data);
-    }
-  };
-
-  useEffect(() => {
-    fetchTypes();
-  }, []);
-
-  console.log(reservations, "reservations");
+  const { reservationTypes, loading, error } = useReservationTypes();
 
   return (
     <>
@@ -39,7 +17,7 @@ const Home = () => {
       <Hero />
       <LogoTicker />
       <ProductShowcase />
-      <ReservationTypeList />
+      <ReservationTypeList reservationTypes={reservationTypes} />
       <Testimonials />
       <CallToAction />
       {/* <Footer /> */}
