@@ -9,6 +9,7 @@ export const getReservationTypes = async (req, res, next) => {
     res.status(200).json({
       success: true,
       data: reservationTypes, // Return the list of reservation types
+      // message: "Data fetched successfully", // Add a success message
     });
   } catch (error) {
     // Handle any errors and return an error response
