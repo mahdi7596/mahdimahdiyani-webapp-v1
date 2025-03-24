@@ -1,5 +1,5 @@
 import { ReservationType } from "../../models/reservation";
-import Reservation from "../../pages/Reservation";
+import ReservationCard from "../shared/ReservationCard";
 
 interface ReservationTypeListProps {
   reservationTypes: ReservationType[];
@@ -19,7 +19,11 @@ const ReservationTypeList = ({
         </div>
         <div className="flex flex-col gap-6 items-center mt-10 lg:flex-row lg:items-end lg:justify-center">
           {reservationTypes.map((reservation, index) => (
-            <Reservation key={reservation._id} {...reservation} index={index} />
+            <ReservationCard
+              key={reservation._id}
+              index={index}
+              {...reservation}
+            />
           ))}
         </div>
       </div>
