@@ -8,7 +8,15 @@ const Reservation = () => {
   const { id } = useParams();
   const { state } = useLocation();
   const reservation: ReservationType = state?.reservation;
-  console.log(reservation, "reservation inside reservatioin page");
+  console.log(reservation, "reservation");
+  // const filteredReservations = [];
+
+  console.log(
+    "iran",
+    reservation.availableDates.map((availableDate) =>
+      availableDate.date.slice(5, 7)
+    )
+  );
 
   return (
     <section className="section-container section-inner-space">
