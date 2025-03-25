@@ -1,7 +1,7 @@
 import { useLocation, useParams } from "react-router-dom";
 import { ReservationType } from "../models/reservation";
 
-interface ReservationProps {}
+// interface ReservationProps {}
 
 const Reservation = () => {
   const { id } = useParams();

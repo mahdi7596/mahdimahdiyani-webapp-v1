@@ -18,7 +18,7 @@ const ReservationTypeList = ({
           </p>
         </div>
         <div className="flex flex-col gap-6 items-center mt-10 lg:flex-row lg:items-end lg:justify-center">
-          {reservationTypes.map((reservation, index) => (
+          {reservationTypes.slice(0, 3).map((reservation, index) => (
             <ReservationCard
               key={reservation._id}
               index={index}
