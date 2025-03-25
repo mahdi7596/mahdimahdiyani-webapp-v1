@@ -22,7 +22,7 @@ const ReservationTypeList = ({
             <ReservationCard
               key={reservation._id}
               index={index}
-              {...reservation}
+              reservation={reservation}
             />
           ))}
         </div>

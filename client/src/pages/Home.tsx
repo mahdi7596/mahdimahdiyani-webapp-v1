@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useReservationTypes } from "../hooks/useReservationTypes";
 
 import CallToAction from "../components/landing/CallToAction";
 import Hero from "../components/landing/Hero";
@@ -6,7 +6,6 @@ import LogoTicker from "../components/landing/LogoTicker";
 import ReservationTypeList from "../components/landing/ReservationTypeList";
 import ProductShowcase from "../components/landing/ProductShowcase";
 import Testimonials from "../components/landing/Testimonials";
-import { useReservationTypes } from "../hooks/useReservationTypes";
 
 const Home = () => {
   const { reservationTypes, loading, error } = useReservationTypes();

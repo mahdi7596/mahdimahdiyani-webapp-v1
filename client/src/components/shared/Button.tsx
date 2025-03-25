@@ -10,6 +10,7 @@ export interface ButtonProps {
   disabled?: boolean;
   icon?: string;
   loading?: boolean;
+  state?: any;
 }
 
 const Button = ({
@@ -22,6 +23,7 @@ const Button = ({
   className = "",
   disabled = false,
   link,
+  state,
 }: ButtonProps) => {
   const buttonContent = (
     <>
@@ -37,6 +39,7 @@ const Button = ({
     return (
       <Link
         to={link}
+        state={state} // Forward the state
         className={`btn flex items-center ${className}`}
         title={title}
       >

@@ -2,22 +2,14 @@ import { motion } from "framer-motion";
 
 import CheckIcon from "../../assets/images/landing/check.svg";
 import Button from "./Button";
+import { ReservationType } from "../../models/reservation";
 
 interface ReservationProps {
   index: number;
-  _id: string;
-  title: string;
-  includedServices: string[];
-  price: number;
+  reservation: ReservationType;
 }
 
-const ReservationCard = ({
-  _id,
-  index,
-  title,
-  includedServices,
-  price,
-}: ReservationProps) => {
+const ReservationCard = ({ reservation, index }: ReservationProps) => {
   return (
     <div
       key={index}
@@ -31,7 +23,7 @@ const ReservationCard = ({
             index === 1 && "text-white/60"
           }`}
         >
-          {title}
+          {reservation.title}
         </h3>
         {index === 1 && (
           <div className="inline-flex text-sm px-4 py-1.5 rounded-xl border border-white/20 ">
@@ -52,22 +44,24 @@ const ReservationCard = ({
       </div>
       <div className="flex items-baseline gap-1 mt-[30px]">
         <span className="text-4xl font-bold tracking-tighter leading-none">
-          {price === 0 ? "رایگان" : `${price} هزار تومان`}
+          {reservation.price === 0
+            ? "رایگان"
+            : `${reservation.price} هزار تومان`}
         </span>
-        {price !== 0 && (
+        {reservation.price !== 0 && (
           <span className="tracking-tight font-bold text-black/50">/ساعتی</span>
         )}
       </div>
       <Button
-        link={`/reservation/${_id}`}
+        link={`/reservation/${reservation._id}`}
+        state={{ reservation }}
         text={"درخواست مشاوره"}
         className={`btn btn-primary w-full mt-[30px] ${
           index === 1 && "bg-white text-black"
         }`}
       />
-
       <ul className="flex flex-col gap-5  mt-8">
-        {includedServices.map((feature, index) => (
+        {reservation.includedServices.map((feature, index) => (
           <li key={index} className="text-sm flex items-center gap-4">
             <img src={CheckIcon} className="h-6 w-6" />
             <span>{feature}</span>
