@@ -72,10 +72,7 @@ const Reservation = () => {
           <div className="flex items-center gap-x-3.5">
             <Button
               onAction={() => setCurrentMonthIndex((prev) => prev + 1)}
-              disabled={
-                currentMonthIndex ===
-                groupedDates[currentMonthIndex].daysInsideMonth.length
-              }
+              disabled={currentMonthIndex === groupedDates.length - 1}
               className="btn btn-outline btn-primary btn-soft hover:btn-primary"
               icon="weui_arrow-filled text-3xl"
             />
@@ -87,7 +84,7 @@ const Reservation = () => {
             />
           </div>
         </div>
-        <div className="flex items-center gap-x-11">
+        <div className="flex items-center gap-x-12">
           {groupedDates[currentMonthIndex].daysInsideMonth.map((day, index) => (
             <div key={index}>
               {moment(day.date, "YYYY/MM/DD").locale("fa").format("YYYY/MM/DD")}
