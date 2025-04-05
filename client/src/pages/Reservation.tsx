@@ -1,38 +1,56 @@
 import { useLocation, useParams } from "react-router-dom";
 import { ReservationType } from "../models/reservation";
 import Button from "../components/shared/Button";
-
-// interface ReservationProps {}
+import { MonthNames, PersianMonthNames } from "../utils/monthNames";
+import moment from "jalali-moment";
 
 const Reservation = () => {
   const { id } = useParams();
   const { state } = useLocation();
   const reservation: ReservationType = state?.reservation;
 
-  const monthNames = {
-    "01": "January",
-    "02": "February",
-    "03": "March",
-    "04": "April",
-    "05": "May",
-    "06": "June",
-    "07": "July",
-    "08": "August",
-    "09": "September",
-    "10": "October",
-    "11": "November",
-    "12": "December",
-  };
+  const groupedDates = reservation.availableDates.reduce(
+    (acc, availableDate) => {
+      // Get month number from original date
+      const enMonthNumber = availableDate.date.slice(5, 7); // Gregorian month like "04"
+      const enMonthName = MonthNames[enMonthNumber]; // English Month like "April"
 
-  console.log(reservation.availableDates, "reservation");
-  // const filteredReservations = [];
+      // Convert to Jalaali date
+      const jalaaliDate = moment(availableDate.date, "YYYY-MM-DD").locale("fa");
 
-  console.log(
-    "iran",
-    reservation.availableDates.map((availableDate) =>
-      availableDate.date.slice(5, 7)
-    )
+      const faMonthNumber = jalaaliDate.format("MM"); // Persian month number like "01"
+      const faMonthName = PersianMonthNames[faMonthNumber]; // Persian month name like "فروردین"
+
+      const existingMonth = acc.find(
+        (item) => item.month.en === enMonthName && item.month.fa === faMonthName
+      );
+
+      if (existingMonth) {
+        existingMonth.daysInsideMonth.push({
+          date: availableDate.date,
+          timeSlots: availableDate.timeSlots,
+        });
+      } else {
+        acc.push({
+          month: {
+            en: enMonthName,
+            fa: faMonthName,
+          },
+          daysInsideMonth: [
+            {
+              date: availableDate.date,
+              timeSlots: availableDate.timeSlots,
+            },
+          ],
+        });
+      }
+
+      return acc;
+    },
+    []
   );
+
+  console.log(groupedDates, "groupedDates");
 
   return (
     <section className="section-container section-inner-space">
