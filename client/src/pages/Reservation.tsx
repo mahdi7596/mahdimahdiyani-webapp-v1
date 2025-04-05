@@ -8,6 +8,8 @@ import Button from "../components/shared/Button";
 
 import moment from "jalali-moment";
 
+import CheckIcon from "../assets/images/landing/check.svg";
+
 const Reservation = () => {
   const { id } = useParams();
   const { state } = useLocation();
@@ -56,41 +58,76 @@ const Reservation = () => {
     }, []);
 
   console.log(groupedDates, "groupedDates");
+  console.log(reservation, "reservation");
 
   return (
-    <section className="section-container section-inner-space">
-      <h2 className="text-lg">
-        برای رزرو {reservation?.title} میتوانید یکی از تاریخ های زیر را انتخاب
-        کنید
-      </h2>
-      <p className="mt-2">{reservation?.description}</p>
-      <div className="p-6 mt-6 bg-surfaceBg rounded border border-surfaceBorder">
-        <div className="flex items-center justify-between">
-          <p className="text-2xl font-medium">
-            {groupedDates[currentMonthIndex].month.fa}
-          </p>
-          <div className="flex items-center gap-x-3.5">
-            <Button
-              onAction={() => setCurrentMonthIndex((prev) => prev + 1)}
-              disabled={currentMonthIndex === groupedDates.length - 1}
-              className="btn btn-outline btn-primary btn-soft hover:btn-primary"
-              icon="weui_arrow-filled text-3xl"
-            />
-            <Button
-              onAction={() => setCurrentMonthIndex((prev) => prev - 1)}
-              disabled={currentMonthIndex === 0}
-              className="btn btn-outline btn-primary btn-soft hover:btn-primary"
-              icon="weui_arrow-filled text-3xl rotate-180"
-            />
+    <section className="section-container section-inner-space grid grid-cols-12 gap-8">
+      <div className="col-span-8">
+        <h2 className="text-3xl font-bold">رزرو {reservation?.title}</h2>
+        <div className="mt-6 common-card">
+          <div className="flex items-center justify-between">
+            <p className="text-2xl font-medium">
+              {groupedDates[currentMonthIndex].month.fa}
+            </p>
+            <div className="flex items-center gap-x-3.5">
+              <Button
+                onAction={() => setCurrentMonthIndex((prev) => prev + 1)}
+                disabled={currentMonthIndex === groupedDates.length - 1}
+                title="بعد"
+                className="btn btn-outline btn-primary btn-soft hover:btn-primary"
+                icon="weui_arrow-filled text-3xl"
+              />
+              <Button
+                onAction={() => setCurrentMonthIndex((prev) => prev - 1)}
+                disabled={currentMonthIndex === 0}
+                title="قبل"
+                className="btn btn-outline btn-primary btn-soft hover:btn-primary"
+                icon="weui_arrow-filled text-3xl rotate-180"
+              />
+            </div>
+          </div>
+          <hr className="my-4" />
+          <div className="flex flex-wrap items-center gap-8 cursor-pointer">
+            {groupedDates[currentMonthIndex].daysInsideMonth.map(
+              (day, index) => (
+                <div className="flex flex-col gap-y-3 items-center justify-center">
+                  <Button
+                    text={moment(day.date, "YYYY/MM/DD")
+                      .locale("fa")
+                      .format("DD")}
+                    key={index}
+                    className="btn btn-outline rounded-full"
+                  />
+                  <span>{moment(day.date).locale("fa").format("dddd")}</span>
+                </div>
+              )
+            )}
           </div>
         </div>
-        <div className="flex items-center gap-x-12">
-          {groupedDates[currentMonthIndex].daysInsideMonth.map((day, index) => (
-            <div key={index}>
-              {moment(day.date, "YYYY/MM/DD").locale("fa").format("YYYY/MM/DD")}
-            </div>
-          ))}
+      </div>
+      <div className="common-card col-span-4 flex flex-col">
+        <p className="text-base">{reservation?.description}</p>
+        {reservation.includedServices ? (
+          <ul className="mt-2.5">
+            {reservation.includedServices.map((service, index) => (
+              <li key={index} className="flex items-center gap-0.5">
+                <img src={CheckIcon} className="w-4" />
+                {service}
+              </li>
+            ))}
+          </ul>
+        ) : null}
+        <hr className="my-4" />
+        <div className="flex items-center justify-between text-lg">
+          <p>قیمت:</p>
+          <span className="font-bold">
+            {reservation.price.toLocaleString()} تومان
+          </span>
         </div>
+        <Button
+          text="پرداخت و رزرو"
+          className="btn btn-primary mt-6 flex self-end"
+        />
       </div>
     </section>
   );
