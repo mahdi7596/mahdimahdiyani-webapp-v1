@@ -20,3 +20,16 @@ export interface ReservationType {
   availableDates: string[]; // Format: "YYYY-MM-DD"
   timeSlots: string[]; // Format: "HH:MM-HH:MM"
 }
+
+export interface flatReservationDates {
+  daysInsideMonth: [
+    {
+      date: string;
+      timeSlots: string[];
+    }
+  ];
+  month: {
+    en: string;
+    fa: string;
+  };
+}

@@ -1,4 +1,4 @@
-export const MonthNames = {
+export const EnglishMonthNames = {
   "01": "January",
   "02": "February",
   "03": "March",
