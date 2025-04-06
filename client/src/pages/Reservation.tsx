@@ -15,7 +15,7 @@ const Reservation = () => {
   const { id } = useParams();
   const { state } = useLocation();
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
-  const [selectedDateIndex, setSelectedDateIndex] = useState<number>();
+  const [activeDayIndex, setActiveDayIndex] = useState<number>();
 
   const reservation: ReservationType = state?.reservation;
 
@@ -60,10 +60,10 @@ const Reservation = () => {
     }, []);
 
   const availableTimes =
-    groupedDates[currentMonthIndex].daysInsideMonth[selectedDateIndex];
+    groupedDates[currentMonthIndex].daysInsideMonth[activeDayIndex];
 
   useEffect(() => {
-    setSelectedDateIndex(null);
+    setActiveDayIndex(null);
   }, [currentMonthIndex]);
 
   return (
@@ -102,13 +102,13 @@ const Reservation = () => {
                 >
                   <Button
                     onAction={() => {
-                      setSelectedDateIndex(index);
+                      setActiveDayIndex(index);
                     }}
                     text={moment(day.date, "YYYY/MM/DD")
                       .locale("fa")
                       .format("DD")}
                     className={`btn rounded-full group-hover:bg-neutral group-hover:text-white ${
-                      index === selectedDateIndex
+                      index === activeDayIndex
                         ? "bg-neutral text-white"
                         : "btn-outline"
                     }`}
