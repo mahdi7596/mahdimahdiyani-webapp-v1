@@ -143,19 +143,18 @@ const Reservation = () => {
             ))}
           </ul>
         ) : null}
-        <div className="flex items-center justify-between mt-4">
-          <p>کد تخفیف:</p>
-          <div className="flex items-center gap-2">
-            <Input
-              name="discountCode"
-              // value={email.value}
-              // onChange={email.onChange}
-              // error={email.error}
-              inputClassName="py-0.5 px-2 mb-1.5"
-              type="text"
-            />
-            <Button text="اعمال" className="btn btn-outline btn-primary" />
-          </div>
+        <div className="flex items-center gap-1 mt-4">
+          <Input
+            name="discountCode"
+            // value={email.value}
+            // onChange={email.onChange}
+            // error={email.error}
+            fieldsetClassName="w-full"
+            inputClassName="py-0.5 px-2 mb-1.5"
+            type="text"
+            placeholder="کد تخفیف"
+          />
+          <Button text="اعمال" className="btn btn-outline btn-primary" />
         </div>
         <hr className="my-4" />
         <div className="flex items-center justify-between text-lg">

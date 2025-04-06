@@ -11,6 +11,7 @@ interface InputProps {
   disabled?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   inputClassName?: string;
+  fieldsetClassName?: string;
 }
 
 const Input = ({
@@ -24,9 +25,10 @@ const Input = ({
   disabled,
   onChange,
   inputClassName,
+  fieldsetClassName,
 }: InputProps) => {
   return (
-    <fieldset>
+    <fieldset className={fieldsetClassName}>
       <label className="label-text text-neutrals300 text-sm">{label}</label>
       <input
         id={label}
