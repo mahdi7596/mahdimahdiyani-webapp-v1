@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
 import { flatReservationDates, ReservationType } from "../models/reservation";
@@ -15,6 +15,7 @@ const Reservation = () => {
   const { id } = useParams();
   const { state } = useLocation();
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
+  const [selectedDateIndex, setSelectedDateIndex] = useState<number>();
 
   const reservation: ReservationType = state?.reservation;
 
@@ -58,8 +59,12 @@ const Reservation = () => {
       return acc;
     }, []);
 
-  console.log(groupedDates, "groupedDates");
-  console.log(reservation, "reservation");
+  const availableTimes =
+    groupedDates[currentMonthIndex].daysInsideMonth[selectedDateIndex];
+
+  useEffect(() => {
+    setSelectedDateIndex(null);
+  }, [currentMonthIndex]);
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-8">
@@ -88,22 +93,42 @@ const Reservation = () => {
             </div>
           </div>
           <hr className="my-4" />
-          <div className="flex flex-wrap items-center gap-8 cursor-pointer">
+          <div className="flex flex-wrap items-center gap-8 mb-8">
             {groupedDates[currentMonthIndex].daysInsideMonth.map(
               (day, index) => (
-                <div className="group flex flex-col gap-y-3 items-center justify-center">
+                <div
+                  key={index}
+                  className="group flex flex-col gap-y-3 items-center justify-center"
+                >
                   <Button
+                    onAction={() => {
+                      setSelectedDateIndex(index);
+                    }}
                     text={moment(day.date, "YYYY/MM/DD")
                       .locale("fa")
                       .format("DD")}
-                    key={index}
-                    className="btn btn-outline rounded-full group-hover:bg-neutral group-hover:text-white"
+                    className={`btn rounded-full group-hover:bg-neutral group-hover:text-white ${
+                      index === selectedDateIndex
+                        ? "bg-neutral text-white"
+                        : "btn-outline"
+                    }`}
                   />
                   <span>{moment(day.date).locale("fa").format("dddd")}</span>
                 </div>
               )
             )}
           </div>
+          {availableTimes && (
+            <div className="flex items-center flex-wrap gap-3">
+              {availableTimes.timeSlots.map((m) => (
+                <Button
+                  key={m._id}
+                  text={m.time}
+                  className="btn btn-outline btn-primary"
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
       <div className="common-card col-span-4 flex flex-col">

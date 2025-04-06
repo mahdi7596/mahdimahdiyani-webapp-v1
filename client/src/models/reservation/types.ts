@@ -25,7 +25,12 @@ export interface flatReservationDates {
   daysInsideMonth: [
     {
       date: string;
-      timeSlots: string[];
+      timeSlots: [
+        {
+          time: string;
+          _id: string;
+        }
+      ];
     }
   ];
   month: {
