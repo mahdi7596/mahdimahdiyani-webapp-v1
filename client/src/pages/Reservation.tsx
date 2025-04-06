@@ -16,6 +16,10 @@ const Reservation = () => {
   const { state } = useLocation();
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
   const [activeDayIndex, setActiveDayIndex] = useState<number>();
+  const [selectedTime, setSelectedTime] = useState<{
+    _id: string;
+    time: string;
+  }>();
 
   const reservation: ReservationType = state?.reservation;
 
@@ -65,6 +69,8 @@ const Reservation = () => {
   useEffect(() => {
     setActiveDayIndex(null);
   }, [currentMonthIndex]);
+
+  console.log(selectedTime, "selectedTime");
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-8">
@@ -122,9 +128,14 @@ const Reservation = () => {
             <div className="flex items-center flex-wrap gap-3">
               {availableTimes.timeSlots.map((m) => (
                 <Button
+                  onAction={() => setSelectedTime(m)}
                   key={m._id}
                   text={m.time}
-                  className="btn btn-outline btn-primary"
+                  className={`btn ${
+                    selectedTime._id === m._id
+                      ? "btn-primary"
+                      : "btn-outline btn-primary"
+                  }`}
                 />
               ))}
             </div>
