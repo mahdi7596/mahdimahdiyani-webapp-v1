@@ -9,6 +9,7 @@ import Button from "../components/shared/Button";
 import moment from "jalali-moment";
 
 import CheckIcon from "../assets/images/landing/check.svg";
+import Input from "../components/shared/Input";
 
 const Reservation = () => {
   const { id } = useParams();
@@ -117,6 +118,20 @@ const Reservation = () => {
             ))}
           </ul>
         ) : null}
+        <div className="flex items-center justify-between mt-4">
+          <p>کد تخفیف:</p>
+          <div className="flex items-center gap-2">
+            <Input
+              name="discountCode"
+              // value={email.value}
+              // onChange={email.onChange}
+              // error={email.error}
+              inputClassName="py-0.5 px-2 mb-1.5"
+              type="text"
+            />
+            <Button text="اعمال" className="btn btn-outline btn-primary" />
+          </div>
+        </div>
         <hr className="my-4" />
         <div className="flex items-center justify-between text-lg">
           <p>قیمت:</p>
