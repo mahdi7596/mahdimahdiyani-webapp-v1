@@ -90,13 +90,13 @@ const Reservation = () => {
           <div className="flex flex-wrap items-center gap-8 cursor-pointer">
             {groupedDates[currentMonthIndex].daysInsideMonth.map(
               (day, index) => (
-                <div className="flex flex-col gap-y-3 items-center justify-center">
+                <div className="group flex flex-col gap-y-3 items-center justify-center">
                   <Button
                     text={moment(day.date, "YYYY/MM/DD")
                       .locale("fa")
                       .format("DD")}
                     key={index}
-                    className="btn btn-outline rounded-full"
+                    className="btn btn-outline rounded-full group-hover:bg-neutral group-hover:text-white"
                   />
                   <span>{moment(day.date).locale("fa").format("dddd")}</span>
                 </div>
