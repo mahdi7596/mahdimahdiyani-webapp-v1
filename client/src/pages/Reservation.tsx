@@ -77,13 +77,12 @@ const Reservation = () => {
     setActiveDayIndex(null);
   }, [currentMonthIndex]);
 
-  console.log(
-    filteredGroupedDates[currentMonthIndex].daysInsideMonth,
-    "filteredGroupedDates[currentMonthIndex].daysInsideMonth"
-  );
-
   const today = new Date();
   const todaysDate = today.toISOString().split("T")[0];
+
+  console.log(filteredGroupedDates, "filteredGroupedDates");
+  const now = new Date();
+  console.log(now.getHours() * 60 + now.getMinutes());
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-8">
