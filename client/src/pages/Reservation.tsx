@@ -71,11 +71,19 @@ const Reservation = () => {
   });
 
   const availableTimes =
-    groupedDates[currentMonthIndex].daysInsideMonth[activeDayIndex];
+    filteredGroupedDates[currentMonthIndex].daysInsideMonth[activeDayIndex];
 
   useEffect(() => {
     setActiveDayIndex(null);
   }, [currentMonthIndex]);
+
+  console.log(
+    filteredGroupedDates[currentMonthIndex].daysInsideMonth,
+    "filteredGroupedDates[currentMonthIndex].daysInsideMonth"
+  );
+
+  const today = new Date();
+  const todaysDate = today.toISOString().split("T")[0];
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-8">
@@ -106,27 +114,35 @@ const Reservation = () => {
           <hr className="my-4" />
           <div className="flex flex-wrap items-center gap-8 mb-8">
             {filteredGroupedDates[currentMonthIndex].daysInsideMonth.map(
-              (day, index) => (
-                <div
-                  key={index}
-                  className="group flex flex-col gap-y-3 items-center justify-center"
-                >
-                  <Button
-                    onAction={() => {
-                      setActiveDayIndex(index);
-                    }}
-                    text={moment(day.date, "YYYY/MM/DD")
-                      .locale("fa")
-                      .format("DD")}
-                    className={`btn rounded-full group-hover:bg-neutral group-hover:text-white ${
-                      index === activeDayIndex
-                        ? "bg-neutral text-white"
-                        : "btn-outline"
-                    }`}
-                  />
-                  <span>{moment(day.date).locale("fa").format("dddd")}</span>
-                </div>
-              )
+              (day, index) => {
+                const isPastDate = day.date < todaysDate;
+                return (
+                  <div
+                    key={index}
+                    className="group flex flex-col gap-y-3 items-center justify-center"
+                  >
+                    <Button
+                      onAction={() => {
+                        setActiveDayIndex(index);
+                      }}
+                      text={moment(day.date, "YYYY/MM/DD")
+                        .locale("fa")
+                        .format("DD")}
+                      className={`btn rounded-full ${
+                        isPastDate
+                          ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                          : `group-hover:bg-neutral group-hover:text-white ${
+                              index === activeDayIndex
+                                ? "bg-neutral text-white pointer-events-none"
+                                : "btn-outline"
+                            }`
+                      }`}
+                      disabled={isPastDate}
+                    />
+                    <span>{moment(day.date).locale("fa").format("dddd")}</span>
+                  </div>
+                );
+              }
             )}
           </div>
           {availableTimes && (
