@@ -67,8 +67,6 @@ const Reservation = () => {
 
   const filteredGroupedDates = groupedDates.filter((date) => {
     const currentMonthYear = moment().format("jYYYY-jMM");
-    console.log(currentMonthYear, "currentMonthYear");
-    console.log(date.month.faNum, "date.month.faNum");
     return date.month.faNum >= currentMonthYear;
   });
 
