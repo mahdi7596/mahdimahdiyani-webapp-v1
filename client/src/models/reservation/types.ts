@@ -36,5 +36,6 @@ export interface flatReservationDates {
   month: {
     en: string;
     fa: string;
+    faNum: string;
   };
 }

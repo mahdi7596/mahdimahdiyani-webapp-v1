@@ -33,6 +33,7 @@ const Reservation = () => {
       const jalaaliDate = moment(availableDate.date, "YYYY-MM-DD").locale("fa");
 
       const faMonthNumber = jalaaliDate.format("MM"); // Persian month number like "01"
+      const faYearMonthNumber = jalaaliDate.format("YYYY-MM"); // Persian year-month number like "1404-01"
       const faMonthName = PersianMonthNames[faMonthNumber]; // Persian month name like "فروردین"
 
       const existingMonth = acc.find(
@@ -50,6 +51,7 @@ const Reservation = () => {
           month: {
             en: enMonthName,
             fa: faMonthName,
+            faNum: faYearMonthNumber,
           },
           daysInsideMonth: [
             {
@@ -63,14 +65,19 @@ const Reservation = () => {
       return acc;
     }, []);
 
+  const filteredGroupedDates = groupedDates.filter((date) => {
+    const currentMonthYear = moment().format("jYYYY-jMM");
+    console.log(currentMonthYear, "currentMonthYear");
+    console.log(date.month.faNum, "date.month.faNum");
+    return date.month.faNum >= currentMonthYear;
+  });
+
   const availableTimes =
     groupedDates[currentMonthIndex].daysInsideMonth[activeDayIndex];
 
   useEffect(() => {
     setActiveDayIndex(null);
   }, [currentMonthIndex]);
-
-  console.log(selectedTime, "selectedTime");
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-8">
@@ -79,12 +86,12 @@ const Reservation = () => {
         <div className="mt-6 common-card">
           <div className="flex items-center justify-between">
             <p className="text-2xl font-medium">
-              {groupedDates[currentMonthIndex].month.fa}
+              {filteredGroupedDates[currentMonthIndex].month.fa}
             </p>
             <div className="flex items-center gap-x-3.5">
               <Button
                 onAction={() => setCurrentMonthIndex((prev) => prev + 1)}
-                disabled={currentMonthIndex === groupedDates.length - 1}
+                disabled={currentMonthIndex === filteredGroupedDates.length - 1}
                 title="بعد"
                 className="btn btn-outline btn-primary btn-soft hover:btn-primary"
                 icon="weui_arrow-filled text-3xl"
@@ -100,7 +107,7 @@ const Reservation = () => {
           </div>
           <hr className="my-4" />
           <div className="flex flex-wrap items-center gap-8 mb-8">
-            {groupedDates[currentMonthIndex].daysInsideMonth.map(
+            {filteredGroupedDates[currentMonthIndex].daysInsideMonth.map(
               (day, index) => (
                 <div
                   key={index}
@@ -132,7 +139,7 @@ const Reservation = () => {
                   key={m._id}
                   text={m.time}
                   className={`btn ${
-                    selectedTime._id === m._id
+                    selectedTime && selectedTime._id === m._id
                       ? "btn-primary"
                       : "btn-outline btn-primary"
                   }`}
