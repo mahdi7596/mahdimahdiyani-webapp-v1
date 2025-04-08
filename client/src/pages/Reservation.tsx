@@ -15,7 +15,7 @@ const Reservation = () => {
   const { id } = useParams();
   const { state } = useLocation();
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
-  const [activeDayIndex, setActiveDayIndex] = useState<number>();
+  const [activeDayDate, setActiveDayDate] = useState<string>();
   const [selectedTime, setSelectedTime] = useState<{
     _id: string;
     time: string;
@@ -70,11 +70,15 @@ const Reservation = () => {
     return date.month.faNum >= currentMonthYear;
   });
 
-  const availableTimes =
-    filteredGroupedDates[currentMonthIndex].daysInsideMonth[activeDayIndex];
+  const activeDay = filteredGroupedDates[
+    currentMonthIndex
+  ].daysInsideMonth.find((f) => f.date == activeDayDate);
+
+  console.log(activeDayDate, "activeDayDate");
+  console.log(selectedTime, "selectedTime");
 
   useEffect(() => {
-    setActiveDayIndex(null);
+    setActiveDayDate(null);
   }, [currentMonthIndex]);
 
   const currentDate = moment(); // full moment object
@@ -82,14 +86,14 @@ const Reservation = () => {
   // const today = new Date(); old way
   // const todaysDate = today.toISOString().split("T")[0]; old way
 
-  console.log(filteredGroupedDates, "filteredGroupedDates");
+  // console.log(filteredGroupedDates, "filteredGroupedDates");
 
   // console.log(todaysDate, "todaysDate");
   const currentDateFormatted = currentDate.format("YYYY-MM-DD"); // e.g., "2025-04-09"
   const currentTime = currentDate.format("HH:mm"); // e.g., "15:10"
 
-  console.log(currentDateFormatted, "currentDateFormatted");
-  console.log(currentTime, "currentTime");
+  // console.log(currentDateFormatted, "currentDateFormatted");
+  // console.log(currentTime, "currentTime");
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-8">
@@ -132,7 +136,7 @@ const Reservation = () => {
                   >
                     <Button
                       onAction={() => {
-                        setActiveDayIndex(index);
+                        setActiveDayDate(day.date);
                       }}
                       text={moment(day.date, "YYYY/MM/DD")
                         .locale("fa")
@@ -141,7 +145,7 @@ const Reservation = () => {
                         isPastDate
                           ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                           : `group-hover:bg-neutral group-hover:text-white ${
-                              index === activeDayIndex
+                              day.date === activeDayDate
                                 ? "bg-neutral text-white pointer-events-none"
                                 : "btn-outline"
                             }`
@@ -153,9 +157,9 @@ const Reservation = () => {
                 );
               })}
           </div>
-          {availableTimes && (
+          {activeDay && (
             <div className="flex items-center flex-wrap gap-3">
-              {availableTimes.timeSlots.map((m) => (
+              {activeDay.timeSlots.map((m) => (
                 <Button
                   onAction={() => setSelectedTime(m)}
                   key={m._id}
