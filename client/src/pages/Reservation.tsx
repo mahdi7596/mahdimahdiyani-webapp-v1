@@ -14,6 +14,7 @@ import Input from "../components/shared/Input";
 const Reservation = () => {
   const { id } = useParams();
   const { state } = useLocation();
+
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
   const [activeDayDate, setActiveDayDate] = useState<string>();
   const [selectedTime, setSelectedTime] = useState<{
@@ -22,6 +23,13 @@ const Reservation = () => {
   }>();
 
   const reservation: ReservationType = state?.reservation;
+
+  const currentDate = moment(); // full moment object
+  // const today = new Date(); old way
+  // const todaysDate = today.toISOString().split("T")[0]; old way
+
+  const today = currentDate.format("YYYY-MM-DD"); // e.g., "2025-04-09"
+  const currentTime = currentDate.format("HH:mm"); // e.g., "15:10"
 
   const groupedDates: flatReservationDates[] =
     reservation.availableDates.reduce((acc, availableDate) => {
@@ -78,18 +86,6 @@ const Reservation = () => {
     setActiveDayDate(null);
   }, [currentMonthIndex]);
 
-  const currentDate = moment(); // full moment object
-
-  // const today = new Date(); old way
-  // const todaysDate = today.toISOString().split("T")[0]; old way
-
-  // console.log(todaysDate, "todaysDate");
-  const today = currentDate.format("YYYY-MM-DD"); // e.g., "2025-04-09"
-  const currentTime = currentDate.format("HH:mm"); // e.g., "15:10"
-
-  console.log(today, "today");
-  console.log(currentTime, "currentTime");
-
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-8">
       <div className="col-span-8">
@@ -123,7 +119,11 @@ const Reservation = () => {
                 return a.date.localeCompare(b.date);
               })
               .map((day, index) => {
-                const isPastDate = day.date < today;
+                const isPastDate =
+                  day.date < today ||
+                  (day.date == today &&
+                    day.timeSlots.every((e) => currentTime > e.time));
+
                 return (
                   <div
                     key={index}
