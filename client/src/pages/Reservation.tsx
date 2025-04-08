@@ -74,9 +74,6 @@ const Reservation = () => {
     currentMonthIndex
   ].daysInsideMonth.find((f) => f.date == activeDayDate);
 
-  console.log(activeDayDate, "activeDayDate");
-  console.log(selectedTime, "selectedTime");
-
   useEffect(() => {
     setActiveDayDate(null);
   }, [currentMonthIndex]);
@@ -86,14 +83,12 @@ const Reservation = () => {
   // const today = new Date(); old way
   // const todaysDate = today.toISOString().split("T")[0]; old way
 
-  // console.log(filteredGroupedDates, "filteredGroupedDates");
-
   // console.log(todaysDate, "todaysDate");
-  const currentDateFormatted = currentDate.format("YYYY-MM-DD"); // e.g., "2025-04-09"
+  const today = currentDate.format("YYYY-MM-DD"); // e.g., "2025-04-09"
   const currentTime = currentDate.format("HH:mm"); // e.g., "15:10"
 
-  // console.log(currentDateFormatted, "currentDateFormatted");
-  // console.log(currentTime, "currentTime");
+  console.log(today, "today");
+  console.log(currentTime, "currentTime");
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-8">
@@ -128,7 +123,7 @@ const Reservation = () => {
                 return a.date.localeCompare(b.date);
               })
               .map((day, index) => {
-                const isPastDate = day.date < currentDateFormatted;
+                const isPastDate = day.date < today;
                 return (
                   <div
                     key={index}
@@ -169,6 +164,7 @@ const Reservation = () => {
                       ? "btn-primary"
                       : "btn-outline btn-primary"
                   }`}
+                  disabled={today === activeDayDate && currentTime >= m.time}
                 />
               ))}
             </div>
