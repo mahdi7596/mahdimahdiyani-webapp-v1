@@ -77,12 +77,19 @@ const Reservation = () => {
     setActiveDayIndex(null);
   }, [currentMonthIndex]);
 
-  const today = new Date();
-  const todaysDate = today.toISOString().split("T")[0];
+  const currentDate = moment(); // full moment object
+
+  // const today = new Date(); old way
+  // const todaysDate = today.toISOString().split("T")[0]; old way
 
   console.log(filteredGroupedDates, "filteredGroupedDates");
-  const now = new Date();
-  console.log(now.getHours() * 60 + now.getMinutes());
+
+  // console.log(todaysDate, "todaysDate");
+  const currentDateFormatted = currentDate.format("YYYY-MM-DD"); // e.g., "2025-04-09"
+  const currentTime = currentDate.format("HH:mm"); // e.g., "15:10"
+
+  console.log(currentDateFormatted, "currentDateFormatted");
+  console.log(currentTime, "currentTime");
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-8">
@@ -112,9 +119,12 @@ const Reservation = () => {
           </div>
           <hr className="my-4" />
           <div className="flex flex-wrap items-center gap-8 mb-8">
-            {filteredGroupedDates[currentMonthIndex].daysInsideMonth.map(
-              (day, index) => {
-                const isPastDate = day.date < todaysDate;
+            {filteredGroupedDates[currentMonthIndex].daysInsideMonth
+              .sort((a, b) => {
+                return a.date.localeCompare(b.date);
+              })
+              .map((day, index) => {
+                const isPastDate = day.date < currentDateFormatted;
                 return (
                   <div
                     key={index}
@@ -141,8 +151,7 @@ const Reservation = () => {
                     <span>{moment(day.date).locale("fa").format("dddd")}</span>
                   </div>
                 );
-              }
-            )}
+              })}
           </div>
           {availableTimes && (
             <div className="flex items-center flex-wrap gap-3">
