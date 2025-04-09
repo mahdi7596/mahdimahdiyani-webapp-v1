@@ -152,12 +152,14 @@ const Reservation = () => {
   }, [selectedDate]);
 
   return (
-    <section className="section-container section-inner-space grid grid-cols-12 gap-8">
-      <div className="col-span-8">
-        <h2 className="text-3xl font-bold">رزرو {reservation?.title}</h2>
+    <section className="section-container section-inner-space grid grid-cols-12 gap-4 sm:gap-8">
+      <div className="col-span-12 md:col-span-8">
+        <h2 className="text-2xl xs:text-3xl font-bold text-center xs:text-right">
+          رزرو {reservation?.title}
+        </h2>
         <div className="mt-6 common-card">
           <div className="flex items-center justify-between">
-            <p className="text-2xl font-medium">
+            <p className="text-xl xs:text-2xl font-medium">
               {filteredGroupedDates[currentMonthIndex].month.fa}
             </p>
             <div className="flex items-center gap-x-3.5">
@@ -165,14 +167,14 @@ const Reservation = () => {
                 onAction={() => setCurrentMonthIndex((prev) => prev + 1)}
                 disabled={currentMonthIndex === filteredGroupedDates.length - 1}
                 title="بعد"
-                className="btn btn-outline btn-primary btn-soft hover:btn-primary"
+                className="btn btn-outline btn-primary btn-soft btn-sm xs:btn-md hover:btn-primary"
                 icon="weui_arrow-filled text-3xl"
               />
               <Button
                 onAction={() => setCurrentMonthIndex((prev) => prev - 1)}
                 disabled={currentMonthIndex === 0}
                 title="قبل"
-                className="btn btn-outline btn-primary btn-soft hover:btn-primary"
+                className="btn btn-outline btn-primary btn-soft btn-sm xs:btn-md hover:btn-primary"
                 icon="weui_arrow-filled text-3xl rotate-180"
               />
             </div>
@@ -219,7 +221,7 @@ const Reservation = () => {
           </div>
           {activeDay && (
             <div className="flex flex-col">
-              <div className="flex items-center flex-wrap gap-3">
+              <div className="flex items-center flex-wrap gap-3  justify-start">
                 {activeDay.timeSlots.map((m) => (
                   <div
                     key={m._id}
@@ -228,7 +230,7 @@ const Reservation = () => {
                     <Button
                       onAction={() => setSelectedTime(m)}
                       text={m.time}
-                      className={`btn text-white hover:!text-white ${
+                      className={`btn text-white hover:!text-white btn-sm xs:btn-md ${
                         selectedTime && selectedTime._id === m._id
                           ? "btn-success"
                           : reservedTimes && reservedTimes.includes(m.time)
@@ -256,7 +258,7 @@ const Reservation = () => {
           )}
         </div>
       </div>
-      <div className="common-card col-span-4 flex flex-col">
+      <div className="common-card col-span-12 md:col-span-4 flex flex-col">
         <p className="text-base">{reservation?.description}</p>
         {reservation.includedServices ? (
           <ul className="mt-2.5">
