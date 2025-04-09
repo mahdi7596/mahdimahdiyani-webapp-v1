@@ -4,12 +4,14 @@ import { useLocation, useParams } from "react-router-dom";
 import { flatReservationDates, ReservationType } from "../models/reservation";
 import { EnglishMonthNames, PersianMonthNames } from "../utils/monthNames";
 
+import Input from "../components/shared/Input";
 import Button from "../components/shared/Button";
 
 import moment from "jalali-moment";
 
 import CheckIcon from "../assets/images/landing/check.svg";
-import Input from "../components/shared/Input";
+
+import { ToastContainer, toast } from "react-toastify";
 
 const Reservation = () => {
   const { id } = useParams();
@@ -82,24 +84,55 @@ const Reservation = () => {
     currentMonthIndex
   ].daysInsideMonth.find((f) => f.date == selectedDate);
 
-  const onReserve = () => {
+  const onReserve = async () => {
     console.log("onReserve");
     const req = {
       reservationTypeId: id,
       date: selectedDate,
       timeSlot: selectedTime.time,
     };
-    console.log(req, "req");
+    try {
+      const response = await fetch(`/api/reservations/book`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(req),
+      });
+
+      const data = await response.json();
+
+      setSelectedTime(null);
+
+      if (!response.ok) {
+        toast.error(data.message, {
+          position: "top-right",
+          autoClose: 5000, // Close after 5 seconds
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+      if (response.ok) {
+        toast.success(data.message, {
+          position: "top-right",
+          autoClose: 5000, // Close after 5 seconds
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     setSelectedDate(null);
     setSelectedTime(null);
   }, [currentMonthIndex]);
-
-  console.log(selectedDate, "activeDayDate");
-  console.log(selectedTime, "selectedTime");
-  console.log(id, "id");
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-8">
@@ -224,6 +257,7 @@ const Reservation = () => {
           text="پرداخت و رزرو"
           className="btn btn-primary mt-6 flex self-end"
         />
+        <ToastContainer />
       </div>
     </section>
   );
