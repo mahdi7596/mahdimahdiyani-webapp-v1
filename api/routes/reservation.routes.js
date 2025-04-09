@@ -3,7 +3,6 @@ import {
   bookReservation,
   getReservations,
   getUserReservations,
-  adminCreateReservation,
 } from "../controllers/reservation.controller.js";
 import { verifyToken } from "../utils/verifyUser.js"; // Middleware for authentication
 
@@ -17,8 +16,5 @@ router.get("/my-reservations", verifyToken, getUserReservations);
 
 // 📌 PUBLIC: Get all available reservations
 router.get("/", getReservations);
-
-// 📌 ADMIN: Create a new reservation type
-router.post("/create", verifyToken, adminCreateReservation);
 
 export default router;
