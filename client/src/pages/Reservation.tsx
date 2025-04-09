@@ -16,7 +16,7 @@ const Reservation = () => {
   const { state } = useLocation();
 
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
-  const [activeDayDate, setActiveDayDate] = useState<string>();
+  const [selectedDate, setSelectedDate] = useState<string>();
   const [selectedTime, setSelectedTime] = useState<{
     _id: string;
     time: string;
@@ -80,11 +80,26 @@ const Reservation = () => {
 
   const activeDay = filteredGroupedDates[
     currentMonthIndex
-  ].daysInsideMonth.find((f) => f.date == activeDayDate);
+  ].daysInsideMonth.find((f) => f.date == selectedDate);
+
+  const onReserve = () => {
+    console.log("onReserve");
+    const req = {
+      reservationTypeId: id,
+      date: selectedDate,
+      timeSlot: selectedTime.time,
+    };
+    console.log(req, "req");
+  };
 
   useEffect(() => {
-    setActiveDayDate(null);
+    setSelectedDate(null);
+    setSelectedTime(null);
   }, [currentMonthIndex]);
+
+  console.log(selectedDate, "activeDayDate");
+  console.log(selectedTime, "selectedTime");
+  console.log(id, "id");
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-8">
@@ -131,7 +146,7 @@ const Reservation = () => {
                   >
                     <Button
                       onAction={() => {
-                        setActiveDayDate(day.date);
+                        setSelectedDate(day.date);
                       }}
                       text={moment(day.date, "YYYY/MM/DD")
                         .locale("fa")
@@ -140,7 +155,7 @@ const Reservation = () => {
                         isPastDate
                           ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                           : `group-hover:bg-neutral group-hover:text-white ${
-                              day.date === activeDayDate
+                              day.date === selectedDate
                                 ? "bg-neutral text-white pointer-events-none"
                                 : "btn-outline"
                             }`
@@ -159,12 +174,12 @@ const Reservation = () => {
                   onAction={() => setSelectedTime(m)}
                   key={m._id}
                   text={m.time}
-                  className={`btn ${
+                  className={`btn text-white hover:!text-white ${
                     selectedTime && selectedTime._id === m._id
-                      ? "btn-primary"
-                      : "btn-outline btn-primary"
+                      ? "btn-success"
+                      : "btn-outline btn-success"
                   }`}
-                  disabled={today === activeDayDate && currentTime >= m.time}
+                  disabled={today === selectedDate && currentTime >= m.time}
                 />
               ))}
             </div>
@@ -204,6 +219,8 @@ const Reservation = () => {
           </span>
         </div>
         <Button
+          onAction={onReserve}
+          disabled={!selectedDate || !selectedTime}
           text="پرداخت و رزرو"
           className="btn btn-primary mt-6 flex self-end"
         />
