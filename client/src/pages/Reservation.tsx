@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
-import {
-  flatReservationDates,
-  ReservationType,
-  ReservedTime,
-} from "../models/reservation";
+import { flatReservationDates, ReservationType } from "../models/reservation";
 import { EnglishMonthNames, PersianMonthNames } from "../utils/monthNames";
 
 import Input from "../components/shared/Input";
@@ -27,7 +23,7 @@ const Reservation = () => {
     _id: string;
     time: string;
   }>();
-  const [reservedTimes, setReservedTimes] = useState();
+  const [reservedTimes, setReservedTimes] = useState<string[]>([]);
 
   const reservation: ReservationType = state?.reservation;
 
@@ -155,8 +151,6 @@ const Reservation = () => {
     }
   }, [selectedDate]);
 
-  console.log(reservedTimes, "reservedTimes");
-
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-8">
       <div className="col-span-8">
@@ -227,29 +221,31 @@ const Reservation = () => {
             <div className="flex flex-col">
               <div className="flex items-center flex-wrap gap-3">
                 {activeDay.timeSlots.map((m) => (
-                  <div className="flex flex-col items-center gap-y-1.5">
+                  <div
+                    key={m._id}
+                    className="flex flex-col items-center gap-y-1.5"
+                  >
                     <Button
                       onAction={() => setSelectedTime(m)}
-                      key={m._id}
                       text={m.time}
                       className={`btn text-white hover:!text-white ${
                         selectedTime && selectedTime._id === m._id
                           ? "btn-success"
-                          : m.time.includes(reservedTimes)
+                          : reservedTimes && reservedTimes.includes(m.time)
                           ? "bg-teal pointer-events-none"
                           : "btn-outline btn-success"
                       }`}
                       disabled={today === selectedDate && currentTime >= m.time}
                     />
                     <span
-                      className={`flex items-center gap-x-0.5 font-light ${
-                        m.time.includes(reservedTimes)
+                      className={`flex items-center gap-x-0.5 text-xs font-light ${
+                        reservedTimes && reservedTimes.includes(m.time)
                           ? "text-black"
                           : "text-white"
                       }`}
                     >
-                      {m.time.includes(reservedTimes) ? (
-                        <i className="maicon-weui_info-filled text-blue-400"></i>
+                      {reservedTimes && reservedTimes.includes(m.time) ? (
+                        <i className="maicon-weui_info-filled text-blue-400 "></i>
                       ) : null}
                       رزرو شده
                     </span>
