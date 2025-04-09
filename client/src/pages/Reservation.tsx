@@ -85,7 +85,6 @@ const Reservation = () => {
   ].daysInsideMonth.find((f) => f.date == selectedDate);
 
   const onReserve = async () => {
-    console.log("onReserve");
     const req = {
       reservationTypeId: id,
       date: selectedDate,
@@ -105,7 +104,7 @@ const Reservation = () => {
       if (!response.ok) {
         toast.error(data.message, {
           position: "top-right",
-          autoClose: 5000, // Close after 5 seconds
+          autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -116,7 +115,7 @@ const Reservation = () => {
       if (response.ok) {
         toast.success(data.message, {
           position: "top-right",
-          autoClose: 5000, // Close after 5 seconds
+          autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
