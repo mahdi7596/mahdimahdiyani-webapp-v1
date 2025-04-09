@@ -75,3 +75,24 @@ export const getUserReservations = async (req, res, next) => {
     next(error);
   }
 };
+
+// When user wants to see available time slots → Disable reserved ones
+export const getReservationsByDate = async (req, res, next) => {
+  try {
+    const { date, reservationTypeId } = req.query;
+
+    if ((!date, !reservationTypeId)) {
+      return next(errorHandler(400, "تاریخ و نوع رزرو الزامی است"));
+    }
+
+    const reservations = await Reservation.find({
+      date,
+      reservationTypeId,
+      status: "confirmed", // Only show confirmed reservations as taken
+    });
+
+    res.status(200).json({
+      reservations,
+    });
+  } catch (error) {}
+};
