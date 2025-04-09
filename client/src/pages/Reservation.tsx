@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
-import { flatReservationDates, ReservationType } from "../models/reservation";
+import {
+  flatReservationDates,
+  ReservationType,
+  ReservedTime,
+} from "../models/reservation";
 import { EnglishMonthNames, PersianMonthNames } from "../utils/monthNames";
 
 import Input from "../components/shared/Input";
@@ -23,6 +27,7 @@ const Reservation = () => {
     _id: string;
     time: string;
   }>();
+  const [reservedTimes, setReservedTimes] = useState();
 
   const reservation: ReservationType = state?.reservation;
 
@@ -84,6 +89,16 @@ const Reservation = () => {
     currentMonthIndex
   ].daysInsideMonth.find((f) => f.date == selectedDate);
 
+  const fetchReservedTimes = async () => {
+    const response = await fetch(
+      `/api/reservations/by-date?date=${selectedDate}&reservationTypeId=${id}`
+    );
+
+    const data = await response.json();
+
+    setReservedTimes(data.reservations.map((item) => item.timeSlot));
+  };
+
   const onReserve = async () => {
     const req = {
       reservationTypeId: id,
@@ -131,7 +146,16 @@ const Reservation = () => {
   useEffect(() => {
     setSelectedDate(null);
     setSelectedTime(null);
+    setReservedTimes(null);
   }, [currentMonthIndex]);
+
+  useEffect(() => {
+    if (selectedDate) {
+      fetchReservedTimes();
+    }
+  }, [selectedDate]);
+
+  console.log(reservedTimes, "reservedTimes");
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-8">
@@ -200,20 +224,38 @@ const Reservation = () => {
               })}
           </div>
           {activeDay && (
-            <div className="flex items-center flex-wrap gap-3">
-              {activeDay.timeSlots.map((m) => (
-                <Button
-                  onAction={() => setSelectedTime(m)}
-                  key={m._id}
-                  text={m.time}
-                  className={`btn text-white hover:!text-white ${
-                    selectedTime && selectedTime._id === m._id
-                      ? "btn-success"
-                      : "btn-outline btn-success"
-                  }`}
-                  disabled={today === selectedDate && currentTime >= m.time}
-                />
-              ))}
+            <div className="flex flex-col">
+              <div className="flex items-center flex-wrap gap-3">
+                {activeDay.timeSlots.map((m) => (
+                  <div className="flex flex-col items-center gap-y-1.5">
+                    <Button
+                      onAction={() => setSelectedTime(m)}
+                      key={m._id}
+                      text={m.time}
+                      className={`btn text-white hover:!text-white ${
+                        selectedTime && selectedTime._id === m._id
+                          ? "btn-success"
+                          : m.time.includes(reservedTimes)
+                          ? "bg-teal pointer-events-none"
+                          : "btn-outline btn-success"
+                      }`}
+                      disabled={today === selectedDate && currentTime >= m.time}
+                    />
+                    <span
+                      className={`flex items-center gap-x-0.5 font-light ${
+                        m.time.includes(reservedTimes)
+                          ? "text-black"
+                          : "text-white"
+                      }`}
+                    >
+                      {m.time.includes(reservedTimes) ? (
+                        <i className="maicon-weui_info-filled text-blue-400"></i>
+                      ) : null}
+                      رزرو شده
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>

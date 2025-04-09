@@ -39,3 +39,11 @@ export interface flatReservationDates {
     faNum: string;
   };
 }
+
+export interface ReservedTime {
+  date: string;
+  reservationTypeId: string;
+  status: string;
+  timeSlot: string;
+  userId: string;
+}

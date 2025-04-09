@@ -53,7 +53,7 @@ const Button = ({
       type={type}
       onClick={onAction}
       title={title}
-      className={`btn flex items-center ${className}`}
+      className={`btn flex items-center  ${className}`}
       disabled={disabled}
     >
       {buttonContent}

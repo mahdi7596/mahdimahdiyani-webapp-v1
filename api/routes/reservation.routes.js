@@ -3,6 +3,7 @@ import {
   bookReservation,
   getReservations,
   getUserReservations,
+  getReservationsByDate,
 } from "../controllers/reservation.controller.js";
 import { verifyToken } from "../utils/verifyUser.js"; // Middleware for authentication
 
@@ -17,6 +18,6 @@ router.get("/my-reservations", verifyToken, getUserReservations);
 // 📌 PUBLIC: Get all available reservations
 router.get("/", getReservations);
 
-router.get("/by-date", verifyUser, getReservationsByDate);
+router.get("/by-date", verifyToken, getReservationsByDate);
 
 export default router;
