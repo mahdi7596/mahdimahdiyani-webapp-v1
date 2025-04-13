@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
-import { flatReservationDates, ReservationType } from "../models/reservation";
+import {
+  flatReservationDates,
+  ReservationStatus,
+  ReservationType,
+} from "../models/reservation";
 import { EnglishMonthNames, PersianMonthNames } from "../utils/monthNames";
 
 import Input from "../components/shared/Input";
@@ -23,7 +27,9 @@ const Reservation = () => {
     _id: string;
     time: string;
   }>();
-  const [reservedTimes, setReservedTimes] = useState<string[]>([]);
+  const [reservedTimes, setReservedTimes] = useState<
+    { time: string; status: string }[]
+  >([]);
 
   const reservation: ReservationType = state?.reservation;
 
@@ -92,7 +98,12 @@ const Reservation = () => {
 
     const data = await response.json();
 
-    setReservedTimes(data.reservations.map((item) => item.timeSlot));
+    setReservedTimes(
+      data.reservations.map((item) => ({
+        time: item.timeSlot,
+        status: item.status,
+      }))
+    );
   };
 
   const onReserve = async () => {
@@ -190,7 +201,6 @@ const Reservation = () => {
                   day.date < today ||
                   (day.date == today &&
                     day.timeSlots.every((e) => currentTime > e.time));
-
                 return (
                   <div
                     key={index}
@@ -222,37 +232,62 @@ const Reservation = () => {
           {activeDay && (
             <div className="flex flex-col">
               <div className="flex items-center flex-wrap gap-3  justify-start">
-                {activeDay.timeSlots.map((m) => (
-                  <div
-                    key={m._id}
-                    className="flex flex-col items-center gap-y-1.5"
-                  >
-                    <Button
-                      onAction={() => setSelectedTime(m)}
-                      text={m.time}
-                      className={`btn text-white hover:!text-white btn-sm xs:btn-md ${
-                        selectedTime && selectedTime._id === m._id
-                          ? "btn-success"
-                          : reservedTimes && reservedTimes.includes(m.time)
-                          ? "bg-teal pointer-events-none"
-                          : "btn-outline btn-success"
-                      }`}
-                      disabled={today === selectedDate && currentTime >= m.time}
-                    />
-                    <span
-                      className={`flex items-center gap-x-0.5 text-xs font-light ${
-                        reservedTimes && reservedTimes.includes(m.time)
-                          ? "text-black"
-                          : "text-white"
-                      }`}
+                {activeDay.timeSlots.map((m) => {
+                  const matchedTime =
+                    reservedTimes &&
+                    reservedTimes.find((i) => i.time === m.time);
+                  return (
+                    <div
+                      key={m._id}
+                      className="flex flex-col items-center gap-y-1.5"
                     >
-                      {reservedTimes && reservedTimes.includes(m.time) ? (
-                        <i className="maicon-weui_info-filled text-blue-400 "></i>
-                      ) : null}
-                      رزرو شده
-                    </span>
-                  </div>
-                ))}
+                      <Button
+                        onAction={() => setSelectedTime(m)}
+                        text={m.time}
+                        className={`btn text-white hover:!text-white btn-sm xs:btn-md ${
+                          selectedTime && selectedTime._id === m._id
+                            ? "btn-success"
+                            : matchedTime?.status ===
+                              ReservationStatus.Confirmed
+                            ? "bg-blue-500 pointer-events-none"
+                            : matchedTime?.status === ReservationStatus.Pending
+                            ? "bg-orange-400 pointer-events-none"
+                            : "btn-outline btn-success"
+                        }`}
+                        disabled={
+                          today === selectedDate && currentTime >= m.time
+                        }
+                      />
+
+                      <span
+                        className={`flex items-center gap-x-0.5 text-xs font-light ${
+                          matchedTime ? "text-black" : "text-white"
+                        } ${
+                          matchedTime &&
+                          matchedTime.status === ReservationStatus.Pending &&
+                          "animate-[pulse_2s_ease-in-out_infinite]"
+                        }`}
+                      >
+                        {matchedTime && (
+                          <i
+                            className={`maicon-weui_info-filled ${
+                              matchedTime?.status ===
+                              ReservationStatus.Confirmed
+                                ? "text-blue-400"
+                                : "text-orange-400"
+                            }`}
+                          />
+                        )}
+                        {matchedTime?.status === ReservationStatus.Confirmed
+                          ? "رزرو شده"
+                          : matchedTime?.status === ReservationStatus.Pending
+                          ? "در حال رزرو"
+                          : ""}
+                        {!matchedTime && "mahdi"}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
