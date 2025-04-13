@@ -14,6 +14,8 @@ import reservationTypeRoutes from "../routes/reservationType.routes.js";
 import path from "path";
 import { fileURLToPath } from "url";
 
+import "../utils/reservationCleaner.js";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
