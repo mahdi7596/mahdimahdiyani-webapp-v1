@@ -89,7 +89,7 @@ export const getReservationsByDate = async (req, res, next) => {
     const reservations = await Reservation.find({
       date,
       reservationTypeId,
-      status: "confirmed", // Only show confirmed reservations as taken
+      status: { $in: ["confirmed", "pending"] },
     });
 
     res.status(200).json({
