@@ -19,6 +19,7 @@ export const bookReservation = async (req, res, next) => {
       reservationTypeId,
       date,
       timeSlot,
+      status: { $in: ["confirmed", "pending"] },
     });
     if (existingReservation) {
       return next(errorHandler(400, "این زمان قبلاً رزرو شده است"));
