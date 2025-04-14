@@ -46,7 +46,7 @@ const ReservationCard = ({ reservation, index }: ReservationProps) => {
         <span className="text-4xl font-bold tracking-tighter leading-none">
           {reservation.price === 0
             ? "رایگان"
-            : `${reservation.price} هزار تومان`}
+            : `${reservation.price.toLocaleString()} هزار تومان`}
         </span>
         {reservation.price !== 0 && (
           <span className="tracking-tight font-bold text-black/50">/ساعتی</span>

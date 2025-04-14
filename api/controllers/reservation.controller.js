@@ -90,7 +90,7 @@ export const getReservationsByDate = async (req, res, next) => {
       date,
       reservationTypeId,
       status: { $in: ["confirmed", "pending"] },
-    });
+    }).select("timeSlot status createdAt");
 
     res.status(200).json({
       reservations,

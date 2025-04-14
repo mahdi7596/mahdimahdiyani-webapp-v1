@@ -18,6 +18,6 @@ router.get("/my-reservations", verifyToken, getUserReservations);
 // 📌 PUBLIC: Get all available reservations
 router.get("/", getReservations);
 
-router.get("/by-date", verifyToken, getReservationsByDate);
+router.get("/by-date", getReservationsByDate);
 
 export default router;

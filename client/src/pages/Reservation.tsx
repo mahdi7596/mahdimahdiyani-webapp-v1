@@ -6,6 +6,7 @@ import {
   ReservationStatus,
   ReservationType,
 } from "../models/reservation";
+
 import { EnglishMonthNames, PersianMonthNames } from "../utils/monthNames";
 
 import Input from "../components/shared/Input";
@@ -16,6 +17,7 @@ import moment from "jalali-moment";
 import CheckIcon from "../assets/images/landing/check.svg";
 
 import { ToastContainer, toast } from "react-toastify";
+import { getRemainingTime } from "../utils/timeUtils";
 
 const Reservation = () => {
   const { id } = useParams();
@@ -28,8 +30,9 @@ const Reservation = () => {
     time: string;
   }>();
   const [reservedTimes, setReservedTimes] = useState<
-    { time: string; status: string }[]
+    { time: string; status: string; createdAt: string }[]
   >([]);
+  const [countdowns, setCountdowns] = useState<{ [time: string]: string }>({});
 
   const reservation: ReservationType = state?.reservation;
 
@@ -102,6 +105,7 @@ const Reservation = () => {
       data.reservations.map((item) => ({
         time: item.timeSlot,
         status: item.status,
+        createdAt: item.createdAt,
       }))
     );
   };
@@ -160,7 +164,32 @@ const Reservation = () => {
     if (selectedDate) {
       fetchReservedTimes();
     }
+    // fetchReservedTimes(); // initial fetch
+
+    const interval = setInterval(() => {
+      fetchReservedTimes(); // refresh every 30 seconds
+    }, 30000); // 30,000ms = 30 sec
+
+    return () => clearInterval(interval); // cleanup on unmount
   }, [selectedDate]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const updatedCountdowns: { [time: string]: string } = {};
+
+      if (reservedTimes) {
+        reservedTimes.forEach((r) => {
+          if (r.status === "pending" && r.createdAt) {
+            updatedCountdowns[r.time] = getRemainingTime(r.createdAt);
+          }
+        });
+      }
+
+      setCountdowns(updatedCountdowns);
+    }, 1000); // every second
+
+    return () => clearInterval(interval);
+  }, [reservedTimes]);
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-4 sm:gap-8">
@@ -278,11 +307,13 @@ const Reservation = () => {
                             }`}
                           />
                         )}
-                        {matchedTime?.status === ReservationStatus.Confirmed
-                          ? "رزرو شده"
-                          : matchedTime?.status === ReservationStatus.Pending
-                          ? "در حال رزرو"
-                          : ""}
+                        {matchedTime?.status === ReservationStatus.Confirmed &&
+                          "رزرو شده"}
+                        {matchedTime?.status === ReservationStatus.Pending &&
+                          `در حال رزرو (${getRemainingTime(
+                            matchedTime.createdAt
+                          )})`}
+
                         {!matchedTime && "mahdi"}
                       </span>
                     </div>
