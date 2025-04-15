@@ -35,31 +35,69 @@ const Login = () => {
     e.preventDefault();
     email.resetError();
     password.resetError();
+
     if (email.value === "" || password.value === "") {
       email.setError("پر کردن این فیلد الزامی است");
       password.setError("پر کردن این فیلد الزامی است");
+      return;
     }
+
     const formData: ILogin = {
       email: email.value,
       password: password.value,
     };
-    // sending request to backend
+
     try {
       dispatch(signInStart());
+
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
+
       const data = await res.json();
+
       if (data.success === false) {
         dispatch(signInFailure(data.message));
+        return;
       }
+
       if (res.ok) {
         dispatch(signInSuccess(data));
+
+        // ✅ بررسی رزرواسیون ذخیره شده
+        const stored = sessionStorage.getItem("pendingReservation");
+
+        if (stored) {
+          try {
+            const parsed = JSON.parse(stored);
+            const isExpired = Date.now() - parsed.timestamp > 5 * 60 * 1000;
+
+            if (
+              parsed.reservationTypeId &&
+              parsed.date &&
+              parsed.timeSlot &&
+              !isExpired
+            ) {
+              sessionStorage.removeItem("pendingReservation");
+              navigate(
+                `/reservation/${parsed.reservationTypeId}?date=${parsed.date}&timeSlot=${parsed.timeSlot}`
+              );
+              return;
+            }
+          } catch (err) {
+            console.warn("داده‌های سشن نامعتبر است", err);
+          }
+
+          // پاک‌سازی در صورت نامعتبر/منقضی شدن
+          sessionStorage.removeItem("pendingReservation");
+        }
+
+        // ✅ انتقال پیش‌فرض در صورت عدم وجود رزرواسیون
         navigate("/dashboard?tab=profile");
       }
-    } catch (error) {
+    } catch (error: any) {
       dispatch(signInFailure(error.message));
     }
   };

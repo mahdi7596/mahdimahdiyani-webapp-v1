@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import {
   flatReservationDates,
@@ -18,10 +18,16 @@ import CheckIcon from "../assets/images/landing/check.svg";
 
 import { ToastContainer, toast } from "react-toastify";
 import { getRemainingTime } from "../utils/timeUtils";
+import { useSelector } from "react-redux";
 
 const Reservation = () => {
   const { id } = useParams();
   const { state } = useLocation();
+
+  const { currentUser } = useSelector(
+    (state: { user: { currentUser: any } }) => state.user
+  );
+  const navigate = useNavigate();
 
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
   const [selectedDate, setSelectedDate] = useState<string>();
@@ -44,6 +50,7 @@ const Reservation = () => {
   const currentTime = currentDate.format("HH:mm"); // e.g., "15:10"
 
   const groupedDates: flatReservationDates[] =
+    reservation &&
     reservation.availableDates.reduce((acc, availableDate) => {
       // Get month number from original date
       const enMonthNumber = availableDate.date.slice(5, 7); // Gregorian month like "04"
@@ -85,14 +92,18 @@ const Reservation = () => {
       return acc;
     }, []);
 
-  const filteredGroupedDates = groupedDates.filter((date) => {
-    const currentMonthYear = moment().format("jYYYY-jMM");
-    return date.month.faNum >= currentMonthYear;
-  });
+  const filteredGroupedDates =
+    groupedDates &&
+    groupedDates.filter((date) => {
+      const currentMonthYear = moment().format("jYYYY-jMM");
+      return date.month.faNum >= currentMonthYear;
+    });
 
-  const activeDay = filteredGroupedDates[
-    currentMonthIndex
-  ].daysInsideMonth.find((f) => f.date == selectedDate);
+  const activeDay =
+    filteredGroupedDates &&
+    filteredGroupedDates[currentMonthIndex].daysInsideMonth.find(
+      (f) => f.date == selectedDate
+    );
 
   const fetchReservedTimes = async () => {
     const response = await fetch(
@@ -116,6 +127,23 @@ const Reservation = () => {
       date: selectedDate,
       timeSlot: selectedTime.time,
     };
+
+    if (!currentUser) {
+      // Save reservation info temporarily
+      sessionStorage.setItem(
+        "pendingReservation",
+        JSON.stringify({
+          reservationTypeId: id,
+          date: selectedDate,
+          timeSlot: selectedTime.time,
+          timestamp: Date.now(), // 🕒 for expiry check
+        })
+      );
+
+      navigate("/login");
+      return;
+    }
+
     try {
       const response = await fetch(`/api/reservations/book`, {
         method: "POST",
@@ -191,6 +219,8 @@ const Reservation = () => {
     return () => clearInterval(interval);
   }, [reservedTimes]);
 
+  console.log(currentUser, "currentUser");
+
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-4 sm:gap-8">
       <div className="col-span-12 md:col-span-8">
@@ -200,12 +230,15 @@ const Reservation = () => {
         <div className="mt-6 common-card">
           <div className="flex items-center justify-between">
             <p className="text-xl xs:text-2xl font-medium">
-              {filteredGroupedDates[currentMonthIndex].month.fa}
+              {filteredGroupedDates &&
+                filteredGroupedDates[currentMonthIndex].month.fa}
             </p>
             <div className="flex items-center gap-x-3.5">
               <Button
                 onAction={() => setCurrentMonthIndex((prev) => prev + 1)}
-                disabled={currentMonthIndex === filteredGroupedDates.length - 1}
+                disabled={
+                  currentMonthIndex === (filteredGroupedDates?.length ?? 0) - 1
+                }
                 title="بعد"
                 className="btn btn-outline btn-primary btn-soft btn-sm xs:btn-md hover:btn-primary"
                 icon="weui_arrow-filled text-3xl"
@@ -221,42 +254,45 @@ const Reservation = () => {
           </div>
           <hr className="my-4" />
           <div className="flex flex-wrap items-center gap-8 mb-8">
-            {filteredGroupedDates[currentMonthIndex].daysInsideMonth
-              .sort((a, b) => {
-                return a.date.localeCompare(b.date);
-              })
-              .map((day, index) => {
-                const isPastDate =
-                  day.date < today ||
-                  (day.date == today &&
-                    day.timeSlots.every((e) => currentTime > e.time));
-                return (
-                  <div
-                    key={index}
-                    className="group flex flex-col gap-y-3 items-center justify-center"
-                  >
-                    <Button
-                      onAction={() => {
-                        setSelectedDate(day.date);
-                      }}
-                      text={moment(day.date, "YYYY/MM/DD")
-                        .locale("fa")
-                        .format("DD")}
-                      className={`btn rounded-full ${
-                        isPastDate
-                          ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                          : `group-hover:bg-neutral group-hover:text-white ${
-                              day.date === selectedDate
-                                ? "bg-neutral text-white pointer-events-none"
-                                : "btn-outline"
-                            }`
-                      }`}
-                      disabled={isPastDate}
-                    />
-                    <span>{moment(day.date).locale("fa").format("dddd")}</span>
-                  </div>
-                );
-              })}
+            {filteredGroupedDates &&
+              filteredGroupedDates[currentMonthIndex].daysInsideMonth
+                .sort((a, b) => {
+                  return a.date.localeCompare(b.date);
+                })
+                .map((day, index) => {
+                  const isPastDate =
+                    day.date < today ||
+                    (day.date == today &&
+                      day.timeSlots.every((e) => currentTime > e.time));
+                  return (
+                    <div
+                      key={index}
+                      className="group flex flex-col gap-y-3 items-center justify-center"
+                    >
+                      <Button
+                        onAction={() => {
+                          setSelectedDate(day.date);
+                        }}
+                        text={moment(day.date, "YYYY/MM/DD")
+                          .locale("fa")
+                          .format("DD")}
+                        className={`btn rounded-full ${
+                          isPastDate
+                            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                            : `group-hover:bg-neutral group-hover:text-white ${
+                                day.date === selectedDate
+                                  ? "bg-neutral text-white pointer-events-none"
+                                  : "btn-outline"
+                              }`
+                        }`}
+                        disabled={isPastDate}
+                      />
+                      <span>
+                        {moment(day.date).locale("fa").format("dddd")}
+                      </span>
+                    </div>
+                  );
+                })}
           </div>
           {activeDay && (
             <div className="flex flex-col">
@@ -326,7 +362,7 @@ const Reservation = () => {
       </div>
       <div className="common-card col-span-12 md:col-span-4 flex flex-col">
         <p className="text-base">{reservation?.description}</p>
-        {reservation.includedServices ? (
+        {reservation && reservation.includedServices ? (
           <ul className="mt-2.5">
             {reservation.includedServices.map((service, index) => (
               <li key={index} className="flex items-center gap-0.5">
@@ -353,7 +389,7 @@ const Reservation = () => {
         <div className="flex items-center justify-between text-lg">
           <p>قیمت:</p>
           <span className="font-bold">
-            {reservation.price.toLocaleString()} تومان
+            {reservation && reservation.price.toLocaleString()} تومان
           </span>
         </div>
         <Button
