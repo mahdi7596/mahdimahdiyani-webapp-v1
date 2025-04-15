@@ -29,6 +29,7 @@ const Reservation = () => {
   );
   const navigate = useNavigate();
 
+  const [reservation, setReservation] = useState<ReservationType | null>(null);
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
   const [selectedDate, setSelectedDate] = useState<string>();
   const [selectedTime, setSelectedTime] = useState<{
@@ -40,7 +41,7 @@ const Reservation = () => {
   >([]);
   const [countdowns, setCountdowns] = useState<{ [time: string]: string }>({});
 
-  const reservation: ReservationType = state?.reservation;
+  // const reservation: ReservationType = state?.reservation;
 
   const currentDate = moment(); // full moment object
   // const today = new Date(); old way
@@ -104,6 +105,16 @@ const Reservation = () => {
     filteredGroupedDates[currentMonthIndex].daysInsideMonth.find(
       (f) => f.date == selectedDate
     );
+
+  const fetchReservation = async () => {
+    try {
+      const response = await fetch(`/api/reservationtypes/${id}`);
+      const data = await response.json();
+      setReservation(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const fetchReservedTimes = async () => {
     const response = await fetch(
@@ -183,6 +194,10 @@ const Reservation = () => {
   };
 
   useEffect(() => {
+    fetchReservation();
+  }, [id]);
+
+  useEffect(() => {
     setSelectedDate(null);
     setSelectedTime(null);
     setReservedTimes(null);
@@ -219,7 +234,7 @@ const Reservation = () => {
     return () => clearInterval(interval);
   }, [reservedTimes]);
 
-  console.log(currentUser, "currentUser");
+  if (!reservation) return <p>Reservation not found.</p>;
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-4 sm:gap-8">
