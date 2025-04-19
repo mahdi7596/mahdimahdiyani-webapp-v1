@@ -78,6 +78,7 @@ const Login = () => {
               parsed.reservationTypeId &&
               parsed.date &&
               parsed.timeSlot &&
+              parsed.monthIndex &&
               !isExpired
             ) {
               // sessionStorage.removeItem("pendingReservation");
@@ -88,6 +89,7 @@ const Login = () => {
                 state: {
                   date: parsed.date,
                   timeSlot: parsed.timeSlot, // includes both `time` and `_id`
+                  monthIndex: parsed.monthIndex, // includes both `time` and `_id`
                 },
               });
 
