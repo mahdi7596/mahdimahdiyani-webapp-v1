@@ -40,6 +40,7 @@ const Reservation = () => {
     { time: string; status: string; createdAt: string }[]
   >([]);
   const [countdowns, setCountdowns] = useState<{ [time: string]: string }>({});
+  const [restoredFromSession, setRestoredFromSession] = useState(false);
 
   const preselectedDate = location.state?.date;
   const preselectedTime = location.state?.timeSlot;
@@ -96,9 +97,23 @@ const Reservation = () => {
 
   const filteredGroupedDates =
     groupedDates &&
-    groupedDates.filter((date) => {
-      const currentMonthYear = moment().format("jYYYY-jMM");
-      return date.month.faNum >= currentMonthYear;
+    groupedDates.filter((group) => {
+      const groupMonth = group.month.faNum; // e.g., "1404-01"
+      const currentMonth = moment().format("jYYYY-jMM");
+
+      // If the month is in the future, keep it
+      if (groupMonth > currentMonth) return true;
+
+      // If it's the current month, check if it still has valid future days
+      if (groupMonth === currentMonth) {
+        const hasFutureDays = group.daysInsideMonth.some((day) => {
+          return moment(day.date).isSameOrAfter(today, "day");
+        });
+        return hasFutureDays;
+      }
+
+      // Otherwise it's in the past
+      return false;
     });
 
   const activeDay =
@@ -148,6 +163,7 @@ const Reservation = () => {
           reservationTypeId: id,
           date: selectedDate,
           timeSlot: selectedTime,
+          monthIndex: currentMonthIndex,
           timestamp: Date.now(), // 🕒 for expiry check
         })
       );
@@ -198,10 +214,25 @@ const Reservation = () => {
     fetchReservation();
   }, [id]);
 
+  // useEffect(() => {
+  //   setSelectedDate(null);
+  //   setSelectedTime(null);
+  //   setReservedTimes(null);
+  // }, [currentMonthIndex]);
+
   useEffect(() => {
-    setSelectedDate(null);
-    setSelectedTime(null);
+    if (!restoredFromSession) {
+      setSelectedDate(null);
+      setSelectedTime(null);
+    }
+
     setReservedTimes(null);
+  }, [currentMonthIndex]);
+
+  useEffect(() => {
+    if (restoredFromSession) {
+      setRestoredFromSession(false); // only use it once
+    }
   }, [currentMonthIndex]);
 
   useEffect(() => {
@@ -247,29 +278,27 @@ const Reservation = () => {
         if (!isExpired) {
           setSelectedDate(parsed.date);
           setSelectedTime(parsed.timeSlot);
-          sessionStorage.removeItem("pendingReservation");
+          if (typeof parsed.monthIndex === "number") {
+            setCurrentMonthIndex(parsed.monthIndex);
+          }
           restored = true;
-        } else {
-          sessionStorage.removeItem("pendingReservation");
+          setRestoredFromSession(true); // ✅ set flag here
         }
-      } catch (error) {
-        console.log(error);
+
+        sessionStorage.removeItem("pendingReservation");
+      } catch (err) {
+        console.log(err);
         sessionStorage.removeItem("pendingReservation");
       }
     }
 
     if (!restored) {
-      console.log("not restored");
-      // 🧠 Use navigation state (from login redirect)
       if (preselectedDate) setSelectedDate(preselectedDate);
       if (preselectedTime) setSelectedTime(preselectedTime);
     }
   }, []);
 
-  console.log(preselectedDate, "preselectedDate");
-  console.log(preselectedTime, "preselectedTime");
-  console.log(selectedDate, "selectedDate");
-  console.log(selectedTime, "selectedTime");
+  console.log(groupedDates, "groupedDates");
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-4 sm:gap-8">
@@ -374,7 +403,6 @@ const Reservation = () => {
                           today === selectedDate && currentTime >= m.time
                         }
                       />
-
                       <span
                         className={`flex items-center gap-x-0.5 text-xs font-light ${
                           matchedTime ? "text-black" : "text-white"
