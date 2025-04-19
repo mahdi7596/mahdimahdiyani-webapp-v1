@@ -80,10 +80,17 @@ const Login = () => {
               parsed.timeSlot &&
               !isExpired
             ) {
-              sessionStorage.removeItem("pendingReservation");
-              navigate(
-                `/reservation/${parsed.reservationTypeId}?date=${parsed.date}&timeSlot=${parsed.timeSlot}`
-              );
+              // sessionStorage.removeItem("pendingReservation");
+              // navigate(
+              //   `/reservation/${parsed.reservationTypeId}?date=${parsed.date}&timeSlot=${parsed.timeSlot.time}`
+              // );
+              navigate(`/reservation/${parsed.reservationTypeId}`, {
+                state: {
+                  date: parsed.date,
+                  timeSlot: parsed.timeSlot, // includes both `time` and `_id`
+                },
+              });
+
               return;
             }
           } catch (err) {

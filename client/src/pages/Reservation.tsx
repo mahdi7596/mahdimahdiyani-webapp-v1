@@ -22,12 +22,12 @@ import { useSelector } from "react-redux";
 
 const Reservation = () => {
   const { id } = useParams();
-  const { state } = useLocation();
 
   const { currentUser } = useSelector(
     (state: { user: { currentUser: any } }) => state.user
   );
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [reservation, setReservation] = useState<ReservationType | null>(null);
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
@@ -41,7 +41,8 @@ const Reservation = () => {
   >([]);
   const [countdowns, setCountdowns] = useState<{ [time: string]: string }>({});
 
-  // const reservation: ReservationType = state?.reservation;
+  const preselectedDate = location.state?.date;
+  const preselectedTime = location.state?.timeSlot;
 
   const currentDate = moment(); // full moment object
   // const today = new Date(); old way
@@ -146,7 +147,7 @@ const Reservation = () => {
         JSON.stringify({
           reservationTypeId: id,
           date: selectedDate,
-          timeSlot: selectedTime.time,
+          timeSlot: selectedTime,
           timestamp: Date.now(), // 🕒 for expiry check
         })
       );
@@ -234,7 +235,41 @@ const Reservation = () => {
     return () => clearInterval(interval);
   }, [reservedTimes]);
 
-  if (!reservation) return <p>Reservation not found.</p>;
+  useEffect(() => {
+    const sessionData = sessionStorage.getItem("pendingReservation");
+    let restored = false;
+
+    if (sessionData) {
+      try {
+        const parsed = JSON.parse(sessionData);
+        const isExpired = Date.now() - parsed.timestamp > 5 * 60 * 1000;
+
+        if (!isExpired) {
+          setSelectedDate(parsed.date);
+          setSelectedTime(parsed.timeSlot);
+          sessionStorage.removeItem("pendingReservation");
+          restored = true;
+        } else {
+          sessionStorage.removeItem("pendingReservation");
+        }
+      } catch (error) {
+        console.log(error);
+        sessionStorage.removeItem("pendingReservation");
+      }
+    }
+
+    if (!restored) {
+      console.log("not restored");
+      // 🧠 Use navigation state (from login redirect)
+      if (preselectedDate) setSelectedDate(preselectedDate);
+      if (preselectedTime) setSelectedTime(preselectedTime);
+    }
+  }, []);
+
+  console.log(preselectedDate, "preselectedDate");
+  console.log(preselectedTime, "preselectedTime");
+  console.log(selectedDate, "selectedDate");
+  console.log(selectedTime, "selectedTime");
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-4 sm:gap-8">
@@ -303,6 +338,7 @@ const Reservation = () => {
                         disabled={isPastDate}
                       />
                       <span>
+                        {/* {day.date}/{selectedDate} */}
                         {moment(day.date).locale("fa").format("dddd")}
                       </span>
                     </div>
