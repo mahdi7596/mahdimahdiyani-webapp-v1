@@ -15,6 +15,7 @@ import Reservation from "../pages/Reservation";
 const Home = lazy(() => import("../pages/Home"));
 const Aboutme = lazy(() => import("../pages/Aboutme"));
 const Blogs = lazy(() => import("../pages/Blogs"));
+const PaymentCallback = lazy(() => import("../pages/PaymentCallback"));
 const SinglePost = lazy(() => import("../pages/SinglePost"));
 const Signup = lazy(() => import("../pages/Signup"));
 const Login = lazy(() => import("../pages/Login"));
@@ -41,6 +42,10 @@ const routes = createBrowserRouter([
   {
     path: "/search",
     element: renderLayout(<Blogs />),
+  },
+  {
+    path: "/payment/callback",
+    element: renderLayout(<PaymentCallback />),
   },
   {
     path: "/post/:postSlug",

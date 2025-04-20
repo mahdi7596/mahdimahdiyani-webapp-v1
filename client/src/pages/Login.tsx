@@ -78,7 +78,8 @@ const Login = () => {
               parsed.reservationTypeId &&
               parsed.date &&
               parsed.timeSlot &&
-              parsed.monthIndex &&
+              parsed.monthIndex !== undefined &&
+              parsed.monthIndex !== null &&
               !isExpired
             ) {
               // sessionStorage.removeItem("pendingReservation");

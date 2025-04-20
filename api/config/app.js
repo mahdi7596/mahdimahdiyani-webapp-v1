@@ -10,6 +10,7 @@ import postRoutes from "../routes/post.route.js";
 import postCategoryRoutes from "../routes/post-category.route.js";
 import reservationRoutes from "../routes/reservation.routes.js";
 import reservationTypeRoutes from "../routes/reservationType.routes.js";
+import paymentRoutes from "../routes/payment.route.js";
 
 import path from "path";
 import { fileURLToPath } from "url";
@@ -34,6 +35,7 @@ app.use("/api/post", postRoutes);
 app.use("/api/postcategory", postCategoryRoutes);
 app.use("/api/reservations", reservationRoutes);
 app.use("/api/reservationtypes", reservationTypeRoutes);
+app.use("/api/payments", paymentRoutes);
 
 // Serve the "images" folder statically
 // app.use("/images", express.static(path.join(__dirname, "../../images")));

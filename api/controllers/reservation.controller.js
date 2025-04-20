@@ -37,7 +37,7 @@ export const bookReservation = async (req, res, next) => {
     await newReservation.save();
 
     res.status(201).json({
-      message: "رزرو با موفقیت انجام شد",
+      message: "در حال انتقال به بانک",
       reservation: newReservation,
     });
   } catch (error) {

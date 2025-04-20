@@ -148,6 +148,31 @@ const Reservation = () => {
     );
   };
 
+  const handlePayment = async (reservationId: string) => {
+    try {
+      const response = await fetch("/api/payments/initiate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ reservationId }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data.message);
+        return;
+      }
+
+      // 🔁 Redirect to Zarinpal payment page
+      window.location.href = data.paymentUrl;
+    } catch (error) {
+      toast.error("خطا در ارتباط با سرور");
+      console.error(error);
+    }
+  };
+
   const onReserve = async () => {
     const req = {
       reservationTypeId: id,
@@ -204,6 +229,10 @@ const Reservation = () => {
           draggable: true,
           progress: undefined,
         });
+        const reservationId = data.reservation._id;
+        sessionStorage.setItem("reservationId", JSON.stringify(reservationId));
+        // ✅ Now we initiate payment
+        await handlePayment(reservationId);
       }
     } catch (error) {
       console.log(error);
@@ -297,8 +326,6 @@ const Reservation = () => {
       if (preselectedTime) setSelectedTime(preselectedTime);
     }
   }, []);
-
-  console.log(groupedDates, "groupedDates");
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-4 sm:gap-8">
