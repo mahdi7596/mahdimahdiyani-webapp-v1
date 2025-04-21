@@ -28,7 +28,6 @@
     left: 50%;
     top: 50%;
     border-radius: 50%;
-    background-color: var(--success);
     transform: translate(-50%, -50%);
     opacity: 0;
     animation: ripple-animation 3s infinite cubic-bezier(0.4, 0, 0.2, 1);
@@ -74,7 +73,6 @@
     position: absolute;
     width: 60px;
     height: 60px;
-    background-color: var(--success);
     border-radius: 50%;
     display: flex;
     justify-content: center;
