@@ -12,8 +12,9 @@ import logo from "../../assets/images/temp-logo.png";
 import profilePic from "../../assets/images/mahdimahdiyani-profile-pic.png";
 
 const Navbar = () => {
-  const { currentUser } = useSelector((state) => state.user);
-
+  const { currentUser } = useSelector(
+    (state: { user: { currentUser: any } }) => state.user
+  );
   const dispatch = useDispatch();
 
   const handleSignout = async () => {
@@ -33,12 +34,12 @@ const Navbar = () => {
   };
 
   return (
-    <header className="bg-surfaceBg border-b border-surfaceBorder">
+    <header className="z-20 sticky top-0 bg-surfaceBg border-b border-surfaceBorder">
       <div className="section-container navbar">
         {/* logo + menuItems */}
         <div className="flex-none">
           <img src={logo} className="w-16" alt="logo" />
-          <MenuItems />
+          <MenuItems currentUser={currentUser} />
         </div>
         {/* search + register button + profile */}
         <div className="flex-1 justify-end gap-2">
@@ -64,7 +65,7 @@ const Navbar = () => {
             <Button
               link="/login"
               text="ورود - ثبت نام"
-              className="hidden xs:block btn-md btn-outline btn-primary"
+              className="hidden xs:flex btn-md btn-outline btn-primary"
             />
           )}
         </div>

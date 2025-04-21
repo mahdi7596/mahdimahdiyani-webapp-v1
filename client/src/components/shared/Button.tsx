@@ -10,34 +10,53 @@ export interface ButtonProps {
   disabled?: boolean;
   icon?: string;
   loading?: boolean;
+  state?: any;
 }
 
 const Button = ({
-  link = "#",
   text,
   title,
   onAction,
-  className,
   type = "button",
-  disabled,
   icon,
   loading,
+  className = "",
+  disabled = false,
+  link,
+  state,
 }: ButtonProps) => {
+  const buttonContent = (
+    <>
+      {text && text}
+      {icon && <i className={`maicon-${icon}`}></i>}
+      {loading && !disabled && (
+        <span className="loading loading-spinner text-black mr-3"></span>
+      )}
+    </>
+  );
+
+  if (link) {
+    return (
+      <Link
+        to={link}
+        state={state} // Forward the state
+        className={`btn flex items-center ${className}`}
+        title={title}
+      >
+        {buttonContent}
+      </Link>
+    );
+  }
+
   return (
     <button
       type={type}
       onClick={onAction}
-      className={`btn items-center+ ${className}`}
-      disabled={disabled}
       title={title}
+      className={`btn flex items-center  ${className}`}
+      disabled={disabled}
     >
-      <Link to={link} className="flex items-center">
-        {text && text}
-        {icon && <i className={`maicon-${icon}`}></i>}
-        {loading && !disabled && (
-          <span className="loading loading-spinner text-black mr-3"></span>
-        )}
-      </Link>
+      {buttonContent}
     </button>
   );
 };

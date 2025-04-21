@@ -13,6 +13,15 @@
 //  ------ custom font icons
 @import "./styles/custom-icons/icon";
 
+// pages custom styles
+//  ------ custom landing styles
+@import "./styles/landing-custom-styles";
+
+
+/* Add this to your global CSS file */
+html {
+  scroll-behavior: smooth;
+}
 
 
 body {

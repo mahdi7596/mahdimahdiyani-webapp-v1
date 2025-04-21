@@ -1,0 +1,37 @@
+@layer components {
+    // .btn {
+    //     @apply px-4 py-2 rounded-lg font-medium inline-flex items-center justify-center tracking-tight;
+    // }
+
+    // .btn-primary {
+    //     @apply bg-black text-white;
+    // }
+
+    // .btn-text {
+    //     @apply text-black bg-transparent;
+    // }
+
+    .logo-ticker-image {
+        @apply h-8 w-auto;
+    }
+
+    .tag {
+        @apply text-sm inline-flex border border-[#222]/10 px-3 py-1 rounded-lg tracking-tight;
+    }
+
+    .section-title {
+        @apply text-center text-2xl md:text-[48px] md:leading-[60px] font-bold bg-gradient-to-b from-[#87560E] to-[#B9812B] text-transparent bg-clip-text;
+    }
+
+    .section-description {
+        @apply text-center text-[18px] md:text-[20px] leading-[30px] mt-5;
+    }
+
+    .section-heading {
+        @apply max-w-[540px] mx-auto;
+    }
+
+    .landing-card {
+        @apply p-10 border border-[#222222]/10 rounded-3xl shadow-[0_7px_14px_#EAEAEA] max-w-xs w-full;
+    }
+}

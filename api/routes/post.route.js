@@ -6,6 +6,7 @@ import {
   deletePost,
   updatePost,
 } from "../controllers/post.controller.js";
+import upload from "../middleware/multerConfig.js"; // Import Multer configuration
 
 const router = express.Router();
 
@@ -15,6 +16,13 @@ router.get("/getposts", getPosts);
 
 router.delete("/deletepost/:postId/:userId", verifyToken, deletePost);
 
-router.put("/updatepost/:postId/:userId", verifyToken, updatePost);
+// router.put("/updatepost/:postId/:userId", verifyToken, updatePost);
+
+router.put(
+  "/updatepost/:postId/:userId",
+  verifyToken,
+  upload.single("image"), // Apply Multer middleware
+  updatePost
+);
 
 export default router;

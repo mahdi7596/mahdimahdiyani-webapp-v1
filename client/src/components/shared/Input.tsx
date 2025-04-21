@@ -10,6 +10,8 @@ interface InputProps {
   error?: string;
   disabled?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  inputClassName?: string;
+  fieldsetClassName?: string;
 }
 
 const Input = ({
@@ -22,9 +24,11 @@ const Input = ({
   error,
   disabled,
   onChange,
+  inputClassName,
+  fieldsetClassName,
 }: InputProps) => {
   return (
-    <fieldset>
+    <fieldset className={fieldsetClassName}>
       <label className="label-text text-neutrals300 text-sm">{label}</label>
       <input
         id={label}
@@ -35,7 +39,7 @@ const Input = ({
         defaultValue={defaultValue}
         disabled={disabled}
         placeholder={placeholder}
-        className="input input-bordered w-full text-sm text-neutrals500"
+        className={`input input-bordered w-full text-sm text-neutrals500 + ${inputClassName}`}
       />
       {error && (
         <span className="label-text-alt text-danger mr-1">{error}</span>

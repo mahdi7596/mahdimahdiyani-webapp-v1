@@ -12,13 +12,17 @@ import { useSelector } from "react-redux";
 import image68 from "../assets/images/68.jpeg";
 import image69 from "../assets/images/69.jpeg";
 
-interface IProduct {
+interface IPost {
   id: number;
   image: string;
   title: string;
+  category?: { id: string; title: string };
+  updatedAt?: string;
+  content?: string;
+  _id?: string;
 }
 
-const suggestedProducts: IProduct[] = [
+const suggestedProducts: IPost[] = [
   {
     id: 68,
     image: image68,
@@ -33,53 +37,57 @@ const suggestedProducts: IProduct[] = [
 
 const SinglePost = () => {
   const { postSlug } = useParams();
+
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [post, setPost] = useState(null);
+
+  const [post, setPost] = useState<IPost>();
   const [recentPosts, setRecentPosts] = useState(null);
-  const { currentUser } = useSelector((state) => state.user);
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        setLoading(true);
-        const res = await fetch(`/api/post/getposts?slug=${postSlug}`);
-        const data = await res.json();
-        if (!res.ok) {
-          setError(true);
-          setLoading(false);
-          return;
-        }
-        if (res.ok) {
-          setPost(data.posts[0]);
-          setLoading(false);
-          setError(false);
-        }
-      } catch (error) {
-        console.log(error);
-        setError(true);
-        setLoading(false);
-      }
-    };
-    fetchPost();
-  }, [postSlug]);
+  const { currentUser } = useSelector(
+    (state: { user: { currentUser: any } }) => state.user
+  );
 
-  // console.log(postSlug);
-
-  useEffect(() => {
+  const fetchPost = async () => {
     try {
-      const fetchRecentPosts = async () => {
-        const res = await fetch(`/api/post/getposts?limit=3`);
-        const data = await res.json();
-        if (res.ok) {
-          setRecentPosts(data.posts);
-        }
-      };
-      fetchRecentPosts();
+      setLoading(true);
+      const response = await fetch(`/api/post/getposts?slug=${postSlug}`);
+      const data = await response.json();
+      if (!response.ok) {
+        // setError(true);
+        setLoading(false);
+        return;
+      }
+      if (response.ok) {
+        setPost(data.posts[0]);
+        setLoading(false);
+        // setError(false);
+      }
     } catch (error) {
       console.log(error);
+      // setError(true);
+      setLoading(false);
     }
-  }, []);
+  };
+
+  const fetchRecentPosts = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`/api/post/getposts?limit=3`);
+      const data = await response.json();
+      if (response.ok) {
+        setRecentPosts(data.posts);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPost();
+    fetchRecentPosts();
+  }, [postSlug]);
 
   if (loading)
     return (
@@ -93,27 +101,27 @@ const SinglePost = () => {
       {currentUser && currentUser.isAdmin && (
         <div className="flex items-center gap-x-4 mb-3">
           <Button
-            link={`/update-post/${post._id}`}
+            link={`/update-post/${post?._id}`}
             text="ویرایش"
             className="btn-sm btn-outline btn-primary w-fit"
           />
           <Button
             link="/dashboard?tab=posts"
-            text="مشاهده تمام مقالات"
+            text="مشاهده تمام آموزشهای رایگان"
             className="btn-sm btn-outline btn-neutral w-fit"
           />
         </div>
       )}
       <div className="flex flex-col md:flex-row gap-6 xl:gap-x-12">
-        <div className="flex-1 flex flex-col gap-y-6 p-6 bg-surfaceBg border border-surfaceBorder rounded shadow-sm">
+        <div className="flex-1 flex flex-col gap-y-6  p-3 md:p-6 bg-surfaceBg border border-surfaceBorder rounded shadow-sm">
           <div className="px-2 flex flex-col gap-y-6">
             <h1 className="text-neutrals text-xl font-semibold">
               {post?.title}
             </h1>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap gap-3 items-center justify-between">
               <span className="text-xs text-neutrals300 font-medium flex items-center gap-x-0.5">
                 <i className="maicon-mingcute_calendar-line text-lg"></i>
-                {moment(post?.updatedAt, "YYYY/MM/DD")
+                {moment(post && post?.updatedAt, "YYYY/MM/DD")
                   .locale("fa")
                   .format("YYYY/MM/DD")}
               </span>
@@ -127,7 +135,7 @@ const SinglePost = () => {
             </div>
           </div>
           <img
-            src={post && post.image}
+            src={`http://localhost:3000${post?.image}`} // Use the full backend URL
             alt={post && post.title}
             className="h-96 object-cover rounded"
           />
@@ -140,13 +148,14 @@ const SinglePost = () => {
           <div className="flex items-center gap-x-1.5">
             <span className=" text-xs text-neutrals500">دسته بندی:</span>
             <Badge
-              text={post?.category}
-              link={`/search?category=${post && post?.category}`}
+              text={post?.category?.title}
+              link={`/search?category=${post && post?.category?.title}`}
               className="badge-outline hover:bg-neutral hover:text-neutral-content"
             />
           </div>
         </div>
         <aside className="md:sticky md:top-3 w-full md:w-4/12 lg:w-1/4 h-fit flex flex-col gap-y-6 px-3 pt-3 pb-6 border border-surfaceBorder rounded shadow-sm">
+          {/*  suggested courses */}
           <div className="flex flex-col gap-y-4">
             <Button
               text="دوره های پیشنهادی همکلان"
@@ -179,14 +188,14 @@ const SinglePost = () => {
           {recentPosts &&
             recentPosts
               .filter((f) => f.slug != postSlug)
-              .map((post) => (
-                <Link to={`/post/${post.slug}`}>
+              .map((post, index) => (
+                <Link key={index} to={`/post/${post.slug}`}>
                   <div
                     key={post?._id}
                     className="group flex gap-x-3 bg-surfaceBg border border-surfaceBorder py-2 px-1.5 rounded-sm cursor-pointer"
                   >
                     <img
-                      src={post?.image}
+                      src={`http://localhost:3000${post?.image}`} // Use the full backend URL
                       className="object-cover size-20 rounded"
                       alt={post?.title}
                     />
@@ -197,7 +206,7 @@ const SinglePost = () => {
                       <div className="flex items-center justify-between">
                         <span className="text-[10px] text-neutrals300 font-medium flex items-center gap-x-0.5">
                           <i className="maicon-mingcute_calendar-line text-lg"></i>
-                          {moment(post?.updatedAt, "YYYY/MM/DD")
+                          {moment(post && post?.updatedAt, "YYYY/MM/DD")
                             .locale("fa")
                             .format("YYYY/MM/DD")}
                         </span>

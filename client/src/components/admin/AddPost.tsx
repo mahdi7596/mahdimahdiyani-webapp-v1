@@ -1,31 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import Button from "../shared/Button";
+import { Category } from "./Categories";
 
-const DashAddPost = () => {
+const AddPost = () => {
   const [formData, setFormData] = useState({});
+  const [categories, setCategories] = useState<Category[]>([]);
   const [publishError, setPublishError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(formData);
+
+    // Create FormData to handle the file and other fields
+    const form = new FormData();
+    for (const key in formData) {
+      form.append(key, formData[key]);
+    }
+
+    // Append the image separately
+    const imageInput = document.querySelector('input[type="file"]');
+    if ((imageInput as HTMLInputElement)?.files?.[0]) {
+      form.append("image", (imageInput as HTMLInputElement).files![0]);
+    }
+
     try {
       const res = await fetch("/api/post/create", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        body: form, // Send the FormData
       });
+
       const data = await res.json();
-      // console.log(data.message);
       if (!res.ok) {
-        // console.log("test");
         setPublishError(data.message);
         return;
       }
@@ -38,13 +48,35 @@ const DashAddPost = () => {
         navigate(`/post/${data.slug}`);
       }
     } catch (error) {
-      setPublishError("مشکلی پیش آمده است");
+      setPublishError(error + "مشکلی پیش آمده است");
     }
   };
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch("/api/postcategory/getAllCategories");
+      const data = await response.json();
+      setCategories(data);
+    } catch (error) {
+      setPublishError(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
   return (
-    <div className="w-full xs:w-5/6  h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
+    <div className="w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
       <Link to="/dashboard?tab=addPost"></Link>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-y-6">
+      <form
+        encType="multipart/form-data"
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-y-6"
+      >
+        {/* File input */}
+        <input type="file" accept=".png,.jpg,.jpeg" name="image" />
+        {/* title - category */}
         <div className="flex flex-wrap items-center gap-x-3">
           <input
             onChange={(e) =>
@@ -56,6 +88,7 @@ const DashAddPost = () => {
             placeholder="عنوان مقاله"
             className="flex-1 input input-bordered"
           />
+          {/* Category dropdown */}
           <select
             onChange={(e) =>
               setFormData({ ...formData, category: e.target.value })
@@ -65,26 +98,28 @@ const DashAddPost = () => {
             <option disabled selected>
               انتخاب دسته بندی
             </option>
-            <option value="uncategorized">دسته بندی نشده</option>
-            <option value="reactjs">دسته بندی ۲</option>
-            <option value="nodejs">دسته بندی ۳</option>
-            <option value="express">دسته بندی ۴</option>
-            <option value="mongo">دسته بندی ۵</option>
+            {categories?.map((category) => (
+              <option key={category._id} id={category._id} value={category._id}>
+                {category?.title}
+              </option>
+            ))}
           </select>
         </div>
+        {/* Rich text editor */}
         <ReactQuill
           onChange={(value) => setFormData({ ...formData, content: value })}
           theme="snow"
           className="bg-surfaceBg h-96"
         />
+        {/* Submit button */}
         <Button
           onAction={handleSubmit}
           text="افزودن"
           type="submit"
           className="btn-primary w-44 mt-9"
-          // loading={loading}
         />
       </form>
+      {/* Error alert */}
       {publishError && (
         <div role="alert" className="alert bg-danger text-primary-content">
           <svg
@@ -107,4 +142,4 @@ const DashAddPost = () => {
   );
 };
 
-export default DashAddPost;
+export default AddPost;

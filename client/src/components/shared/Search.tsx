@@ -1,9 +1,8 @@
 interface SearchProps {
   className?: string;
-  inputValue: string;
 }
 
-const Search = ({ inputValue, className }: SearchProps) => {
+const Search = ({ className }: SearchProps) => {
   return (
     <input
       type="text"

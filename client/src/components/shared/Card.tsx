@@ -2,6 +2,7 @@ import Badge, { BadgeProps } from "./Badge";
 
 import statciFeaturedImage from "../../assets/images/demo-pic.png";
 import Button, { ButtonProps } from "./Button";
+import { Link } from "react-router-dom";
 
 interface CardProps {
   img?: string;
@@ -11,6 +12,7 @@ interface CardProps {
   featured?: string;
   tags?: BadgeProps[];
   actionButton?: ButtonProps;
+  link: string;
 }
 
 const Card = ({
@@ -21,10 +23,12 @@ const Card = ({
   featured,
   tags,
   actionButton,
+  link,
 }: CardProps) => {
   return (
-    <div
-      className={`card bg-surfaceBg border border-surfaceBorder + ${cardClassName}`}
+    <Link
+      to={link}
+      className={`group card bg-surfaceBg border border-surfaceBorder + ${cardClassName}`}
     >
       <figure>
         {featured && (
@@ -42,7 +46,9 @@ const Card = ({
       </figure>
       <div className="card-body gap-4 p-4">
         <div className="flex-1 justify-between flex flex-col gap-y-3">
-          <h2 className="card-title text-lg">{title}</h2>
+          <h2 className="group-hover:text-primary card-title text-lg">
+            {title}
+          </h2>
           {excerpt && (
             <p
               dangerouslySetInnerHTML={{ __html: excerpt && excerpt }}
@@ -71,7 +77,7 @@ const Card = ({
           />
         )}
       </div>
-    </div>
+    </Link>
   );
 };
 

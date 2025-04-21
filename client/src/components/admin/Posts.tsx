@@ -5,29 +5,32 @@ import moment from "jalali-moment";
 
 import Button from "../shared/Button";
 
-const DashPosts = () => {
-  const { currentUser } = useSelector((state) => state.user);
+const Posts = () => {
+  const { currentUser } = useSelector(
+    (state: { user: { currentUser: any } }) => state.user
+  );
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
   const [postIdToDelete, setPostIdToDelete] = useState("");
 
   const deleteModalRef = useRef(null); // Create a ref for the input element
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const res = await fetch(`/api/post/getPosts?userId=${currentUser._id}`);
-        const data = await res.json();
-        if (res.ok) {
-          setUserPosts(data.posts);
-          if (data.posts.length < 9) {
-            setShowMore(false);
-          }
+  const fetchPosts = async () => {
+    try {
+      const res = await fetch(`/api/post/getPosts?userId=${currentUser._id}`);
+      const data = await res.json();
+      if (res.ok) {
+        setUserPosts(data.posts);
+        if (data.posts.length < 9) {
+          setShowMore(false);
         }
-      } catch (error) {
-        console.log(error);
       }
-    };
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
     if (currentUser.isAdmin) {
       fetchPosts();
     }
@@ -102,7 +105,11 @@ const DashPosts = () => {
                       >
                         <div className="avatar">
                           <div className="mask mask-squircle h-12 w-12">
-                            <img src={userPost?.image} alt={userPost?.title} />
+                            <img
+                              // src={userPost?.image}
+                              src={`http://localhost:3000${userPost?.image}`} // Use the full backend URL
+                              alt={userPost?.title}
+                            />
                           </div>
                         </div>
                         <span className="hover:text-primary">
@@ -112,7 +119,7 @@ const DashPosts = () => {
                     </div>
                   </td>
                   <td>
-                    <span>{userPost?.category}</span>
+                    <span>{userPost?.category?.title}</span>
                   </td>
                   <td>
                     {/* {new Date(userPost?.updatedAt).toLocaleDateString()} */}
@@ -120,12 +127,12 @@ const DashPosts = () => {
                       .locale("fa")
                       .format("YYYY/MM/DD")}
                   </td>
-                  <td className="flex flex-col gap-y-1.5">
+                  <td className="flex flex-wrap gap-1.5">
                     <Button
                       // link={`/dashboard?tab=update-post/${userPost?._id}`}
                       link={`/update-post/${userPost?._id}`}
                       title="ویرایش"
-                      className="btn-sm btn-outline btn-primary"
+                      className="w-fit btn-sm btn-outline btn-primary "
                       icon="ic_round-edit text-lg"
                     />
                     <Button
@@ -134,7 +141,7 @@ const DashPosts = () => {
                         setPostIdToDelete(userPost?._id);
                       }}
                       title="حذف"
-                      className="btn-sm btn-outline btn-error"
+                      className="w-fit btn-sm btn-outline btn-error "
                       icon="bxs_trash text-lg"
                     />
                   </td>
@@ -189,4 +196,4 @@ const DashPosts = () => {
   );
 };
 
-export default DashPosts;
+export default Posts;

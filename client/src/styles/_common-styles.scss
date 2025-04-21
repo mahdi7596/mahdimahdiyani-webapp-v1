@@ -6,4 +6,8 @@
     .section-container {
         @apply max-w-screen-2xl xl:container xl:mx-auto;
     }
+
+    .common-card {
+        @apply p-6 bg-surfaceBg rounded border border-surfaceBorder
+    }
 }

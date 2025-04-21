@@ -1,38 +1,78 @@
 import Post from "../models/post.model.js";
 import { errorHandler } from "../utils/error.js";
 
-export const create = async (req, res, next) => {
-  if (!req.user.isAdmin) {
-    return next(errorHandler(403, "شما مجاز به ایجاد یک پست نیستید."));
-  }
+import multer from "multer";
+import path from "path";
 
-  if (!req.body.title || !req.body.content) {
-    return next(
-      errorHandler(400, "لطفاً تمام فیلدهای مورد نیاز را ارائه دهید.")
-    );
-  }
+import { fileURLToPath } from "url";
+import fs from "fs"; // Add this line
 
-  // Remove ZWNJ characters
-  let title = req.body.title.replace(/\u200C/g, "");
-  const slug = title.split(" ").join("-");
-  // let encodedUrl = encodeURIComponent(url);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-  // ! todo این رو نوشته بودم برای اینکه فقط متن انگلیسی باشه ولی باید یک فیلد برای نامک اضافه کنم
-  // .replace(/[^a-zA-Z0-9-]/g, "");
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const uploadPath = path.join(__dirname, "../images"); // Correct path
+    cb(null, uploadPath);
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
 
-  const newPost = new Post({
-    ...req.body,
-    slug,
-    userId: req.user.id,
-  });
-
-  try {
-    const savedPost = await newPost.save();
-    res.status(201).json(savedPost);
-  } catch (error) {
-    next(error);
+const fileFilter = (req, file, cb) => {
+  const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
+  if (allowedFileTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(null, false);
   }
 };
+
+const upload = multer({ storage, fileFilter });
+
+export const create = [
+  upload.single("image"), // Middleware for handling a single image file
+  async (req, res, next) => {
+    // console.log("Request Body:", req.body); // Debugging: check other form data
+
+    // console.log("Uploaded file path:", req.file.path);
+    // console.log("Uploaded file:", req.file); // Debugging line
+
+    if (!req.user.isAdmin) {
+      return next(errorHandler(403, "شما مجاز به ایجاد پست نیستید."));
+    }
+
+    if (!req.body.title || !req.body.content) {
+      return next(
+        errorHandler(400, "لطفاً تمام فیلدهای مورد نیاز را ارائه دهید.")
+      );
+    }
+
+    // Remove ZWNJ characters
+    let title = req.body.title.replace(/\u200C/g, "");
+    const slug = title.split(" ").join("-");
+    // let encodedUrl = encodeURIComponent(url);
+
+    // ! todo این رو نوشته بودم برای اینکه فقط متن انگلیسی باشه ولی باید یک فیلد برای نامک اضافه کنم
+    // .replace(/[^a-zA-Z0-9-]/g, "");
+    const newPost = new Post({
+      ...req.body,
+      slug,
+      userId: req.user.id,
+      // image: req .file ? `/images/${req.file.filename}` : undefined, // Save file path
+      image: req.file ? `/images/${req.file.filename}` : undefined, // Ensure file path is stored
+    });
+    // console.log(newPost);
+
+    try {
+      const savedPost = await newPost.save();
+      res.status(201).json(savedPost);
+    } catch (error) {
+      next(error);
+    }
+  },
+];
 
 export const getPosts = async (req, res, next) => {
   try {
@@ -49,7 +89,9 @@ export const getPosts = async (req, res, next) => {
     // then we want to sort it by direction, we want to sort it in ascending or descending order, newest or oldest....and i will tell why
     // i have used 1 and -1 because when we want to get the response if we use 1 mongoDB is going to show the ascending and -1 is going to
     // show the descending
-    const sortDirection = req.query.order === "asc" ? 1 : -1;
+    // console.log(req?.query?.order, "order request");
+    // console.log(req?.query, "order req");
+    const sortDirection = req.query.order == "asc" ? 1 : -1;
     // after that we want to create the posts and this is going to be from our posts model and we want to use a method called find
     // we should keep this in mind that there are going to be different situations, it can be a post from the user it can be a post from
     // category or slug or postID
@@ -76,7 +118,8 @@ export const getPosts = async (req, res, next) => {
       // and we have added sort / skip / limit and we have sorted based on updatedAt
       .sort({ updatedAt: sortDirection })
       .skip(startIndex)
-      .limit(limit);
+      .limit(limit)
+      .populate("category", "title"); // Populate the category field with the title
 
     //  we have written this to get the total posts
     const totalPosts = await Post.countDocuments();
@@ -122,12 +165,38 @@ export const deletePost = async (req, res, next) => {
 };
 
 export const updatePost = async (req, res, next) => {
+  // console.log("Uploaded file:", req.file); // Debugging: Check if the file is received
+  // console.log("Request body:", req.body); // Debugging: Check other form data
+
   if (!req.user.isAdmin || req.user.id !== req.params.userId) {
     return next(errorHandler(403, "شما مجاز به به‌روزرسانی این پست نیستید."));
   }
+
   try {
-    // console.log("test");
-    // console.log(req.params.postId);
+    const post = await Post.findById(req.params.postId);
+    if (!post) {
+      return next(errorHandler(404, "پست مورد نظر یافت نشد."));
+    }
+
+    let updatedImage = post.image; // Keep existing image if no new one is uploaded
+
+    if (req.file) {
+      // Delete the old image file if it exists
+      if (post.image) {
+        const oldImagePath = path.join(
+          __dirname,
+          "../images",
+          path.basename(post.image)
+        );
+
+        if (fs.existsSync(oldImagePath)) {
+          fs.unlinkSync(oldImagePath); // Delete the old image
+        }
+      }
+
+      updatedImage = `/images/${req.file.filename}`; // Save the new image path
+    }
+
     const updatedPost = await Post.findByIdAndUpdate(
       req.params.postId,
       {
@@ -135,11 +204,12 @@ export const updatePost = async (req, res, next) => {
           title: req.body.title,
           content: req.body.content,
           category: req.body.category,
-          image: req.body.image,
+          image: updatedImage,
         },
       },
       { new: true }
     );
+
     res.status(200).json(updatedPost);
   } catch (error) {
     next(error);

@@ -3,11 +3,14 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { signoutSuccess } from "../../redux/user/userSlice";
 
-const DashSidebar = () => {
+const Sidebar = () => {
   const location = useLocation();
   const [tab, setTab] = useState("");
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.user);
+
+  const { currentUser } = useSelector(
+    (state: { user: { currentUser: any } }) => state.user
+  );
 
   const handleSignout = async () => {
     try {
@@ -73,28 +76,41 @@ const DashSidebar = () => {
           )}
         </li>
         {currentUser.isAdmin && (
-          <li>
-            <Link
-              to="/dashboard?tab=posts"
-              className={`hover:bg-primary200 focus:bg-primary100 ${
-                tab === "posts" && "bg-primary100"
-              }  `}
-            >
-              مدیریت مقالات
-            </Link>
-          </li>
-        )}
-        {currentUser.isAdmin && (
-          <li>
-            <Link
-              to="/dashboard?tab=users"
-              className={`hover:bg-primary200 focus:bg-primary100 ${
-                tab === "users" && "bg-primary100"
-              }  `}
-            >
-              مدیریت کاربران
-            </Link>
-          </li>
+          <>
+            <li>
+              <Link
+                to="/dashboard?tab=posts"
+                className={`hover:bg-primary200 focus:bg-primary100 ${
+                  tab === "posts" && "bg-primary100"
+                }  `}
+              >
+                مدیریت آموزشهای رایگان
+              </Link>
+            </li>
+            <li className="relative">
+              <Link
+                to="/dashboard?tab=categories"
+                className={`hover:bg-primary200 focus:bg-primary100 ${
+                  tab === "categories" && "bg-primary100"
+                }  `}
+              >
+                مدیریت دسته بندی
+              </Link>
+              {currentUser.isAdmin && (
+                <span className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-neutrals pointer-events-none rounded-full text-white px-3 py-1">
+                  ادمین
+                </span>
+              )}
+            </li>
+            <li className="relative pointer-events-none text-gray-400">
+              <span>مدیریت کاربران</span>
+              {currentUser.isAdmin && (
+                <span className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-teal pointer-events-none rounded-full text-white px-3 py-1">
+                  به زودی
+                </span>
+              )}
+            </li>
+          </>
         )}
         <li>
           <a onClick={handleSignout}>خروج</a>
@@ -104,4 +120,4 @@ const DashSidebar = () => {
   );
 };
 
-export default DashSidebar;
+export default Sidebar;

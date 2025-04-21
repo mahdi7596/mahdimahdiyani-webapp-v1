@@ -4,15 +4,18 @@ import { createBrowserRouter } from "react-router-dom";
 import OnlyAdminPrivateRoute from "./OnlyAdminPrivateRoute";
 import PrivateRoute from "./PrivateRoute";
 
-import DashPosts from "../components/admin/DashPosts";
+import Posts from "../components/admin/Posts";
 import Navbar from "../components/header/Navbar";
 import Footer from "../components/Footer";
-import DashAddPost from "../components/admin/DashAddPost";
-import DashUpdatePost from "../components/admin/DashUpdatePost";
+import AddPost from "../components/admin/AddPost";
+import UpdatePost from "../components/admin/UpdatePost";
+import Categories from "../components/admin/Categories";
+import Reservation from "../pages/Reservation";
 
 const Home = lazy(() => import("../pages/Home"));
-const Aboutus = lazy(() => import("../pages/Aboutus"));
+const Aboutme = lazy(() => import("../pages/Aboutme"));
 const Blogs = lazy(() => import("../pages/Blogs"));
+const PaymentCallback = lazy(() => import("../pages/PaymentCallback"));
 const SinglePost = lazy(() => import("../pages/SinglePost"));
 const Signup = lazy(() => import("../pages/Signup"));
 const Login = lazy(() => import("../pages/Login"));
@@ -33,16 +36,24 @@ const routes = createBrowserRouter([
     element: renderLayout(<Home />),
   },
   {
-    path: "/about",
-    element: renderLayout(<Aboutus />),
+    path: "/about-me",
+    element: renderLayout(<Aboutme />),
   },
   {
     path: "/search",
     element: renderLayout(<Blogs />),
   },
   {
+    path: "/payment/callback",
+    element: renderLayout(<PaymentCallback />),
+  },
+  {
     path: "/post/:postSlug",
     element: renderLayout(<SinglePost />),
+  },
+  {
+    path: "/reservation/:id",
+    element: renderLayout(<Reservation />),
   },
   {
     path: "/signup",
@@ -56,17 +67,31 @@ const routes = createBrowserRouter([
     path: "/dashboard",
     element: <PrivateRoute element={renderLayout(<Dashboard />)} />, // Private Route
   },
+  // posts
   {
-    // path: "/create-post",
-    element: <OnlyAdminPrivateRoute element={renderLayout(<DashPosts />)} />, // Admin Private Route
+    // path: "/posts",
+    element: <OnlyAdminPrivateRoute element={renderLayout(<Posts />)} />, // Admin Private Route
   },
   {
     // path: "/add-post",
-    element: <OnlyAdminPrivateRoute element={renderLayout(<DashAddPost />)} />, // Admin Private Route
+    element: <OnlyAdminPrivateRoute element={renderLayout(<AddPost />)} />, // Admin Private Route
   },
   {
     path: "/update-post/:postId",
-    element: <PrivateRoute element={renderLayout(<DashUpdatePost />)} />, // Admin Private Route
+    element: <PrivateRoute element={renderLayout(<UpdatePost />)} />, // Admin Private Route
+  },
+  // categories
+  {
+    // path: "/categories",
+    element: <OnlyAdminPrivateRoute element={renderLayout(<Categories />)} />, // Admin Private Route
+  },
+  {
+    // path: "/add-cateogry",
+    element: <OnlyAdminPrivateRoute element={renderLayout(<AddPost />)} />, // Admin Private Route
+  },
+  {
+    path: "/update-cateogry/:cateogryId",
+    element: <PrivateRoute element={renderLayout(<UpdatePost />)} />, // Admin Private Route
   },
   {
     path: "*",

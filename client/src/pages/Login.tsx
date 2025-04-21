@@ -21,7 +21,9 @@ interface ILogin {
 }
 
 const Login = () => {
-  const { loading, error: errorMessage } = useSelector((state) => state.user);
+  const { loading, error: errorMessage } = useSelector(
+    (state: { user: { loading: boolean; error: string } }) => state.user
+  );
 
   const email = useInput("", { required: true, email: true });
   const password = useInput("", { required: true });
@@ -33,31 +35,79 @@ const Login = () => {
     e.preventDefault();
     email.resetError();
     password.resetError();
+
     if (email.value === "" || password.value === "") {
       email.setError("پر کردن این فیلد الزامی است");
       password.setError("پر کردن این فیلد الزامی است");
+      return;
     }
+
     const formData: ILogin = {
       email: email.value,
       password: password.value,
     };
-    // sending request to backend
+
     try {
       dispatch(signInStart());
+
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
+
       const data = await res.json();
+
       if (data.success === false) {
         dispatch(signInFailure(data.message));
+        return;
       }
+
       if (res.ok) {
         dispatch(signInSuccess(data));
-        navigate("/");
+
+        // ✅ بررسی رزرواسیون ذخیره شده
+        const stored = sessionStorage.getItem("pendingReservation");
+
+        if (stored) {
+          try {
+            const parsed = JSON.parse(stored);
+            const isExpired = Date.now() - parsed.timestamp > 5 * 60 * 1000;
+
+            if (
+              parsed.reservationTypeId &&
+              parsed.date &&
+              parsed.timeSlot &&
+              parsed.monthIndex !== undefined &&
+              parsed.monthIndex !== null &&
+              !isExpired
+            ) {
+              // sessionStorage.removeItem("pendingReservation");
+              // navigate(
+              //   `/reservation/${parsed.reservationTypeId}?date=${parsed.date}&timeSlot=${parsed.timeSlot.time}`
+              // );
+              navigate(`/reservation/${parsed.reservationTypeId}`, {
+                state: {
+                  date: parsed.date,
+                  timeSlot: parsed.timeSlot, // includes both `time` and `_id`
+                  monthIndex: parsed.monthIndex, // includes both `time` and `_id`
+                },
+              });
+
+              return;
+            }
+          } catch (err) {
+            console.warn("داده‌های سشن نامعتبر است", err);
+          }
+
+          // پاک‌سازی در صورت نامعتبر/منقضی شدن
+          sessionStorage.removeItem("pendingReservation");
+        }
+
+        // ✅ انتقال پیش‌فرض در صورت عدم وجود رزرواسیون
+        navigate("/dashboard?tab=profile");
       }
-    } catch (error) {
+    } catch (error: any) {
       dispatch(signInFailure(error.message));
     }
   };

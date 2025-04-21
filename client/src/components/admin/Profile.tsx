@@ -9,14 +9,16 @@ import {
   deleteUserStart,
   deleteUserSuccess,
   deleteUserFailure,
-  signoutSuccess,
 } from "../../redux/user/userSlice";
 
 import profilePic from "../../assets/images/mahdimahdiyani-profile-pic.png";
 import Button from "../shared/Button";
 
-const DashProfile = () => {
-  const { currentUser, error, loading } = useSelector((state) => state.user);
+const Profile = () => {
+  const { currentUser, error, loading } = useSelector(
+    (state: { user: { currentUser: any; error: any; loading: any } }) =>
+      state.user
+  );
   const [formData, setFormData] = useState({});
   const [updateUserSuccess, setUpdateUserSuccess] = useState<string | null>(
     null
@@ -157,14 +159,15 @@ const DashProfile = () => {
             className="grow"
           />
         </label>
-        <Button
-          onAction={handleSubmit}
-          text="ویرایش حساب کاربری"
-          type="submit"
-          className="btn-primary btn-block"
-          loading={loading}
-        />
-        <div className="flex items-center justify-end">
+
+        <div className="flex items-center gap-x-3">
+          <Button
+            onAction={handleSubmit}
+            text="ویرایش حساب کاربری"
+            type="submit"
+            className="btn-primary w-fit"
+            loading={loading}
+          />
           <Button
             onAction={() => {
               deleteModalRef.current?.showModal();
@@ -234,4 +237,4 @@ const DashProfile = () => {
   );
 };
 
-export default DashProfile;
+export default Profile;
