@@ -11,3 +11,78 @@
         @apply p-6 bg-surfaceBg rounded border border-surfaceBorder
     }
 }
+
+// start ripple effect after successful payment
+
+.ripple-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ripple {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    background-color: var(--success);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation: ripple-animation 3s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ripple-1 {
+    width: 180px;
+    height: 180px;
+    opacity: 0.1;
+}
+
+.ripple-2 {
+    width: 140px;
+    height: 140px;
+    opacity: 0.15;
+    animation-delay: 0.5s;
+}
+
+.ripple-3 {
+    width: 100px;
+    height: 100px;
+    opacity: 0.2;
+    animation-delay: 1s;
+}
+
+@keyframes ripple-animation {
+    0% {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0.25;
+    }
+
+    50% {
+        opacity: 0.15;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 0.1;
+    }
+}
+
+.checkmark-container {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: var(--success);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// end ripple effect after successful payment
