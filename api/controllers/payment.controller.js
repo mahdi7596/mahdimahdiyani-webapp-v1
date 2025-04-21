@@ -4,10 +4,16 @@ import ReservationType from "../models/reservationType.model.js";
 
 import { errorHandler } from "../utils/error.js";
 
+// const zarinpal = zarinpalCheckout.create(
+//   "f42633f6-39f2-43d1-8a23-abce5430b2fe",
+//   true
+// ); // true = sandbox mode
+
 const zarinpal = zarinpalCheckout.create(
+  // process.env.ZARINPAL_MERCHANT,
   "f42633f6-39f2-43d1-8a23-abce5430b2fe",
-  true
-); // true = sandbox mode
+  true // sandbox
+);
 
 export const initiatePayment = async (req, res, next) => {
   try {
@@ -64,6 +70,7 @@ export const initiatePayment = async (req, res, next) => {
 };
 
 // POST /api/payments/verify
+
 export const verifyPayment = async (req, res, next) => {
   try {
     const { Authority, Status, reservationId } = req.body;
@@ -76,7 +83,6 @@ export const verifyPayment = async (req, res, next) => {
       return next(errorHandler(400, "پرداخت توسط کاربر لغو شد"));
     }
 
-    // Get reservation price
     const reservation = await Reservation.findById(reservationId).populate(
       "reservationTypeId"
     );
@@ -84,32 +90,20 @@ export const verifyPayment = async (req, res, next) => {
 
     const amount = reservation.reservationTypeId.price;
 
-    // 🟢 Replace axios with fetch here:
-    const response = await fetch(
-      "https://sandbox.zarinpal.com/pg/v4/payment/verify.json",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          merchant_id: process.env.ZARINPAL_MERCHANT,
-          amount,
-          authority: Authority,
-        }),
-      }
-    );
+    const response = await zarinpal.PaymentVerification({
+      Amount: amount,
+      Authority,
+    });
 
-    const data = await response.json();
+    console.log("Zarinpal verify response:", response);
 
-    if (data.data?.code === 100 || data.data?.code === 101) {
-      // ✅ Payment successful
+    if (response.status === 100 || response.status === 101) {
       reservation.status = "confirmed";
       await reservation.save();
 
       return res.status(200).json({
         message: "پرداخت با موفقیت انجام شد",
-        refId: data.data.ref_id,
+        refId: response.RefID,
       });
     } else {
       return next(errorHandler(400, "پرداخت تایید نشد"));
