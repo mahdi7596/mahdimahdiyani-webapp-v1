@@ -95,7 +95,7 @@ export const verifyPayment = async (req, res, next) => {
       Authority,
     });
 
-    console.log("Zarinpal verify response:", response);
+    // console.log("Zarinpal verify response:", response);
 
     if (response.status === 100 || response.status === 101) {
       reservation.status = "confirmed";
