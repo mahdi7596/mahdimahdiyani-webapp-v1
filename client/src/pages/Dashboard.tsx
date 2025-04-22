@@ -7,6 +7,7 @@ import Posts from "../components/admin/Posts";
 import AddPost from "../components/admin/AddPost";
 import Categories from "../components/admin/Categories";
 import AddCategory from "../components/admin/AddCategory";
+import Reservations from "../components/admin/Reservations";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -28,6 +29,7 @@ const Dashboard = () => {
         {tab === "posts" && <Posts />}
         {tab === "addPost" && <AddPost />}
         {tab === "categories" && <Categories />}
+        {tab === "reservations" && <Reservations />}
         {/* {tab === "update-post/:postId" && <DashUpdatePost />} */}
         {/* {tab === "users" && <DashUsers />} */}
         {/* {tab === "dash" && <DashboardComp />} */}

@@ -55,7 +55,7 @@ const Sidebar = () => {
             </Link>
           </li>
         )}
-        <li className="relative">
+        <li>
           <Link
             to="/dashboard?tab=profile"
             className={`hover:bg-primary200 focus:bg-primary100 ${
@@ -65,7 +65,7 @@ const Sidebar = () => {
             پروفایل کاربری
           </Link>
         </li>
-        <li className="relative">
+        <li>
           <Link
             to="/dashboard?tab=reservations"
             className={`hover:bg-primary200 focus:bg-primary100 ${
@@ -87,7 +87,7 @@ const Sidebar = () => {
                 مدیریت آموزشهای رایگان
               </Link>
             </li>
-            <li className="relative">
+            <li>
               <Link
                 to="/dashboard?tab=categories"
                 className={`hover:bg-primary200 focus:bg-primary100 ${
