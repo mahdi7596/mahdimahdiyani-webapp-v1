@@ -341,20 +341,20 @@ const Reservation = () => {
             </p>
             <div className="flex items-center gap-x-3.5">
               <Button
+                onAction={() => setCurrentMonthIndex((prev) => prev - 1)}
+                disabled={currentMonthIndex === 0}
+                title="قبل"
+                className="btn btn-outline btn-primary btn-soft btn-sm xs:btn-md hover:btn-primary"
+                icon="weui_arrow-filled text-3xl"
+              />
+              <Button
                 onAction={() => setCurrentMonthIndex((prev) => prev + 1)}
                 disabled={
                   currentMonthIndex === (filteredGroupedDates?.length ?? 0) - 1
                 }
                 title="بعد"
                 className="btn btn-outline btn-primary btn-soft btn-sm xs:btn-md hover:btn-primary"
-                icon="weui_arrow-filled text-3xl"
-              />
-              <Button
-                onAction={() => setCurrentMonthIndex((prev) => prev - 1)}
-                disabled={currentMonthIndex === 0}
-                title="قبل"
-                className="btn btn-outline btn-primary btn-soft btn-sm xs:btn-md hover:btn-primary"
-                icon="weui_arrow-filled text-3xl rotate-180"
+                icon="weui_arrow-filled text-3xl  rotate-180"
               />
             </div>
           </div>

@@ -43,10 +43,15 @@ const routes = createBrowserRouter([
     path: "/search",
     element: renderLayout(<Blogs />),
   },
+  // {
+  //   path: "/payment/callback",
+  //   element: renderLayout(<PaymentCallback />),
+  // },
   {
     path: "/payment/callback",
-    element: renderLayout(<PaymentCallback />),
+    element: <PrivateRoute element={renderLayout(<PaymentCallback />)} />, // Private Route
   },
+
   {
     path: "/post/:postSlug",
     element: renderLayout(<SinglePost />),
