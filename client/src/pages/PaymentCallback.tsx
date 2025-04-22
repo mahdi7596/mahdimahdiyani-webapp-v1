@@ -31,7 +31,7 @@ const PaymentCallback = () => {
 
       if (res.ok) {
         setPaymentStatus("success");
-        setTimeout(() => navigate("/dashboard"), 3000);
+        setTimeout(() => navigate("/dashboard?tab=reservations"), 3000);
       } else {
         setPaymentStatus("error");
         // setTimeout(() => navigate("/"), 3000);

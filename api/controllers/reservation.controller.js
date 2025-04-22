@@ -45,33 +45,48 @@ export const bookReservation = async (req, res, next) => {
   }
 };
 
-// 📌 GET ALL Reservations (For Users)
+// 📌 GET Reservations (Admin gets all, user gets their own)
 export const getReservations = async (req, res, next) => {
-  try {
-    const { date } = req.query; // Get date from query params
-    let query = {};
-    if (date) {
-      query.date = date; // Filter reservations by date
-    }
-    const reservations = await Reservation.find(query).populate(
-      "userId",
-      "username email"
-    );
-    res.status(200).json(reservations);
-  } catch (error) {
-    next(error);
-  }
-};
-
-// 📌 GET User's Own Reservations
-export const getUserReservations = async (req, res, next) => {
   try {
     if (!req.user) {
       return next(errorHandler(401, "ابتدا وارد حساب خود شوید"));
     }
 
-    const userReservations = await Reservation.find({ userId: req.user.id });
-    res.status(200).json(userReservations);
+    const { date } = req.query;
+    const query = {
+      status: "confirmed", // ✅ Only confirmed
+    };
+
+    if (date) {
+      query.date = date; // Optional: filter by date
+    }
+
+    if (!req.user.isAdmin) {
+      query.userId = req.user.id; // ✅ Users only get their own
+    }
+
+    const reservations = await Reservation.find(query)
+      .sort({ createdAt: -1 }) // 👈 Sort by newest first
+      .populate("userId", "username email")
+      .populate("reservationTypeId", "title price")
+      .select("date timeSlot status reservationTypeId userId");
+
+    const formatted = reservations.map((res) => ({
+      id: res._id,
+      date: res.date,
+      time: res.timeSlot, // ✅ Use `timeSlot`
+      status: res.status,
+      type: res.reservationTypeId?.title || "—",
+      price: res.reservationTypeId?.price || 0,
+      user: req.user.isAdmin
+        ? {
+            username: res.userId?.username || "—",
+            email: res.userId?.email || "—",
+          }
+        : undefined,
+    }));
+
+    res.status(200).json(formatted);
   } catch (error) {
     next(error);
   }
