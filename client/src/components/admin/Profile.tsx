@@ -168,14 +168,14 @@ const Profile = () => {
             className="btn-primary w-fit"
             loading={loading}
           />
-          <Button
+          {/* <Button
             onAction={() => {
               deleteModalRef.current?.showModal();
             }}
             text="حذف حساب کاربری"
             className="w-fit btn-error btn-outline "
             loading={loading}
-          />
+          /> */}
         </div>
       </form>
       {updateUserSuccess && (

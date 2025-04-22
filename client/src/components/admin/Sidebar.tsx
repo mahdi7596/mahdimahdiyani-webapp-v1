@@ -53,11 +53,6 @@ const Sidebar = () => {
             >
               داشبور
             </Link>
-            {currentUser.isAdmin && (
-              <span className="absolute left-0 top-1/2 transform pointer-events-none -translate-y-1/2 bg-neutrals rounded-full text-white px-3 py-1">
-                ادمین
-              </span>
-            )}
           </li>
         )}
         <li className="relative">
@@ -69,11 +64,16 @@ const Sidebar = () => {
           >
             پروفایل کاربری
           </Link>
-          {currentUser.isAdmin && (
-            <span className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-neutrals pointer-events-none rounded-full text-white px-3 py-1">
-              ادمین
-            </span>
-          )}
+        </li>
+        <li className="relative">
+          <Link
+            to="/dashboard?tab=reservations"
+            className={`hover:bg-primary200 focus:bg-primary100 ${
+              tab === "reservations" && "bg-primary100"
+            }  `}
+          >
+            زمان های رزرو شده
+          </Link>
         </li>
         {currentUser.isAdmin && (
           <>
@@ -96,11 +96,6 @@ const Sidebar = () => {
               >
                 مدیریت دسته بندی
               </Link>
-              {currentUser.isAdmin && (
-                <span className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-neutrals pointer-events-none rounded-full text-white px-3 py-1">
-                  ادمین
-                </span>
-              )}
             </li>
             <li className="relative pointer-events-none text-gray-400">
               <span>مدیریت کاربران</span>
