@@ -7,6 +7,7 @@ import {
 } from "../../redux/reservations/reservationsSlice";
 
 import moment from "jalali-moment";
+import { Link } from "react-router-dom";
 
 const Reservations = () => {
   const dispatch = useDispatch();
@@ -108,7 +109,13 @@ const Reservations = () => {
               d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
             ></path>
           </svg>
-          <span>هیچ رزروی یافت نشد</span>
+          <span>
+            تا حالا هیچ رزروی ثبت نکرده‌اید. برای شروع، روی{" "}
+            <Link to="/" className="font-heavyBlack hover:text-blue-200">
+              لینک
+            </Link>{" "}
+            کلیک کنید
+          </span>
         </div>
       )}
     </div>
