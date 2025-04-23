@@ -116,7 +116,7 @@ const TestimonialsColumn = (props) => (
 
 const Testimonials = () => {
   return (
-    <section className="bg-white">
+    <section className="bg-white pt-16">
       <div className="container">
         <div className="section-heading">
           <div className="flex justify-center">

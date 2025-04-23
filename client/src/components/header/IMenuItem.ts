@@ -14,7 +14,7 @@ export const navMenuItems: IMenuItem[] = [
   {
     id: 2,
     text: "خدمات ما",
-    link: "#services",
+    link: "/reservations",
   },
   {
     id: 3,

@@ -11,6 +11,7 @@ import AddPost from "../components/admin/AddPost";
 import UpdatePost from "../components/admin/UpdatePost";
 import Categories from "../components/admin/Categories";
 import Reservation from "../pages/Reservation";
+import Reservations from "../pages/Reservations";
 
 const Home = lazy(() => import("../pages/Home"));
 const Aboutme = lazy(() => import("../pages/Aboutme"));
@@ -40,13 +41,13 @@ const routes = createBrowserRouter([
     element: renderLayout(<Aboutme />),
   },
   {
+    path: "/reservations",
+    element: renderLayout(<Reservations />),
+  },
+  {
     path: "/search",
     element: renderLayout(<Blogs />),
   },
-  // {
-  //   path: "/payment/callback",
-  //   element: renderLayout(<PaymentCallback />),
-  // },
   {
     path: "/payment/callback",
     element: <PrivateRoute element={renderLayout(<PaymentCallback />)} />, // Private Route

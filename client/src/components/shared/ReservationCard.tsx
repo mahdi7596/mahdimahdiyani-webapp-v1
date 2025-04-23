@@ -14,7 +14,7 @@ const ReservationCard = ({ reservation, index }: ReservationProps) => {
     <div
       key={index}
       className={`landing-card ${
-        index === 1 && "border-black bg-black text-white/60"
+        index === 1 ? "border-black bg-black text-white/60" : "bg-white"
       }`}
     >
       <div className="flex justify-between">
@@ -43,13 +43,18 @@ const ReservationCard = ({ reservation, index }: ReservationProps) => {
         )}
       </div>
       <div className="flex items-baseline gap-1 mt-[30px]">
-        <span className="text-4xl font-bold tracking-tighter leading-none">
+        <p className="text-4xl font-bold tracking-tighter leading-none">
           {reservation.price === 0
             ? "رایگان"
-            : `${reservation.price.toLocaleString()} هزار تومان`}
-        </span>
+            : `${reservation.price.toLocaleString()}`}
+          <span className="text-xs tracking-normal text-black/50">
+            هزار تومان
+          </span>
+        </p>
         {reservation.price !== 0 && (
-          <span className="tracking-tight font-bold text-black/50">/ساعتی</span>
+          <span className="tracking-tight font-bold text-base text-black/50">
+            /ساعتی
+          </span>
         )}
       </div>
       <Button

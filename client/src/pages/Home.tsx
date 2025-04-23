@@ -8,7 +8,7 @@ import ProductShowcase from "../components/landing/ProductShowcase";
 import Testimonials from "../components/landing/Testimonials";
 
 const Home = () => {
-  const { reservationTypes, loading, error } = useReservationTypes();
+  const { reservationTypes } = useReservationTypes();
 
   return (
     <>
@@ -16,7 +16,11 @@ const Home = () => {
       <Hero />
       <LogoTicker />
       <ProductShowcase />
-      <ReservationTypeList reservationTypes={reservationTypes} />
+      <ReservationTypeList
+        reservationTypes={reservationTypes}
+        sliceData={true}
+        containerClass="flex flex-col gap-6 items-center mt-10 lg:flex-row lg:items-end lg:justify-center"
+      />
       <Testimonials />
       <CallToAction />
       {/* <Footer /> */}
