@@ -5,100 +5,91 @@ import OnlyAdminPrivateRoute from "./OnlyAdminPrivateRoute";
 import PrivateRoute from "./PrivateRoute";
 
 import Posts from "../components/admin/Posts";
-import Navbar from "../components/header/Navbar";
-import Footer from "../components/Footer";
 import AddPost from "../components/admin/AddPost";
 import UpdatePost from "../components/admin/UpdatePost";
 import Categories from "../components/admin/Categories";
 import Reservation from "../pages/Reservation";
+import MainLayout from "../layouts/MainLayout";
 import Reservations from "../pages/Reservations";
+import PaymentCallback from "../pages/PaymentCallback";
 
 const Home = lazy(() => import("../pages/Home"));
 const Aboutme = lazy(() => import("../pages/Aboutme"));
 const Blogs = lazy(() => import("../pages/Blogs"));
-const PaymentCallback = lazy(() => import("../pages/PaymentCallback"));
 const SinglePost = lazy(() => import("../pages/SinglePost"));
 const Signup = lazy(() => import("../pages/Signup"));
 const Login = lazy(() => import("../pages/Login"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
 const NotFoundPage = lazy(() => import("../pages/NotFoundPage"));
 
-const renderLayout = (element: React.ReactNode, showLayout = true) => (
-  <>
-    {showLayout && <Navbar />}
-    {element}
-    {showLayout && <Footer />}
-  </>
-);
-
 const routes = createBrowserRouter([
   {
     path: "/",
-    element: renderLayout(<Home />),
-  },
-  {
-    path: "/about-me",
-    element: renderLayout(<Aboutme />),
-  },
-  {
-    path: "/reservations",
-    element: renderLayout(<Reservations />),
-  },
-  {
-    path: "/search",
-    element: renderLayout(<Blogs />),
-  },
-  {
-    path: "/payment/callback",
-    element: <PrivateRoute element={renderLayout(<PaymentCallback />)} />, // Private Route
-  },
-
-  {
-    path: "/post/:postSlug",
-    element: renderLayout(<SinglePost />),
-  },
-  {
-    path: "/reservation/:id",
-    element: renderLayout(<Reservation />),
+    element: <MainLayout />, // ✅ Router context exists here
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/about-me",
+        element: <Aboutme />,
+      },
+      {
+        path: "/reservations",
+        element: <Reservations />,
+      },
+      {
+        path: "/search",
+        element: <Blogs />,
+      },
+      {
+        path: "/payment/callback",
+        element: <PrivateRoute element={<PaymentCallback />} />,
+      },
+      {
+        path: "/post/:postSlug",
+        element: <SinglePost />,
+      },
+      {
+        path: "/reservation/:id",
+        element: <Reservation />,
+      },
+      {
+        path: "/dashboard",
+        element: <PrivateRoute element={<Dashboard />} />,
+      },
+      {
+        element: <OnlyAdminPrivateRoute element={<Posts />} />, //Admin Private Route
+      },
+      {
+        element: <OnlyAdminPrivateRoute element={<AddPost />} />, //Admin Private Route
+      },
+      {
+        path: "/update-post/:postId",
+        element: <OnlyAdminPrivateRoute element={<UpdatePost />} />, //Admin Private Route
+      },
+      {
+        element: <OnlyAdminPrivateRoute element={<Categories />} />, //Admin Private Route
+      },
+      // {
+      //   element: <OnlyAdminPrivateRoute element={<AddPost />} />, //Admin Private Route
+      // },
+      // {
+      //   path: "/update-cateogry/:cateogryId",
+      //   element: <OnlyAdminPrivateRoute element={<UpdatePost />} />, //Admin Private Route
+      // },
+    ],
   },
   {
     path: "/signup",
-    element: renderLayout(<Signup />, false),
+    element: <Signup />,
   },
   {
     path: "/login",
-    element: renderLayout(<Login />, false),
+    element: <Login />,
   },
-  {
-    path: "/dashboard",
-    element: <PrivateRoute element={renderLayout(<Dashboard />)} />, // Private Route
-  },
-  // posts
-  {
-    // path: "/posts",
-    element: <OnlyAdminPrivateRoute element={renderLayout(<Posts />)} />, // Admin Private Route
-  },
-  {
-    // path: "/add-post",
-    element: <OnlyAdminPrivateRoute element={renderLayout(<AddPost />)} />, // Admin Private Route
-  },
-  {
-    path: "/update-post/:postId",
-    element: <PrivateRoute element={renderLayout(<UpdatePost />)} />, // Admin Private Route
-  },
-  // categories
-  {
-    // path: "/categories",
-    element: <OnlyAdminPrivateRoute element={renderLayout(<Categories />)} />, // Admin Private Route
-  },
-  {
-    // path: "/add-cateogry",
-    element: <OnlyAdminPrivateRoute element={renderLayout(<AddPost />)} />, // Admin Private Route
-  },
-  {
-    path: "/update-cateogry/:cateogryId",
-    element: <PrivateRoute element={renderLayout(<UpdatePost />)} />, // Admin Private Route
-  },
+  // ... the rest of your routes
   {
     path: "*",
     element: <NotFoundPage />,
