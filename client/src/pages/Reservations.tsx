@@ -6,14 +6,14 @@ const Reservations = () => {
   const { reservationTypes, loading } = useReservationTypes();
 
   return (
-    <div>
+    <div className="section-container section-inner-space">
       {loading && (
         <span className="loading loading-bars loading-lg text-info self-center mb-6"></span>
       )}
       {reservationTypes.length > 0 ? (
         <ReservationTypeList
           reservationTypes={reservationTypes}
-          containerClass="grid sm:grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-6 mt-12 sm:mt-20 px-4"
+          containerClass="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-12 gap-x-6 mt-12 sm:mt-20 px-4"
         />
       ) : (
         !loading && (

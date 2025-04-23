@@ -42,7 +42,7 @@ const ReservationCard = ({ reservation, index }: ReservationProps) => {
           </div>
         )}
       </div>
-      <div className="flex items-baseline gap-1 mt-[30px]">
+      <div className="flex flex-wrap items-baseline gap-1 mt-[30px]">
         <p className="text-4xl font-bold tracking-tighter leading-none">
           {reservation.price === 0
             ? "رایگان"
