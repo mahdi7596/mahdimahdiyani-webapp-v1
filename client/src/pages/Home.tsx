@@ -19,7 +19,7 @@ const Home = () => {
       <ReservationTypeList
         reservationTypes={reservationTypes}
         sliceData={true}
-        containerClass="flex flex-col gap-6 items-center mt-10 lg:flex-row lg:items-end lg:justify-center"
+        containerClass="section-container grid md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-6 mt-12 sm:mt-20 px-4"
       />
       <Testimonials />
       <CallToAction />

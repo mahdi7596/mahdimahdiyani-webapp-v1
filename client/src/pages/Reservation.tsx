@@ -421,9 +421,9 @@ const Reservation = () => {
                             ? "btn-success"
                             : matchedTime?.status ===
                               ReservationStatus.Confirmed
-                            ? "bg-blue-500 pointer-events-none"
+                            ? "bg-red-400 pointer-events-none"
                             : matchedTime?.status === ReservationStatus.Pending
-                            ? "bg-orange-400 pointer-events-none"
+                            ? "bg-amber-400 pointer-events-none"
                             : "btn-outline btn-success"
                         }`}
                         disabled={
@@ -444,8 +444,8 @@ const Reservation = () => {
                             className={`maicon-weui_info-filled ${
                               matchedTime?.status ===
                               ReservationStatus.Confirmed
-                                ? "text-blue-400"
-                                : "text-orange-400"
+                                ? "text-red-400"
+                                : "text-amber-400"
                             }`}
                           />
                         )}
@@ -464,6 +464,29 @@ const Reservation = () => {
               </div>
             </div>
           )}
+          {!selectedDate || !selectedTime ? (
+            <div
+              role="alert"
+              className="alert bg-blue-50 border border-blue-400 text-blue-600 mt-8"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="h-6 w-6 shrink-0 stroke-current "
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              <span>
+                «جهت تکمیل فرآیند رزرو، انتخاب تاریخ و زمان الزامی است.»
+              </span>
+            </div>
+          ) : null}
         </div>
       </div>
       <div className="common-card col-span-12 md:col-span-4 flex flex-col">

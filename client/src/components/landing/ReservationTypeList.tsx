@@ -1,4 +1,5 @@
 import { ReservationType } from "../../models/reservation";
+import Button from "../shared/Button";
 import ReservationCard from "../shared/ReservationCard";
 
 interface ReservationTypeListProps {
@@ -21,7 +22,7 @@ const ReservationTypeList = ({
         </p>
       </div>
       <div className={`${containerClass}`}>
-        {(sliceData ? reservationTypes.slice(0, 4) : reservationTypes).map(
+        {(sliceData ? reservationTypes.slice(0, 3) : reservationTypes).map(
           (reservation, index) => (
             <ReservationCard
               key={reservation._id}
@@ -31,6 +32,13 @@ const ReservationTypeList = ({
           )
         )}
       </div>
+      {sliceData ? (
+        <Button
+          link="/reservations"
+          text="مشاهده تمام خدمات"
+          className="w-fit btn-md btn-outline btn-primary  mx-auto mt-12"
+        />
+      ) : null}
     </section>
   );
 };
