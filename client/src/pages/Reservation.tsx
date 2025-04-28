@@ -259,6 +259,10 @@ const Reservation = () => {
   }, [currentMonthIndex]);
 
   useEffect(() => {
+    setSelectedTime(null);
+  }, [selectedDate]);
+
+  useEffect(() => {
     if (restoredFromSession) {
       setRestoredFromSession(false); // only use it once
     }
@@ -326,6 +330,8 @@ const Reservation = () => {
       if (preselectedTime) setSelectedTime(preselectedTime);
     }
   }, []);
+
+  console.log(selectedDate, "selectedDate");
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-4 sm:gap-8">
