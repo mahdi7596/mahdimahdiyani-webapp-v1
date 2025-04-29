@@ -9,7 +9,6 @@ import Dropdown from "../shared/Dropdown";
 import { profileMenuItems } from "./IMenuItem";
 
 import logo from "../../assets/images/temp-logo.png";
-import profilePic from "../../assets/images/mahdimahdiyani-profile-pic.png";
 
 const Navbar = () => {
   const { currentUser } = useSelector(
@@ -51,8 +50,9 @@ const Navbar = () => {
                 role="button"
                 className="btn btn-ghost btn-circle avatar"
               >
-                <div className="w-10 rounded-full border border-gray-200">
-                  <img src={profilePic} alt="profilePic" />
+                <div className="w-10 rounded-full border border-gray-200 relative">
+                  {/* <img src={profilePic} alt="profilePic" /> */}
+                  <i className="maicon-bx_user text-2xl text-neutrals500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></i>
                 </div>
               </div>
               <Dropdown

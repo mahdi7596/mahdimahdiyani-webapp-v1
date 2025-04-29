@@ -95,9 +95,9 @@ const Profile = () => {
     <div className="w-full lg:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
       <form onSubmit={handleSubmit} className="w-full flex flex-col gap-y-4">
         <div className="group/item relative avatar self-center flex flex-col items-center justify-center">
-          <div className="w-24 ring ring-offset-1 ring-gray-200 ring-offset-base-100 rounded-full">
+          {/* <div className="w-24 ring ring-offset-1 ring-gray-200 ring-offset-base-100 rounded-full">
             <img src={profilePic} />
-          </div>
+          </div> */}
           <div className="invisible group-hover/item:visible w-full h-full !flex flex-col justify-center items-center bg-black bg-opacity-60 absolute rounded-full cursor-pointer">
             <span className="text-surfaceBg text-xs">بارگذاری تصویر</span>
           </div>

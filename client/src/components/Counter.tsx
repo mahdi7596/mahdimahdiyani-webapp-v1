@@ -49,7 +49,7 @@ const AnimatedCounter = ({ value, label, suffix }: Statistic) => {
       transition={{ duration: 0.8 }}
       className="text-center"
     >
-      <div className="text-5xl md:text-6xl font-serif mb-2">
+      <div className="text-5xl md:text-6xl font-heavyBlack mb-2">
         {count}
         {suffix}
       </div>
