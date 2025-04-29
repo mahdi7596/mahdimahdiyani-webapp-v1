@@ -22,9 +22,9 @@ const Dashboard = () => {
   }, [location.search]);
 
   return (
-    <div className="drawer lg:drawer-open">
+    <div className="drawer lg:drawer-open px-8">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col p-8">
+      <div className="drawer-content w-full flex flex-col p-8 h-fit gap-y-3 bg-surfaceBg border border-surfaceBorder rounded">
         {tab === "profile" && <Profile />}
         {tab === "posts" && <Posts />}
         {tab === "addPost" && <AddPost />}

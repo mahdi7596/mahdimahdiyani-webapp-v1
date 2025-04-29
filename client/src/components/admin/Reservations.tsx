@@ -46,7 +46,7 @@ const Reservations = () => {
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
-    <div className="w-full xs:w-5/6  h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
+    <div>
       <h1 className="text-xl font-bold mb-4">
         {currentUser.isAdmin ? "لیست تمام رزروها" : "رزروهای من"}
       </h1>

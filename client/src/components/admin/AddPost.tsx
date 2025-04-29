@@ -67,7 +67,7 @@ const AddPost = () => {
   }, []);
 
   return (
-    <div className="w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
+    <>
       <Link to="/dashboard?tab=addPost"></Link>
       <form
         encType="multipart/form-data"
@@ -138,7 +138,7 @@ const AddPost = () => {
           <span>{publishError}</span>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

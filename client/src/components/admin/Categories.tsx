@@ -182,7 +182,7 @@ const Categories = () => {
   // console.log(categoriesList, "categoriesList");
 
   return (
-    <div className="w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
+    <div>
       <ToastContainer />
       <Button
         onAction={() => {
