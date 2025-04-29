@@ -340,16 +340,28 @@ const Reservation = () => {
           رزرو {reservation?.title}
         </h2>
         <div className="mt-6 common-card">
-          <div className="flex items-center justify-between">
-            <p className="text-xl xs:text-2xl font-medium">
+          <div className="flex items-center flex-wrap gap-y-4 justify-between">
+            <div className="flex flex-wrap gap-y-2 items-center gap-x-3">
               {filteredGroupedDates &&
-                filteredGroupedDates[currentMonthIndex].month.fa}
-            </p>
+                filteredGroupedDates.map((month, index) => (
+                  <p
+                    key={index}
+                    className={`text-xl xs:text-2xl font-medium ${
+                      filteredGroupedDates[currentMonthIndex].month.fa ===
+                      month.month.fa
+                        ? "text-primary"
+                        : ""
+                    }`}
+                  >
+                    {month.month.fa}
+                  </p>
+                ))}
+            </div>
             <div className="flex items-center gap-x-3.5">
               <Button
                 onAction={() => setCurrentMonthIndex((prev) => prev - 1)}
                 disabled={currentMonthIndex === 0}
-                title="قبل"
+                title="ماه قبل"
                 className="btn btn-outline btn-primary btn-soft btn-sm xs:btn-md hover:btn-primary"
                 icon="weui_arrow-filled text-3xl"
               />
@@ -358,7 +370,7 @@ const Reservation = () => {
                 disabled={
                   currentMonthIndex === (filteredGroupedDates?.length ?? 0) - 1
                 }
-                title="بعد"
+                title="ماه بعد"
                 className="btn btn-outline btn-primary btn-soft btn-sm xs:btn-md hover:btn-primary"
                 icon="weui_arrow-filled text-3xl  rotate-180"
               />
@@ -473,7 +485,7 @@ const Reservation = () => {
           {!selectedDate || !selectedTime ? (
             <div
               role="alert"
-              className="alert bg-blue-50 border border-blue-400 text-blue-600 mt-8"
+              className="alert bg-blue-50 border border-blue-400 text-blue-600 mt-8 text-right"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
