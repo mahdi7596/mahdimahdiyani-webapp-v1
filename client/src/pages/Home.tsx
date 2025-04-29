@@ -12,7 +12,6 @@ const Home = () => {
 
   return (
     <>
-      {/* <Navbar /> */}
       <Hero />
       <LogoTicker />
       <ProductShowcase />
@@ -23,7 +22,6 @@ const Home = () => {
       />
       <Testimonials />
       <CallToAction />
-      {/* <Footer /> */}
     </>
   );
 };

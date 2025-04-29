@@ -12,11 +12,13 @@ const MainLayout = () => {
   }, [pathname]);
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <Outlet />
+      <main className="flex-grow">
+        <Outlet />
+      </main>
       <Footer />
-    </>
+    </div>
   );
 };
 
