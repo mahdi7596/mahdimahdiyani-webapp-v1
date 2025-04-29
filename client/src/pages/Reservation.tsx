@@ -357,7 +357,7 @@ const Reservation = () => {
                   </p>
                 ))}
             </div>
-            <div className="flex items-center gap-x-3.5">
+            <div className="flex items-center gap-x-2 md:gap-x-3.5">
               <Button
                 onAction={() => setCurrentMonthIndex((prev) => prev - 1)}
                 disabled={currentMonthIndex === 0}
@@ -377,6 +377,7 @@ const Reservation = () => {
             </div>
           </div>
           <hr className="my-4" />
+
           <div className="flex flex-wrap items-center gap-8 mb-8">
             {filteredGroupedDates &&
               filteredGroupedDates[currentMonthIndex].daysInsideMonth
@@ -401,7 +402,7 @@ const Reservation = () => {
                           .locale("fa")
                           .format("DD")}
                         className={`btn rounded-full ${
-                          isPastDate
+                          isPastDate || !day.timeSlots.length > 0
                             ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                             : `group-hover:bg-neutral group-hover:text-white ${
                                 day.date === selectedDate
@@ -409,7 +410,7 @@ const Reservation = () => {
                                   : "btn-outline"
                               }`
                         }`}
-                        disabled={isPastDate}
+                        disabled={isPastDate || !day.timeSlots.length > 0}
                       />
                       <span>
                         {/* {day.date}/{selectedDate} */}
@@ -421,7 +422,7 @@ const Reservation = () => {
           </div>
           {activeDay && (
             <div className="flex flex-col">
-              <div className="flex items-center flex-wrap gap-3  justify-start">
+              <div className="flex items-center flex-wrap gap-3 justify-start">
                 {activeDay.timeSlots.map((m) => {
                   const matchedTime =
                     reservedTimes &&
@@ -434,7 +435,7 @@ const Reservation = () => {
                       <Button
                         onAction={() => setSelectedTime(m)}
                         text={m.time}
-                        className={`btn text-white hover:!text-white btn-sm xs:btn-md ${
+                        className={`btn text-white hover:!text-white btn-md ${
                           selectedTime && selectedTime._id === m._id
                             ? "btn-success"
                             : matchedTime?.status ===
@@ -474,7 +475,7 @@ const Reservation = () => {
                             matchedTime.createdAt
                           )})`}
 
-                        {!matchedTime && "mahdi"}
+                        {!matchedTime && "m"}
                       </span>
                     </div>
                   );
@@ -507,7 +508,7 @@ const Reservation = () => {
           ) : null}
         </div>
       </div>
-      <div className="common-card col-span-12 md:col-span-4 flex flex-col">
+      <div className="common-card col-span-12 md:col-span-4 flex flex-col h-fit">
         <p className="text-base">{reservation?.description}</p>
         {reservation && reservation.includedServices ? (
           <ul className="mt-2.5">
