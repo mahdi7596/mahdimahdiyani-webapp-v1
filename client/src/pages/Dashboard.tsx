@@ -43,7 +43,7 @@ const Dashboard = () => {
     <div className="relative min-h-screen flex flex-col">
       {/* Hamburger menu for mobile */}
       <button
-        className="lg:hidden absolute top-4 left-4 p-2 
+        className="lg:hidden absolute top-4 left-4 z-10 p-2 
         hover:bg-gray-100 rounded-full transition-all duration-300 
         active:scale-90 group"
         onClick={toggleMobileMenu}
@@ -72,7 +72,7 @@ const Dashboard = () => {
           onChange={toggleMobileMenu}
         />
 
-        <div className="drawer-content w-full flex flex-col p-4 h-fit gap-y-3 mt-20 lg:mt-0 bg-surfaceBg border border-surfaceBorder rounded flex-grow">
+        <div className="drawer-content w-full flex flex-col p-4 h-fit gap-y-3 mt-20 mb-8 lg:mt-0 bg-surfaceBg border border-surfaceBorder rounded flex-grow">
           {tab === "profile" && <Profile />}
           {tab === "posts" && <Posts />}
           {tab === "addPost" && <AddPost />}
