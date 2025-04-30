@@ -15,7 +15,7 @@ interface FormData {
   image?: File | string; // Add image to FormData type
 }
 
-const UpdatePost = () => {
+const UpdatePost = ({ postId }: { postId: string }) => {
   const [formData, setFormData] = useState<FormData>({
     title: "",
     category: "",
@@ -26,7 +26,6 @@ const UpdatePost = () => {
   const [publishError, setPublishError] = useState<string | null>(null);
   const [existingImage, setExistingImage] = useState<string | null>(null); // Store existing image URL
 
-  const { postId } = useParams();
   const navigate = useNavigate();
 
   const { currentUser } = useSelector(
@@ -118,13 +117,8 @@ const UpdatePost = () => {
     fetchCategories();
   }, [postId]);
 
-  // console.log(formData, "formData");
-  // console.log(formData.category?.title, "formData.category?.title");
-  // console.log(categories, "categories");
-
   return (
     <div className="my-6 w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
-      <Link to="/dashboard?tab=update-post"></Link>
       <form onSubmit={handleSubmit} className="flex flex-col gap-y-6">
         {/* Image upload section */}
         <div className="flex flex-col gap-y-3">

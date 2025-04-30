@@ -58,6 +58,12 @@ const routes = createBrowserRouter([
       {
         path: "/dashboard",
         element: <PrivateRoute element={<Dashboard />} />,
+        children: [
+          {
+            path: "updatePost/:postId",
+            element: <OnlyAdminPrivateRoute element={<UpdatePost />} />,
+          },
+        ],
       },
       {
         element: <OnlyAdminPrivateRoute element={<Posts />} />, //Admin Private Route
@@ -66,19 +72,8 @@ const routes = createBrowserRouter([
         element: <OnlyAdminPrivateRoute element={<AddPost />} />, //Admin Private Route
       },
       {
-        path: "/update-post/:postId",
-        element: <OnlyAdminPrivateRoute element={<UpdatePost />} />, //Admin Private Route
-      },
-      {
         element: <OnlyAdminPrivateRoute element={<Categories />} />, //Admin Private Route
       },
-      // {
-      //   element: <OnlyAdminPrivateRoute element={<AddPost />} />, //Admin Private Route
-      // },
-      // {
-      //   path: "/update-cateogry/:cateogryId",
-      //   element: <OnlyAdminPrivateRoute element={<UpdatePost />} />, //Admin Private Route
-      // },
     ],
   },
   {

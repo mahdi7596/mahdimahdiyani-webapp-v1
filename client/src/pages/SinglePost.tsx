@@ -101,7 +101,7 @@ const SinglePost = () => {
       {currentUser && currentUser.isAdmin && (
         <div className="flex items-center gap-x-4 mb-3">
           <Button
-            link={`/update-post/${post?._id}`}
+            link={`/dashboard?tab=updatePost/${post?._id}`}
             text="ویرایش"
             className="btn-sm btn-outline btn-primary w-fit"
           />

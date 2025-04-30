@@ -129,8 +129,7 @@ const Posts = () => {
                   </td>
                   <td className="flex flex-wrap gap-1.5">
                     <Button
-                      // link={`/dashboard?tab=update-post/${userPost?._id}`}
-                      link={`/update-post/${userPost?._id}`}
+                      link={`/dashboard?tab=updatePost/${userPost?._id}`}
                       title="ویرایش"
                       className="w-fit btn-sm btn-outline btn-primary "
                       icon="ic_round-edit text-lg"

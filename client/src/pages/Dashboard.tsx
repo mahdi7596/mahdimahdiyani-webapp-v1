@@ -7,16 +7,28 @@ import Posts from "../components/admin/Posts";
 import AddPost from "../components/admin/AddPost";
 import Categories from "../components/admin/Categories";
 import Reservations from "../components/admin/Reservations";
+import UpdatePost from "../components/admin/UpdatePost";
 
 const Dashboard = () => {
   const location = useLocation();
   const [tab, setTab] = useState("");
+  const [postId, setPostId] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const tabFromUrl = urlParams.get("tab");
-    if (tabFromUrl) setTab(tabFromUrl);
+
+    if (tabFromUrl) {
+      // Check if the tab includes updatePost
+      if (tabFromUrl.startsWith("updatePost/")) {
+        setTab("updatePost");
+        setPostId(tabFromUrl.split("/")[1]);
+      } else {
+        setTab(tabFromUrl);
+        setPostId("");
+      }
+    }
   }, [location.search]);
 
   const toggleMobileMenu = () => {
@@ -64,6 +76,7 @@ const Dashboard = () => {
           {tab === "profile" && <Profile />}
           {tab === "posts" && <Posts />}
           {tab === "addPost" && <AddPost />}
+          {tab === "updatePost" && <UpdatePost postId={postId} />}
           {tab === "categories" && <Categories />}
           {tab === "reservations" && <Reservations />}
         </div>
