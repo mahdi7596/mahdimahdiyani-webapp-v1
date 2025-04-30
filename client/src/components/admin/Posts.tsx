@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import moment from "jalali-moment";
 
+import { ToastContainer, toast } from "react-toastify";
+
 import Button from "../shared/Button";
 
 const Posts = () => {
@@ -66,6 +68,7 @@ const Posts = () => {
       if (!res.ok) {
         console.log(data.message);
       } else {
+        toast.success("مقاله با موفقیت حذف شد");
         setUserPosts((prev) =>
           prev.filter((post) => post._id !== postIdToDelete)
         );
@@ -78,6 +81,7 @@ const Posts = () => {
 
   return (
     <>
+      <ToastContainer />
       <Button
         link="/dashboard?tab=addPost"
         text="افزودن مقاله جدید"
