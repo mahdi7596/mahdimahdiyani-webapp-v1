@@ -66,7 +66,7 @@ const Navbar = () => {
               <Dropdown
                 dropDownItems={profileMenuItems}
                 onAction={handleSignout}
-                className="w-44 menu-sm mt-3 "
+                className="w-44 menu-sm mt-3"
               />
             </div>
           ) : (
