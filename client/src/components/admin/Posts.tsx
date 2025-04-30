@@ -81,7 +81,7 @@ const Posts = () => {
       <Button
         link="/dashboard?tab=addPost"
         text="افزودن مقاله جدید"
-        className="btn-primary w-fit btn-sm"
+        className="btn-primary w-fit btn-md  "
       />
       {currentUser.isAdmin && userPosts.length > 0 ? (
         <div className="overflow-x-auto">

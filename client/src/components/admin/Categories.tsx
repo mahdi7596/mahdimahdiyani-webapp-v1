@@ -189,7 +189,7 @@ const Categories = () => {
           addCategoryModalRef.current?.showModal();
         }}
         text="افزودن دسته جدید"
-        className="btn-primary w-fit btn-sm"
+        className="btn-primary w-fit btn-md mb-3"
       />
       {loading ? (
         <span className="loading loading-bars loading-xl text-primary400 self-center"></span>
