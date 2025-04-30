@@ -18,7 +18,6 @@ const Navbar = () => {
   const location = useLocation();
 
   const isDashboardRooute = location.pathname.startsWith("/dashboard");
-  console.log(isDashboardRooute, "isDashboardRooute");
   const dispatch = useDispatch();
 
   const handleSignout = async () => {
@@ -38,7 +37,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="z-20 sticky top-0 bg-surfaceBg border-b border-surfaceBorder">
+    <header className="z-10 sticky top-0 bg-surfaceBg border-b border-surfaceBorder">
       <div
         className={`navbar ${
           isDashboardRooute ? "md:px-6" : "section-container"
@@ -67,7 +66,7 @@ const Navbar = () => {
               <Dropdown
                 dropDownItems={profileMenuItems}
                 onAction={handleSignout}
-                className="w-44 menu-sm mt-3"
+                className="w-44 menu-sm mt-3 "
               />
             </div>
           ) : (

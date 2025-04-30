@@ -43,7 +43,7 @@ const Dashboard = () => {
     <div className="relative min-h-screen flex flex-col">
       {/* Hamburger menu for mobile */}
       <button
-        className="lg:hidden absolute top-4 left-4 z-50 p-2 
+        className="lg:hidden absolute top-4 left-4 z-10 p-2 
         hover:bg-gray-100 rounded-full transition-all duration-300 
         active:scale-90 group"
         onClick={toggleMobileMenu}
