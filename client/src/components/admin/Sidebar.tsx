@@ -23,7 +23,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onItemClick }) => {
   };
 
   return (
-    <ul className="menu bg-surfaceBg text-base-content h-full w-80 p-4 border-l border-surfaceBorder pt-20 lg:pt-0">
+    <ul className="menu bg-surfaceBg text-base-content h-full w-80 p-4 border-l border-surfaceBorder pt-20 lg:pt-4">
       {currentUser && currentUser.isAdmin && (
         <li>
           <Link

@@ -7,13 +7,18 @@ import Button from "../shared/Button";
 import Dropdown from "../shared/Dropdown";
 
 import { profileMenuItems } from "./IMenuItem";
-
+import { useLocation } from "react-router-dom";
 import logo from "../../assets/images/temp-logo.png";
 
 const Navbar = () => {
   const { currentUser } = useSelector(
     (state: { user: { currentUser: any } }) => state.user
   );
+
+  const location = useLocation();
+
+  const isDashboardRooute = location.pathname.startsWith("/dashboard");
+  console.log(isDashboardRooute, "isDashboardRooute");
   const dispatch = useDispatch();
 
   const handleSignout = async () => {
@@ -34,7 +39,11 @@ const Navbar = () => {
 
   return (
     <header className="z-20 sticky top-0 bg-surfaceBg border-b border-surfaceBorder">
-      <div className="section-container navbar">
+      <div
+        className={`navbar ${
+          isDashboardRooute ? "md:px-6" : "section-container"
+        }`}
+      >
         {/* logo + menuItems */}
         <div className="flex-none">
           <img src={logo} className="w-16" alt="logo" />

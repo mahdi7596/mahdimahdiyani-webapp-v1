@@ -63,7 +63,7 @@ const Dashboard = () => {
         </svg>
       </button>
 
-      <div className="drawer lg:drawer-open flex-grow">
+      <div className="drawer lg:drawer-open flex-grow px-3 lg:px-0">
         <input
           id="my-drawer-2"
           type="checkbox"
@@ -72,7 +72,7 @@ const Dashboard = () => {
           onChange={toggleMobileMenu}
         />
 
-        <div className="drawer-content w-full flex flex-col p-8 h-fit gap-y-3 bg-surfaceBg border border-surfaceBorder rounded flex-grow">
+        <div className="drawer-content w-full flex flex-col p-4 h-fit gap-y-3 mt-20 lg:mt-0 bg-surfaceBg border border-surfaceBorder rounded flex-grow">
           {tab === "profile" && <Profile />}
           {tab === "posts" && <Posts />}
           {tab === "addPost" && <AddPost />}

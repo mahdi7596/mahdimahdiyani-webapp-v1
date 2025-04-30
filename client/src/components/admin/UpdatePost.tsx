@@ -118,7 +118,7 @@ const UpdatePost = ({ postId }: { postId: string }) => {
   }, [postId]);
 
   return (
-    <div className="my-6 w-full xs:w-5/6 h-fit mx-auto flex flex-col gap-y-3 bg-surfaceBg p-6 border border-surfaceBorder rounded">
+    <div className="w-full h-full flex flex-col gap-y-3">
       <form onSubmit={handleSubmit} className="flex flex-col gap-y-6">
         {/* Image upload section */}
         <div className="flex flex-col gap-y-3">
@@ -140,7 +140,6 @@ const UpdatePost = ({ postId }: { postId: string }) => {
             }}
           />
         </div>
-
         <div className="flex flex-wrap items-center gap-x-3">
           <input
             onChange={(e) =>
@@ -174,7 +173,7 @@ const UpdatePost = ({ postId }: { postId: string }) => {
           onChange={(value) => setFormData({ ...formData, content: value })}
           value={formData.content}
           theme="snow"
-          className="bg-surfaceBg h-96"
+          className="bg-surfaceBg h-full"
         />
         <Button
           onAction={handleSubmit}
