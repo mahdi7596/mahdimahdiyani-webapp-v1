@@ -362,7 +362,8 @@ const Reservation = () => {
                 onAction={() => setCurrentMonthIndex((prev) => prev - 1)}
                 disabled={currentMonthIndex === 0}
                 title="ماه قبل"
-                className="btn btn-outline btn-primary btn-soft btn-sm xs:btn-md hover:btn-primary"
+                text="ماه قبل"
+                className="btn btn-outline btn-primary btn-soft btn-sm xs:btn-md hover:btn-primary flex-row-reverse"
                 icon="weui_arrow-filled text-3xl"
               />
               <Button
@@ -371,6 +372,7 @@ const Reservation = () => {
                   currentMonthIndex === (filteredGroupedDates?.length ?? 0) - 1
                 }
                 title="ماه بعد"
+                text="ماه بعد"
                 className="btn btn-outline btn-primary btn-soft btn-sm xs:btn-md hover:btn-primary"
                 icon="weui_arrow-filled text-3xl  rotate-180"
               />
