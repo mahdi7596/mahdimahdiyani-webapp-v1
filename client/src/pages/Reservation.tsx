@@ -9,7 +9,6 @@ import {
 
 import { EnglishMonthNames, PersianMonthNames } from "../utils/monthNames";
 
-import Input from "../components/shared/Input";
 import Button from "../components/shared/Button";
 
 import moment from "jalali-moment";
@@ -56,11 +55,14 @@ const Reservation = () => {
     reservation &&
     reservation.availableDates.reduce((acc, availableDate) => {
       // Get month number from original date
-      const enMonthNumber = availableDate.date.slice(5, 7); // Gregorian month like "04"
+      const enMonthNumber = (availableDate as any).date.slice(5, 7); // Gregorian month like "04"
       const enMonthName = EnglishMonthNames[enMonthNumber]; // English Month like "April"
 
       // Convert to Jalaali date
-      const jalaaliDate = moment(availableDate.date, "YYYY-MM-DD").locale("fa");
+      const jalaaliDate = moment(
+        (availableDate as any).date,
+        "YYYY-MM-DD"
+      ).locale("fa");
 
       const faMonthNumber = jalaaliDate.format("MM"); // Persian month number like "01"
       const faYearMonthNumber = jalaaliDate.format("YYYY-MM"); // Persian year-month number like "1404-01"
@@ -73,8 +75,8 @@ const Reservation = () => {
 
       if (existingMonth) {
         existingMonth.daysInsideMonth.push({
-          date: availableDate.date,
-          timeSlots: availableDate.timeSlots,
+          date: (availableDate as any).date,
+          timeSlots: (availableDate as any).timeSlots,
         });
       } else {
         acc.push({
@@ -85,8 +87,8 @@ const Reservation = () => {
           },
           daysInsideMonth: [
             {
-              date: availableDate.date,
-              timeSlots: availableDate.timeSlots,
+              date: (availableDate as any).date,
+              timeSlots: (availableDate as any).timeSlots,
             },
           ],
         });
@@ -331,7 +333,7 @@ const Reservation = () => {
     }
   }, []);
 
-  console.log(selectedDate, "selectedDate");
+  console.log(countdowns, "countdowns");
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-4 sm:gap-8">
@@ -404,7 +406,7 @@ const Reservation = () => {
                           .locale("fa")
                           .format("DD")}
                         className={`btn rounded-full ${
-                          isPastDate || !day.timeSlots.length > 0
+                          isPastDate || !(day.timeSlots.length > 0)
                             ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                             : `group-hover:bg-neutral group-hover:text-white ${
                                 day.date === selectedDate
@@ -412,7 +414,7 @@ const Reservation = () => {
                                   : "btn-outline"
                               }`
                         }`}
-                        disabled={isPastDate || !day.timeSlots.length > 0}
+                        disabled={isPastDate || !(day.timeSlots.length > 0)}
                       />
                       <span>
                         {/* {day.date}/{selectedDate} */}
@@ -522,7 +524,7 @@ const Reservation = () => {
             ))}
           </ul>
         ) : null}
-        <div className="flex items-center gap-1 mt-4">
+        {/* <div className="flex items-center gap-1 mt-4">
           <Input
             name="discountCode"
             // value={email.value}
@@ -534,7 +536,7 @@ const Reservation = () => {
             placeholder="کد تخفیف"
           />
           <Button text="اعمال" className="btn btn-outline btn-primary" />
-        </div>
+        </div> */}
         <hr className="my-4" />
         <div className="flex items-center justify-between text-lg">
           <p>قیمت:</p>

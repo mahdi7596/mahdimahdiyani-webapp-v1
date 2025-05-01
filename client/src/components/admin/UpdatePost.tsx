@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import ReactQuill from "react-quill";
@@ -15,7 +15,7 @@ interface FormData {
   image?: File | string; // Add image to FormData type
 }
 
-const UpdatePost = ({ postId }: { postId: string }) => {
+const UpdatePost = ({ postId }: { postId?: string }) => {
   const [formData, setFormData] = useState<FormData>({
     title: "",
     category: "",

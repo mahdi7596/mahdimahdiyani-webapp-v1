@@ -12,7 +12,7 @@ interface CardProps {
   featured?: string;
   tags?: BadgeProps[];
   actionButton?: ButtonProps;
-  link: string;
+  link?: string;
 }
 
 const Card = ({

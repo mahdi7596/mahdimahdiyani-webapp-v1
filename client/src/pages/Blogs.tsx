@@ -18,7 +18,7 @@ const Blogs = () => {
   const [category, setCategory] = useState("");
   const [dateFilter, setDateFilter] = useState("desc");
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchDateQuery, setsearchDateQuery] = useState();
+  // const [searchDateQuery, setsearchDateQuery] = useState();
   const [categories, setCategories] = useState<Category[]>([]);
 
   const [posts, setPosts] = useState([]);
@@ -31,7 +31,7 @@ const Blogs = () => {
 
   const fetchPosts = async () => {
     setLoading(true);
-    const res = await fetch(`/api/post/getposts?order=${searchDateQuery}`);
+    const res = await fetch(`/api/post/getposts?order`);
     if (!res?.ok) {
       setLoading(false);
       return;
@@ -62,7 +62,7 @@ const Blogs = () => {
     e?.preventDefault();
 
     setSearchQuery(category === "all" ? "" : category);
-    setsearchDateQuery(dateFilter);
+    // setsearchDateQuery(dateFilter);
   };
 
   const handleShowMore = async () => {
@@ -89,10 +89,9 @@ const Blogs = () => {
   useEffect(() => {
     fetchPosts();
     fetchCategories();
-  }, [searchQuery, searchDateQuery]);
+  }, [searchQuery]);
 
   console.log(dateFilter, "dateFilter");
-  console.log(searchDateQuery, "searchDateQuery");
 
   return (
     <div className="section-container section-inner-space">

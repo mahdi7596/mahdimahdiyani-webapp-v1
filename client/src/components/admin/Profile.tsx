@@ -11,7 +11,6 @@ import {
   deleteUserFailure,
 } from "../../redux/user/userSlice";
 
-import profilePic from "../../assets/images/mahdimahdiyani-profile-pic.png";
 import Button from "../shared/Button";
 
 const Profile = () => {

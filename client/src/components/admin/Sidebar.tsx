@@ -9,7 +9,9 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ onItemClick }) => {
   const location = useLocation();
   const [tab, setTab] = useState("");
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser } = useSelector(
+    (state: { user: { currentUser: any } }) => state.user
+  );
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);

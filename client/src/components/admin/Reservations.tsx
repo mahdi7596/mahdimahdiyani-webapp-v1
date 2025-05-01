@@ -11,10 +11,14 @@ import { Link } from "react-router-dom";
 
 const Reservations = () => {
   const dispatch = useDispatch();
+
   const { reservations, loading, error } = useSelector(
-    (state) => state.reservations
+    (state: any) => state.reservations
   );
-  const { currentUser } = useSelector((state) => state.user);
+
+  const { currentUser } = useSelector(
+    (state: { user: { currentUser: any } }) => state.user
+  );
 
   useEffect(() => {
     const fetchReservations = async () => {
@@ -39,8 +43,6 @@ const Reservations = () => {
 
     fetchReservations();
   }, [dispatch]);
-
-  console.log(reservations, "reservations");
 
   if (loading) return <p>در حال بارگذاری...</p>;
   if (error) return <p className="text-red-500">{error}</p>;

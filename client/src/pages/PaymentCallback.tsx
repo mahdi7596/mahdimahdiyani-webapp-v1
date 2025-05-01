@@ -27,7 +27,7 @@ const PaymentCallback = () => {
         }),
       });
 
-      const data = await res.json();
+      // const data = await res.json();
 
       if (res.ok) {
         setPaymentStatus("success");
