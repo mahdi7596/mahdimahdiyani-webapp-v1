@@ -16,9 +16,9 @@ const Blogs = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
-  const [dateFilter, setDateFilter] = useState("");
+  const [dateFilter, setDateFilter] = useState("desc");
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchDateQuery, setsearchDateQuery] = useState("desc");
+  const [searchDateQuery, setsearchDateQuery] = useState();
   const [categories, setCategories] = useState<Category[]>([]);
 
   const [posts, setPosts] = useState([]);
@@ -27,11 +27,11 @@ const Blogs = () => {
 
   const location = useLocation();
 
+  // &&category=${searchQuery}
+
   const fetchPosts = async () => {
     setLoading(true);
-    const res = await fetch(
-      `/api/post/getposts?category=${searchQuery}&&order=${searchDateQuery}`
-    );
+    const res = await fetch(`/api/post/getposts?order=${searchDateQuery}`);
     if (!res?.ok) {
       setLoading(false);
       return;
@@ -92,7 +92,7 @@ const Blogs = () => {
   }, [searchQuery, searchDateQuery]);
 
   console.log(dateFilter, "dateFilter");
-  console.log(category, "category");
+  console.log(searchDateQuery, "searchDateQuery");
 
   return (
     <div className="section-container section-inner-space">
@@ -128,8 +128,8 @@ const Blogs = () => {
           onChange={(e) => setDateFilter(e?.target?.value)}
           className="select select-bordered ltr  flex-1 xxs:flex-none"
         >
-          <option value="asc"> قدیمی ترین</option>
           <option value="desc">جدید ترین</option>
+          <option value="asc"> قدیمی ترین</option>
         </select>
         <select
           id="category"
@@ -151,7 +151,7 @@ const Blogs = () => {
           onAction={(e) => handleFilter(e)}
           text="اعمال فیلتر"
           className="btn-primary w-full sm:w-fit"
-          disabled={!dateFilter && !category}
+          disabled={!dateFilter || !category}
         />
       </form>
       {loading && (
