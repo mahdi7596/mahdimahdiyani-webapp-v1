@@ -125,7 +125,7 @@ const UpdatePost = ({ postId }: { postId?: string }) => {
           {existingImage && (
             <img
               //  src={existingImage}
-              src={`http://localhost:3000${existingImage}`} // Use the full backend URL
+              src={`${import.meta.env.VITE_BACKEND_URL}${existingImage}`} // Use the full backend URL
               alt="Current Post Image"
               className="w-32 h-32 object-cover rounded"
             />

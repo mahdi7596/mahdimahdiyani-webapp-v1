@@ -1,14 +1,19 @@
-import { fileURLToPath } from "url";
-import { dirname, resolve } from "path";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 
+// This is needed because you're using ESM (import/export)
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
 
-// Load .env from parent directory
-dotenv.config({ path: resolve(__dirname, "../.env") });
+// Load correct .env file based on NODE_ENV
+const envFile =
+  process.env.NODE_ENV === "production"
+    ? ".env.production"
+    : ".env.development";
+dotenv.config({ path: path.resolve(__dirname, "..", envFile) });
 
-// validation
+// Now do your checks
 if (!process.env.DB_URL || !process.env.PORT) {
   throw new Error("Missing essential environment variables.");
 }

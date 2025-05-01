@@ -179,7 +179,7 @@ const Blogs = () => {
                 {...post}
                 key={post._id}
                 link={`/post/${post?.slug}`}
-                img={`http://localhost:3000${post?.image}`} // Use the full backend URL
+                img={`${import.meta.env.VITE_BACKEND_URL}${post?.image}`} // Use the full backend URL
                 excerpt={post?.content}
                 tags={[
                   {

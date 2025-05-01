@@ -135,7 +135,7 @@ const SinglePost = () => {
             </div>
           </div>
           <img
-            src={`http://localhost:3000${post?.image}`} // Use the full backend URL
+            src={`${import.meta.env.VITE_BACKEND_URL}${post?.image}`} // Use the full backend URL
             alt={post && post.title}
             className="h-96 object-cover rounded"
           />
@@ -195,7 +195,7 @@ const SinglePost = () => {
                     className="group flex gap-x-3 bg-surfaceBg border border-surfaceBorder py-2 px-1.5 rounded-sm cursor-pointer"
                   >
                     <img
-                      src={`http://localhost:3000${post?.image}`} // Use the full backend URL
+                      src={`${import.meta.env.VITE_BACKEND_URL}${post?.image}`} // Use the full backend URL
                       className="object-cover size-20 rounded"
                       alt={post?.title}
                     />

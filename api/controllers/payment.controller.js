@@ -49,7 +49,8 @@ export const initiatePayment = async (req, res, next) => {
     // 🟢 Create Zarinpal payment request
     const response = await zarinpal.PaymentRequest({
       Amount: amount,
-      CallbackURL: `http://localhost:5173/payment/callback`, // or your production domain
+      // CallbackURL: `http://localhost:5173/payment/callback`, // or your production domain
+      CallbackURL: `${process.env.FRONTEND_URL}/payment/callback`,
       Description: "پرداخت رزرو وقت",
       // Email: req.user.email,
     });
