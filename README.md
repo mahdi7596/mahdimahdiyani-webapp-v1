@@ -1,11 +1,12 @@
-# 🎯 Project Title: **Reservation Hub**  
-*(A Full-Stack Booking Platform)*  
+# 🚀 **Project Title: Mahdi Mahdiyani - Portfolio & Booking Platform**  
+*(A Full-Stack Portfolio with Integrated Reservation System)*  
 
 ### 🌟 **Description**  
-A dynamic full-stack web application with this functionalities:  
-- **Create and publish posts** with categories/tags.  
-- **Manage reservations** (users sign up and book time slots).  
-- **Explore content** in a responsive, animated UI.  
+A multi-functional full-stack application that serves as:  
+1. **Professional Portfolio**  
+   - Showcases your work, skills, and projects.  
+2. **Client Booking Platform**  
+   - Allows users to sign up, browse posts (with categories/tags), and reserve time slots.  
 
 **Live Demo:** [mahdimahdiyani.com](https://mahdimahdiyani.com/)  
 
