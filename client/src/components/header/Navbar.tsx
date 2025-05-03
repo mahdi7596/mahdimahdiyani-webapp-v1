@@ -37,7 +37,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="z-10 sticky top-0 bg-surfaceBg border-b border-surfaceBorder">
+    <header className="z-30 sticky top-0 bg-surfaceBg border-b border-surfaceBorder">
       <div
         className={`navbar ${
           isDashboardRooute ? "md:px-6" : "section-container"

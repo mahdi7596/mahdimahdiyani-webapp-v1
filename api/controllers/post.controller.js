@@ -121,6 +121,8 @@ export const getPosts = async (req, res, next) => {
       .limit(limit)
       .populate("category", "title"); // Populate the category field with the title
 
+    // console.log(posts, "posts");
+
     //  we have written this to get the total posts
     const totalPosts = await Post.countDocuments();
 
