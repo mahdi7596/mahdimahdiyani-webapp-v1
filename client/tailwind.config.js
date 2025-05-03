@@ -1,5 +1,7 @@
-// ? یک وقت هایی که مدیا کوری کاستوم اضافه میکنیم قبلی ها از کار میوفتن و برای رفع این مشکل این رو مینویسم
-// const defaultTheme = require("tailwindcss/defaultTheme");
+// Replace require with import
+import defaultTheme from "tailwindcss/defaultTheme";
+import daisyui from "daisyui";
+import daisyuiThemes from "daisyui/src/theming/themes";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -10,7 +12,6 @@ export default {
       headingFont: ["headingFont"],
     },
     extend: {
-      // custom styles for container default class
       container: {
         center: true,
         // padding: {
@@ -62,12 +63,12 @@ export default {
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [daisyui],
   daisyui: {
     themes: [
       {
         light: {
-          ...require("daisyui/src/theming/themes")["light"],
+          ...daisyuiThemes["light"],
           primary: "#B9812B",
           "primary-content": "#ffffff",
           neutral: "#111111",

@@ -7,9 +7,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "PORT=3000 react-scripts start"
   },
   "dependencies": {
+    "@liara/cli": "^9.0.0",
     "@reduxjs/toolkit": "^2.3.0",
     "framer-motion": "^12.4.7",
     "jalali-moment": "^3.3.11",
