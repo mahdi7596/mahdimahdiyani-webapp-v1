@@ -100,7 +100,9 @@ export const getPosts = async (req, res, next) => {
       .sort({ updatedAt: sortDirection })
       .skip(startIndex)
       .limit(limit)
-      .populate("category", "title");
+      .populate("category", "title")
+      .select("-userId -__v -createdAt -updatedAt") // <-- exclude fields here
+      .lean();
 
     // Count only matching documents
     const totalPosts = await Post.countDocuments(filteredQuery);

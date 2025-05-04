@@ -1,7 +1,17 @@
+import { BlogFilters } from "../hooks/useBlogPosts";
 import { BlogPostsResponse, BlogCategoriesResponse } from "../models/blog";
 
-export const fetchBlogPosts = async (): Promise<BlogPostsResponse> => {
-  const response = await fetch("/api/post/getposts");
+export const fetchBlogPosts = async (
+  filters: BlogFilters
+): Promise<BlogPostsResponse> => {
+  const query = new URLSearchParams(
+    filters as Record<string, string>
+  ).toString();
+
+  const response = await fetch(`/api/post/getposts?${query}`, {
+    method: "GET",
+    cache: "no-store",
+  });
 
   const data = await response.json();
 

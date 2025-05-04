@@ -2,32 +2,43 @@ import { useEffect, useState } from "react";
 import { fetchBlogPosts } from "../services/blogServices";
 import { BlogPost } from "../models/blog/types";
 
-export const useBlogPosts = () => {
+export interface BlogFilters {
+  searchTerm?: string;
+  // category?: string;
+  // date?: string;
+}
+
+export const useBlogPosts = (filters: BlogFilters) => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchBlogs = async () => {
+  const fetchBlogs = async (customFilters?: BlogFilters) => {
     setLoading(true);
     setError(null);
 
     try {
-      const response = await fetchBlogPosts();
+      const response = await fetchBlogPosts(customFilters || filters);
       if (response.success) {
         setPosts(response.posts);
       } else {
         setError("خطا در دریافت اطلاعات");
       }
     } catch (error) {
-      setError("ایی در دریافت اطلاعات رخ داد: " + error);
+      setError("خطا در دریافت اطلاعات: " + error);
     } finally {
       setLoading(false);
     }
   };
 
+  // Debounced filtering for search and others
   useEffect(() => {
-    fetchBlogs();
-  }, []);
+    const timeout = setTimeout(() => {
+      fetchBlogs();
+    }, 500);
 
-  return { posts, loading, error, refetch: fetchBlogs };
+    return () => clearTimeout(timeout);
+  }, [filters.searchTerm]);
+
+  return { posts, loading, error, refetch: () => fetchBlogs(filters) };
 };

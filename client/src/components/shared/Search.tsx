@@ -1,13 +1,17 @@
 interface SearchProps {
+  value: string;
+  onChange: (value: string) => void;
   className?: string;
 }
 
-const Search = ({ className }: SearchProps) => {
+const Search = ({ value, onChange, className }: SearchProps) => {
+  // console.log(value);
   return (
     <input
       type="text"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
       placeholder="جستجو کنید"
-      // onChange={inputValue}
       className={`input input-bordered ${className}`}
     />
   );
