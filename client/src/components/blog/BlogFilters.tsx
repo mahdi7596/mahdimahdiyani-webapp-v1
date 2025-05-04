@@ -1,11 +1,19 @@
 import Search from "../shared/Search";
+import SelectBox from "../shared/SelectBox";
 
 interface BlogFiltersProps {
   searchValue: string;
   onSearchChange: (value: string) => void;
+  selectedValue: string;
+  onSelectedCategoryId: (value: string) => void;
 }
 
-const BlogFilters = ({ searchValue, onSearchChange }: BlogFiltersProps) => {
+const BlogFilters = ({
+  searchValue,
+  onSearchChange,
+  selectedValue,
+  onSelectedCategoryId,
+}: BlogFiltersProps) => {
   return (
     <form
       // onSubmit={handleSubmit}
@@ -15,6 +23,11 @@ const BlogFilters = ({ searchValue, onSearchChange }: BlogFiltersProps) => {
         value={searchValue}
         onChange={onSearchChange}
         className="w-full"
+      />
+      <SelectBox
+        value={selectedValue}
+        onChange={onSelectedCategoryId}
+        options={[]}
       />
     </form>
   );

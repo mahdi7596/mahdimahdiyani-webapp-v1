@@ -10,6 +10,7 @@ import blogBanner from "../assets/images/banner.jpg";
 
 const Blogs = () => {
   const [searchText, setSearchText] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string>();
 
   const filters = { searchTerm: searchText };
   const { posts, loading, error } = useBlogPosts(filters);
@@ -22,7 +23,12 @@ const Blogs = () => {
         description="در این صفحه می‌توانید مجموعه‌ای از آموزشهای رایگان و نوشته‌های ما را مشاهده کنید که با دقت و توجه به موضوعات روز تهیه شده‌اند. هدف ما ارائه محتوای آموزنده، جذاب و کاربردی برای شماست. هر هفته مطالب جدید اضافه می‌کنیم تا همراه همیشگی شما در مسیر یادگیری و رشد باشیم. از بازخوردها و نظرات ارزشمندتان استقبال می‌کنیم!"
       />
       <div className="min-h-[400px] mt-20 flex flex-col">
-        <BlogFilters searchValue={searchText} onSearchChange={setSearchText} />
+        <BlogFilters
+          searchValue={searchText}
+          onSearchChange={setSearchText}
+          selectedValue={selectedCategory}
+          onSelectedCategoryId={setSelectedCategory}
+        />
         <div className="flex-1 flex items-center justify-center">
           {loading ? (
             <Loading />
