@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useBlogPosts } from "../hooks/useBlogPosts";
 
 import Banner from "../components/shared/Banner";
@@ -7,13 +7,17 @@ import Loading from "../components/shared/Loading";
 import BlogFilters from "../components/blog/BlogFilters";
 
 import blogBanner from "../assets/images/banner.jpg";
+import { useBlogCategories } from "../hooks/useBlogCategories";
 
 const Blogs = () => {
   const [searchText, setSearchText] = useState<string>("");
-  const [selectedCategory, setSelectedCategory] = useState<string>();
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   const filters = { searchTerm: searchText };
   const { posts, loading, error } = useBlogPosts(filters);
+  const { categories } = useBlogCategories();
+
+  console.log(categories, "categories");
 
   return (
     <section className="section-container section-inner-space">

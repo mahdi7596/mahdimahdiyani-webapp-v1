@@ -4,13 +4,13 @@ import { BlogPost } from "../models/blog/types";
 
 export interface BlogFilters {
   searchTerm?: string;
-  // category?: string;
+  category?: string;
   // date?: string;
 }
 
 export const useBlogPosts = (filters: BlogFilters) => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchBlogs = async (customFilters?: BlogFilters) => {
@@ -38,7 +38,7 @@ export const useBlogPosts = (filters: BlogFilters) => {
     }, 500);
 
     return () => clearTimeout(timeout);
-  }, [filters.searchTerm]);
+  }, [filters.searchTerm, filters.category]);
 
   return { posts, loading, error, refetch: () => fetchBlogs(filters) };
 };
