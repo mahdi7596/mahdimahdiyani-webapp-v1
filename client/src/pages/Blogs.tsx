@@ -17,8 +17,6 @@ const Blogs = () => {
   const { posts, loading, error } = useBlogPosts(filters);
   const { categories } = useBlogCategories();
 
-  console.log(categories, "categories");
-
   return (
     <section className="section-container section-inner-space">
       <Banner
