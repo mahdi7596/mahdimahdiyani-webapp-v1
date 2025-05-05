@@ -10,6 +10,8 @@ import blogBanner from "../assets/images/banner.jpg";
 import { useBlogCategories } from "../hooks/useBlogCategories";
 import { Alert } from "../components/shared/Alert";
 
+import { motion, AnimatePresence } from "framer-motion";
+
 const Blogs = () => {
   const [searchText, setSearchText] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -49,23 +51,41 @@ const Blogs = () => {
               لطفاً فیلترها را بررسی کنید یا عبارت جستجو را تغییر دهید.
             </Alert>
           ) : (
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8 mt-6">
-              {posts.map((post) => (
-                <Card
-                  {...post}
-                  key={post._id}
-                  link={`/post/${post?.slug}`}
-                  img={`${import.meta.env.VITE_BACKEND_URL}${post?.image}`}
-                  excerpt={post?.content}
-                  tags={[
-                    {
-                      text: post?.category?.title,
-                      link: `/search?category=${post?.category?.title}`,
-                    },
-                  ]}
-                />
-              ))}
-            </div>
+            <motion.div
+              layout
+              className="w-full"
+              transition={{ layout: { duration: 0.3 } }}
+            >
+              <AnimatePresence>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8 mt-6">
+                  {posts.map((post) => (
+                    <motion.div
+                      key={post._id}
+                      layout
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Card
+                        {...post}
+                        link={`/post/${post?.slug}`}
+                        img={`${import.meta.env.VITE_BACKEND_URL}${
+                          post?.image
+                        }`}
+                        excerpt={post?.content}
+                        tags={[
+                          {
+                            text: post?.category?.title,
+                            link: `/search?category=${post?.category?.title}`,
+                          },
+                        ]}
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              </AnimatePresence>
+            </motion.div>
           )}
         </div>
       </div>
