@@ -8,6 +8,7 @@ import BlogFilters from "../components/blog/BlogFilters";
 
 import blogBanner from "../assets/images/banner.jpg";
 import { useBlogCategories } from "../hooks/useBlogCategories";
+import { Alert } from "../components/shared/Alert";
 
 const Blogs = () => {
   const [searchText, setSearchText] = useState<string>("");
@@ -43,8 +44,12 @@ const Blogs = () => {
         <div className="flex-1 flex items-center justify-center">
           {loading ? (
             <Loading />
+          ) : posts.length === 0 ? (
+            <Alert status="warning" title="هیچ پستی پیدا نشد">
+              لطفاً فیلترها را بررسی کنید یا عبارت جستجو را تغییر دهید.
+            </Alert>
           ) : (
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 mt-12">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8 mt-6">
               {posts.map((post) => (
                 <Card
                   {...post}

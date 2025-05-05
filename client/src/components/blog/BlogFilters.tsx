@@ -47,12 +47,14 @@ const BlogFilters = ({
           { value: "desc", label: "جدیدترین" },
           { value: "asc", label: "قدیمی‌ترین" },
         ]}
+        className="w-full sm:min-w-[175px] sm:w-fit"
       />
 
       <SelectBox
         value={selectedValue}
         onChange={onSelectedCategoryId}
         options={categoryOptions}
+        className="w-full sm:min-w-[175px] sm:w-fit"
       />
     </form>
   );

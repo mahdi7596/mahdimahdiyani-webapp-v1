@@ -9,19 +9,20 @@ interface SelectBoxProps {
   value: string;
   onChange: (value: string) => void;
   options: SelectOption[];
+  className?: string;
 }
 
-const SelectBox = ({ options, value, onChange }: SelectBoxProps) => {
+const SelectBox = ({ options, value, onChange, className }: SelectBoxProps) => {
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     onChange(e.target.value);
   };
 
   return (
-    <div className="w-full max-w-xs mx-auto" dir="rtl">
+    <div className={className} dir="rtl">
       <select
         value={value}
         onChange={handleChange}
-        className="select select-bordered w-full bg-surface text-right"
+        className="w-full select select-bordered bg-surface text-right"
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
