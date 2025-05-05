@@ -13,6 +13,11 @@ export const fetchBlogPosts = async (
   if (filters?.category && filters.category !== "all") {
     params.append("category", filters.category);
   }
+
+  if (filters?.order) {
+    params.append("order", filters.order);
+  }
+
   const response = await fetch(`/api/post/getposts?${params.toString()}`, {
     method: "GET",
     cache: "no-store",

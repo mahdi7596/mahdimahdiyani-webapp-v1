@@ -12,8 +12,13 @@ import { useBlogCategories } from "../hooks/useBlogCategories";
 const Blogs = () => {
   const [searchText, setSearchText] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
-  const filters = { searchTerm: searchText, category: selectedCategory };
+  const filters = {
+    searchTerm: searchText,
+    category: selectedCategory,
+    order: sortOrder,
+  };
 
   const { posts, loading, error } = useBlogPosts(filters);
   const { categories } = useBlogCategories();
@@ -32,6 +37,8 @@ const Blogs = () => {
           onSearchChange={setSearchText}
           selectedValue={selectedCategory}
           onSelectedCategoryId={setSelectedCategory}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
         />
         <div className="flex-1 flex items-center justify-center">
           {loading ? (

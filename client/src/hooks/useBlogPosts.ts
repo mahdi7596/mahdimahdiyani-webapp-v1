@@ -5,7 +5,7 @@ import { BlogPost } from "../models/blog/types";
 export interface BlogFilters {
   searchTerm?: string;
   category?: string;
-  // date?: string;
+  order?: "asc" | "desc";
 }
 
 export const useBlogPosts = (filters: BlogFilters) => {
@@ -19,13 +19,14 @@ export const useBlogPosts = (filters: BlogFilters) => {
 
     try {
       const currentFilters = customFilters || filters;
-
+      console.log(currentFilters);
       const query: BlogFilters = {
         searchTerm: currentFilters.searchTerm,
         category:
           currentFilters.category === "all"
             ? undefined
             : currentFilters.category,
+        order: currentFilters.order,
       };
 
       const response = await fetchBlogPosts(query);
@@ -48,7 +49,7 @@ export const useBlogPosts = (filters: BlogFilters) => {
     }, 500);
 
     return () => clearTimeout(timeout);
-  }, [filters.searchTerm, filters.category]);
+  }, [filters.searchTerm, filters.category, filters.order]);
 
   return { posts, loading, error, refetch: () => fetchBlogs(filters) };
 };

@@ -8,6 +8,8 @@ interface BlogFiltersProps {
   onSearchChange: (value: string) => void;
   selectedValue: string;
   onSelectedCategoryId: (value: string) => void;
+  sortOrder: "asc" | "desc";
+  setSortOrder: (value: "asc" | "desc") => void;
 }
 
 const BlogFilters = ({
@@ -16,6 +18,8 @@ const BlogFilters = ({
   onSearchChange,
   selectedValue,
   onSelectedCategoryId,
+  sortOrder,
+  setSortOrder,
 }: BlogFiltersProps) => {
   // wrote this code to convert the type of categories to the expected type of options inside select component
   const categoryOptions: SelectOption[] = [
@@ -36,6 +40,15 @@ const BlogFilters = ({
         onChange={onSearchChange}
         className="w-full"
       />
+      <SelectBox
+        value={sortOrder}
+        onChange={setSortOrder}
+        options={[
+          { value: "desc", label: "جدیدترین" },
+          { value: "asc", label: "قدیمی‌ترین" },
+        ]}
+      />
+
       <SelectBox
         value={selectedValue}
         onChange={onSelectedCategoryId}
