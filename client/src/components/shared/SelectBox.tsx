@@ -17,18 +17,19 @@ const SelectBox = ({ options, value, onChange }: SelectBoxProps) => {
   };
 
   return (
-    <select
-      value={value}
-      onChange={handleChange}
-      className="select select-bordered w-full bg-surface text-left"
-      dir="rtl"
-    >
-      {options.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </select>
+    <div className="w-full max-w-xs mx-auto" dir="rtl">
+      <select
+        value={value}
+        onChange={handleChange}
+        className="select select-bordered w-full bg-surface text-right"
+      >
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
 

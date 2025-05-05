@@ -19,7 +19,6 @@ export const useBlogPosts = (filters: BlogFilters) => {
 
     try {
       const currentFilters = customFilters || filters;
-      console.log(currentFilters);
       const query: BlogFilters = {
         searchTerm: currentFilters.searchTerm,
         category:
