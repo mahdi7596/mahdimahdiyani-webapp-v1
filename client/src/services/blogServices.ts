@@ -2,13 +2,18 @@ import { BlogFilters } from "../hooks/useBlogPosts";
 import { BlogPostsResponse, BlogCategoriesResponse } from "../models/blog";
 
 export const fetchBlogPosts = async (
-  filters: BlogFilters
+  filters?: BlogFilters
 ): Promise<BlogPostsResponse> => {
-  const query = new URLSearchParams(
-    filters as Record<string, string>
-  ).toString();
+  const params = new URLSearchParams();
 
-  const response = await fetch(`/api/post/getposts?${query}`, {
+  if (filters?.searchTerm) {
+    params.append("searchTerm", filters.searchTerm);
+  }
+
+  if (filters?.category && filters.category !== "all") {
+    params.append("category", filters.category);
+  }
+  const response = await fetch(`/api/post/getposts?${params.toString()}`, {
     method: "GET",
     cache: "no-store",
   });

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useBlogPosts } from "../hooks/useBlogPosts";
 
 import Banner from "../components/shared/Banner";
@@ -13,7 +13,8 @@ const Blogs = () => {
   const [searchText, setSearchText] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
-  const filters = { searchTerm: searchText };
+  const filters = { searchTerm: searchText, category: selectedCategory };
+
   const { posts, loading, error } = useBlogPosts(filters);
   const { categories } = useBlogCategories();
 

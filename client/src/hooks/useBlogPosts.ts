@@ -18,7 +18,17 @@ export const useBlogPosts = (filters: BlogFilters) => {
     setError(null);
 
     try {
-      const response = await fetchBlogPosts(customFilters || filters);
+      const currentFilters = customFilters || filters;
+
+      const query: BlogFilters = {
+        searchTerm: currentFilters.searchTerm,
+        category:
+          currentFilters.category === "all"
+            ? undefined
+            : currentFilters.category,
+      };
+
+      const response = await fetchBlogPosts(query);
       if (response.success) {
         setPosts(response.posts);
       } else {

@@ -20,7 +20,7 @@ const SelectBox = ({ options, value, onChange }: SelectBoxProps) => {
     <select
       value={value}
       onChange={handleChange}
-      className="select select-bordered w-full bg-surface text-right"
+      className="select select-bordered w-full bg-surface text-left"
       dir="rtl"
     >
       {options.map((option) => (

@@ -18,10 +18,13 @@ const BlogFilters = ({
   onSelectedCategoryId,
 }: BlogFiltersProps) => {
   // wrote this code to convert the type of categories to the expected type of options inside select component
-  const categoryOptions: SelectOption[] = categories.map((category) => ({
-    value: category._id,
-    label: category.title,
-  }));
+  const categoryOptions: SelectOption[] = [
+    { value: "all", label: "همه" },
+    ...categories.map((category) => ({
+      value: category._id,
+      label: category.title,
+    })),
+  ];
 
   return (
     <form
