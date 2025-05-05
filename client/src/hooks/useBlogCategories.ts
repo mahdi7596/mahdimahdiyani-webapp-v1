@@ -12,8 +12,12 @@ export const useBlogCategories = () => {
     setError(null);
 
     try {
-      const categories = await fetchBlogCategories();
-      setCategories(categories);
+      const response = await fetchBlogCategories();
+      if (response.success) {
+        setCategories(response.categories);
+      } else {
+        new Error("خطا در دریافت اطلاعات: " + (error as Error).message);
+      }
     } catch (error) {
       setError(new Error("خطا در دریافت اطلاعات: " + (error as Error).message));
     } finally {

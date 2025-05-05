@@ -26,6 +26,7 @@ const Blogs = () => {
       />
       <div className="min-h-[400px] mt-20 flex flex-col">
         <BlogFilters
+          categories={categories}
           searchValue={searchText}
           onSearchChange={setSearchText}
           selectedValue={selectedCategory}

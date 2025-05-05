@@ -1,7 +1,9 @@
+import { BlogCategory } from "../../models/blog";
 import Search from "../shared/Search";
 import SelectBox from "../shared/SelectBox";
 
 interface BlogFiltersProps {
+  categories: BlogCategory[];
   searchValue: string;
   onSearchChange: (value: string) => void;
   selectedValue: string;
@@ -9,11 +11,13 @@ interface BlogFiltersProps {
 }
 
 const BlogFilters = ({
+  categories,
   searchValue,
   onSearchChange,
   selectedValue,
   onSelectedCategoryId,
 }: BlogFiltersProps) => {
+  console.log(categories, "categories");
   return (
     <form
       // onSubmit={handleSubmit}

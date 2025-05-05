@@ -1,5 +1,9 @@
 import { BlogFilters } from "../hooks/useBlogPosts";
-import { BlogPostsResponse, BlogCategory } from "../models/blog";
+import {
+  BlogPostsResponse,
+  BlogCategory,
+  BlogCategoriesResponse,
+} from "../models/blog";
 
 export const fetchBlogPosts = async (
   filters: BlogFilters
@@ -22,12 +26,13 @@ export const fetchBlogPosts = async (
   };
 };
 
-export const fetchBlogCategories = async (): Promise<BlogCategory[]> => {
-  const response = await fetch("/api/postcategory/getAllCategories", {
-    method: "GET",
-    cache: "no-store",
-  });
+export const fetchBlogCategories =
+  async (): Promise<BlogCategoriesResponse> => {
+    const response = await fetch("/api/postcategory/getAllCategories", {
+      method: "GET",
+      cache: "no-store",
+    });
 
-  const data = await response.json();
-  return data;
-};
+    const data: BlogCategoriesResponse = await response.json();
+    return data;
+  };

@@ -15,10 +15,17 @@ export const createCategory = async (req, res, next) => {
 export const getAllCategories = async (req, res, next) => {
   try {
     const categories = await PostCategory.find().sort({ createdAt: -1 });
-    res?.status(200).json(categories);
+
+    res.status(200).json({
+      success: true,
+      categories,
+    });
   } catch (error) {
-    // res.status(500).json({ message: error.message });
-    next(error);
+    res.status(500).json({
+      success: false,
+      message: "خطا در دریافت دسته‌بندی‌ها",
+      error: error.message,
+    });
   }
 };
 
@@ -31,12 +38,10 @@ export const updateCategory = async (req, res, next) => {
       { title },
       { new: true }
     );
-    res
-      ?.status(200)
-      .json({
-        message: "دسته بندی با موفقیت بروز شد",
-        category: updateCategory,
-      });
+    res?.status(200).json({
+      message: "دسته بندی با موفقیت بروز شد",
+      category: updateCategory,
+    });
   } catch (error) {
     // res.status(500).json({ message: error.message });
     next(error);
