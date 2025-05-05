@@ -101,7 +101,7 @@ export const getPosts = async (req, res, next) => {
       .skip(startIndex)
       .limit(limit)
       .populate("category", "title")
-      .select("-userId -__v -createdAt -updatedAt") // <-- exclude fields here
+      .select("-userId -__v -createdAt") // <-- exclude fields here
       .lean();
 
     // Count only matching documents
