@@ -1,9 +1,5 @@
 import { BlogFilters } from "../hooks/useBlogPosts";
-import {
-  BlogPostsResponse,
-  BlogCategory,
-  BlogCategoriesResponse,
-} from "../models/blog";
+import { BlogPostsResponse, BlogCategoriesResponse } from "../models/blog";
 
 export const fetchBlogPosts = async (
   filters: BlogFilters

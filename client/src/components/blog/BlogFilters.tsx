@@ -1,6 +1,6 @@
 import { BlogCategory } from "../../models/blog";
 import Search from "../shared/Search";
-import SelectBox from "../shared/SelectBox";
+import SelectBox, { SelectOption } from "../shared/SelectBox";
 
 interface BlogFiltersProps {
   categories: BlogCategory[];
@@ -17,7 +17,12 @@ const BlogFilters = ({
   selectedValue,
   onSelectedCategoryId,
 }: BlogFiltersProps) => {
-  console.log(categories, "categories");
+  // wrote this code to convert the type of categories to the expected type of options inside select component
+  const categoryOptions: SelectOption[] = categories.map((category) => ({
+    value: category._id,
+    label: category.title,
+  }));
+
   return (
     <form
       // onSubmit={handleSubmit}
@@ -31,7 +36,7 @@ const BlogFilters = ({
       <SelectBox
         value={selectedValue}
         onChange={onSelectedCategoryId}
-        options={[]}
+        options={categoryOptions}
       />
     </form>
   );
