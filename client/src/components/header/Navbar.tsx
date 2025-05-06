@@ -7,15 +7,17 @@ import Button from "../shared/Button";
 import Dropdown from "../shared/Dropdown";
 
 import { profileMenuItems } from "./IMenuItem";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/temp-logo.png";
+import { useState } from "react";
 
 const Navbar = () => {
   const { currentUser } = useSelector(
     (state: { user: { currentUser: any } }) => state.user
   );
-
+  const [search, setSearch] = useState<string>("");
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isDashboardRooute = location.pathname.startsWith("/dashboard");
   const dispatch = useDispatch();
@@ -36,6 +38,17 @@ const Navbar = () => {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && search.trim()) {
+      const params = new URLSearchParams();
+      params.set("searchTerm", search.trim());
+
+      navigate(`/search?${params.toString()}`);
+
+      setSearch("");
+    }
+  };
+
   return (
     <header className="z-30 sticky top-0 bg-surfaceBg border-b border-surfaceBorder">
       <div
@@ -50,7 +63,12 @@ const Navbar = () => {
         </div>
         {/* search + register button + profile */}
         <div className="flex-1 justify-end gap-2">
-          <Search className="input-md w-full xs:w-fit xsm:w-full max-w-xs" />
+          <Search
+            value={search}
+            onChange={setSearch}
+            onKeyDown={handleKeyDown}
+            className="input-md w-full xs:w-fit xsm:w-full max-w-xs"
+          />
           {currentUser ? (
             <div className="dropdown dropdown-end">
               <div

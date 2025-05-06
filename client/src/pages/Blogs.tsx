@@ -35,12 +35,19 @@ const Blogs = () => {
 
   const [searchParams] = useSearchParams();
   const categoryFromUrl = searchParams.get("category");
+  const searchTermFromUrl = searchParams.get("searchTerm");
 
   useEffect(() => {
     if (categoryFromUrl && categoryFromUrl !== selectedCategory) {
       setSelectedCategory(categoryFromUrl);
     }
   }, [categoryFromUrl]);
+
+  useEffect(() => {
+    if (searchTermFromUrl && searchTermFromUrl !== searchText) {
+      setSearchText(searchTermFromUrl);
+    }
+  }, [searchTermFromUrl]);
 
   useEffect(() => {
     const query = buildSearchParams(filters);
