@@ -1,3 +1,4 @@
+import Achievements from "../components/about/Achievement";
 import HeroAbout from "../components/about/HeroAbout";
 import ServicesAbout from "../components/about/ServicesAbout";
 import AnimatedServices from "../components/AnimatedServices";
@@ -11,6 +12,7 @@ const Aboutme = () => {
       <Counter />
       <ServicesAbout />
       <AnimatedServices />
+      <Achievements />
       <Timeline />
     </div>
   );
