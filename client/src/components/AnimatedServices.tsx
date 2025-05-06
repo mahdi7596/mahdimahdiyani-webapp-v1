@@ -68,23 +68,32 @@ const experiences: ExperienceItem[] = [
 
 const AnimatedServices = () => {
   const [selectedExp, setSelectedExp] = useState(experiences[0]);
+  const [isAutoSlideEnabled, setIsAutoSlideEnabled] = useState(true);
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSelectedExp((current) => {
+    let interval: NodeJS.Timeout;
+    if (isAutoSlideEnabled) {
+      interval = setInterval(() => {
         const nextIndex =
-          (experiences.findIndex((exp) => exp.id === current.id) + 1) %
+          (experiences.findIndex((exp) => exp.id === selectedExp.id) + 1) %
           experiences.length;
-        return experiences[nextIndex];
-      });
-    }, 5000);
+        setSelectedExp(experiences[nextIndex]);
+      }, 3000);
+    }
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [selectedExp, isAutoSlideEnabled, experiences]);
+
+  const handleExpClick = (exp: ExperienceItem) => {
+    setSelectedExp(exp);
+    setIsAutoSlideEnabled(false);
+  };
 
   return (
     <section
@@ -158,7 +167,7 @@ const AnimatedServices = () => {
                       ? " border-primary shadow-lg bg-gradient-to-br from-primary0 to-primary100"
                       : ""
                   }`}
-                  onClick={() => setSelectedExp(exp)}
+                  onClick={() => handleExpClick(exp)}
                 >
                   <div className="flex items-start gap-4">
                     <div className="pt-4 px-2 pb-1.5 rounded-lg bg-primary200">
