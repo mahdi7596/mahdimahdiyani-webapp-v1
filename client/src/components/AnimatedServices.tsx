@@ -8,6 +8,7 @@ interface ExperienceItem {
   description: string;
   icon: React.ReactNode;
   image: string;
+  date: string;
 }
 
 const experiences: ExperienceItem[] = [
@@ -24,6 +25,7 @@ const experiences: ExperienceItem[] = [
     ),
     image:
       "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=2072",
+    date: "۱۴۰۲-۱۴۰۳",
   },
   {
     id: 2,
@@ -37,6 +39,7 @@ const experiences: ExperienceItem[] = [
     ),
     image:
       "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=2064",
+    date: "۱۴۰۱-۱۴۰۲",
   },
   {
     id: 3,
@@ -50,6 +53,7 @@ const experiences: ExperienceItem[] = [
     ),
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2015",
+    date: "۱۴۰۰-۱۴۰۱",
   },
   {
     id: 4,
@@ -63,6 +67,7 @@ const experiences: ExperienceItem[] = [
     ),
     image:
       "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&q=80&w=2070",
+    date: "۱۳۹۹-۱۴۰۰",
   },
 ];
 
@@ -178,6 +183,7 @@ const AnimatedServices = () => {
                         {exp.title}
                       </h3>
                       <p className="text-neutrals-400">{exp.description}</p>
+                      <p className="text-neutrals-400 text-sm">{exp.date}</p>
                     </div>
                   </div>
                 </motion.div>
