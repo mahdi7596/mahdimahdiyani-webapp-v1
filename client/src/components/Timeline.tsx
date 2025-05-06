@@ -75,7 +75,7 @@ const Timeline = () => {
 
         <div ref={ref} className="max-w-6xl mx-auto relative">
           {/* Timeline Line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary300 via-primary to-primary700 -translate-x-1/2" />
+          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary300 via-primary to-primary700 -translate-x-1/2 max-md:hidden" />
 
           {/* Experience Items */}
           {experiences.map((exp, index) => {
@@ -88,9 +88,13 @@ const Timeline = () => {
                 transition={{ duration: 0.5, delay: index * 0.2 }}
                 className="relative mb-16 last:mb-0"
               >
-                <div className="grid grid-cols-[1fr,auto,1fr] items-center">
-                  {/* Right Side Content */}
-                  <div className={`${isEven ? "block" : "invisible"} pl-8`}>
+                <div className="grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] items-center">
+                  {/* Right Side Content for Large Screens */}
+                  <div
+                    className={`hidden md:block ${
+                      isEven ? "md:block" : "md:invisible"
+                    } md:pl-8`}
+                  >
                     <div className="max-w-xl mr-auto bg-gradient-to-br from-surfaceBg to-primary100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                       <div className="flex items-center justify-between mb-4">
                         <h3 className="text-2xl font-bold text-neutrals">
@@ -115,11 +119,40 @@ const Timeline = () => {
                   </div>
 
                   {/* Timeline Circle */}
-                  <div className="w-8 h-8 bg-surfaceBg border-4 border-primary rounded-full z-10 mx-auto shadow-lg shadow-primary/20" />
+                  <div className="w-8 h-8 bg-surfaceBg border-4 border-primary rounded-full z-10 mx-auto shadow-lg shadow-primary/20 max-md:hidden" />
 
-                  {/* Left Side Content */}
-                  <div className={`${!isEven ? "block" : "invisible"} pr-8`}>
+                  {/* Left Side Content for Large Screens */}
+                  <div
+                    className={`hidden md:block ${
+                      !isEven ? "md:block" : "md:invisible"
+                    } md:pr-8`}
+                  >
                     <div className="max-w-xl ml-auto bg-gradient-to-br from-surfaceBg to-primary100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-2xl font-bold text-neutrals">
+                          {exp.position}
+                        </h3>
+                        <span className="text-primary font-semibold px-4 py-1 bg-primary100 rounded-full">
+                          {exp.id}
+                        </span>
+                      </div>
+                      <div className="mb-4">
+                        <span className="text-primary font-semibold">
+                          {exp.company}
+                        </span>
+                        <span className="text-neutrals400 mr-4">
+                          {exp.date}
+                        </span>
+                      </div>
+                      <p className="text-neutrals400 leading-relaxed">
+                        {exp.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Mobile View - Single Column */}
+                  <div className="md:hidden px-4">
+                    <div className="max-w-xl mx-auto bg-gradient-to-br from-surfaceBg to-primary100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                       <div className="flex items-center justify-between mb-4">
                         <h3 className="text-2xl font-bold text-neutrals">
                           {exp.position}
