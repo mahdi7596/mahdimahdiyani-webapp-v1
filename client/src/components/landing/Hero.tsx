@@ -7,6 +7,7 @@ import cylinderImage from "../../assets/images/landing/cylinder.png";
 import noodleImage from "../../assets/images/landing/noodle.png";
 
 import ArrowIcon from "../../assets/images/landing/arrow-right.svg";
+import Button from "../shared/Button";
 
 const Hero = () => {
   const heroRef = useRef(null);
@@ -33,14 +34,17 @@ const Hero = () => {
               بنیان‌گذار رسانه همکلان، دبیرکل انجمن حسابداران استان تهران و مدرس
               دانشگاه با سال‌ها تجربه در حسابداری و مدیریت.
             </p>
-            <div className="flex gap-1 items-center mt-[30px]">
-              <button className="btn btn-primary">
-                مشاهده آموزشهای رایگان
-              </button>
-              <button className="btn btn-text gap-1">
-                <span>درباره من بیشتر بدانید</span>
-                <img src={ArrowIcon} className="h-5 w-5 rotate-180" />
-              </button>
+            <div className="flex gap-4 items-center  mt-[30px]">
+              <Button
+                link="/search"
+                text="مشاهده آموزشهای رایگان"
+                className="flex btn-md btn-primary"
+              />
+              <Button
+                link="/search"
+                text="درباره من بیشتر بدانید"
+                className="flex btn-md btn-primary-content"
+              />
             </div>
           </div>
           <div className="mt-20 md:mt-0 md:h-[648px] md:flex-1 relative">
@@ -56,7 +60,7 @@ const Hero = () => {
                 ease: "easeInOut",
               }}
             />
-            <motion.img
+            {/* <motion.img
               src={cylinderImage}
               alt="cylinder Image"
               width={220}
@@ -65,9 +69,9 @@ const Hero = () => {
               style={{
                 translateY: translateY,
               }}
-            />
+            /> */}
           </div>
-          <motion.img
+          {/* <motion.img
             src={noodleImage}
             alt="noodle Image"
             width={220}
@@ -76,7 +80,7 @@ const Hero = () => {
               rotate: 30,
               translateY: translateY,
             }}
-          />
+          /> */}
         </div>
       </div>
     </section>

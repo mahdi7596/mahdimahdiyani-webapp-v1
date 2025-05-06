@@ -35,7 +35,7 @@ const ProductShowcase = () => {
         </div>
         <div className="relative ">
           <img src={productImage} alt="productImage" className="mt-10" />
-          <motion.img
+          {/* <motion.img
             src={pyramidImage}
             alt="pyramidImage"
             height={262}
@@ -50,7 +50,7 @@ const ProductShowcase = () => {
             width={248}
             className="hidden md:block  absolute bottom-24 -left-36"
             style={{ translateY }}
-          />
+          /> */}
         </div>
       </div>
     </section>
