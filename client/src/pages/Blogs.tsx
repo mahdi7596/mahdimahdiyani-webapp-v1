@@ -1,21 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { useSearchParams, useNavigate } from "react-router-dom";
+
+import { buildSearchParams } from "../utils/url";
+
 import { useBlogPosts } from "../hooks/useBlogPosts";
+import { useBlogCategories } from "../hooks/useBlogCategories";
 
 import Banner from "../components/shared/Banner";
 import Card from "../components/shared/Card";
 import Loading from "../components/shared/Loading";
 import BlogFilters from "../components/blog/BlogFilters";
-
-import blogBanner from "../assets/images/banner.jpg";
-import { useBlogCategories } from "../hooks/useBlogCategories";
 import { Alert } from "../components/shared/Alert";
 
 import { motion, AnimatePresence } from "framer-motion";
+
+import blogBanner from "../assets/images/banner.jpg";
 
 const Blogs = () => {
   const [searchText, setSearchText] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+
+  const navigate = useNavigate();
 
   const filters = {
     searchTerm: searchText,
@@ -25,6 +32,20 @@ const Blogs = () => {
 
   const { posts, loading, error } = useBlogPosts(filters);
   const { categories } = useBlogCategories();
+
+  const [searchParams] = useSearchParams();
+  const categoryFromUrl = searchParams.get("category");
+
+  useEffect(() => {
+    if (categoryFromUrl && categoryFromUrl !== selectedCategory) {
+      setSelectedCategory(categoryFromUrl);
+    }
+  }, [categoryFromUrl]);
+
+  useEffect(() => {
+    const query = buildSearchParams(filters);
+    navigate(`/search?${query}`, { replace: true });
+  }, [filters.searchTerm, filters.category, filters.order]);
 
   return (
     <section className="section-container section-inner-space">
@@ -77,7 +98,7 @@ const Blogs = () => {
                         tags={[
                           {
                             text: post?.category?.title,
-                            link: `/search?category=${post?.category?.title}`,
+                            link: `/search?category=${post?.category?._id}`,
                           },
                         ]}
                       />

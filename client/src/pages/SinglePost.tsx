@@ -11,12 +11,13 @@ import { useSelector } from "react-redux";
 
 import image68 from "../assets/images/68.jpeg";
 import image69 from "../assets/images/69.jpeg";
+import { BlogCategory } from "../models/blog";
 
 interface IPost {
   id: number;
   image: string;
   title: string;
-  category?: { id: string; title: string };
+  category?: BlogCategory;
   updatedAt?: string;
   content?: string;
   _id?: string;
@@ -149,7 +150,7 @@ const SinglePost = () => {
             <span className=" text-xs text-neutrals500">دسته بندی:</span>
             <Badge
               text={post?.category?.title}
-              link={`/search?category=${post && post?.category?.title}`}
+              link={`/search?category=${post && post?.category?._id}`}
               className="badge-outline hover:bg-neutral hover:text-neutral-content"
             />
           </div>
