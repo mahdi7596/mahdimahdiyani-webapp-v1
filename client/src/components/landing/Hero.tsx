@@ -25,7 +25,7 @@ const Hero = () => {
     <section className="pt-8 pb-20 md:pt-5 md:pb-10 bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#F2D3A3,#FFFBF5_100%)] overflow-x-clip">
       <div className="container">
         <div className="relative md:flex items-center">
-          <div className="md:w-[478px]">
+          <div className="md:w-[715px]">
             <div className="tag">درباره مهدی مهدیانی</div>
             <h1 className="text-2xl md:text-5xl font-semibold bg-gradient-to-b from-[#87560E] to-[#B9812B] py-1 text-transparent bg-clip-text mt-6">
               رهبر فکری در حسابداری و مدیریت
