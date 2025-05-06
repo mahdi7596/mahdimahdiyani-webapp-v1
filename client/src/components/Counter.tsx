@@ -9,10 +9,10 @@ interface Statistic {
 }
 
 const statistics: Statistic[] = [
-  { value: 10, label: "سال سابقه", suffix: "+" },
-  { value: 100, label: "ساعت تدریس", suffix: "+" },
-  { value: 250, label: "دانشجو", suffix: "+" },
-  { value: 400, label: "دوره برگزار شده", suffix: "+" },
+  { value: 20, label: "سابقه تدریس", suffix: "+" },
+  { value: 2720, label: "تدریس", suffix: " ساعت" },
+  { value: 50, label: "مشاوره", suffix: " ساعت" },
+  { value: 75, label: "سخنرانی", suffix: " ساعت" },
 ];
 
 const AnimatedCounter = ({ value, label, suffix }: Statistic) => {
