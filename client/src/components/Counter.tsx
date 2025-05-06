@@ -10,9 +10,9 @@ interface Statistic {
 
 const statistics: Statistic[] = [
   { value: 20, label: "سابقه تدریس", suffix: "+" },
-  { value: 2720, label: "تدریس", suffix: " ساعت" },
-  { value: 50, label: "مشاوره", suffix: " ساعت" },
-  { value: 75, label: "سخنرانی", suffix: " ساعت" },
+  { value: 2720, label: "تدریس", suffix: " +" },
+  { value: 50, label: "مشاوره", suffix: " +" },
+  { value: 75, label: "سخنرانی", suffix: " +" },
 ];
 
 const AnimatedCounter = ({ value, label, suffix }: Statistic) => {
