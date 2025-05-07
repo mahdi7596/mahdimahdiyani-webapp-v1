@@ -125,7 +125,6 @@ const Categories = () => {
         }
       );
       const data = await response.json();
-      console.log(data?.message, "data");
       if (!response.ok) {
         toast.error(data.message || "مشکلی در سرور رخ داده است", {
           position: "top-right",
@@ -160,7 +159,7 @@ const Categories = () => {
       const response = await fetch(`/api/postcategory/getAllCategories`);
       const data = await response.json();
       if (response.ok) {
-        setCategoriesList(data);
+        setCategoriesList(data.categories);
         setLoading(false);
       }
     } catch (error) {
@@ -178,8 +177,6 @@ const Categories = () => {
 
   // Slice the categories list to show only the visible categories
   const visibleCategoriesList = categoriesList.slice(0, visibleCategories);
-
-  // console.log(categoriesList, "categoriesList");
 
   return (
     <div>
