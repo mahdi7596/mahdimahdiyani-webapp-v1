@@ -14,12 +14,12 @@ const envFile =
 dotenv.config({ path: path.resolve(__dirname, "..", envFile) });
 
 // Now do your checks
-if (!process.env.DB_URL || !process.env.PORT) {
+if (!process.env.MONGODB_URI || !process.env.PORT) {
   throw new Error("Missing essential environment variables.");
 }
 
 const config = {
-  dbUrl: process.env.DB_URL,
+  dbUrl: process.env.MONGODB_URI,
   port: process.env.PORT || 3000,
   jwtSecret: process.env.JWT_SECRET || "default_secret",
   apiUrl: process.env.API_URL,
