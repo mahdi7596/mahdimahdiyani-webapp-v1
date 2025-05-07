@@ -56,7 +56,7 @@ const AddPost = () => {
     try {
       const response = await fetch("/api/postcategory/getAllCategories");
       const data = await response.json();
-      setCategories(data);
+      setCategories(data.categories);
     } catch (error) {
       setPublishError(error);
     }

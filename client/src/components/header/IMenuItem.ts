@@ -26,11 +26,11 @@ export const navMenuItems: IMenuItem[] = [
     text: "درباره من",
     link: "/about-me",
   },
-  // {
-  //   id: 6,
-  //   text: "همکاری باما",
-  //   link: "/work-with-us",
-  // },
+  {
+    id: 6,
+    text: "حضور در رسانه",
+    link: "/media",
+  },
   {
     id: 7,
     text: "ورود - ثبت نام",

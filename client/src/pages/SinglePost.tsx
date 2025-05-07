@@ -122,7 +122,7 @@ const SinglePost = () => {
             <div className="flex flex-wrap gap-3 items-center justify-between">
               <span className="text-xs text-neutrals300 font-medium flex items-center gap-x-0.5">
                 <i className="maicon-mingcute_calendar-line text-lg"></i>
-                {moment(post && post?.updatedAt, "YYYY/MM/DD")
+                {moment(post?.updatedAt || new Date(), "YYYY/MM/DD")
                   .locale("fa")
                   .format("YYYY/MM/DD")}
               </span>
@@ -207,7 +207,7 @@ const SinglePost = () => {
                       <div className="flex items-center justify-between">
                         <span className="text-[10px] text-neutrals300 font-medium flex items-center gap-x-0.5">
                           <i className="maicon-mingcute_calendar-line text-lg"></i>
-                          {moment(post && post?.updatedAt, "YYYY/MM/DD")
+                          {moment(post?.updatedAt || new Date(), "YYYY/MM/DD")
                             .locale("fa")
                             .format("YYYY/MM/DD")}
                         </span>
