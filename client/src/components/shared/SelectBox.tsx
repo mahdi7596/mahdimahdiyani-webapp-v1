@@ -10,9 +10,16 @@ interface SelectBoxProps {
   onChange: (value: string) => void;
   options: SelectOption[];
   className?: string;
+  disabled?: boolean;
 }
 
-const SelectBox = ({ options, value, onChange, className }: SelectBoxProps) => {
+const SelectBox = ({
+  options,
+  value,
+  onChange,
+  className,
+  disabled,
+}: SelectBoxProps) => {
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     onChange(e.target.value);
   };
@@ -23,6 +30,7 @@ const SelectBox = ({ options, value, onChange, className }: SelectBoxProps) => {
         value={value}
         onChange={handleChange}
         className="w-full select select-bordered bg-surface text-right"
+        disabled={disabled}
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>

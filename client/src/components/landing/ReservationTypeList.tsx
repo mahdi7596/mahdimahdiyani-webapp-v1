@@ -16,9 +16,9 @@ const ReservationTypeList = ({
   return (
     <section id="services" className={`${sliceData ? "py-24" : "py-12"}`}>
       <div className="section-heading">
-        <h2 className="section-title ">پلن‌های خدمات</h2>
+        <h2 className="section-title ">پلن‌های مشاوره</h2>
         <p className="section-description">
-          خدمات متنوع مشاوره و آموزش مالی، متناسب با نیازهای شما
+          مشاوره متنوع مشاوره و آموزش مالی، متناسب با نیازهای شما
         </p>
       </div>
       <div className={`${containerClass}`}>
@@ -35,7 +35,7 @@ const ReservationTypeList = ({
       {sliceData ? (
         <Button
           link="/reservations"
-          text="مشاهده تمام خدمات"
+          text="مشاهده تمام مشاوره ها"
           className="w-fit btn-md btn-outline btn-primary  mx-auto mt-12"
         />
       ) : null}

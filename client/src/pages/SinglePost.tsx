@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 import moment from "jalali-moment";
 
@@ -14,7 +14,7 @@ import image69 from "../assets/images/69.jpeg";
 import { BlogCategory } from "../models/blog";
 
 interface IPost {
-  id: number;
+  slug: string;
   image: string;
   title: string;
   category?: BlogCategory;
@@ -38,11 +38,12 @@ const suggestedProducts: IPost[] = [
 
 const SinglePost = () => {
   const { postSlug } = useParams();
+  const isMediaMode = useLocation().pathname.startsWith("/media");
 
   const [loading, setLoading] = useState(true);
 
   const [post, setPost] = useState<IPost>();
-  const [recentPosts, setRecentPosts] = useState(null);
+  const [recentPosts, setRecentPosts] = useState<IPost[]>([]);
 
   const { currentUser } = useSelector(
     (state: { user: { currentUser: any } }) => state.user
@@ -150,7 +151,9 @@ const SinglePost = () => {
             <span className=" text-xs text-neutrals500">دسته بندی:</span>
             <Badge
               text={post?.category?.title}
-              link={`/search?category=${post && post?.category?._id}`}
+              link={`/${isMediaMode ? "media" : "search"}?category=${
+                post && post?.category?._id
+              }`}
               className="badge-outline hover:bg-neutral hover:text-neutral-content"
             />
           </div>
@@ -188,7 +191,11 @@ const SinglePost = () => {
           <hr />
           {recentPosts &&
             recentPosts
-              .filter((f) => f.slug != postSlug)
+              .filter((f) =>
+                f.slug != postSlug && isMediaMode
+                  ? f.category._id === "رسانه"
+                  : f.category._id !== "رسانه"
+              )
               .map((post, index) => (
                 <Link key={index} to={`/post/${post.slug}`}>
                   <div

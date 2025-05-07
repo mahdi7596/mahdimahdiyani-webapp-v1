@@ -13,18 +13,18 @@ export const navMenuItems: IMenuItem[] = [
   },
   {
     id: 2,
-    text: "خدمات ما",
-    link: "/reservations",
+    text: "درباره من",
+    link: "/about-me",
   },
   {
     id: 3,
-    text: "آموزشهای رایگان",
-    link: "/search",
+    text: "مشاوره",
+    link: "/reservations",
   },
   {
     id: 5,
-    text: "درباره من",
-    link: "/about-me",
+    text: "آموزشهای رایگان",
+    link: "/search",
   },
   {
     id: 6,

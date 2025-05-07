@@ -10,6 +10,7 @@ interface BlogFiltersProps {
   onSelectedCategoryId: (value: string) => void;
   sortOrder: "asc" | "desc";
   setSortOrder: (value: "asc" | "desc") => void;
+  mediaMode?: boolean;
 }
 
 const BlogFilters = ({
@@ -20,6 +21,7 @@ const BlogFilters = ({
   onSelectedCategoryId,
   sortOrder,
   setSortOrder,
+  mediaMode,
 }: BlogFiltersProps) => {
   // wrote this code to convert the type of categories to the expected type of options inside select component
   const categoryOptions: SelectOption[] = [
@@ -53,8 +55,9 @@ const BlogFilters = ({
       <SelectBox
         value={selectedValue}
         onChange={onSelectedCategoryId}
-        options={categoryOptions}
+        options={categoryOptions.filter((f) => f.label !== "رسانه")}
         className="w-full sm:min-w-[175px] sm:w-fit"
+        disabled={mediaMode}
       />
     </form>
   );

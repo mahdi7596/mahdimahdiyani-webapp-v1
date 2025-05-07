@@ -16,8 +16,12 @@ import { Alert } from "../components/shared/Alert";
 import { motion, AnimatePresence } from "framer-motion";
 
 import blogBanner from "../assets/images/banner.jpg";
+import { BlogCategory } from "../models/blog";
 
-const Blogs = () => {
+interface BlogsProps {
+  mediaMode?: boolean;
+}
+const Blogs = ({ mediaMode }: BlogsProps) => {
   const [searchText, setSearchText] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
@@ -33,6 +37,10 @@ const Blogs = () => {
   const { posts, loading, error } = useBlogPosts(filters);
   const { categories } = useBlogCategories();
 
+  const mediaCategory: BlogCategory = categories.find(
+    (category) => category.title === "رسانه"
+  );
+
   const [searchParams] = useSearchParams();
   const categoryFromUrl = searchParams.get("category");
   const searchTermFromUrl = searchParams.get("searchTerm");
@@ -44,21 +52,33 @@ const Blogs = () => {
   }, [categoryFromUrl]);
 
   useEffect(() => {
+    if (mediaMode && mediaCategory && mediaCategory._id !== selectedCategory) {
+      setSelectedCategory(mediaCategory._id);
+    }
+  }, [mediaMode, mediaCategory]);
+
+  useEffect(() => {
     if (searchTermFromUrl && searchTermFromUrl !== searchText) {
       setSearchText(searchTermFromUrl);
     }
   }, [searchTermFromUrl]);
 
   useEffect(() => {
-    const query = buildSearchParams(filters);
-    navigate(`/search?${query}`, { replace: true });
+    if (!mediaMode) {
+      const query = buildSearchParams(filters);
+      navigate(`/search?${query}`, { replace: true });
+    }
   }, [filters.searchTerm, filters.category, filters.order]);
 
   return (
     <section className="section-container section-inner-space">
       <Banner
         banner={blogBanner}
-        title="آموزشهای رایگان وب سایت"
+        title={
+          mediaMode
+            ? "یک عوان برای حضور در رسانه بنویسیم"
+            : "آموزشهای رایگان وب سایت"
+        }
         description="در این صفحه می‌توانید مجموعه‌ای از آموزشهای رایگان و نوشته‌های ما را مشاهده کنید که با دقت و توجه به موضوعات روز تهیه شده‌اند. هدف ما ارائه محتوای آموزنده، جذاب و کاربردی برای شماست. هر هفته مطالب جدید اضافه می‌کنیم تا همراه همیشگی شما در مسیر یادگیری و رشد باشیم. از بازخوردها و نظرات ارزشمندتان استقبال می‌کنیم!"
       />
       <div className="min-h-[400px] mt-20 flex flex-col">
@@ -70,6 +90,7 @@ const Blogs = () => {
           onSelectedCategoryId={setSelectedCategory}
           sortOrder={sortOrder}
           setSortOrder={setSortOrder}
+          mediaMode={mediaMode}
         />
         <div className="flex-1 flex items-center justify-center">
           {loading ? (
@@ -86,31 +107,41 @@ const Blogs = () => {
             >
               <AnimatePresence>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8 mt-6">
-                  {posts.map((post) => (
-                    <motion.div
-                      key={post._id}
-                      layout
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <Card
-                        {...post}
-                        link={`/post/${post?.slug}`}
-                        img={`${import.meta.env.VITE_BACKEND_URL}${
-                          post?.image
-                        }`}
-                        excerpt={post?.content}
-                        tags={[
-                          {
-                            text: post?.category?.title,
-                            link: `/search?category=${post?.category?._id}`,
-                          },
-                        ]}
-                      />
-                    </motion.div>
-                  ))}
+                  {posts
+                    .filter((item) =>
+                      mediaMode
+                        ? item.category._id === mediaCategory._id
+                        : item.category._id !== mediaCategory._id
+                    )
+                    .map((post) => (
+                      <motion.div
+                        key={post._id}
+                        layout
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <Card
+                          {...post}
+                          link={`/${mediaMode ? "media" : "post"}/${
+                            post?.slug
+                          }`}
+                          img={`${import.meta.env.VITE_BACKEND_URL}${
+                            post?.image
+                          }`}
+                          excerpt={post?.content}
+                          tags={[
+                            {
+                              text: post?.category?.title,
+                              link: `/${
+                                mediaMode ? "media" : "search"
+                              }?category=${post?.category?._id}`,
+                            },
+                          ]}
+                        />
+                      </motion.div>
+                    ))}
                 </div>
               </AnimatePresence>
             </motion.div>

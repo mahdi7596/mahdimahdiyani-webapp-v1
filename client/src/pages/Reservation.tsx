@@ -317,7 +317,7 @@ const Reservation = () => {
             setCurrentMonthIndex(parsed.monthIndex);
           }
           restored = true;
-          setRestoredFromSession(true); // ✅ set flag here
+          setRestoredFromSession(true);
         }
 
         sessionStorage.removeItem("pendingReservation");
@@ -333,7 +333,7 @@ const Reservation = () => {
     }
   }, []);
 
-  console.log(countdowns, "countdowns");
+  // console.log(countdowns, "countdowns");
 
   return (
     <section className="section-container section-inner-space grid grid-cols-12 gap-4 sm:gap-8">

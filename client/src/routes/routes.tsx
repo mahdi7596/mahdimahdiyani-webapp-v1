@@ -12,6 +12,7 @@ import Reservation from "../pages/Reservation";
 import MainLayout from "../layouts/MainLayout";
 import Reservations from "../pages/Reservations";
 import PaymentCallback from "../pages/PaymentCallback";
+import { BlogMode } from "../pages/Blogs";
 
 const Home = lazy(() => import("../pages/Home"));
 const Aboutme = lazy(() => import("../pages/Aboutme"));
@@ -40,20 +41,28 @@ const routes = createBrowserRouter([
         element: <Reservations />,
       },
       {
-        path: "/search",
-        element: <Blogs />,
+        path: "/reservation/:id",
+        element: <Reservation />,
       },
       {
-        path: "/payment/callback",
-        element: <PrivateRoute element={<PaymentCallback />} />,
+        path: "/search",
+        element: <Blogs />,
       },
       {
         path: "/post/:postSlug",
         element: <SinglePost />,
       },
       {
-        path: "/reservation/:id",
-        element: <Reservation />,
+        path: "/media",
+        element: <Blogs mediaMode={true} />,
+      },
+      {
+        path: "/media/:postSlug",
+        element: <SinglePost />,
+      },
+      {
+        path: "/payment/callback",
+        element: <PrivateRoute element={<PaymentCallback />} />,
       },
       {
         path: "/dashboard",

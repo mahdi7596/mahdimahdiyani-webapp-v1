@@ -109,7 +109,7 @@ const UpdatePost = ({ postId }: { postId?: string }) => {
       return false;
     }
 
-    setCategories(data);
+    setCategories(data.categories);
   };
 
   useEffect(() => {
