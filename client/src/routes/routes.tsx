@@ -12,7 +12,6 @@ import Reservation from "../pages/Reservation";
 import MainLayout from "../layouts/MainLayout";
 import Reservations from "../pages/Reservations";
 import PaymentCallback from "../pages/PaymentCallback";
-import { BlogMode } from "../pages/Blogs";
 
 const Home = lazy(() => import("../pages/Home"));
 const Aboutme = lazy(() => import("../pages/Aboutme"));

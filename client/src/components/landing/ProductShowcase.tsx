@@ -1,19 +1,15 @@
 import { useRef } from "react";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-
 import productImage from "../../assets/images/landing/product-image.png";
-import pyramidImage from "../../assets/images/landing/pyramid.png";
-import tubeImage from "../../assets/images/landing/tube.png";
 
 const ProductShowcase = () => {
   const sectionRef = useRef(null);
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-  const translateY = useTransform(scrollYProgress, [0, 1], [150, -150]);
+  // const { scrollYProgress } = useScroll({
+  //   target: sectionRef,
+  //   offset: ["start end", "end start"],
+  // });
+  // const translateY = useTransform(scrollYProgress, [0, 1], [150, -150]);
   return (
     <section
       ref={sectionRef}

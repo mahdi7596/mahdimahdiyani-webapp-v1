@@ -34,7 +34,7 @@ const Blogs = ({ mediaMode }: BlogsProps) => {
     order: sortOrder,
   };
 
-  const { posts, loading, error } = useBlogPosts(filters);
+  const { posts, loading } = useBlogPosts(filters);
   const { categories } = useBlogCategories();
 
   const mediaCategory: BlogCategory = categories.find(

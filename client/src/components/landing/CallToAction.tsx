@@ -1,20 +1,16 @@
-import { useRef } from "react";
-
-import { motion, useScroll, useTransform } from "framer-motion";
-
-import ArrowRight from "../../assets/images/landing/arrow-right.svg";
-import starImage from "../../assets/images/landing/star.png";
-import springImage from "../../assets/images/landing/spring.png";
+// import ArrowRight from "../../assets/images/landing/arrow-right.svg";
+// import starImage from "../../assets/images/landing/star.png";
+// import springImage from "../../assets/images/landing/spring.png";
 import Button from "../shared/Button";
 
 const CallToAction = () => {
-  const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
+  // const sectionRef = useRef(null);
+  // const { scrollYProgress } = useScroll({
+  //   target: sectionRef,
+  //   offset: ["start end", "end start"],
+  // });
 
-  const translateY = useTransform(scrollYProgress, [0, 1], [150, -150]);
+  // const translateY = useTransform(scrollYProgress, [0, 1], [150, -150]);
 
   return (
     <section className="bg-gradient-to-b from-[#ffffff] to-[#FDEFDA] py-24 overflow-x-clip">

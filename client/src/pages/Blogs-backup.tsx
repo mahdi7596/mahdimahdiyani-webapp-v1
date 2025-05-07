@@ -16,7 +16,7 @@ const Blogs = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
-  const [dateFilter, setDateFil7ter] = useState("desc");
+  const [dateFilter, setDateFilter] = useState("desc");
   const [searchQuery, setSearchQuery] = useState("");
   // const [searchDateQuery, setsearchDateQuery] = useState();
   const [categories, setCategories] = useState<Category[]>([]);

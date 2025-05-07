@@ -14,9 +14,10 @@ import image69 from "../assets/images/69.jpeg";
 import { BlogCategory } from "../models/blog";
 
 interface IPost {
-  slug: string;
-  image: string;
-  title: string;
+  id?: number;
+  slug?: string;
+  image?: string;
+  title?: string;
   category?: BlogCategory;
   updatedAt?: string;
   content?: string;

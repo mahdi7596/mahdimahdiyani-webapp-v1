@@ -41,6 +41,8 @@ const Reservation = () => {
   const [countdowns, setCountdowns] = useState<{ [time: string]: string }>({});
   const [restoredFromSession, setRestoredFromSession] = useState(false);
 
+  console.log(countdowns);
+
   const preselectedDate = location.state?.date;
   const preselectedTime = location.state?.timeSlot;
 

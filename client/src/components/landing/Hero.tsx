@@ -1,21 +1,15 @@
-import { useRef } from "react";
-
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 import cogImage from "../../assets/images/landing/cog.png";
-import cylinderImage from "../../assets/images/landing/cylinder.png";
-import noodleImage from "../../assets/images/landing/noodle.png";
-
-import ArrowIcon from "../../assets/images/landing/arrow-right.svg";
 import Button from "../shared/Button";
 
 const Hero = () => {
-  const heroRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start end", "end start"],
-  });
-  const translateY = useTransform(scrollYProgress, [0, 1], [150, -150]);
+  // const heroRef = useRef(null);
+  // const { scrollYProgress } = useScroll({
+  //   target: heroRef,
+  //   offset: ["start end", "end start"],
+  // });
+  // const translateY = useTransform(scrollYProgress, [0, 1], [150, -150]);
 
   // useMotionValueEvent(translateY, "change", (latestValue) =>
   //   console.log(latestValue)
