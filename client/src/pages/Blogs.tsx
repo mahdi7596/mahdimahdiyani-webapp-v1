@@ -121,6 +121,7 @@ const Blogs = ({ mediaMode }: BlogsProps) => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
+                        className="grid"
                       >
                         <Card
                           {...post}
@@ -139,6 +140,7 @@ const Blogs = ({ mediaMode }: BlogsProps) => {
                               }?category=${post?.category?._id}`,
                             },
                           ]}
+                          cardClassName="row-span-full"
                         />
                       </motion.div>
                     ))}
