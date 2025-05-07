@@ -53,7 +53,9 @@ const SinglePost = () => {
   const fetchPost = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/post/getposts?slug=${postSlug}`);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/post/getposts?slug=${postSlug}`
+      );
       const data = await response.json();
       if (!response.ok) {
         // setError(true);
@@ -75,7 +77,9 @@ const SinglePost = () => {
   const fetchRecentPosts = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/post/getposts?limit=3`);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/post/getposts?limit=3`
+      );
       const data = await response.json();
       if (response.ok) {
         setRecentPosts(data.posts);

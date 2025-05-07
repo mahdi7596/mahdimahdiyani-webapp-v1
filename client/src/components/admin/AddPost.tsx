@@ -29,10 +29,13 @@ const AddPost = () => {
     }
 
     try {
-      const res = await fetch("/api/post/create", {
-        method: "POST",
-        body: form, // Send the FormData
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/post/create`,
+        {
+          method: "POST",
+          body: form, // Send the FormData
+        }
+      );
 
       const data = await res.json();
       if (!res.ok) {
@@ -54,7 +57,9 @@ const AddPost = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch("/api/postcategory/getAllCategories");
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/postcategory/getAllCategories`
+      );
       const data = await response.json();
       setCategories(data.categories);
     } catch (error) {

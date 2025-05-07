@@ -24,11 +24,14 @@ const Reservations = () => {
     const fetchReservations = async () => {
       dispatch(fetchReservationsStart());
       try {
-        const res = await fetch("/api/reservations", {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/reservations`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const data = await res.json();
         if (res.ok) {
           dispatch(fetchReservationsSuccess(data));

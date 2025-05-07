@@ -18,10 +18,15 @@ export const fetchBlogPosts = async (
     params.append("order", filters.order);
   }
 
-  const response = await fetch(`/api/post/getposts?${params.toString()}`, {
-    method: "GET",
-    cache: "no-store",
-  });
+  const response = await fetch(
+    `${
+      import.meta.env.VITE_BACKEND_URL
+    }/api/post/getposts?${params.toString()}`,
+    {
+      method: "GET",
+      cache: "no-store",
+    }
+  );
 
   const data = await response.json();
 
@@ -34,10 +39,13 @@ export const fetchBlogPosts = async (
 
 export const fetchBlogCategories =
   async (): Promise<BlogCategoriesResponse> => {
-    const response = await fetch("/api/postcategory/getAllCategories", {
-      method: "GET",
-      cache: "no-store",
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/postcategory/getAllCategories`,
+      {
+        method: "GET",
+        cache: "no-store",
+      }
+    );
 
     const data: BlogCategoriesResponse = await response.json();
     return data;

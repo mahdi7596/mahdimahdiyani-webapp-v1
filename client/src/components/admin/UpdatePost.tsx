@@ -52,7 +52,9 @@ const UpdatePost = ({ postId }: { postId?: string }) => {
 
     try {
       const res = await fetch(
-        `/api/post/updatepost/${postId}/${currentUser._id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/post/updatepost/${postId}/${
+          currentUser._id
+        }`,
         {
           method: "PUT",
           body: form, // Use FormData instead of JSON
@@ -81,7 +83,9 @@ const UpdatePost = ({ postId }: { postId?: string }) => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch(`/api/post/getposts?postId=${postId}`);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/post/getposts?postId=${postId}`
+      );
       const data = await response.json();
       if (!response.ok) {
         setPublishError(data.message);
@@ -101,7 +105,9 @@ const UpdatePost = ({ postId }: { postId?: string }) => {
   };
 
   const fetchCategories = async () => {
-    const response = await fetch("/api/postcategory/getAllCategories");
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/postcategory/getAllCategories`
+    );
     const data = await response.json();
 
     if (!response.ok) {

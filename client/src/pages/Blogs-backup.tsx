@@ -31,7 +31,9 @@ const Blogs = () => {
 
   const fetchPosts = async () => {
     setLoading(true);
-    const res = await fetch(`/api/post/getposts?order`);
+    const res = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/post/getposts?order`
+    );
     if (!res?.ok) {
       setLoading(false);
       return;
@@ -45,7 +47,9 @@ const Blogs = () => {
   };
   const fetchCategories = async () => {
     try {
-      const response = await fetch("/api/postcategory/getAllCategories");
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/postcategory/getAllCategories`
+      );
       const data = await response.json();
 
       if (!response) {
@@ -71,7 +75,9 @@ const Blogs = () => {
     const urlParams = new URLSearchParams(location.search);
     urlParams.set("startIndex", startIndex.toString());
     const searchQuery = urlParams.toString();
-    const res = await fetch(`/api/post/getposts?${searchQuery}`);
+    const res = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/post/getposts?${searchQuery}`
+    );
     if (!res.ok) {
       return;
     }

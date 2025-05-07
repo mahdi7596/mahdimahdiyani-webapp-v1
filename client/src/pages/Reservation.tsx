@@ -128,7 +128,9 @@ const Reservation = () => {
 
   const fetchReservation = async () => {
     try {
-      const response = await fetch(`/api/reservationtypes/${id}`);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/reservationtypes/${id}`
+      );
       const data = await response.json();
       setReservation(data);
     } catch (error) {
@@ -138,7 +140,9 @@ const Reservation = () => {
 
   const fetchReservedTimes = async () => {
     const response = await fetch(
-      `/api/reservations/by-date?date=${selectedDate}&reservationTypeId=${id}`
+      `${
+        import.meta.env.VITE_BACKEND_URL
+      }/api/reservations/by-date?date=${selectedDate}&reservationTypeId=${id}`
     );
 
     const data = await response.json();
@@ -154,13 +158,16 @@ const Reservation = () => {
 
   const handlePayment = async (reservationId: string) => {
     try {
-      const response = await fetch("/api/payments/initiate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ reservationId }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/payments/initiate`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ reservationId }),
+        }
+      );
 
       const data = await response.json();
 
@@ -202,11 +209,14 @@ const Reservation = () => {
     }
 
     try {
-      const response = await fetch(`/api/reservations/book`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(req),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/reservations/book`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(req),
+        }
+      );
 
       const data = await response.json();
 
