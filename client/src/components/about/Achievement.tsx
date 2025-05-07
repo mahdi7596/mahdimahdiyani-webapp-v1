@@ -111,25 +111,24 @@ const Achievements: React.FC = () => {
         >
           {getCurrentSlideAchievements().map((achievement, index) => (
             <div key={index} className="w-full md:w-1/3 p-4">
-              <div className="bg-white p-6 rounded-xl shadow-lg flex flex-col md:flex-row items-center">
-                {/* Image - Full width on mobile, inline on desktop */}
-                <div className="w-full md:w-1/3 mb-4 md:mb-0 md:ml-6 flex justify-center">
+              <div className="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
+                {/* Image - Full width and larger */}
+                <div className="w-full mb-6 flex justify-center">
                   <img
                     src={achievement.image}
                     alt={achievement.title}
-                    className="w-full max-w-[200px] md:max-w-none h-auto object-contain"
+                    className="w-full max-w-[300px] h-auto object-contain"
                   />
                 </div>
 
-                {/* Content (RTL) - Full width on mobile, text-right on desktop */}
-                <div
-                  className="w-full md:w-2/3 text-center md:text-right"
-                  dir="rtl"
-                >
-                  <h3 className="text-xl font-semibold mb-3">
+                {/* Content - Centered */}
+                <div className="w-full" dir="rtl">
+                  <h3 className="text-2xl font-semibold mb-3">
                     {achievement.title}
                   </h3>
-                  <p className="text-gray-600">{achievement.description}</p>
+                  <p className="text-gray-600 text-base">
+                    {achievement.description}
+                  </p>
                 </div>
               </div>
             </div>
