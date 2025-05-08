@@ -7,6 +7,7 @@ import "react-quill/dist/quill.snow.css";
 
 import Button from "../shared/Button";
 import { Category } from "./Categories";
+import { apiFetch } from "../../utils/apiFetch";
 
 interface FormData {
   title: string;
@@ -51,10 +52,8 @@ const UpdatePost = ({ postId }: { postId?: string }) => {
     }
 
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/post/updatepost/${postId}/${
-          currentUser._id
-        }`,
+      const res = await apiFetch(
+        `/api/post/updatepost/${postId}/${currentUser._id}`,
         {
           method: "PUT",
           body: form, // Use FormData instead of JSON
@@ -83,9 +82,7 @@ const UpdatePost = ({ postId }: { postId?: string }) => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/post/getposts?postId=${postId}`
-      );
+      const response = await apiFetch(`/api/post/getposts?postId=${postId}`);
       const data = await response.json();
       if (!response.ok) {
         setPublishError(data.message);
@@ -105,9 +102,7 @@ const UpdatePost = ({ postId }: { postId?: string }) => {
   };
 
   const fetchCategories = async () => {
-    const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/postcategory/getAllCategories`
-    );
+    const response = await apiFetch(`/api/postcategory/getAllCategories`);
     const data = await response.json();
 
     if (!response.ok) {
@@ -131,7 +126,7 @@ const UpdatePost = ({ postId }: { postId?: string }) => {
           {existingImage && (
             <img
               //  src={existingImage}
-              src={`${import.meta.env.VITE_BACKEND_URL}${existingImage}`} // Use the full backend URL
+              src={`${import.meta.env.VITE_IMAGE_BASE_URL}${existingImage}`} // Use the full backend URL
               alt="Current Post Image"
               className="w-32 h-32 object-cover rounded"
             />

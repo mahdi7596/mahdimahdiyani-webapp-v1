@@ -8,6 +8,7 @@ import {
 
 import moment from "jalali-moment";
 import { Link } from "react-router-dom";
+import { apiFetch } from "../../utils/apiFetch";
 
 const Reservations = () => {
   const dispatch = useDispatch();
@@ -24,14 +25,11 @@ const Reservations = () => {
     const fetchReservations = async () => {
       dispatch(fetchReservationsStart());
       try {
-        const res = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/reservations`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const res = await apiFetch(`/api/reservations`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const data = await res.json();
         if (res.ok) {
           dispatch(fetchReservationsSuccess(data));

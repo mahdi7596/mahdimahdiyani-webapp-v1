@@ -7,6 +7,8 @@ import "react-quill/dist/quill.snow.css";
 import Button from "../shared/Button";
 import { Category } from "./Categories";
 
+import { apiFetch } from "../../utils/apiFetch"; // adjust the path based on file
+
 const AddPost = () => {
   const [formData, setFormData] = useState({});
   const [categories, setCategories] = useState<Category[]>([]);
@@ -29,13 +31,10 @@ const AddPost = () => {
     }
 
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/post/create`,
-        {
-          method: "POST",
-          body: form, // Send the FormData
-        }
-      );
+      const res = await apiFetch(`/api/post/create`, {
+        method: "POST",
+        body: form, // Send the FormData
+      });
 
       const data = await res.json();
       if (!res.ok) {
@@ -57,9 +56,7 @@ const AddPost = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/postcategory/getAllCategories`
-      );
+      const response = await apiFetch(`/api/postcategory/getAllCategories`);
       const data = await response.json();
       setCategories(data.categories);
     } catch (error) {

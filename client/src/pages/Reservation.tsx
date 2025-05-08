@@ -18,6 +18,7 @@ import CheckIcon from "../assets/images/landing/check.svg";
 import { ToastContainer, toast } from "react-toastify";
 import { getRemainingTime } from "../utils/timeUtils";
 import { useSelector } from "react-redux";
+import { apiFetch } from "../utils/apiFetch";
 
 const Reservation = () => {
   const { id } = useParams();
@@ -128,9 +129,7 @@ const Reservation = () => {
 
   const fetchReservation = async () => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/reservationtypes/${id}`
-      );
+      const response = await apiFetch(`/api/reservationtypes/${id}`);
       const data = await response.json();
       setReservation(data);
     } catch (error) {
@@ -139,10 +138,8 @@ const Reservation = () => {
   };
 
   const fetchReservedTimes = async () => {
-    const response = await fetch(
-      `${
-        import.meta.env.VITE_BACKEND_URL
-      }/api/reservations/by-date?date=${selectedDate}&reservationTypeId=${id}`
+    const response = await apiFetch(
+      `/api/reservations/by-date?date=${selectedDate}&reservationTypeId=${id}`
     );
 
     const data = await response.json();
@@ -158,16 +155,13 @@ const Reservation = () => {
 
   const handlePayment = async (reservationId: string) => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/payments/initiate`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ reservationId }),
-        }
-      );
+      const response = await apiFetch(`/api/payments/initiate`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ reservationId }),
+      });
 
       const data = await response.json();
 
@@ -209,14 +203,11 @@ const Reservation = () => {
     }
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/reservations/book`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(req),
-        }
-      );
+      const response = await apiFetch(`/api/reservations/book`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(req),
+      });
 
       const data = await response.json();
 

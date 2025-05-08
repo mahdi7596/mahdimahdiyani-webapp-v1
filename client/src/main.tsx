@@ -15,5 +15,3 @@ createRoot(document.getElementById("root")).render(
     </Provider>
   </PersistGate>
 );
-
-console.log("BACKEND URL:");

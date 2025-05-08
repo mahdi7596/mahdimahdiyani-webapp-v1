@@ -1,9 +1,8 @@
 import { ReservationTypesListResponse } from "../models/reservation/responses";
+import { apiFetch } from "../utils/apiFetch";
 
 export const getReservationTypes =
   async (): Promise<ReservationTypesListResponse> => {
-    const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/reservationtypes`
-    );
+    const response = await apiFetch(`/api/reservationtypes`);
     return await response.json();
   };

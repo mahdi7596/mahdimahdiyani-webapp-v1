@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import image68 from "../assets/images/68.jpeg";
 import image69 from "../assets/images/69.jpeg";
 import { BlogCategory } from "../models/blog";
+import { apiFetch } from "../utils/apiFetch";
 
 interface IPost {
   id?: number;
@@ -53,9 +54,7 @@ const SinglePost = () => {
   const fetchPost = async () => {
     try {
       setLoading(true);
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/post/getposts?slug=${postSlug}`
-      );
+      const response = await apiFetch(`/api/post/getposts?slug=${postSlug}`);
       const data = await response.json();
       if (!response.ok) {
         // setError(true);
@@ -77,9 +76,7 @@ const SinglePost = () => {
   const fetchRecentPosts = async () => {
     try {
       setLoading(true);
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/post/getposts?limit=3`
-      );
+      const response = await apiFetch(`/api/post/getposts?limit=3`);
       const data = await response.json();
       if (response.ok) {
         setRecentPosts(data.posts);
@@ -142,7 +139,7 @@ const SinglePost = () => {
             </div>
           </div>
           <img
-            src={`${import.meta.env.VITE_BACKEND_URL}${post?.image}`} // Use the full backend URL
+            src={`${import.meta.env.VITE_IMAGE_BASE_URL}${post?.image}`} // Use the full backend URL
             alt={post && post.title}
             className="h-96 object-cover rounded"
           />
@@ -208,7 +205,9 @@ const SinglePost = () => {
                     className="group flex gap-x-3 bg-surfaceBg border border-surfaceBorder py-2 px-1.5 rounded-sm cursor-pointer"
                   >
                     <img
-                      src={`${import.meta.env.VITE_BACKEND_URL}${post?.image}`} // Use the full backend URL
+                      src={`${import.meta.env.VITE_IMAGE_BASE_URL}${
+                        post?.image
+                      }`} // Use the full backend URL
                       className="object-cover size-20 rounded"
                       alt={post?.title}
                     />

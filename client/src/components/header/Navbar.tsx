@@ -10,6 +10,7 @@ import { profileMenuItems } from "./IMenuItem";
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/temp-logo.png";
 import { useState } from "react";
+import { apiFetch } from "../../utils/apiFetch";
 
 const Navbar = () => {
   const { currentUser } = useSelector(
@@ -24,12 +25,9 @@ const Navbar = () => {
 
   const handleSignout = async () => {
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/user/signout`,
-        {
-          method: "POST",
-        }
-      );
+      const res = await apiFetch(`/api/user/signout`, {
+        method: "POST",
+      });
       const data = await res.json();
       if (!res.ok) {
         console.log(data.message);

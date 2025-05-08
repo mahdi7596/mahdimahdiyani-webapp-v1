@@ -128,7 +128,7 @@ const Blogs = ({ mediaMode }: BlogsProps) => {
                           link={`/${mediaMode ? "media" : "post"}/${
                             post?.slug
                           }`}
-                          img={`${import.meta.env.VITE_BACKEND_URL}${
+                          img={`${import.meta.env.VITE_IMAGE_BASE_URL}${
                             post?.image
                           }`}
                           excerpt={post?.content}

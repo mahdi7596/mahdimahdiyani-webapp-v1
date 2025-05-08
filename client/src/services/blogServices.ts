@@ -1,5 +1,6 @@
 import { BlogFilters } from "../hooks/useBlogPosts";
 import { BlogPostsResponse, BlogCategoriesResponse } from "../models/blog";
+import { apiFetch } from "../utils/apiFetch";
 
 export const fetchBlogPosts = async (
   filters?: BlogFilters
@@ -18,15 +19,10 @@ export const fetchBlogPosts = async (
     params.append("order", filters.order);
   }
 
-  const response = await fetch(
-    `${
-      import.meta.env.VITE_BACKEND_URL
-    }/api/post/getposts?${params.toString()}`,
-    {
-      method: "GET",
-      cache: "no-store",
-    }
-  );
+  const response = await apiFetch(`/api/post/getposts?${params.toString()}`, {
+    method: "GET",
+    cache: "no-store",
+  });
 
   const data = await response.json();
 
@@ -39,13 +35,10 @@ export const fetchBlogPosts = async (
 
 export const fetchBlogCategories =
   async (): Promise<BlogCategoriesResponse> => {
-    const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/postcategory/getAllCategories`,
-      {
-        method: "GET",
-        cache: "no-store",
-      }
-    );
+    const response = await apiFetch(`/api/postcategory/getAllCategories`, {
+      method: "GET",
+      cache: "no-store",
+    });
 
     const data: BlogCategoriesResponse = await response.json();
     return data;

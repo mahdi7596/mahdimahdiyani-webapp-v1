@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { apiFetch } from "../utils/apiFetch";
 
 const PaymentCallback = () => {
   const [params] = useSearchParams();
@@ -17,18 +18,15 @@ const PaymentCallback = () => {
 
       if (!authority || !status || !reservationId) return;
 
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/payments/verify`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            Authority: authority,
-            Status: status,
-            reservationId,
-          }),
-        }
-      );
+      const res = await apiFetch(`/api/payments/verify`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          Authority: authority,
+          Status: status,
+          reservationId,
+        }),
+      });
 
       // const data = await res.json();
 

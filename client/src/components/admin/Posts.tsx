@@ -6,6 +6,7 @@ import moment from "jalali-moment";
 import { ToastContainer, toast } from "react-toastify";
 
 import Button from "../shared/Button";
+import { apiFetch } from "../../utils/apiFetch";
 
 const Posts = () => {
   const { currentUser } = useSelector(
@@ -19,10 +20,8 @@ const Posts = () => {
 
   const fetchPosts = async () => {
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/post/getPosts?userId=${
-          currentUser._id
-        }`
+      const res = await apiFetch(
+        `/api/post/getPosts?userId=${currentUser._id}`
       );
       const data = await res.json();
       if (res.ok) {
@@ -45,10 +44,8 @@ const Posts = () => {
   const handleShowMore = async () => {
     const startIndex = userPosts.length;
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/post/getposts?userId=${
-          currentUser._id
-        }&startIndex=${startIndex}`
+      const res = await apiFetch(
+        `/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
       );
       const data = await res.json();
       if (res.ok) {
@@ -64,10 +61,8 @@ const Posts = () => {
 
   const handleDeletePost = async () => {
     try {
-      const res = await fetch(
-        `${
-          import.meta.env.VITE_BACKEND_URL
-        }/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
+      const res = await apiFetch(
+        `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
         {
           method: "DELETE",
         }
@@ -120,7 +115,7 @@ const Posts = () => {
                             <img
                               // src={userPost?.image}
                               // src={`http://localhost:3000${userPost?.image}`} // Use the full backend URL
-                              src={`${import.meta.env.VITE_BACKEND_URL}${
+                              src={`${import.meta.env.VITE_IMAGE_BASE_URL}${
                                 userPost?.image
                               }`}
                               alt={userPost?.title}

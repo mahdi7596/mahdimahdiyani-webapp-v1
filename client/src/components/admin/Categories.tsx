@@ -5,6 +5,7 @@ import moment from "jalali-moment";
 import { ToastContainer, toast } from "react-toastify";
 
 import Button from "../shared/Button";
+import { apiFetch } from "../../utils/apiFetch";
 
 export interface Category {
   _id?: string; // Optional because it's assigned by the database
@@ -38,16 +39,13 @@ const Categories = () => {
       return;
     }
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/postcategory/createCategory`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(category), // Send the FormData
-        }
-      );
+      const response = await apiFetch(`/api/postcategory/createCategory`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(category), // Send the FormData
+      });
       const data = await response.json();
       if (!response.ok) {
         setPublishError(data.message || "مشکلی در سرور رخ داده است");
@@ -86,10 +84,8 @@ const Categories = () => {
     }
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/postcategory/updateCategory/${
-          selectedCategory._id
-        }`,
+      const response = await apiFetch(
+        `/api/postcategory/updateCategory/${selectedCategory._id}`,
         {
           method: "PUT",
           headers: {
@@ -123,10 +119,8 @@ const Categories = () => {
 
   const handleDeleteCategory = async () => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/postcategory/deleteCategory/${
-          categoryIdRef.current
-        }`,
+      const response = await apiFetch(
+        `/api/postcategory/deleteCategory/${categoryIdRef.current}`,
         {
           method: "DELETE",
         }
@@ -163,9 +157,7 @@ const Categories = () => {
   const fetchCategories = async () => {
     setLoading(true);
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/postcategory/getAllCategories`
-      );
+      const response = await apiFetch(`/api/postcategory/getAllCategories`);
       const data = await response.json();
       if (response.ok) {
         setCategoriesList(data.categories);

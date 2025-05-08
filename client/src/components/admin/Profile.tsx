@@ -12,6 +12,7 @@ import {
 } from "../../redux/user/userSlice";
 
 import Button from "../shared/Button";
+import { apiFetch } from "../../utils/apiFetch";
 
 const Profile = () => {
   const { currentUser, error, loading } = useSelector(
@@ -42,18 +43,13 @@ const Profile = () => {
 
     try {
       dispatch(updateStart());
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/user/update/${
-          currentUser._id
-        }`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const res = await apiFetch(`/api/user/update/${currentUser._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
       const data = await res.json();
       if (!res.ok) {
         dispatch(updateFailure(data.message));
@@ -69,14 +65,9 @@ const Profile = () => {
   const handleDeleteUser = async () => {
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/user/delete/${
-          currentUser._id
-        }`,
-        {
-          method: "DELETE",
-        }
-      );
+      const res = await apiFetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
       const data = await res.json();
       if (!res.ok) {
         dispatch(deleteUserFailure(data.message));

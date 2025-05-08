@@ -7,6 +7,7 @@ import Input from "../components/shared/Input";
 import Button from "../components/shared/Button";
 
 import art from "../assets/images/auth-thumbnail.png";
+import { apiFetch } from "../utils/apiFetch";
 
 interface IRegister {
   username: string;
@@ -51,14 +52,11 @@ const Signup = () => {
     try {
       setLoading(true);
       setErrorMessage(null);
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/auth/signup`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
+      const res = await apiFetch(`/api/auth/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
       const data = await res.json();
       if (data.success === false) {
         return setErrorMessage(data.message);
