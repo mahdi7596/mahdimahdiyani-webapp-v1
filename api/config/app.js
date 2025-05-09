@@ -15,6 +15,8 @@ import paymentRoutes from "../routes/payment.route.js";
 import path from "path";
 import { fileURLToPath } from "url";
 
+import cors from "cors";
+
 import "../utils/reservationCleaner.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -24,6 +26,17 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+
+// Allow frontend on Liara to access backend
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173", // for local dev
+      "https://mahdimahdiyani-client.liara.run", // for production on Liara
+    ],
+    credentials: true,
+  })
+);
 
 // این رو نوشتم که بتونم به کوکی ها دسترسی داشته باشم هرجایی که خواستم
 app.use(cookieParser());

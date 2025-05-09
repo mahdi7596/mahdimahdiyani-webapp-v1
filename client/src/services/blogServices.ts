@@ -25,7 +25,8 @@ export const fetchBlogPosts = async (
   });
 
   const data = await response.json();
-
+  console.log(data);
+  console.log(data?.posts);
   return {
     success: true,
     posts: data.posts,
