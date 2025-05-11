@@ -1,13 +1,11 @@
-// client/src/utils/apiFetch.js
-
 export const apiFetch = async (path, options = {}) => {
-  const baseUrl = import.meta.env.DEV
-    ? "" // Use proxy during local development
-    : import.meta.env.VITE_BACKEND_URL; // Full URL in production
+  const baseUrl = import.meta.env.DEV ? "" : import.meta.env.VITE_BACKEND_URL;
 
-  const response = await fetch(`${baseUrl}${path}`, options);
+  const response = await fetch(`${baseUrl}${path}`, {
+    ...options,
+    credentials: "include", // 🔥 This line is important
+  });
 
-  // Optional: handle errors globally
   if (!response.ok) {
     const errorText = await response.text();
     console.error(`API error: ${response.status} - ${errorText}`);

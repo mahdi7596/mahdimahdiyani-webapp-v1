@@ -34,7 +34,7 @@ app.use(
       "http://localhost:5173", // for local dev
       "https://mahdimahdiyani-client.liara.run", // for production on Liara
     ],
-    credentials: true,
+    credentials: true, // ✅ CORRECT: this is at the top level of the object
   })
 );
 
