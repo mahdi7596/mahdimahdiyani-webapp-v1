@@ -40,14 +40,14 @@ export const signin = async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password || email === "" || password === "") {
-    next(errorHandler(400, "پر کردن تمامی فیلدها الزامی است"));
+    return next(errorHandler(400, "پر کردن تمامی فیلدها الزامی است"));
   }
 
   try {
     const validUser = await User.findOne({ email });
 
     if (!validUser) {
-      next(errorHandler(404, "کاربری یافت نشد"));
+      return next(errorHandler(404, "کاربری یافت نشد"));
     }
 
     const validPassword = bcryptjs.compareSync(password, validUser.password);
@@ -63,11 +63,14 @@ export const signin = async (req, res, next) => {
 
     // i wrote this code inorder not to send the hashed password to front, because its more safe
     const { password: pass, ...rest } = validUser._doc;
+    const isProd = process.env.NODE_ENV === "production";
 
     res
       .status(200)
       .cookie("access_token", token, {
         httpOnly: true,
+        secure: isProd, // only send over HTTPS in prod
+        sameSite: isProd ? "None" : "Lax", // cross-site for prod, strict for dev
       })
       .json(rest);
   } catch (error) {
