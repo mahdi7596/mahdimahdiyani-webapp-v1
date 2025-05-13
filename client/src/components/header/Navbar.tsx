@@ -8,7 +8,7 @@ import Dropdown from "../shared/Dropdown";
 
 import { profileMenuItems } from "./IMenuItem";
 import { useLocation, useNavigate } from "react-router-dom";
-import logo from "../../assets/images/temp-logo.png";
+import logo from "../../assets/images/logo2.png";
 import { useState } from "react";
 import { apiFetch } from "../../utils/apiFetch";
 
