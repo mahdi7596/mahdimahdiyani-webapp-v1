@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import Button from "../shared/Button";
 
 // Customer data type
 interface Customer {
@@ -88,22 +89,16 @@ const HeroAbout = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-wrap gap-4">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn btn-primary gap-2"
-            >
-              شروع فرآیند استخدام
-              <i className="maicon-file -rotate-90"></i>
-            </motion.button>
-
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <Button
+              text="ادامه مطلب"
+              icon={"weui_arrow-filled -rotate-180 text-2xl"}
+              className="btn btn-primary"
+            />
+            <Button
+              text="دانلود رزومه"
+              icon={"material-symbols_download text-2xl"}
               className="btn btn-outline gap-2"
-            >
-              دانلود رزومه <i className="maicon-bxs_up-arrow -rotate-90"></i>
-            </motion.button>
+            />
           </div>
         </motion.div>
 
