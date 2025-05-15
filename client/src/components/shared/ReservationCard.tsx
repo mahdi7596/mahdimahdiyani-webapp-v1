@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-import CheckIcon from "../../assets/images/landing/check.svg";
+import CheckIcon from "../../assets/images/check.svg";
 import Button from "./Button";
 import { ReservationType } from "../../models/reservation";
 

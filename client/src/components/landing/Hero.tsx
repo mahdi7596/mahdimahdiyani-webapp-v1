@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-import cogImage from "../../assets/images/landing/cog.png";
+import cogImage from "../../assets/images/mahdimahdiyani-profile-pic.png";
 import Button from "../shared/Button";
 
 const Hero = () => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 // Import the image directly
-import avatarImage from "../../assets/images/landing/certificate.jpg";
+import avatarImage from "../../assets/images/certificate.jpg";
 
 // Define the interface for Achievement
 interface Achievement {

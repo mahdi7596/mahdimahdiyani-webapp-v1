@@ -68,21 +68,22 @@ const HeroAbout = () => {
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse mb-1 sm:mb-0" />
 
             <span className="text-neutrals400 text-[10px] xxs:text-sm">
-              دوره آزمایشی رایگان استخدام بعدی خود را با دوره آزمایشی رایگان ما
-              شروع کنید
+              درباره من | مهدی مهدیانی
             </span>
           </motion.div>
 
           {/* Main Heading */}
-          <h1 className="text-2xl md:text-5xl font-bold text-neutrals mb-6 leading-tight">
-            اتصال استعدادهای برتر با شرکت‌های پیشرو
+          <h1
+            className="text-2xl md:text-4xl font-bold text-neutrals mb-6"
+            style={{ lineHeight: "1.4" }}
+          >
+            مشاور و تسهیل‌گر توسعه مالی کسب‌وکارها
           </h1>
 
           {/* Description */}
           <p className="text-neutrals400 text-lg mb-8">
-            چه به دنبال فرصت شغلی بعدی خود باشید و چه به دنبال استعدادهای برتر
-            برای پیوستن به تیم خود، کارشناسان استخدام ما در هر مرحله از مسیر
-            راهنمای شما هستند.
+            من مهدی مهدیانی هستم، مدیر و مشاور مالی، مدرس دانشگاه و مدیر اجرایی
+            پروژه‌های توسعه مالی، حسابداری و حسابرسی در بنگاه‌های اقتصادی.
           </p>
 
           {/* CTA Buttons */}
@@ -101,8 +102,7 @@ const HeroAbout = () => {
               whileTap={{ scale: 0.95 }}
               className="btn btn-outline gap-2"
             >
-              اطلاعات بیشتر
-              <i className="maicon-bxs_up-arrow -rotate-90"></i>
+              دانلود رزومه <i className="maicon-bxs_up-arrow -rotate-90"></i>
             </motion.button>
           </div>
         </motion.div>

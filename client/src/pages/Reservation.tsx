@@ -13,7 +13,7 @@ import Button from "../components/shared/Button";
 
 import moment from "jalali-moment";
 
-import CheckIcon from "../assets/images/landing/check.svg";
+import CheckIcon from "../assets/images/check.svg";
 
 import { ToastContainer, toast } from "react-toastify";
 import { getRemainingTime } from "../utils/timeUtils";

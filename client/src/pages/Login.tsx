@@ -13,7 +13,7 @@ import useInput from "../hooks/useInput";
 import Input from "../components/shared/Input";
 import Button from "../components/shared/Button";
 
-import art from "../assets/images/auth-thumbnail.png";
+import art from "../assets/images/auth-thumbnail.jpg";
 import { apiFetch } from "../utils/apiFetch";
 
 interface ILogin {

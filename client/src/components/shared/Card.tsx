@@ -1,6 +1,6 @@
 import Badge, { BadgeProps } from "./Badge";
 
-import statciFeaturedImage from "../../assets/images/demo-pic.png";
+import statciFeaturedImage from "../../assets/images/auth-thumbnail.jpg";
 import Button, { ButtonProps } from "./Button";
 import { Link } from "react-router-dom";
 

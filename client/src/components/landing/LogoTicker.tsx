@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const LogoTicker = () => {
   const images = Object.values(
-    import.meta.glob("../../assets/images/landing/colleague/*.png", {
+    import.meta.glob("../../assets/images/colleague/*.png", {
       eager: true,
     })
   ).map((module) => (module as { default: string }).default);

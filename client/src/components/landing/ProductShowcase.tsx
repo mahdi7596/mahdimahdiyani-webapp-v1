@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-import productImage from "../../assets/images/landing/product-image.png";
+import productImage from "../../assets/images/auth-thumbnail.jpg";
 
 const ProductShowcase = () => {
   const sectionRef = useRef(null);
