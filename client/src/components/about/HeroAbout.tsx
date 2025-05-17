@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Button from "../shared/Button";
+import correct from "../../assets/images/correct.png";
 
 // Customer data type
 interface Customer {
@@ -41,6 +42,7 @@ const customers: Customer[] = [
 ];
 
 const HeroAbout = () => {
+  const aboutMeModalRef = useRef(null);
   const [currentCustomer, setCurrentCustomer] = useState(0);
 
   useEffect(() => {
@@ -90,6 +92,9 @@ const HeroAbout = () => {
           {/* CTA Buttons */}
           <div className="flex flex-wrap gap-4">
             <Button
+              onAction={() => {
+                aboutMeModalRef.current?.showModal();
+              }}
               text="ادامه مطلب"
               icon={"weui_arrow-filled -rotate-180 text-2xl"}
               className="btn btn-primary"
@@ -102,7 +107,7 @@ const HeroAbout = () => {
           </div>
         </motion.div>
 
-        {/* Right Column */}
+        {/* Left Column */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -122,7 +127,7 @@ const HeroAbout = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="absolute top-4 right-4 bg-white rounded-lg px-4 py-2 shadow-lg"
+              className="absolute top-4 left-4 bg-white rounded-lg px-4 py-2 shadow-lg"
             >
               <div className="flex items-center gap-2">
                 <img
@@ -140,7 +145,7 @@ const HeroAbout = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="absolute bottom-4 right-4 bg-white rounded-lg px-4 py-2 shadow-lg"
+              className="absolute bottom-4 left-4 bg-white rounded-lg px-4 py-2 shadow-lg"
             >
               <div className="flex items-center gap-2">
                 <img
@@ -188,6 +193,79 @@ const HeroAbout = () => {
           </AnimatePresence>
         </motion.div>
       </div>
+
+      <dialog ref={aboutMeModalRef} id="my_modal_1" className="modal">
+        <div className="absolute w-[90%] xl:w-[1200px] bg-surfaceBg rounded py-6 px-8 ">
+          <form method="dialog">
+            <button className="btn btn-sm btn-circle btn-neutral hover:bg-error absolute left-2 top-2 ">
+              ✕
+            </button>
+          </form>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* right Column */}
+            <div className="">
+              {/* Free Trial Badge */}
+              <div className="inline-flex items-center gap-1.5 bg-primary100 rounded-full px-2 py-3 shadow-sm mb-8">
+                <div className="w-2 h-2 rounded-full bg-primary animate-pulse mb-1 sm:mb-0" />
+
+                <span className="text-neutrals400 text-[10px] xxs:text-sm">
+                  درباره من | مهدی مهدیانی
+                </span>
+              </div>
+              {/* Main Heading */}
+              <h1
+                className="text-xl sm:text-2xl md:text-3xl font-bold text-neutrals"
+                style={{ lineHeight: "1.4" }}
+              >
+                مشاور و تسهیل‌گر توسعه مالی کسب‌وکارها
+              </h1>
+
+              <p className="text-neutrals400 text-sm sm:text-lg mt-4">
+                من مهدی مهدیانی هستم، مدیر و مشاور مالی، مدرس دانشگاه و مدیر
+                اجرایی پروژه‌های توسعه مالی، حسابداری و حسابرسی در بنگاه‌های
+                اقتصادی.
+              </p>
+              <p className="text-neutrals400 text-sm sm:text-lg my-4">
+                طی بیش از یک دهه فعالیت تخصصی در حوزه‌های حسابداری، حسابرسی،
+                مدیریت مالی و مشاوره سازمانی، به مدیران، سازمان‌ها و شرکت‌های
+                متعددی در بخش‌های مختلف صنعتی و خدماتی کمک کرده‌ام تا:
+              </p>
+              <ul className="flex flex-col gap-y-2 text-neutrals400 text-sm sm:text-lg">
+                <li className="flex items-center gap-1">
+                  <img src={correct} className="w-8" alt="correct" />
+                  ساختار مالی خود را ایجاد یا بازآفرینی کنند
+                </li>
+
+                <li className="flex items-center gap-1">
+                  <img src={correct} className="w-8" alt="correct" />
+                  کنترل‌های داخلی را تقویت نمایند
+                </li>
+                <li className="flex items-center gap-1">
+                  <img src={correct} className="w-8" alt="correct" />
+                  تصمیم‌گیری‌های مبتنی بر داده را جایگزین شهود و حدس کنند
+                </li>
+                <li className="flex items-center gap-1">
+                  <img src={correct} className="w-8" alt="correct" />
+                  تیم‌های مالی توانمندی را در درون سازمان پرورش دهند
+                </li>
+                <li className="flex items-center gap-1">
+                  <img src={correct} className="w-8" alt="correct" />و ثروت فردی
+                  و سازمانی خود را افزایش دهند.
+                </li>
+              </ul>
+            </div>
+
+            {/* Left Column */}
+            <div className="hidden xxs:block  relative bg-primary100 rounded-2xl overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80"
+                alt="Professional businessman"
+                className="h-[100px] sm:h-[160px] w-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };
