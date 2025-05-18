@@ -8,28 +8,33 @@ export interface IMenuItem {
 export const navMenuItems: IMenuItem[] = [
   {
     id: 1,
-    text: "صفحه اصلی",
+    text: "خانه",
     link: "/",
   },
   {
     id: 2,
-    text: "درباره من",
-    link: "/about-me",
-  },
-  {
-    id: 3,
     text: "مشاوره",
     link: "/reservations",
   },
+  // {
+  //   id: 3,
+  //   text: "خدمات ",
+  //   link: "/services",
+  // },
   {
     id: 5,
-    text: "آموزشهای رایگان",
+    text: "آموزش رایگان",
     link: "/search",
   },
   {
     id: 6,
     text: "حضور در رسانه",
     link: "/media",
+  },
+  {
+    id: 6,
+    text: "درباره من",
+    link: "/about-me",
   },
   {
     id: 7,
@@ -47,7 +52,7 @@ export const profileMenuItems: IMenuItem[] = [
   },
   {
     id: 2,
-    text: "مدیریت آموزشهای رایگان",
+    text: "مدیریت آموزش رایگان",
     link: "/dashboard?tab=posts",
   },
 ];

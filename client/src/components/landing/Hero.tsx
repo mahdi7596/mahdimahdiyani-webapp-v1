@@ -16,28 +16,23 @@ const Hero = () => {
   // );
 
   return (
-    <section className="pt-8 pb-20 md:pt-5 md:pb-10 bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#F2D3A3,#FFFBF5_100%)] overflow-x-clip">
+    <section className="pt-8 pb-20 md:pt-5 md:pb-10 bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#e5e5e5,#FFFBF5_100%)] overflow-x-clip">
       <div className="container">
         <div className="relative md:flex items-center">
           <div className="md:w-[715px]">
             <div className="tag">درباره مهدی مهدیانی</div>
-            <h1 className="text-2xl md:text-5xl font-semibold bg-gradient-to-b from-[#87560E] to-[#B9812B] py-1 text-transparent bg-clip-text mt-6">
-              رهبر فکری در حسابداری و مدیریت
+            <h1 className="text-2xl md:text-5xl font-semibold bg-gradient-to-b from-[#B88436] to-[#B9812B] py-1 text-transparent bg-clip-text mt-6">
+              رهبری فکری در حوزه مدیریت مالی
             </h1>
             <p className="text-base md:text-xl mt-6">
-              بنیان‌گذار رسانه همکلان، دبیرکل انجمن حسابداران استان تهران و مدرس
-              دانشگاه با سال‌ها تجربه در حسابداری و مدیریت.
+              توسعه مالی، سرمایه گذاری، تامین مالی، ترمیم ساختارهای مالی، صورت
+              های مالی، حسابرسی، مالیات، تامین اجتماعی
             </p>
             <div className="flex gap-4 items-center  mt-[30px]">
               <Button
-                link="/search"
-                text="مشاهده آموزشهای رایگان"
-                className="flex btn-md btn-primary"
-              />
-              <Button
-                link="/search"
-                text="درباره من بیشتر بدانید"
-                className="flex btn-md btn-primary-content"
+                link="/reservations"
+                text="دریافت مشاوره تخصصی"
+                className="btn btn-outline"
               />
             </div>
           </div>
@@ -46,13 +41,13 @@ const Hero = () => {
               src={cogImage}
               alt="Cog Image"
               className="md:absolute md:h-full md:w-auto md:max-w-none md:-left-6 lg:left-0"
-              animate={{ translateY: [-30, 30] }}
-              transition={{
-                repeat: Infinity,
-                repeatType: "mirror",
-                duration: 3,
-                ease: "easeInOut",
-              }}
+              // animate={{ translateY: [-30, 30] }}
+              // transition={{
+              //   repeat: Infinity,
+              //   repeatType: "mirror",
+              //   duration: 3,
+              //   ease: "easeInOut",
+              // }}
             />
             {/* <motion.img
               src={cylinderImage}

@@ -16,7 +16,7 @@ const CallToAction = () => {
     <section className="bg-gradient-to-b from-[#ffffff] to-[#FDEFDA] py-24 overflow-x-clip">
       <div className="container">
         <div className="section-heading relative">
-          <h2 className="section-title">همین امروز ثبت‌نام کنید</h2>
+          <h2 className="section-title">شروع تحول مالی با یک تماس</h2>
           <p className="section-description mt-5">
             با اپلیکیشنی که برای پیگیری پیشرفت شما طراحی شده است، لذت دستیابی به
             اهداف خود را تجربه کنید و انگیزه بگیرید.

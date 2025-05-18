@@ -15,8 +15,8 @@ const ReservationTypeList = ({
 }: ReservationTypeListProps) => {
   return (
     <section id="services" className={`${sliceData ? "py-24" : "py-12"}`}>
-      <div className="section-heading">
-        <h2 className="section-title ">پلن‌های مشاوره</h2>
+      <div className="">
+        <h2 className="section-title">چگونه به شما کمک می کنم؟</h2>
         <p className="section-description">
           مشاوره متنوع مشاوره و آموزش مالی، متناسب با نیازهای شما
         </p>

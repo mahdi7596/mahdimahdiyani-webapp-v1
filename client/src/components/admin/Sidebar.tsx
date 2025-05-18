@@ -74,7 +74,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onItemClick }) => {
               `}
             >
               <span className="group-hover:text-primary transition-colors duration-300">
-                مدیریت آموزشهای رایگان
+                مدیریت آموزش رایگان
               </span>
             </Link>
           </li>

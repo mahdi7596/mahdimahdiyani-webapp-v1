@@ -12,6 +12,7 @@ import Reservation from "../pages/Reservation";
 import MainLayout from "../layouts/MainLayout";
 import Reservations from "../pages/Reservations";
 import PaymentCallback from "../pages/PaymentCallback";
+import Services from "../pages/Services";
 
 const Home = lazy(() => import("../pages/Home"));
 const Aboutme = lazy(() => import("../pages/Aboutme"));
@@ -46,6 +47,10 @@ const routes = createBrowserRouter([
       {
         path: "/search",
         element: <Blogs />,
+      },
+      {
+        path: "/services",
+        element: <Services />,
       },
       {
         path: "/post/:postSlug",
