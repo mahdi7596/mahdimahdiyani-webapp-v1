@@ -7,12 +7,7 @@ interface SocialButtonProps {
   url: string;
 }
 
-const SocialButton: React.FC<SocialButtonProps> = ({
-  name,
-  icon,
-  colorClass,
-  url,
-}) => {
+const SocialButton: React.FC<SocialButtonProps> = ({ name, icon, url }) => {
   return (
     <a
       href={url}
