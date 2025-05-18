@@ -6,33 +6,89 @@ interface Experience {
   position: string;
   company: string;
   date: string;
-  description: string;
+  description?: string;
 }
 
 const experiences: Experience[] = [
   {
     id: "01",
-    position: "1-	رئیس هیات مدیره",
-    company: "دیجی‌کالا",
-    date: "1403 - اکنون",
-    description:
-      "توسعه و بهینه‌سازی رابط کاربری وب‌سایت دیجی‌کالا با استفاده از React و Next.js. پیاده‌سازی ویژگی‌های جدید و بهبود عملکرد سایت.",
+    position: "رئیس هیات مدیره",
+    company: "شرکت خدمات مالی کلان حساب پارسیان",
+    date: "۱۳۹۵ تا کنون",
   },
   {
     id: "02",
-    position: "توسعه‌دهنده فول‌استک",
-    company: "اسنپ",
-    date: "۱۳۹۹ - ۱۴۰۱",
-    description:
-      "توسعه و نگهداری سرویس‌های مختلف اسنپ با استفاده از Node.js و React. همکاری با تیم‌های مختلف برای بهبود زیرساخت‌های نرم‌افزاری.",
+    position: "بنیان گذار، صاحب امتیاز و رهبر",
+    company: "رسانه همکلان",
+    date: "۱۴۰۰ تا کنون",
   },
   {
     id: "03",
-    position: "توسعه‌دهنده وب",
-    company: "تپسی",
-    date: "۱۳۹۷ - ۱۳۹۹",
+    position: "دبیرکل و عضو هیات مدیره",
+    company: "انجمن صنفی حسابداران استان تهران",
+    date: "۱۴۰۱ تاکنون",
+  },
+  {
+    id: "04",
+    position: "بازرس اصلی",
+    company: "کانون انجمن های صنفی حسابداران ایران",
+    date: "۱۴۰۳ تاکنون",
+  },
+  {
+    id: "05",
+    position: "مشاور عالی دبیرکل",
+    company: "انجمن مدیران صنایع ایران",
+    date: "۱۴۰۳ تاکنون",
+  },
+  {
+    id: "06",
+    position: "مدیر دپارتمان مالی و حسابداری",
+    company: "مجتمع فنی پلی تکنیک تهران",
+    date: "۱۳۹۷ تاکنون",
+  },
+  {
+    id: "07",
+    position: "مدرس رسمی",
+    company: "سازمان آموزش فنی و حرفه ای کشور",
+    date: "۱۳۹۸ تاکنون",
+  },
+  {
+    id: "08",
+    position: "مدرس دانشگاه",
+    company: "دانشگاه علمی-کاربردی",
+    date: "۱۳۹۹ تاکنون",
+  },
+  {
+    id: "09",
+    position: "معاون مالی و اقتصادی",
+    company: "گروه تکین",
+    date: "۱۴۰۳ تاکنون",
+  },
+  {
+    id: "10",
+    position: "بازرس",
+    company: "سازمان اقتصاد اسلامی",
+    date: "۱۴۰۲ تا ۱۴۰۳",
+  },
+  {
+    id: "11",
+    position: "حسابرس داخلی",
+    company: "هلدینگ سرمایه گذاری غدیر",
+    date: "۱۴۰۱ تا ۱۴۰۲",
+  },
+  {
+    id: "12",
+    position: "معاون مالی و اداری",
+    company: "هلدینگ فناوری آستان قدس رضوی",
+    date: "۱۳۹۸ تا ۱۴۰۱",
+  },
+  {
+    id: "13",
+    position: "سرپرست ارشد حسابرسی",
+    company: "موسسه حسابرسی کارآمد حساب ایرانیان",
+    date: "۱۳۹۵ تا ۱۴۰۳",
     description:
-      "طراحی و توسعه رابط کاربری اپلیکیشن وب تپسی. پیاده‌سازی ویژگی‌های جدید و بهینه‌سازی عملکرد سایت.",
+      "همچنین سرپرست ارشد حسابرسی در موسسه حسابرسی آزموده کاران (۱۳۹۲ تا ۱۳۹۵) و موسسه حسابرسی تدبیرمحاسب آریا (۱۳۸۹ تا ۱۳۹۲)",
   },
 ];
 
@@ -112,9 +168,11 @@ const Timeline = () => {
                           {exp.date}
                         </span>
                       </div>
-                      <p className="text-neutrals400 leading-relaxed">
-                        {exp.description}
-                      </p>
+                      {exp.description && (
+                        <p className="text-neutrals400 leading-relaxed">
+                          {exp.description}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -144,9 +202,11 @@ const Timeline = () => {
                           {exp.date}
                         </span>
                       </div>
-                      <p className="text-neutrals400 leading-relaxed">
-                        {exp.description}
-                      </p>
+                      {exp.description && (
+                        <p className="text-neutrals400 leading-relaxed">
+                          {exp.description}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -169,9 +229,11 @@ const Timeline = () => {
                           {exp.date}
                         </span>
                       </div>
-                      <p className="text-neutrals400 leading-relaxed">
-                        {exp.description}
-                      </p>
+                      {exp.description && (
+                        <p className="text-neutrals400 leading-relaxed">
+                          {exp.description}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>

@@ -60,7 +60,7 @@ const AnimatedCounter = ({ value, label, suffix }: Statistic) => {
 
 const About = () => {
   return (
-    <div className="mt-24 mb-8 py-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+    <div className="mt-24 container mx-auto mb-8 py-8 grid grid-cols-2 md:grid-cols-4 gap-8">
       {statistics.map((stat) => (
         <AnimatedCounter key={stat.label} {...stat} />
       ))}
