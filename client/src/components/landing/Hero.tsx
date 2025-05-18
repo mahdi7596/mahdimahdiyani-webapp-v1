@@ -30,6 +30,11 @@ const Hero = () => {
             </p>
             <div className="flex gap-4 items-center  mt-[30px]">
               <Button
+                link="/about-me"
+                text="معرفی مهدی مهدیانی"
+                className="btn btn-primary"
+              />
+              <Button
                 link="/reservations"
                 text="دریافت مشاوره تخصصی"
                 className="btn btn-outline"
