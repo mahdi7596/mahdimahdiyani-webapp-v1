@@ -260,7 +260,7 @@ const HeroAbout = () => {
               <img
                 src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80"
                 alt="Professional businessman"
-                className="h-[100px] sm:h-[160px] w-full object-cover"
+                className="h-[100px] sm:h-[160px] md:h-full w-full object-cover"
               />
             </div>
           </div>

@@ -12,9 +12,9 @@ interface Experience {
 const experiences: Experience[] = [
   {
     id: "01",
-    position: "توسعه‌دهنده ارشد فرانت‌اند",
+    position: "1-	رئیس هیات مدیره",
     company: "دیجی‌کالا",
-    date: "۱۴۰۱ - اکنون",
+    date: "1403 - اکنون",
     description:
       "توسعه و بهینه‌سازی رابط کاربری وب‌سایت دیجی‌کالا با استفاده از React و Next.js. پیاده‌سازی ویژگی‌های جدید و بهبود عملکرد سایت.",
   },

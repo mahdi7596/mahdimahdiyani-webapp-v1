@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Button from "../shared/Button";
 
 // Interface for service cards
 interface ServiceCard {
@@ -15,20 +16,21 @@ const ServicesAbout = () => {
       icon: <i className="maicon-dashboard-solid text-3xl text-primary" />,
       title: "مشاوره",
       description:
-        "مشاوره تخصصی برای رشد کسب و کار شما با راهکارهای هدفمند و استراتژیک",
+        "با مشاوره مالی تخصصی، بهترین تصمیمات را برای رشد کسب‌وکار و سازمانتان بگیرید.",
       link: "/reservations",
     },
     {
       icon: <i className="maicon-dashboard-solid text-3xl text-primary" />,
-      title: "آموزش‌های رایگان",
+      title: "حسابرسی",
       description:
-        "ارائه آموزش‌های تخصصی و کاربردی برای توسعه مهارت‌های حرفه‌ای",
+        "با دریافت گزارشات حسابرسی دقیق و شفاف، سلامت مالی سازمانتان را تضمین کنید و به ذینفعان ارائه نمایید.",
       link: "#",
     },
     {
       icon: <i className="maicon-dashboard-solid text-3xl text-primary" />,
-      title: "همکلان",
-      description: "ایجاد فرصت‌های همکاری و شبکه‌سازی حرفه‌ای برای رشد مشترک",
+      title: "آموزش ",
+      description:
+        "دوره‌های آموزشی سازمانی با تمرکز بر نیازهای مالی، مدیریتی و اجرایی ارائه می‌شود.",
       link: "#",
     },
   ];
@@ -52,11 +54,15 @@ const ServicesAbout = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            مشاوره برای رشد آنلاین شما
+          <h2 className="text-4xl md:text-5xl font-bold text-surfaceBg mb-8">
+            من برای رشد مالی شما، برنامه دارم{" "}
           </h2>
-          <p className="text-white/80 max-w-2xl mx-auto">
-            راهکارهای تخصصی برای موفقیت کسب و کار شما
+          <p className="text-white/80 max-w-2xl text-lg mx-auto text-right leading-8">
+            با پشتوانه‌ی نزدیک به دو دهه تجربه در مدیریت مالی، حسابرسی، مشاوره و
+            آموزش تخصصی، در کنار شما هستم تا مسیر رشد و توسعه مالی را با رویکردی
+            هدفمند، ساختاریافته و اثربخش طی کنیم.
+            <span>همین حالا گام اول را بردارید؛</span>
+            با هم آینده مالی را متفاوت خواهیم ساخت.
           </p>
         </motion.div>
 
@@ -74,19 +80,17 @@ const ServicesAbout = () => {
               }}
               className="bg-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700"
             >
-              {card.icon}
-              <h3 className="text-2xl font-bold text-white mb-3 mt-4">
-                {card.title}
-              </h3>
-              <p className="text-gray-300 mb-4">{card.description}</p>
-              <motion.a
-                href={card.link || "#"}
-                className="inline-flex items-center text-primary hover:text-primary-600"
-                whileHover={{ x: 5 }}
-              >
-                اطلاعات بیشتر
-                <i className="maicon-eva_arrow-up-fill text-lg -rotate-90"></i>
-              </motion.a>
+              <div className="flex items-center gap-2 ">
+                {card.icon}
+                <h3 className="text-2xl font-bold text-white">{card.title}</h3>
+              </div>
+              <p className="text-gray-300 mt-6 mb-8">{card.description}</p>
+              <Button
+                text="اطلاعات بیشتر"
+                link={card.link || "#"}
+                icon="eva_arrow-up-fill text-lg -rotate-90"
+                className="btn btn-sm btn-outline btn-primary w-fit self-center"
+              />
             </motion.div>
           ))}
         </div>
