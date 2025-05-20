@@ -131,7 +131,7 @@ const HeroAbout = () => {
             >
               <div className="flex items-center gap-2">
                 <img
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80"
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
                   alt="Avatar"
                   className="w-6 h-6 rounded-full"
                 />
@@ -149,7 +149,7 @@ const HeroAbout = () => {
             >
               <div className="flex items-center gap-2">
                 <img
-                  src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80"
+                  src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
                   alt="Avatar"
                   className="w-6 h-6 rounded-full"
                 />
@@ -195,21 +195,22 @@ const HeroAbout = () => {
       </div>
 
       <dialog ref={aboutMeModalRef} id="my_modal_1" className="modal">
-        <div className="absolute w-[95%] sm:w-[90%] xl:w-[1000px] max-h-[90vh] bg-surfaceBg rounded-lg py-4 sm:py-6 px-4 sm:px-6 md:px-8 overflow-y-auto">
-          <form
-            method="dialog"
-            className="sticky top-0 bg-surfaceBg pb-2 sm:pb-4 z-10"
-          >
-            <button className="btn btn-sm btn-circle btn-neutral hover:bg-error absolute left-1 sm:left-2 top-1 sm:top-2">
-              ✕
-            </button>
-          </form>
+        <div className="relative w-[95%] sm:w-[90%] xl:w-[1000px] max-h-[90vh] bg-surfaceBg rounded-lg py-4 sm:py-6 px-4 sm:px-6 md:px-8 overflow-y-auto">
+          {/* Sticky Close Button */}
+          <div className="sticky top-0 z-50 left-0 bg-transparent">
+            <form method="dialog" className="flex justify-end">
+              <button className="btn btn-sm btn-circle btn-neutral hover:bg-error">
+                ✕
+              </button>
+            </form>
+          </div>
 
-          <div className="space-y-8 sm:space-y-12">
+          <div className="pt-1">
             {/* Header Section */}
             <div className="text-center pt -2 sm:pt-0">
               <div className="inline-flex items-center gap-1.5 bg-primary100 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 mb-3 sm:mb-4">
                 <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-primary animate-pulse" />
+
                 <span className="text-xs sm:text-sm text-neutrals400">
                   درباره من | مهدی مهدیانی
                 </span>
@@ -260,7 +261,7 @@ const HeroAbout = () => {
             </section>
 
             {/* Section 2: Experience */}
-            <section className="relative bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-gray-100">
+            <section className="relative bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-gray-100 mt-8">
               <div className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-primary text-white flex items-center justify-center text-lg sm:text-xl font-bold">
                 ۲
               </div>
@@ -280,20 +281,20 @@ const HeroAbout = () => {
                       {[
                         "مدیریت مالی و سرمایه‌گذاری در هلدینگ‌ها و شرکت‌های چندرشته‌ای",
                         "نوسازی و بازآفرینی ساختار مالی در سازمان‌های تولیدی، بازرگانی، خدماتی و فناوری‌محور",
-                        "استقرار نظام بودجه‌ریزی، کنترل داخلی و اصلاح فرآیندهای مالی",
-                        "فعالیت‌های نظارتی، بازرسی و حسابرسی در سازمان‌های مختلف",
-                        "مشاوره به مدیران عامل و اعضای هیئت‌مدیره در حوزه تحلیل مالی و تصمیم‌گیری راهبردی",
+                        "استقرار و ممیزی کنترل‌های داخلی و فرآیندهای مالی",
+                        "فعالیت‌های نظارتی، بازرسی، حسابرسی داخلی، حسابرسی صورت‌های مالی و تهیه گزارشات حسابرسی",
+                        "مشاوره به مدیران غیرمالی در حوزه تحلیل صورت‌های مالی و تصمیم‌گیری مالی",
+                        "آموزش و پرورش نیروهای متخصص برای جایگاه‌های کلیدی مالی",
+                        "حسابرسی داخلی، بازرسی، حسابرسی صورت‌های مالی و تهیه گزارشات حسابرسی",
                       ].map((item, index) => (
                         <li
                           key={index}
-                          className="flex items-start gap-2 group"
+                          className="flex items-center gap-2 group"
                         >
-                          <div className="flex-shrink-0 mt-1.5 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                            <span className="text-primary text-sm sm:text-base">
-                              •
-                            </span>
+                          <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors mt-0.5">
+                            <img src={correct} alt="" />
                           </div>
-                          <span className="text-xs sm:text-sm text-neutrals600 leading-relaxed">
+                          <span className="text-xs sm:text-sm text-neutrals600">
                             {item}
                           </span>
                         </li>
@@ -316,7 +317,7 @@ const HeroAbout = () => {
             </section>
 
             {/* Section 3: Education & Training */}
-            <section className="relative bg-gradient-to-bl from-primary50 to-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-gray-100">
+            <section className="relative bg-gradient-to-bl from-primary50 to-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-gray-100 mt-8">
               <div className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-primary text-white flex items-center justify-center text-lg sm:text-xl font-bold">
                 ۳
               </div>
@@ -355,15 +356,14 @@ const HeroAbout = () => {
             </section>
 
             {/* Section 4: Current Positions */}
-            <section className="relative bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-sm overflow-hidden border border-gray-100">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent -z-0"></div>
+            <section className="relative bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-sm overflow-visible border border-gray-100 mt-8">
+              <div className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-primary text-white flex items-center justify-center text-lg sm:text-xl font-bold">
+                ۴
+              </div>
               <div className="relative z-10">
                 <div className="text-center mb-6 sm:mb-8 md:mb-10">
-                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-primary inline-block relative">
-                    <span className="relative z-10 px-3 sm:px-4 bg-white text-sm sm:text-base md:text-lg">
-                      سمت‌ها و مسئولیت‌های فعلی
-                    </span>
-                    <span className="absolute bottom-1.5 sm:bottom-2 left-0 w-full h-1.5 sm:h-2 bg-primary/10 -z-0 rounded-full"></span>
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-6">
+                    سمت‌ها و مسئولیت‌های فعلی
                   </h2>
                 </div>
 
@@ -382,11 +382,11 @@ const HeroAbout = () => {
                       key={index}
                       className="group bg-white/80 hover:bg-white backdrop-blur-sm p-3 sm:p-4 rounded-lg sm:rounded-xl border border-gray-100 shadow-xs hover:shadow-sm transition-all duration-200 hover:-translate-y-0.5"
                     >
-                      <div className="flex items-start gap-2 sm:gap-3">
-                        <div className="flex-shrink-0 mt-0.5 sm:mt-1 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-primary/10 text-xs sm:text-sm text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 text-base sm:text-xl rounded-full bg-primary/10 text-primary  flex items-center justify-center mt-0.5">
                           {index + 1}
                         </div>
-                        <span className="text-xs sm:text-sm text-neutrals700 leading-relaxed">
+                        <span className="text-xs sm:text-sm self-center text-neutrals700 leading-relaxed">
                           {item}
                         </span>
                       </div>
@@ -395,6 +395,61 @@ const HeroAbout = () => {
                 </div>
               </div>
             </section>
+
+            {/* Section 5: Expertise */}
+            <section className="relative bg-gradient-to-br from-primary50 to-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-gray-100 mt-8">
+              <div className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full bg-primary text-white flex items-center justify-center text-lg sm:text-xl font-bold">
+                ۵
+              </div>
+              <div className="space-y-6">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 md:mb-6">
+                  تخصص من، دغدغه شماست
+                </h2>
+                <p className="text-sm sm:text-base text-neutrals600 mb-6">
+                  زمینه‌هایی که بیشترین درخواست همکاری را از سمت مدیران و
+                  شرکت‌ها داشته‌ام، عبارتند از:
+                </p>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  {[
+                    "طراحی و پیاده‌سازی نظام مالی، بودجه‌ای و کنترلی در سازمان‌ها",
+                    "استقرار و ممیزی کنترل‌های داخلی و فرآیندهای مالی",
+                    "بازسازی و نوسازی ساختار مالی شرکت‌های در حال رشد یا بحران‌زده",
+                    "مشاوره به مدیران غیرمالی در حوزه تحلیل صورت‌های مالی و تصمیم‌گیری مالی",
+                    "آموزش و پرورش نیروهای متخصص برای جایگاه‌های کلیدی مالی",
+                    "حسابرسی داخلی، بازرسی، حسابرسی صورت‌های مالی و تهیه گزارشات حسابرسی",
+                  ].map((item, index) => (
+                    <li key={index} className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-primary/10 flex items-center justify-center mt-0.5">
+                        <img src={correct} alt="check" className=" " />
+                      </div>
+                      <span className="text-xs sm:text-sm text-neutrals600 leading-relaxed">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex flex-wrap gap-3 sm:gap-4 mt-8">
+                  <Button
+                    link="/reservations"
+                    text="درخواست مشاوره"
+                    className="btn btn-primary flex-1 sm:flex-none"
+                  />
+                  <Button
+                    text="درخواست خدمات"
+                    className="btn btn-outline btn-primary flex-1 sm:flex-none"
+                  />
+                </div>
+              </div>
+            </section>
+
+            {/* Download Resume Button */}
+            <div className="flex justify-center mt-8">
+              <Button
+                text="دانلود رزومه کامل"
+                icon={"material-symbols_download text-xl ml-2"}
+                className="btn btn-outline btn-primary px-8"
+              />
+            </div>
           </div>
         </div>
       </dialog>
