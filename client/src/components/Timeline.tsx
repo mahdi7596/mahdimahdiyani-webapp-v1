@@ -1,101 +1,134 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-interface Experience {
-  id: string;
+interface ExperienceItem {
   position: string;
   company: string;
-  date: string;
   description?: string;
 }
 
-const experiences: Experience[] = [
+interface YearExperience {
+  year: string;
+  items: ExperienceItem[];
+}
+
+const timelineData: YearExperience[] = [
   {
-    id: "01",
-    position: "رئیس هیات مدیره",
-    company: "شرکت خدمات مالی کلان حساب پارسیان",
-    date: "۱۳۹۵ تا کنون",
+    year: "۱۴۰۳",
+    items: [
+      {
+        position: "معاون مالی و اقتصادی",
+        company: "گروه تکین",
+      },
+      {
+        position: "بازرس اصلی",
+        company: "کانون انجمن های صنفی حسابداران ایران",
+      },
+      {
+        position: "مشاور عالی دبیرکل",
+        company: "انجمن مدیران صنایع ایران",
+      },
+    ],
   },
   {
-    id: "02",
-    position: "بنیان گذار، صاحب امتیاز و رهبر",
-    company: "رسانه همکلان",
-    date: "۱۴۰۰ تا کنون",
+    year: "۱۴۰۲",
+    items: [
+      {
+        position: "بازرس",
+        company: "سازمان اقتصاد اسلامی",
+      },
+    ],
   },
   {
-    id: "03",
-    position: "دبیرکل و عضو هیات مدیره",
-    company: "انجمن صنفی حسابداران استان تهران",
-    date: "۱۴۰۱ تاکنون",
+    year: "۱۴۰۱",
+    items: [
+      {
+        position: "دبیرکل و عضو هیات مدیره",
+        company: "انجمن صنفی حسابداران استان تهران",
+      },
+      {
+        position: "حسابرس داخلی",
+        company: "هلدینگ سرمایه گذاری غدیر",
+      },
+    ],
   },
   {
-    id: "04",
-    position: "بازرس اصلی",
-    company: "کانون انجمن های صنفی حسابداران ایران",
-    date: "۱۴۰۳ تاکنون",
+    year: "۱۴۰۰",
+    items: [
+      {
+        position: "بنیان گذار، صاحب امتیاز و رهبر",
+        company: "رسانه همکلان",
+      },
+    ],
   },
   {
-    id: "05",
-    position: "مشاور عالی دبیرکل",
-    company: "انجمن مدیران صنایع ایران",
-    date: "۱۴۰۳ تاکنون",
+    year: "۱۳۹۹",
+    items: [
+      {
+        position: "مدرس",
+        company: "دانشگاه علمی-کاربردی",
+      },
+    ],
   },
   {
-    id: "06",
-    position: "مدیر دپارتمان مالی و حسابداری",
-    company: "مجتمع فنی پلی تکنیک تهران",
-    date: "۱۳۹۷ تاکنون",
+    year: "۱۳۹۸",
+    items: [
+      {
+        position: "مدرس رسمی",
+        company: "سازمان آموزش فنی و حرفه ای کشور",
+      },
+      {
+        position: "معاون مالی و اداری",
+        company: "هلدینگ فناوری آستان قدس رضوی",
+      },
+    ],
   },
   {
-    id: "07",
-    position: "مدرس رسمی",
-    company: "سازمان آموزش فنی و حرفه ای کشور",
-    date: "۱۳۹۸ تاکنون",
+    year: "۱۳۹۷",
+    items: [
+      {
+        position: "مدیر دپارتمان مالی و حسابداری",
+        company: "مجتمع فنی پلی تکنیک تهران",
+      },
+    ],
   },
   {
-    id: "08",
-    position: "مدرس دانشگاه",
-    company: "دانشگاه علمی-کاربردی",
-    date: "۱۳۹۹ تاکنون",
+    year: "۱۳۹۵",
+    items: [
+      {
+        position: "رئیس هیات مدیره",
+        company: "شرکت خدمات مالی کلان حساب پارسیان",
+      },
+      {
+        position: "سرپرست ارشد",
+        company: "موسسه حسابرسی کارآمد حساب ایرانیان",
+      },
+    ],
   },
   {
-    id: "09",
-    position: "معاون مالی و اقتصادی",
-    company: "گروه تکین",
-    date: "۱۴۰۳ تاکنون",
+    year: "۱۳۹۲",
+    items: [
+      {
+        position: "حسابرس ارشد",
+        company: "موسسه حسابرسی آزموده کاران",
+      },
+    ],
   },
   {
-    id: "10",
-    position: "بازرس",
-    company: "سازمان اقتصاد اسلامی",
-    date: "۱۴۰۲ تا ۱۴۰۳",
-  },
-  {
-    id: "11",
-    position: "حسابرس داخلی",
-    company: "هلدینگ سرمایه گذاری غدیر",
-    date: "۱۴۰۱ تا ۱۴۰۲",
-  },
-  {
-    id: "12",
-    position: "معاون مالی و اداری",
-    company: "هلدینگ فناوری آستان قدس رضوی",
-    date: "۱۳۹۸ تا ۱۴۰۱",
-  },
-  {
-    id: "13",
-    position: "سرپرست ارشد حسابرسی",
-    company: "موسسه حسابرسی کارآمد حساب ایرانیان",
-    date: "۱۳۹۵ تا ۱۴۰۳",
-    description:
-      "همچنین سرپرست ارشد حسابرسی در موسسه حسابرسی آزموده کاران (۱۳۹۲ تا ۱۳۹۵) و موسسه حسابرسی تدبیرمحاسب آریا (۱۳۸۹ تا ۱۳۹۲)",
+    year: "۱۳۸۹",
+    items: [
+      {
+        position: "حسابرس",
+        company: "موسسه حسابرسی تدبیرمحاسب آریا",
+      },
+    ],
   },
 ];
 
 const Timeline = () => {
   const [ref, inView] = useInView({
     triggerOnce: false,
-    threshold: 0.2,
+    threshold: 0.1,
   });
 
   return (
@@ -129,117 +162,57 @@ const Timeline = () => {
           </motion.h2>
         </div>
 
-        <div ref={ref} className="max-w-6xl mx-auto relative">
+        <div ref={ref} className="max-w-4xl mx-auto relative">
           {/* Timeline Line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary300 via-primary to-primary700 -translate-x-1/2 max-md:hidden" />
+          <div className="absolute right-1/2 left-1/2 w-0.5 h-full bg-gradient-to-b from-primary300 via-primary to-primary700 -translate-x-1/2" />
 
-          {/* Experience Items */}
-          {experiences.map((exp, index) => {
-            const isEven = index % 2 === 0;
-            return (
-              <motion.div
-                key={exp.id}
-                initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="relative mb-16 last:mb-0"
-              >
-                <div className="grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] items-center">
-                  {/* Right Side Content for Large Screens */}
-                  <div
-                    className={`hidden md:block ${
-                      isEven ? "md:block" : "md:invisible"
-                    } md:pl-8`}
-                  >
-                    <div className="max-w-xl mr-auto bg-gradient-to-br from-surfaceBg to-primary100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-2xl font-bold text-neutrals">
-                          {exp.position}
-                        </h3>
-                        <span className="text-primary font-semibold px-4 py-1 bg-primary100 rounded-full">
-                          {exp.id}
-                        </span>
-                      </div>
-                      <div className="mb-4">
-                        <span className="text-primary font-semibold">
-                          {exp.company}
-                        </span>
-                        <span className="text-neutrals400 mr-4">
-                          {exp.date}
-                        </span>
-                      </div>
-                      {exp.description && (
-                        <p className="text-neutrals400 leading-relaxed">
-                          {exp.description}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Timeline Circle */}
-                  <div className="w-8 h-8 bg-surfaceBg border-4 border-primary rounded-full z-10 mx-auto shadow-lg shadow-primary/20 max-md:hidden" />
-
-                  {/* Left Side Content for Large Screens */}
-                  <div
-                    className={`hidden md:block ${
-                      !isEven ? "md:block" : "md:invisible"
-                    } md:pr-8`}
-                  >
-                    <div className="max-w-xl ml-auto bg-gradient-to-br from-surfaceBg to-primary100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-2xl font-bold text-neutrals">
-                          {exp.position}
-                        </h3>
-                        <span className="text-primary font-semibold px-4 py-1 bg-primary100 rounded-full">
-                          {exp.id}
-                        </span>
-                      </div>
-                      <div className="mb-4">
-                        <span className="text-primary font-semibold">
-                          {exp.company}
-                        </span>
-                        <span className="text-neutrals400 mr-4">
-                          {exp.date}
-                        </span>
-                      </div>
-                      {exp.description && (
-                        <p className="text-neutrals400 leading-relaxed">
-                          {exp.description}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Mobile View - Single Column */}
-                  <div className="md:hidden px-4">
-                    <div className="max-w-xl mx-auto bg-gradient-to-br from-surfaceBg to-primary100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-2xl font-bold text-neutrals">
-                          {exp.position}
-                        </h3>
-                        <span className="text-primary font-semibold px-4 py-1 bg-primary100 rounded-full">
-                          {exp.id}
-                        </span>
-                      </div>
-                      <div className="mb-4">
-                        <span className="text-primary font-semibold">
-                          {exp.company}
-                        </span>
-                        <span className="text-neutrals400 mr-4">
-                          {exp.date}
-                        </span>
-                      </div>
-                      {exp.description && (
-                        <p className="text-neutrals400 leading-relaxed">
-                          {exp.description}
-                        </p>
-                      )}
-                    </div>
-                  </div>
+          {/* Timeline Items */}
+          {timelineData.map((yearData, index) => (
+            <motion.div
+              key={yearData.year}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="relative mb-12"
+            >
+              {/* Year Badge */}
+              <div className="flex items-center justify-center mb-6">
+                <div className="bg-primary text-white font-bold px-6 py-2 rounded-full shadow-lg">
+                  {yearData.year}
                 </div>
-              </motion.div>
-            );
-          })}
+              </div>
+
+              {/* Experience Items */}
+              <div className="space-y-4">
+                {yearData.items.map((item, itemIndex) => (
+                  <motion.div
+                    key={`${yearData.year}-${itemIndex}`}
+                    initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+                    animate={inView ? { opacity: 1, x: 0 } : {}}
+                    transition={{
+                      duration: 0.5,
+                      delay: 0.2 + index * 0.1 + itemIndex * 0.05,
+                    }}
+                    className={`relative bg-gradient-to-br from-surfaceBg to-primary100 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 max-w-2xl mx-auto ${
+                      index % 2 === 0
+                        ? "md:ml-auto md:mr-0"
+                        : "md:mr-auto md:ml-0"
+                    }`}
+                  >
+                    <h3 className="text-xl font-bold text-neutrals mb-2">
+                      {item.position}
+                    </h3>
+                    <p className="text-primary font-semibold">{item.company}</p>
+                    {item.description && (
+                      <p className="text-neutrals400 mt-2">
+                        {item.description}
+                      </p>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
