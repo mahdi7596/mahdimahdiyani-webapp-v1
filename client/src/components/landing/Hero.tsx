@@ -16,7 +16,7 @@ const Hero = () => {
   // );
 
   return (
-    <section className="pt-8 pb-20 md:pt-5 md:pb-10 bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#e5e5e5,#FFFBF5_100%)] overflow-x-clip">
+    <section className="pt-8 pb-20 md:pt-5 md:pb-10 bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#F2D3A3,#FDEFDA_100%)] overflow-x-clip">
       <div className="container">
         <div className="relative md:flex items-center">
           <div className="md:w-[715px]">

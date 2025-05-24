@@ -41,7 +41,7 @@ const SocialMediaShowcase: React.FC = () => {
   ];
 
   return (
-    <div className="my-24  card container mx-auto  bg-gradient-to-br from-primary100 via-primary200/10 to-primary100    overflow-hidden border border-primary200">
+    <div className="my-24  card container mx-auto bg-surfaceBg border border-primary400">
       <div className="card-body relative">
         <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary600/5 to-primary100/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-primary300/5 to-primary900/5 rounded-full blur-3xl -ml-32 -mb-32"></div>
