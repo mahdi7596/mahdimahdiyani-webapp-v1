@@ -65,7 +65,7 @@ const HeroAbout = () => {
         >
           {/* Free Trial Badge */}
           <motion.div
-            className="inline-flex items-center gap-1.5 bg-white rounded-full px-2 py-3 shadow-sm mb-8"
+            className="inline-flex items-center gap-1.5 bg-white rounded-full px-2 py-3 shadow-sm mb-8 border border-primary400"
             whileHover={{ scale: 1.02 }}
           >
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse mb-1 sm:mb-0" />
